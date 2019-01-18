@@ -1,15 +1,1 @@
-C:\Users\Administrator\Documents\GitHub\Capstone\.idea\
-.idea/dataSources.xml
-.idea/dataSources/eb7ace44-9f26-4d81-ab3f-38688527249b.xml
-.idea/workspace.xml
-.idea/workspace.xml
-.idea/workspace.xml
-.idea/dataSources.local.xml
-.idea/dataSources/8d4315ab-1553-4308-97e6-5081deac8372.xml
-.idea/dataSources/8d4315ab-1553-4308-97e6-5081deac8372/storage_v2/_src_/schema/schedulecapstone.apcMiQ.meta
-.idea/compiler.xml
-.idea/encodings.xml
-.idea/misc.xml
-.idea/vcs.xml
-.idea/artifacts/Capstone_war.xml
-Capstone.iml
+.idea/*.xml

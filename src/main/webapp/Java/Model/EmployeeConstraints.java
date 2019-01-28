@@ -5,8 +5,8 @@ public class EmployeeConstraints {
     private boolean[] availableTimeMonday;
     private boolean[] availableTimeTuesday;
     private boolean[] availableTimeWednesday;
-    private boolean[] availableTimeThrusday;
-    private boolean[] availableTimeFirday;
+    private boolean[] availableTimeThursday;
+    private boolean[] availableTimeFriday;
     private boolean[] availableTimeSaturday;
     private boolean[] availableTimeSunday;
 
@@ -14,16 +14,17 @@ public class EmployeeConstraints {
     private boolean[] preferredTimeTuesday;
     private boolean[] preferredTimeWednesday;
     private boolean[] preferredTimeThursday;
-    private boolean[] preferredTimeFirday;
+    private boolean[] preferredTimeFriday;
     private boolean[] preferredTimeSaturday;
     private boolean[] preferredTimeSunday;
+    private String constraints;
 
     public EmployeeConstraints(String constraints) {
         availableTimeMonday = new boolean[24];
         availableTimeTuesday = new boolean[24];
         availableTimeWednesday = new boolean[24];
-        availableTimeThrusday = new boolean[24];
-        availableTimeFirday = new boolean[24];
+        availableTimeThursday = new boolean[24];
+        availableTimeFriday = new boolean[24];
         availableTimeSaturday = new boolean[24];
         availableTimeSunday = new boolean[24];
 
@@ -31,76 +32,158 @@ public class EmployeeConstraints {
         preferredTimeTuesday = new boolean[24];
         preferredTimeWednesday = new boolean[24];
         preferredTimeThursday = new boolean[24];
-        preferredTimeFirday = new boolean[24];
+        preferredTimeFriday = new boolean[24];
         preferredTimeSaturday = new boolean[24];
         preferredTimeSunday = new boolean[24];
 
+        this.constraints = constraints;
         parseConstraints(constraints);
     }
 
     private void parseConstraints(String constraints) {
         String [] list = constraints.split(",");
+        final int HOURSPERDAY = 24;
+        int hourOfDay;
 
-        for(int i = 0; i<24; i++) {
+        for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
 
-            if(list[0].charAt(i) == '1') {
-                availableTimeMonday[i] = true;
-                if(list[1].charAt(i) == '1') {
-                    preferredTimeMonday[i] = true;
-                } else if(list[1].charAt(i) == '0') {
-                    preferredTimeMonday[i] = false;
+            if(list[0].charAt(hourOfDay) == '1') {
+                availableTimeMonday[hourOfDay] = true;
+                if(list[1].charAt(hourOfDay) == '1') {
+                    preferredTimeMonday[hourOfDay] = true;
+                } else if(list[1].charAt(hourOfDay) == '0') {
+                    preferredTimeMonday[hourOfDay] = false;
                 } else {
-                    System.out.println("Error in Constraints String - Exiting");
+                    System.out.println("Error in Constraints String Preferred Monday - Exiting");
                 }
-            } else if(list[0].charAt(i) == '0') {
-                availableTimeMonday[i] = false;
-                preferredTimeMonday[i] = false;
+            } else if(list[0].charAt(hourOfDay) == '0') {
+                availableTimeMonday[hourOfDay] = false;
+                preferredTimeMonday[hourOfDay] = false;
             } else {
-                System.out.println("Error in Constraints String - Exiting");
+                System.out.println("Error in Constraints String Available Monday - Exiting");
                 return;
             }
         }
 
-        for(int i = 0; i<24; i++) {
+        for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
 
-            if(list[2].charAt(i) == '1') {
-                availableTimeTuesday[i] = true;
-                if(list[3].charAt(i) == '1') {
-                    preferredTimeTuesday[i] = true;
-                } else if(list[3].charAt(i) == '0') {
-                    preferredTimeTuesday[i] = false;
+            if(list[2].charAt(hourOfDay) == '1') {
+                availableTimeTuesday[hourOfDay] = true;
+                if(list[3].charAt(hourOfDay) == '1') {
+                    preferredTimeTuesday[hourOfDay] = true;
+                } else if(list[3].charAt(hourOfDay) == '0') {
+                    preferredTimeTuesday[hourOfDay] = false;
                 } else {
-                    System.out.println("Error in Constraints String - Exiting");
+                    System.out.println("Error in Constraints String Preferred Tuesday - Exiting");
                 }
-            } else if(list[2].charAt(i) == '0') {
-                availableTimeTuesday[i] = false;
-                preferredTimeTuesday[i] = false;
+            } else if(list[2].charAt(hourOfDay) == '0') {
+                availableTimeTuesday[hourOfDay] = false;
+                preferredTimeTuesday[hourOfDay] = false;
             } else {
-                System.out.println("Error in Constraints String - Exiting");
+                System.out.println("Error in Constraints String Available Tuesday - Exiting");
                 return;
             }
         }
 
-        for(int i = 0; i<24; i++) {
+        for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
 
-            if(list[4].charAt(i) == '1') {
-                availableTimeWednesday[i] = true;
-                if(list[5].charAt(i) == '1') {
-                    preferredTimeWednesday[i] = true;
-                } else if(list[5].charAt(i) == '0') {
-                    preferredTimeWednesday[i] = false;
+            if(list[4].charAt(hourOfDay) == '1') {
+                availableTimeWednesday[hourOfDay] = true;
+                if(list[5].charAt(hourOfDay) == '1') {
+                    preferredTimeWednesday[hourOfDay] = true;
+                } else if(list[5].charAt(hourOfDay) == '0') {
+                    preferredTimeWednesday[hourOfDay] = false;
                 } else {
-                    System.out.println("Error in Constraints String - Exiting");
+                    System.out.println("Error in Constraints String Preferred Wednesday - Exiting");
                 }
-            } else if(list[4].charAt(i) == '0') {
-                availableTimeWednesday[i] = false;
-                preferredTimeWednesday[i] = false;
+            } else if(list[4].charAt(hourOfDay) == '0') {
+                availableTimeWednesday[hourOfDay] = false;
+                preferredTimeWednesday[hourOfDay] = false;
             } else {
-                System.out.println("Error in Constraints String - Exiting");
+                System.out.println("Error in Constraints String Available Wednesday - Exiting");
                 return;
             }
         }
 
+        for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
+
+            if(list[6].charAt(hourOfDay) == '1') {
+                availableTimeThursday[hourOfDay] = true;
+                if(list[7].charAt(hourOfDay) == '1') {
+                    preferredTimeThursday[hourOfDay] = true;
+                } else if(list[7].charAt(hourOfDay) == '0') {
+                    preferredTimeThursday[hourOfDay] = false;
+                } else {
+                    System.out.println("Error in Constraints String Preferred Thursday - Exiting");
+                }
+            } else if(list[6].charAt(hourOfDay) == '0') {
+                availableTimeThursday[hourOfDay] = false;
+                preferredTimeThursday[hourOfDay] = false;
+            } else {
+                System.out.println("Error in Constraints String Available Thursday - Exiting");
+                return;
+            }
+        }
+
+        for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
+
+            if(list[8].charAt(hourOfDay) == '1') {
+                availableTimeFriday[hourOfDay] = true;
+                if(list[9].charAt(hourOfDay) == '1') {
+                    preferredTimeFriday[hourOfDay] = true;
+                } else if(list[9].charAt(hourOfDay) == '0') {
+                    preferredTimeFriday[hourOfDay] = false;
+                } else {
+                    System.out.println("Error in Constraints String Preferred Friday - Exiting");
+                }
+            } else if(list[8].charAt(hourOfDay) == '0') {
+                availableTimeFriday[hourOfDay] = false;
+                preferredTimeFriday[hourOfDay] = false;
+            } else {
+                System.out.println("Error in Constraints String Available Friday - Exiting");
+                return;
+            }
+        }
+
+        for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
+
+            if(list[10].charAt(hourOfDay) == '1') {
+                availableTimeSaturday[hourOfDay] = true;
+                if(list[11].charAt(hourOfDay) == '1') {
+                    preferredTimeSaturday[hourOfDay] = true;
+                } else if(list[11].charAt(hourOfDay) == '0') {
+                    preferredTimeSaturday[hourOfDay] = false;
+                } else {
+                    System.out.println("Error in Constraints String Preferred Saturday - Exiting");
+                }
+            } else if(list[10].charAt(hourOfDay) == '0') {
+                availableTimeSaturday[hourOfDay] = false;
+                preferredTimeSaturday[hourOfDay] = false;
+            } else {
+                System.out.println("Error in Constraints String Available Saturday - Exiting");
+                return;
+            }
+        }
+
+        for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
+
+            if(list[12].charAt(hourOfDay) == '1') {
+                availableTimeSunday[hourOfDay] = true;
+                if(list[13].charAt(hourOfDay) == '1') {
+                    preferredTimeSunday[hourOfDay] = true;
+                } else if(list[13].charAt(hourOfDay) == '0') {
+                    preferredTimeSunday[hourOfDay] = false;
+                } else {
+                    System.out.println("Error in Constraints String Preferred Sunday - Exiting");
+                }
+            } else if(list[12].charAt(hourOfDay) == '0') {
+                availableTimeSunday[hourOfDay] = false;
+                preferredTimeSunday[hourOfDay] = false;
+            } else {
+                System.out.println("Error in Constraints String Available Sunday - Exiting");
+                return;
+            }
+        }
     }
 
     public boolean[] getAvailableTimeMonday() {
@@ -127,20 +210,20 @@ public class EmployeeConstraints {
         this.availableTimeWednesday = availableTimeWednesday;
     }
 
-    public boolean[] getAvailableTimeThrusday() {
-        return availableTimeThrusday;
+    public boolean[] getAvailableTimeThursday() {
+        return availableTimeThursday;
     }
 
-    public void setAvailableTimeThrusday(boolean[] availableTimeThrusday) {
-        this.availableTimeThrusday = availableTimeThrusday;
+    public void setAvailableTimeThursday(boolean[] availableTimeThrusday) {
+        this.availableTimeThursday = availableTimeThrusday;
     }
 
-    public boolean[] getAvailableTimeFirday() {
-        return availableTimeFirday;
+    public boolean[] getAvailableTimeFriday() {
+        return availableTimeFriday;
     }
 
-    public void setAvailableTimeFirday(boolean[] availableTimeFirday) {
-        this.availableTimeFirday = availableTimeFirday;
+    public void setAvailableTimeFriday(boolean[] availableTimeFirday) {
+        this.availableTimeFriday = availableTimeFirday;
     }
 
     public boolean[] getAvailableTimeSaturday() {
@@ -191,12 +274,12 @@ public class EmployeeConstraints {
         this.preferredTimeThursday = preferredTimesThursday;
     }
 
-    public boolean[] getPreferredTimeFirday() {
-        return preferredTimeFirday;
+    public boolean[] getPreferredTimeFriday() {
+        return preferredTimeFriday;
     }
 
-    public void setPreferredTimeFirday(boolean[] preferredTimesFirday) {
-        this.preferredTimeFirday = preferredTimesFirday;
+    public void setPreferredTimeFriday(boolean[] preferredTimesFirday) {
+        this.preferredTimeFriday = preferredTimesFirday;
     }
 
     public boolean[] getPreferredTimeSaturday() {
@@ -213,5 +296,13 @@ public class EmployeeConstraints {
 
     public void setPreferredTimeSunday(boolean[] preferredTimesSunday) {
         this.preferredTimeSunday = preferredTimesSunday;
+    }
+
+    public String getConstraints() {
+        return constraints;
+    }
+
+    public void setConstraints(String constraints) {
+        this.constraints = constraints;
     }
 }

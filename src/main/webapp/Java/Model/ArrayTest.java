@@ -2,7 +2,7 @@ package Model;
 
 public class ArrayTest {
 
-   @Override
+   //@Override
     public String toString(EmployeeConstraints ec) {
 
 
@@ -36,6 +36,8 @@ public class ArrayTest {
 
        System.out.println("Sunday Avail: "+ec.getAvailableTimeSunday());
        System.out.println("Sunday Pref: "+ec.getPreferredTimeSunday()+"\n");
+
+       return "";
 
    }
 

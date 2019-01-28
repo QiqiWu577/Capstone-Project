@@ -112,4 +112,9 @@ public class Employee {
     public void setConstraints(EmployeeConstraints constraints) {
         this.constraints = constraints;
     }
+
+    @Override
+    public String toString() {
+        return getFirstname() + " " + getLastname() + " " + getEmail() + " " + getPhoneNo() + " " + getDeptNo();
+    }
 }

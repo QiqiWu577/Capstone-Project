@@ -17,17 +17,16 @@ public class AppDriver {
             BufferedReader reader = new BufferedReader(fr);
             String line = reader.readLine();
             ArrayList<Employee> empList = new ArrayList<Employee>();
-            int counter = 0;
             while(line != null) {
 
-                String[] employeeData = line.split(",");
-                empList.add(new Employee(counter++,employeeData[0],employeeData[1],employeeData[2],employeeData[3],
-                        1,false,true,"",employeeData[4],null,null));
+                String[] employeeData = line.split(";");
+                empList.add(new Employee(Integer.parseInt(employeeData[0]),employeeData[1],employeeData[2],employeeData[3],employeeData[4],
+                        Integer.parseInt(employeeData[5]),Boolean.parseBoolean(employeeData[6]),Boolean.parseBoolean(employeeData[7]),employeeData[8],employeeData[9],null,null));
                 line = reader.readLine();
             }
 
             for(Employee e: empList) {
-                System.out.println(e.getFirstname());
+                System.out.println(e.toString());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

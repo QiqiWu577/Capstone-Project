@@ -1,19 +1,24 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Employee {
 
-    int empID;
-    String firstname;
-    String lastname;
-    String phoneNo;
-    String email;
-    int deptNo;
-    boolean newHire;
-    boolean active;
-    String notes;
-    EmployeeConstraints constraints;
+    private int empID;
+    private String firstname;
+    private String lastname;
+    private String phoneNo;
+    private String email;
+    private int deptNo;
+    private boolean newHire;
+    private boolean active;
+    private String notes;
+    private EmployeeConstraints constraints;
+    private ArrayList<Notification> sentNotificationsList;
+    private ArrayList<Notification> recivedNotificationsList;
 
-    public Employee(int empID, String firstname, String lastname, String phoneNo, String email, int deptNo, boolean newHire, boolean active, String notes, EmployeeConstraints constraints) {
+
+    public Employee(int empID, String firstname, String lastname, String phoneNo, String email, int deptNo, boolean newHire, boolean active, String notes, String constraints, ArrayList<Notification> sentNotificationsList, ArrayList<Notification> recivedNotificationsList) {
         this.empID = empID;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -23,7 +28,9 @@ public class Employee {
         this.newHire = newHire;
         this.active = active;
         this.notes = notes;
-        this.constraints = constraints;
+        this.constraints = new EmployeeConstraints(constraints);
+        this.recivedNotificationsList = recivedNotificationsList;
+        this.sentNotificationsList = sentNotificationsList;
     }
 
     public int getEmpID() {

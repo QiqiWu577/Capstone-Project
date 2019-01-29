@@ -39,9 +39,6 @@ public class EmployeeConstraints {
         this.constraints = constraints;
         parseConstraints(constraints);
 
-        ArrayTest at = new ArrayTest();
-        at.toString(this);
-
     }
 
     private void parseConstraints(String constraints) {

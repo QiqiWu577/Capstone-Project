@@ -38,7 +38,6 @@ public class EmployeeConstraints {
 
         this.constraints = constraints;
         parseConstraints(constraints);
-
     }
 
     private void parseConstraints(String constraints) {

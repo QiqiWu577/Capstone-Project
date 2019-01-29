@@ -305,4 +305,89 @@ public class EmployeeConstraints {
     public void setConstraints(String constraints) {
         this.constraints = constraints;
     }
+
+
+    @Override
+    public String toString() {
+        String result = "";
+        result += "Monday Avail: ";
+        for(boolean b: availableTimeMonday) {
+            result += b + " ";
+        }
+        result += "\n";
+        result += "Monday Pref: ";
+        for(boolean b: preferredTimeMonday) {
+            result += b + " ";
+        }
+        result += "\n";
+
+        result += "Tuesday Avail: ";
+        for(boolean b: availableTimeTuesday) {
+            result += b + " ";
+        }
+        result += "\n";
+        result += "Tuesday Pref: ";
+        for(boolean b: preferredTimeTuesday) {
+            result += b + " ";
+        }
+        result += "\n";
+
+        result += "Wednesday Avail: ";
+        for(boolean b: availableTimeWednesday) {
+            result += b + " ";
+        }
+        result += "\n";
+        result += "Wednesday Pref: ";
+        for(boolean b: preferredTimeWednesday) {
+            result += b + " ";
+        }
+        result += "\n";
+
+        result += "Thrusday Avail: ";
+        for(boolean b: availableTimeThursday) {
+            result += b + " ";
+        }
+        result += "\n";
+        result += "Thursday Pref: ";
+        for(boolean b: preferredTimeThursday) {
+            result += b + " ";
+        }
+        result += "\n";
+
+        result += "Friday Avail: ";
+        for(boolean b: availableTimeFriday) {
+            result += b + " ";
+        }
+        result += "\n";
+        result += "Friday Pref: ";
+        for(boolean b: preferredTimeFriday) {
+            result += b + " ";
+        }
+        result += "\n";
+
+
+        result += "Saturday Avail: ";
+        for(boolean b: availableTimeSaturday) {
+            result += b + " ";
+        }
+        result += "\n";
+        result += "Saturday Pref: ";
+        for(boolean b: preferredTimeSaturday) {
+            result += b + " ";
+        }
+        result += "\n";
+
+        result += "Sunday Avail: ";
+        for(boolean b: availableTimeSunday) {
+            result += b + " ";
+        }
+        result += "\n";
+        result += "Sunday Pref: ";
+        for(boolean b: preferredTimeSunday) {
+            result += b + " ";
+        }
+        result += "\n";
+
+        return result;
+    }
 }

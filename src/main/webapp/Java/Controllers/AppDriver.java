@@ -8,7 +8,8 @@ import java.util.ArrayList;
 public class AppDriver {
 
 
-    private static String filename ="/../../res/employees.txt";
+
+    private static String filename ="./src/main/webapp/res/employees.txt";
 
     public static void main(String[] args) {
 

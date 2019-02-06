@@ -86,7 +86,7 @@ public class Employee implements Serializable {
     @JoinTable(name = "scheduled_employees", joinColumns = {
             @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id")}, inverseJoinColumns = {
             @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")})
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Shift> shiftList;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employees")

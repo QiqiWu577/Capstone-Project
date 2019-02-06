@@ -10,6 +10,7 @@ import org.joda.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -51,7 +52,7 @@ public class Day implements Serializable {
     private LocalDateTime closeTime;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "days")
-    private ArrayList<Shift> shiftList;
+    private List<Shift> shiftList;
 
     public Day() {
     }
@@ -60,8 +61,7 @@ public class Day implements Serializable {
         this.dayId = dayId;
     }
 
-    public Day(Integer dayId, Date startTime, Date endTime) {
-        this.dayId = dayId;
+    public Day(Date startTime, Date endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -91,7 +91,7 @@ public class Day implements Serializable {
     }
 
     @XmlTransient
-    public ArrayList<Shift> getShiftList() {
+    public List<Shift> getShiftList() {
         return shiftList;
     }
 
@@ -121,7 +121,7 @@ public class Day implements Serializable {
 
     @Override
     public String toString() {
-        return "data.Days[ dayId=" + dayId + " ]";
+        return  dayId + "   "+startTime+"   "+endTime;
     }
 
 }

@@ -115,6 +115,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return getFirstname() + " " + getLastname() + " " + getEmail() + " " + getPhoneNo() + " " + getDeptNo();
+        String result = constraints.toString() + "\n" + getFirstname() + " " + getLastname() + " " + getEmail() + " " + getPhoneNo() + " " + getDeptNo();
+        return result;
     }
 }

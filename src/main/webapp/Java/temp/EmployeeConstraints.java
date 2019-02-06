@@ -1,23 +1,72 @@
-package Model;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package temp;
 
-public class EmployeeConstraints {
+import java.io.Serializable;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author Administrator
+ */
+@Entity
+@Table(name = "employee_constraints")
+@XmlRootElement
+@NamedQueries({
+        @NamedQuery(name = "EmployeeConstraints.findAll", query = "SELECT e FROM EmployeeConstraints e")
+        , @NamedQuery(name = "EmployeeConstraints.findByEmpId", query = "SELECT e FROM EmployeeConstraints e WHERE e.empId = :empId")
+        , @NamedQuery(name = "EmployeeConstraints.findByConstraints", query = "SELECT e FROM EmployeeConstraints e WHERE e.constraints = :constraints")})
+public class EmployeeConstraints implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Column(name = "emp_id")
+    private Integer empId;
+
+    @Basic(optional = false)
+    @Column(name = "constraints")
+    private String constraints;
+
+    @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Employee employees;
+
+    @Transient
     private boolean[] availableTimeMonday;
+    @Transient
     private boolean[] availableTimeTuesday;
+    @Transient
     private boolean[] availableTimeWednesday;
+    @Transient
     private boolean[] availableTimeThursday;
+    @Transient
     private boolean[] availableTimeFriday;
+    @Transient
     private boolean[] availableTimeSaturday;
+    @Transient
     private boolean[] availableTimeSunday;
 
+    @Transient
     private boolean[] preferredTimeMonday;
+    @Transient
     private boolean[] preferredTimeTuesday;
+    @Transient
     private boolean[] preferredTimeWednesday;
+    @Transient
     private boolean[] preferredTimeThursday;
+    @Transient
     private boolean[] preferredTimeFriday;
+    @Transient
     private boolean[] preferredTimeSaturday;
+    @Transient
     private boolean[] preferredTimeSunday;
-    private String constraints;
+
+    public EmployeeConstraints() {
+    }
 
     public EmployeeConstraints(String constraints) {
         availableTimeMonday = new boolean[24];
@@ -209,6 +258,39 @@ public class EmployeeConstraints {
 
     }
 
+    public EmployeeConstraints(Integer empId) {
+        this.empId = empId;
+    }
+
+    public EmployeeConstraints(Integer empId, String constraints) {
+        this.empId = empId;
+        this.constraints = constraints;
+    }
+
+    public Integer getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
+    }
+
+    public String getConstraints() {
+        return constraints;
+    }
+
+    public void setConstraints(String constraints) {
+        this.constraints = constraints;
+    }
+
+    public Employee getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Employee employees) {
+        this.employees = employees;
+    }
+
     public boolean[] getAvailableTimeMonday() {
         return availableTimeMonday;
     }
@@ -321,15 +403,6 @@ public class EmployeeConstraints {
         this.preferredTimeSunday = preferredTimesSunday;
     }
 
-    public String getConstraints() {
-        return constraints;
-    }
-
-    public void setConstraints(String constraints) {
-        this.constraints = constraints;
-    }
-
-
     @Override
     public String toString() {
         String result = "";
@@ -412,5 +485,25 @@ public class EmployeeConstraints {
         result += "\n";
 
         return result;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (empId != null ? empId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof EmployeeConstraints)) {
+            return false;
+        }
+        EmployeeConstraints other = (EmployeeConstraints) object;
+        if ((this.empId == null && other.empId != null) || (this.empId != null && !this.empId.equals(other.empId))) {
+            return false;
+        }
+        return true;
     }
 }

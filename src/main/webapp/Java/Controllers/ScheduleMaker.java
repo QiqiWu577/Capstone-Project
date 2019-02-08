@@ -23,24 +23,38 @@ public class ScheduleMaker {
 
     private final String filename = "./src/main/webapp/res/days.txt";
     private final String empFilename = "./src/main/webapp/res/employees.txt";
+
     public ScheduleMaker(int weeks) {
         this.weeks = weeks;
+        empList = new ArrayList<Employee>();
+        availList = new ArrayList<Employee>();
+        prefList = new ArrayList<Employee>();
+        availability = new ArrayList<boolean[]>();
+        preferences = new ArrayList<boolean[]>();
         getEmployees();
+
+
     }
 
     private void getEmployees() {
 
         try {
+            this.empList.clear();
             FileReader fr = new FileReader(empFilename);
             BufferedReader reader = new BufferedReader(fr);
             String line = reader.readLine();
-            ArrayList<Employee> empList = new ArrayList<Employee>();
             while(line != null) {
 
                 String[] employeeData = line.split(";");
                 try {
-                    empList.add(new Employee(Integer.parseInt(employeeData[0]),employeeData[1],employeeData[2],employeeData[3],employeeData[4],
+                    this.empList.add(new Employee(Integer.parseInt(employeeData[0]),employeeData[1],employeeData[2],employeeData[3],employeeData[4],
                             Integer.parseInt(employeeData[5]),Boolean.parseBoolean(employeeData[6]),Boolean.parseBoolean(employeeData[7]),employeeData[8],employeeData[9],null,null));
+
+                System.out.println("meow 01");
+
+
+
+
                 } catch (InvalidConstraintException e) {
                     e.printStackTrace();
                 } catch (ConstraintTooLongException e) {
@@ -49,20 +63,23 @@ public class ScheduleMaker {
                 line = reader.readLine();
             }
 
-            for(Employee e: empList) {
-                System.out.println(e.toString());
-            }
+            fr.close();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     public ArrayList<Day> generateSchedule() {
         ArrayList<Day> schedule = new ArrayList<Day>();
         //for every day of the week starting with monday (runs 7 times)
         for(String day: days) {
+
+            System.out.println("meow 02");
+
             //gets all the employees availability for a given day
             sortEmployees(day);
 
@@ -83,6 +100,9 @@ public class ScheduleMaker {
             //for every shift that needs to be filled (runs around 3-5 times/day)
             for(ShiftTemplate shiftTemplate: shiftList) {
 
+                System.out.println("meow 03");
+
+
                 //holds employees who can work but dont prefer to
                 ArrayList<Employee> secondary = new ArrayList<Employee>();
 
@@ -91,6 +111,9 @@ public class ScheduleMaker {
 
                 //for every employee in the available list of employees
                 for(int j = 0; j < availList.size(); j++) {
+
+                    System.out.println("meow 04");
+
                     boolean availShift = true;
                     boolean prefShift = false;
 
@@ -108,6 +131,10 @@ public class ScheduleMaker {
 
                     //Checks Availability and preferences for each shift (every hour in the shift: around 8 times/shift)
                     for(int i = startHour; i < endHour; i++) {
+
+                        System.out.println("meow 05");
+
+
                         //if they can't work any hour of the shift don't schedule them
                         if(!currentEmpAvail[i]) {
                             availShift = false;
@@ -133,6 +160,10 @@ public class ScheduleMaker {
                 //for every spot in the shift that still needs to be filled add from secondary (anywhere from 1-5 times)
                 int x  = 0;
                 for(int i = shift.getEmpList().size(); i < shift.getMinimumNumberOfEmployees(); i++) {
+
+                    System.out.println("meow 06");
+
+
                     shift.getEmpList().add(new ScheduledEmployee(secondary.get(x)));
                     x++;
                 }
@@ -164,15 +195,25 @@ public class ScheduleMaker {
             String line = reader.readLine();
             while(line != null) {
 
+                System.out.println("meow 07");
+
+
                 String[] dayData = line.split(";");
 
                 if (dayData[0].equalsIgnoreCase(day)) {
 
-                    String[] shiftData = dayData[3].split(",");
+                    String[] shiftData = dayData[3].split("$");
 
                     ArrayList<ShiftTemplate> shiftArray = new ArrayList<ShiftTemplate>();
 
+                    System.out.println(shiftData.length);
+
                     for (int i=0; i<shiftData.length;i++){
+
+                        System.out.println("meow 08");
+
+                        String[] shiftSplitData = shiftData[i].split(",");
+
 
                         shiftArray.add(new ShiftTemplate(Integer.parseInt(shiftData[0]),LocalTime.parse(shiftData[1]), LocalTime.parse(shiftData[2]), Integer.parseInt(shiftData[3])));
 
@@ -183,7 +224,7 @@ public class ScheduleMaker {
 
                 }
 
-
+                fr.close();
 
             }
         } catch (FileNotFoundException e) {
@@ -201,9 +242,12 @@ public class ScheduleMaker {
     //populates the prefList and availList for a given day of the week
     private void sortEmployees(String dayOfWeek) {
         int i = 0;
+        System.out.println(empList.size());
         switch (dayOfWeek) {
             case "Monday":
                 for(Employee e: empList) {
+                    System.out.println("meow 09");
+
                     if(e.getConstraints().isAvailMonday()) {
                         availList.add(e);
                         availability.add(e.getConstraints().getAvailableTimeMonday());
@@ -219,6 +263,8 @@ public class ScheduleMaker {
                 break;
             case "Tuesday":
                 for(Employee e: empList) {
+                    System.out.println("meow 10");
+
                     if(e.getConstraints().isAvailTuesday()) {
                         availList.add(e);
                         availability.add(e.getConstraints().getAvailableTimeTuesday());
@@ -234,6 +280,8 @@ public class ScheduleMaker {
                 break;
             case "Wednesday":
                 for(Employee e: empList) {
+                    System.out.println("meow 11");
+
                     if(e.getConstraints().isAvailWednesday()) {
                         availList.add(e);
                         availability.add(e.getConstraints().getAvailableTimeWednesday());
@@ -249,6 +297,8 @@ public class ScheduleMaker {
                 break;
             case "Thursday":
                 for(Employee e: empList) {
+                    System.out.println("meow 12");
+
                     if(e.getConstraints().isAvailThursday()) {
                         availList.add(e);
                         availability.add(e.getConstraints().getAvailableTimeThursday());
@@ -264,6 +314,8 @@ public class ScheduleMaker {
                 break;
             case "Friday":
                 for(Employee e: empList) {
+                    System.out.println("meow 13");
+
                     if(e.getConstraints().isAvailFriday()) {
                         availList.add(e);
                         availability.add(e.getConstraints().getAvailableTimeFriday());
@@ -278,6 +330,8 @@ public class ScheduleMaker {
                 break;
             case "Saturday":
                 for(Employee e: empList) {
+                    System.out.println("meow 14");
+
                     if(e.getConstraints().isAvailSaturday()) {
                         availList.add(e);
                         availability.add(e.getConstraints().getAvailableTimeSaturday());
@@ -292,6 +346,8 @@ public class ScheduleMaker {
                 break;
             case "Sunday":
                 for(Employee e: empList) {
+                    System.out.println("meow 15");
+
                     if(e.getConstraints().isAvailSunday()) {
                         availList.add(e);
                         availability.add(e.getConstraints().getAvailableTimeSunday());

@@ -26,8 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Shift.findAll", query = "SELECT s FROM Shift s")
-        , @NamedQuery(name = "Shift.findByShiftId", query = "SELECT s FROM Shift s WHERE s.shiftPK.shiftId = :shiftId")
-        , @NamedQuery(name = "Shift.findByDayId", query = "SELECT s FROM Shift s WHERE s.shiftPK.dayId = :dayId")
         , @NamedQuery(name = "Shift.findByStartTime", query = "SELECT s FROM Shift s WHERE s.startTime = :startTime")
         , @NamedQuery(name = "Shift.findByEndTime", query = "SELECT s FROM Shift s WHERE s.endTime = :endTime")
         , @NamedQuery(name = "Shift.findByShiftName", query = "SELECT s FROM Shift s WHERE s.shiftName = :shiftName")
@@ -37,8 +35,10 @@ public class Shift implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @EmbeddedId
-    protected ShiftPK shiftPK;
+    @Id
+    @Column(name = "shift_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int shiftId;
 
     @Basic(optional = false)
     @Column(name = "startTime")
@@ -87,29 +87,13 @@ public class Shift implements Serializable {
     public Shift() {
     }
 
-    public Shift(ShiftPK shiftPK) {
-        this.shiftPK = shiftPK;
-    }
+    public Shift(Date startTime, Date endTime, String shiftName, Character shiftType, boolean active) {
 
-    public Shift(ShiftPK shiftPK, Date startTime, Date endTime, String shiftName, Character shiftType, boolean active) {
-        this.shiftPK = shiftPK;
         this.startTime = startTime;
         this.endTime = endTime;
         this.shiftName = shiftName;
         this.shiftType = shiftType;
         this.active = active;
-    }
-
-    public Shift(int shiftId, int dayId) {
-        this.shiftPK = new ShiftPK(shiftId, dayId);
-    }
-
-    public ShiftPK getShiftPK() {
-        return shiftPK;
-    }
-
-    public void setShiftPK(ShiftPK shiftPK) {
-        this.shiftPK = shiftPK;
     }
 
     public Date getStartTime() {
@@ -193,29 +177,5 @@ public class Shift implements Serializable {
         this.empList = empList;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (shiftPK != null ? shiftPK.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Shift)) {
-            return false;
-        }
-        Shift other = (Shift) object;
-        if ((this.shiftPK == null && other.shiftPK != null) || (this.shiftPK != null && !this.shiftPK.equals(other.shiftPK))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "data.Shift[ shiftPK=" + shiftPK + " ]";
-    }
 
 }

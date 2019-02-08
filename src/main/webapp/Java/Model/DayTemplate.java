@@ -2,7 +2,13 @@ package Model;
 
 import org.joda.time.LocalTime;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+
+
 
 public class DayTemplate {
 
@@ -10,6 +16,7 @@ public class DayTemplate {
     private LocalTime closeTime;
     private String dayOfWeek;
     private ArrayList<ShiftTemplate> shiftList;
+
 
     public DayTemplate(LocalTime openTime, LocalTime closeTime, String dayOfWeek, ArrayList<ShiftTemplate> shiftList) {
         this.openTime = openTime;
@@ -43,6 +50,7 @@ public class DayTemplate {
     }
 
     public ArrayList<ShiftTemplate> getShiftList() {
+
         return shiftList;
     }
 

@@ -1,7 +1,12 @@
 package Controllers;
 import Model.*;
 import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -15,12 +20,17 @@ public class ScheduleMaker {
     private final String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     private ArrayList<boolean[]> availability;
     private ArrayList<boolean[]> preferences;
+
+    private String filename = "./src/main/webapp/res/days.txt";
+
     public ScheduleMaker(int weeks) {
         this.weeks = weeks;
         getEmployees();
     }
 
     private ArrayList<Employee> getEmployees() {
+
+
 
         return null;
     }
@@ -90,8 +100,48 @@ public class ScheduleMaker {
     }
 
     private DayTemplate getDayTemplate(String day) {
-        return null;
+
+        DayTemplate dt=null;
+
+        try {
+            FileReader fr = new FileReader(filename);
+            BufferedReader reader = new BufferedReader(fr);
+            String line = reader.readLine();
+            while(line != null) {
+
+                String[] dayData = line.split(";");
+
+                if (dayData[0].equalsIgnoreCase(day)) {
+
+                    String[] shiftData = dayData[3].split(",");
+
+                    ArrayList<ShiftTemplate> shiftArray = new ArrayList<ShiftTemplate>();
+
+                    for (int i=0; i<shiftData.length;i++){
+
+                        shiftArray.add(new ShiftTemplate(Integer.parseInt(shiftData[0]),LocalTime.parse(shiftData[1]), LocalTime.parse(shiftData[2]), Integer.parseInt(shiftData[3])));
+
+
+                    }
+
+                    dt = new DayTemplate(LocalTime.parse(dayData[1]), LocalTime.parse(dayData[2]),dayData[1], shiftArray);
+
+                }
+
+
+
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        return dt;
+
     }
+    //method to take in a day of type 'day'
 
     //populates the prefList and availList for a given day of the week
     private void sortEmployees(String dayOfWeek) {

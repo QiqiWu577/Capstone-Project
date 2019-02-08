@@ -13,10 +13,11 @@ public class Shift {
     private int maximumNumberOfEmployees;
     private ArrayList<ScheduledEmployee> empList;
 
-    public Shift(LocalTime startTime, LocalTime closeTime, char shiftType) {
+    public Shift(LocalTime startTime, LocalTime closeTime, char shiftType, int maximumNumberOfEmployees) {
         this.startTime = startTime;
         this.closeTime = closeTime;
         this.shiftType = shiftType;
+        this.maximumNumberOfEmployees = maximumNumberOfEmployees;
     }
 
     public Shift(LocalTime startTime, LocalTime closeTime, char shiftType, int minimumNumberOfEmployees, int maximumNumberOfEmployees, ArrayList<ScheduledEmployee> empList) {

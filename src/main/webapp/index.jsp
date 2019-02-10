@@ -17,6 +17,7 @@
         <input type="submit" value="Log In" class="btn"><br/>
         <a href="home.html" class="forgot">Forgot Password?</a>
     </form>
+    ${requestScope.message}
 </div>
 </body>
 

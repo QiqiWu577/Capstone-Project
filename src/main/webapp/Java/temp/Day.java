@@ -5,8 +5,7 @@
  */
 package temp;
 
-import org.joda.time.LocalDateTime;
-
+import java.time.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,7 +20,6 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "days")
-@XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Days.findAll", query = "SELECT d FROM Day d")
         , @NamedQuery(name = "Days.findByDayId", query = "SELECT d FROM Day d WHERE d.dayId = :dayId")
@@ -33,15 +31,12 @@ public class Day implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "day_id")
-    private Integer dayId;
+    private int dayId;
 
     @Basic(optional = false)
     @Column(name = "start_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
-
-    @Transient
-    private LocalDateTime openTime;
 
     @Basic(optional = false)
     @Column(name = "end_time")
@@ -49,7 +44,11 @@ public class Day implements Serializable {
     private Date endTime;
 
     @Transient
+    private LocalDateTime openTime;
+    @Transient
     private LocalDateTime closeTime;
+    @Transient
+    private LocalDate date;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "days")
     private List<Shift> shiftList;
@@ -57,21 +56,15 @@ public class Day implements Serializable {
     public Day() {
     }
 
-    public Day(Integer dayId) {
-        this.dayId = dayId;
-    }
+    //used to store the datatime into the database
+    public Day(LocalDateTime openTime, LocalDateTime closeTime) {
 
-    public Day(Date startTime, Date endTime) {
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = Date.from(openTime.atZone(ZoneId.systemDefault()).toInstant());
+        this.endTime = Date.from(closeTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public Integer getDayId() {
         return dayId;
-    }
-
-    public void setDayId(Integer dayId) {
-        this.dayId = dayId;
     }
 
     public Date getStartTime() {
@@ -97,31 +90,6 @@ public class Day implements Serializable {
 
     public void setShiftList(ArrayList<Shift> shiftList) {
         this.shiftList = shiftList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (dayId != null ? dayId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Day)) {
-            return false;
-        }
-        Day other = (Day) object;
-        if ((this.dayId == null && other.dayId != null) || (this.dayId != null && !this.dayId.equals(other.dayId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return  dayId + "   "+startTime+"   "+endTime;
     }
 
 }

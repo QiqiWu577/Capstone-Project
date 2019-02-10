@@ -258,11 +258,8 @@ public class EmployeeConstraints implements Serializable {
 
     }
 
-    public EmployeeConstraints(Integer empId) {
-        this.empId = empId;
-    }
-
     public EmployeeConstraints(Integer empId, String constraints) {
+
         this.empId = empId;
         this.constraints = constraints;
     }

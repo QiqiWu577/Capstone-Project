@@ -69,10 +69,11 @@ public class Notification implements Serializable {
         this.notifid = notifid;
     }
 
-    public Notification(Integer notifid, int recipient, Date date, Character notiftype, Character status) {
-        this.notifid = notifid;
+    public Notification(int recipient, Date date, String content, Character notiftype, Character status) {
+
         this.recipient = recipient;
         this.date = date;
+        this.content = content;
         this.notiftype = notiftype;
         this.status = status;
     }
@@ -151,11 +152,6 @@ public class Notification implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "data.Notifications[ notifid=" + notifid + " ]";
     }
 
 }

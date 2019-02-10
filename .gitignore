@@ -4,3 +4,6 @@ Capstone.iml
 .idea/dataSources/eb7ace44-9f26-4d81-ab3f-38688527249b.xml
 *.xml
 *.jar
+out/artifacts/Capstone/index.jsp
+out/artifacts/Capstone/WEB-INF/classes/Controllers/AdminServices.class
+out/artifacts/Capstone/WEB-INF/classes/Controllers/AppDriver.class

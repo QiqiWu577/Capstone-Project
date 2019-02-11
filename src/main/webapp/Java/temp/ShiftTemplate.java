@@ -8,6 +8,8 @@ package temp;
 import org.joda.time.LocalTime;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,13 +41,12 @@ public class ShiftTemplate implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
 
-    @Transient
-    private LocalTime sTime;
-
     @Column(name = "end_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 
+    @Transient
+    private LocalTime sTime;
     @Transient
     private LocalTime eTime;
 
@@ -62,8 +63,10 @@ public class ShiftTemplate implements Serializable {
     public ShiftTemplate() {
     }
 
-    public ShiftTemplate(Integer shiftId) {
-        this.shiftId = shiftId;
+    public ShiftTemplate(LocalDateTime openTime, LocalDateTime closeTime) {
+
+        this.startTime = Date.from(openTime.atZone(ZoneId.systemDefault()).toInstant());
+        this.endTime = Date.from(closeTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public Integer getShiftId() {
@@ -132,11 +135,6 @@ public class ShiftTemplate implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "data.ShiftTemplate[ shiftId=" + shiftId + " ]";
     }
 
 }

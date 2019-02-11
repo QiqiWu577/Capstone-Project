@@ -102,8 +102,8 @@ public class Employee implements Serializable {
         this.empid = empid;
     }
 
-    public Employee(Integer empid, String address, String fname, String lname, String phoneno, String email, Character type, boolean newHire, boolean active) {
-        this.empid = empid;
+    public Employee(String address, String fname, String lname, String phoneno, String email, Character type, boolean newHire, boolean active) {
+
         this.address = address;
         this.fname = fname;
         this.lname = lname;
@@ -116,10 +116,6 @@ public class Employee implements Serializable {
 
     public Integer getEmpid() {
         return empid;
-    }
-
-    public void setEmpid(Integer empid) {
-        this.empid = empid;
     }
 
     public String getAddress() {
@@ -238,12 +234,6 @@ public class Employee implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        String result = constraints.toString() + "\n" + getFirstname() + " " + getLastname() + " " + getEmail() + " " + getPhoneNo() + " " + getType();
-        return result;
     }
 
 }

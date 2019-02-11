@@ -60,7 +60,7 @@ public class ScheduleMaker {
 
                 } catch (InvalidConstraintException e) {
                     e.printStackTrace();
-                } catch (ConstraintTooLongException e) {
+                } catch (ConstraintWrongSizeException e) {
                     e.printStackTrace();
                 }
                 line = reader.readLine();
@@ -100,13 +100,13 @@ public class ScheduleMaker {
             randomizeList();
 
             //for every shift that needs to be filled (runs around 3-5 times/day)
-            System.out.println("EmpList Size" + empList.size());
-            System.out.println("ShiftTemplate: " + shiftList.size());
-            int w = 1;
+//            System.out.println("EmpList Size" + empList.size());
+//            System.out.println("ShiftTemplate: " + shiftList.size());
+//            int w = 1;
             for(ShiftTemplate shiftTemplate: shiftList) {
 
-                System.out.println("Shift " + w);
-                w++;
+                //System.out.println("Shift " + w);
+               // w++;
                 //holds employees who can work but dont prefer to
                 ArrayList<Employee> secondary = new ArrayList<>();
 
@@ -119,10 +119,10 @@ public class ScheduleMaker {
 
                     boolean availShift = true;
                     boolean prefShift = true;
-                    if(availability.get(j) != null) {
-                    System.out.println(availList.get(j).getFirstname());
-
-                    }
+//                    if(availability.get(j) != null) {
+//                    System.out.println(availList.get(j).getFirstname());
+//
+//                    }
                     //gives the hour of the day as an int in 24 hour format eg. 11 for 11am
 
                     int startHour = shiftTemplate.getStartTime().getHourOfDay();
@@ -136,7 +136,7 @@ public class ScheduleMaker {
                     boolean[] currentEmpPref = null;
 
                     if(preferences.get(j) == null) {
-                        System.out.println("null");
+                        //System.out.println("null");
                         prefShift = false;
                     } else {
                         currentEmpPref = preferences.get(j);
@@ -157,12 +157,12 @@ public class ScheduleMaker {
                         }
                         //if they don't prefer to work any hour in this shift don't set them as preferred
                         if(currentEmpPref != null && !currentEmpPref[i] && prefShift) {
-                            int y = 0;
-                            for(Boolean b: currentEmpPref) {
-                                System.out.print(y + "-" + (y+1) + " " + b + " ");
-                                y++;
-                            }
-                            System.out.println("Fail");
+                           // int y = 0;
+                           // for(Boolean b: currentEmpPref) {
+                                //System.out.print(y + "-" + (y+1) + " " + b + " ");
+                             //   y++;
+                           // }
+                            //System.out.println("Fail");
                             prefShift = false;
                         }
                     }
@@ -176,9 +176,9 @@ public class ScheduleMaker {
                     }
 
                     //if they are available and prefer the shift add them to the schedule
-                    System.out.println(availShift + "-" + prefShift + "-" + shift.getEmpList().size() + "-" + shift.getMaximumNumberOfEmployees());
+                    //System.out.println(availShift + "-" + prefShift + "-" + shift.getEmpList().size() + "-" + shift.getMaximumNumberOfEmployees());
                     if(availShift && prefShift && shift.getEmpList().size() < shift.getMaximumNumberOfEmployees()) {
-                            System.out.println("Added to shift");
+                            //System.out.println("Added to shift");
 
                             ScheduledEmployee schedEmp = new ScheduledEmployee(prefList.get(j));
                             shift.getEmpList().add(schedEmp);
@@ -188,7 +188,7 @@ public class ScheduleMaker {
                             preferences.set(j, null);
                             // if they dont prefer but can work add them to the secondary list
                     } else if(availShift) {
-                        System.out.println("Secondary to secondary list");
+                       // System.out.println("Secondary to secondary list");
                         secondary.add(availList.get(j));
                     }
                 }
@@ -197,7 +197,7 @@ public class ScheduleMaker {
                 int x  = 0;
                 for(int i = shift.getEmpList().size(); i < shift.getMinimumNumberOfEmployees(); i++) {
                         if(x < secondary.size()) {
-                            System.out.println("Added from secondary");
+                            //System.out.println("Added from secondary");
                             shift.getEmpList().add(new ScheduledEmployee(secondary.get(x)));
                             int index = getIndex(availList, secondary.get(x));
                             System.out.println(availList.size() + " " + prefList.size());
@@ -210,8 +210,13 @@ public class ScheduleMaker {
                 }
 
                 // if the shift had issues generating tell me
-                if(shift.getEmpList().size() < shift.getMinimumNumberOfEmployees() && shift.getEmpList().size() > shift.getMaximumNumberOfEmployees()) {
-                    System.out.println("Shift Generated incorrectly for shift starting at: " + shift.getStartTime() + " On: " + day);
+                if(shift.getEmpList().size() < shift.getMinimumNumberOfEmployees() || shift.getEmpList().size() > shift.getMaximumNumberOfEmployees()) {
+                   // System.out.println("Shift Generated incorrectly for shift starting at: " + shift.getStartTime() + " On: " + day);
+                    try {
+                        throw new ShiftCannotBeFilledException(day);
+                    } catch (ShiftCannotBeFilledException e) {
+                        e.printStackTrace();
+                    }
                 }
                 today.getShiftList().add(shift);
 

@@ -18,7 +18,7 @@ public class Employee {
     private ArrayList<Notification> recivedNotificationsList;
 
 
-    public Employee(int empID, String firstname, String lastname, String phoneNo, String email, int deptNo, boolean newHire, boolean active, String notes, String constraints, ArrayList<Notification> sentNotificationsList, ArrayList<Notification> recivedNotificationsList) throws InvalidConstraintException, ConstraintTooLongException{
+    public Employee(int empID, String firstname, String lastname, String phoneNo, String email, int deptNo, boolean newHire, boolean active, String notes, String constraints, ArrayList<Notification> sentNotificationsList, ArrayList<Notification> recivedNotificationsList) throws InvalidConstraintException, ConstraintWrongSizeException {
         this.empID = empID;
         this.firstname = firstname;
         this.lastname = lastname;

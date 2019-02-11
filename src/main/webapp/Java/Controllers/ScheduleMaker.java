@@ -120,10 +120,9 @@ public class ScheduleMaker {
                     boolean availShift = true;
                     boolean prefShift = true;
                     if(availability.get(j) != null) {
-                    System.out.println(availList.get(j).getEmpID());
+                    System.out.println(availList.get(j).getFirstname());
 
                     }
-                    System.out.println(prefShift);
                     //gives the hour of the day as an int in 24 hour format eg. 11 for 11am
 
                     int startHour = shiftTemplate.getStartTime().getHourOfDay();
@@ -148,8 +147,7 @@ public class ScheduleMaker {
 
 
                     //Checks Availability and preferences for each shift (every hour in the shift: around 8 times/shift)
-                    System.out.println(startHour +"-"+endHour);
-                    for(int i = startHour; i <= endHour; i++) {
+                    for(int i = startHour; i < endHour; i++) {
 
 
 
@@ -159,11 +157,15 @@ public class ScheduleMaker {
                         }
                         //if they don't prefer to work any hour in this shift don't set them as preferred
                         if(currentEmpPref != null && !currentEmpPref[i] && prefShift) {
+                            int y = 0;
+                            for(Boolean b: currentEmpPref) {
+                                System.out.print(y + "-" + (y+1) + " " + b + " ");
+                                y++;
+                            }
                             System.out.println("Fail");
                             prefShift = false;
                         }
                     }
-                    System.out.println(prefShift);
 
                     if(availList.get(j) == null) {
                         availShift = false;
@@ -174,6 +176,7 @@ public class ScheduleMaker {
                     }
 
                     //if they are available and prefer the shift add them to the schedule
+                    System.out.println(availShift + "-" + prefShift + "-" + shift.getEmpList().size() + "-" + shift.getMaximumNumberOfEmployees());
                     if(availShift && prefShift && shift.getEmpList().size() < shift.getMaximumNumberOfEmployees()) {
                             System.out.println("Added to shift");
 

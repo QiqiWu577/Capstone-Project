@@ -23,7 +23,7 @@ public class ScheduleMaker {
     private ArrayList<boolean[]> preferences;
 
     private final String filename = "./src/main/webapp/res/days.txt";
-    private final String empFilename = "./src/main/webapp/res/employees.txt";
+    private final String empFilename = "./src/main/webapp/res/employees2.txt";
 
     private ArrayList<DayTemplate> dayList;
 

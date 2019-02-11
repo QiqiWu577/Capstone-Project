@@ -118,4 +118,5 @@ public class Employee {
         String result = constraints.toString() + getFirstname() + " " + getLastname() + " " + getEmail() + " " + getPhoneNo() + " " + getDeptNo() +"\n" + "\n";
         return result;
     }
+
 }

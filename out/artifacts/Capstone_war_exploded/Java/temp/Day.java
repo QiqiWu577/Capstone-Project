@@ -29,7 +29,7 @@ public class Day implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "day_id")
     private int dayId;
 
@@ -56,21 +56,15 @@ public class Day implements Serializable {
     public Day() {
     }
 
-    public Day(Integer dayId) {
-        this.dayId = dayId;
-    }
-
+    //used to store the datatime into the database
     public Day(LocalDateTime openTime, LocalDateTime closeTime) {
+
         this.startTime = Date.from(openTime.atZone(ZoneId.systemDefault()).toInstant());
         this.endTime = Date.from(closeTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public Integer getDayId() {
         return dayId;
-    }
-
-    public void setDayId(Integer dayId) {
-        this.dayId = dayId;
     }
 
     public Date getStartTime() {
@@ -96,12 +90,6 @@ public class Day implements Serializable {
 
     public void setShiftList(ArrayList<Shift> shiftList) {
         this.shiftList = shiftList;
-    }
-
-
-    @Override
-    public String toString() {
-        return  dayId + "   "+startTime+"   "+endTime;
     }
 
 }

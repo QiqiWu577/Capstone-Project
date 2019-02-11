@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Shift.findAll", query = "SELECT s FROM Shift s")
+        , @NamedQuery(name = "Shift.findByShiftId", query = "SELECT s FROM Shift s WHERE s.shiftId = :shiftId ")
         , @NamedQuery(name = "Shift.findByStartTime", query = "SELECT s FROM Shift s WHERE s.startTime = :startTime")
         , @NamedQuery(name = "Shift.findByEndTime", query = "SELECT s FROM Shift s WHERE s.endTime = :endTime")
         , @NamedQuery(name = "Shift.findByShiftName", query = "SELECT s FROM Shift s WHERE s.shiftName = :shiftName")
@@ -36,23 +37,22 @@ public class Shift implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @Column(name = "shift_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int shiftId;
+    @Column(name = "shift_id")
+    private Integer shiftId;
 
     @Basic(optional = false)
     @Column(name = "startTime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
 
-    @Transient
-    private LocalTime sTime;
-
     @Basic(optional = false)
     @Column(name = "endTime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
 
+    @Transient
+    private LocalTime sTime;
     @Transient
     private LocalTime eTime;
 
@@ -73,7 +73,7 @@ public class Shift implements Serializable {
 
     @JoinColumn(name = "day_id", referencedColumnName = "day_id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private Day days;
+    private Day dayId;
 
     @Transient
     private int minimumNumberOfEmployees;
@@ -145,12 +145,12 @@ public class Shift implements Serializable {
         this.employeesList = employeesList;
     }
 
-    public Day getDays() {
-        return days;
+    public Day getDayId() {
+        return dayId;
     }
 
-    public void setDays(Day days) {
-        this.days = days;
+    public void setDayId(Day days) {
+        this.dayId = days;
     }
 
     public int getMinimumNumberOfEmployees() {

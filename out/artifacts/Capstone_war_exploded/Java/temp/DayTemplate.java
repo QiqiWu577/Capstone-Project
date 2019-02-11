@@ -39,24 +39,25 @@ public class DayTemplate implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date openTime;
 
-    @Transient
-    private LocalTime oTime;
-
     @Column(name = "close_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date closeTime;
 
     @Transient
+    private LocalTime oTime;
+    @Transient
     private LocalTime cTime;
 
-    @OneToMany(mappedBy = "dayOfWeek")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dayOfWeek")
     private List<ShiftTemplate> shiftTemplateList;
 
 
     public DayTemplate() {
     }
 
+    //used to store the datatime into the database
     public DayTemplate(String dayOfWeek, LocalDateTime openTime, LocalDateTime closeTime) {
+
         this.dayOfWeek = dayOfWeek;
         this.openTime = Date.from(openTime.atZone(ZoneId.systemDefault()).toInstant());
         this.closeTime = Date.from(closeTime.atZone(ZoneId.systemDefault()).toInstant());
@@ -113,11 +114,6 @@ public class DayTemplate implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "data.DayTemplate[ dayOfWeek=" + dayOfWeek + " ]";
     }
 
 }

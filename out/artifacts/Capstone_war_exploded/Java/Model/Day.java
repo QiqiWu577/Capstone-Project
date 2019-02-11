@@ -5,12 +5,17 @@ import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
 
+
 public class Day {
 
     public LocalDateTime openTime;
     public LocalDateTime closeTime;
     public LocalDate date;
     public ArrayList<Shift> shiftList;
+
+    public Day() {
+        this.shiftList = new ArrayList<Shift>();
+    }
 
     public Day(LocalDateTime openTime, LocalDateTime closeTime, ArrayList<Shift> shiftList) {
         this.closeTime = closeTime;

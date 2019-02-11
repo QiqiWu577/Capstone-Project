@@ -7,12 +7,12 @@ public class Notification {
     private int notificationId;
     private String content;
     //For knowing who it is sent/sent to in the message fields (IE FROM:ANTHONY TO:MATT)
-    private String sender;
-    private String recipient;
+    private int sender;
+    private int recipient;
     private LocalDateTime sendTime;
     private char type;
 
-    public Notification(int notificationId, String content, String sender, String recipient, LocalDateTime sendTime, char type) {
+    public Notification(int notificationId, String content, int sender, int recipient, LocalDateTime sendTime, char type) {
         this.notificationId = notificationId;
         this.content = content;
         this.sender = sender;
@@ -38,19 +38,19 @@ public class Notification {
         this.content = content;
     }
 
-    public String getSender() {
+    public int getSender() {
         return sender;
     }
 
-    public void setSender(String sender) {
+    public void setSender(int sender) {
         this.sender = sender;
     }
 
-    public String getRecipient() {
+    public int getRecipient() {
         return recipient;
     }
 
-    public void setRecipient(String recipient) {
+    public void setRecipient(int recipient) {
         this.recipient = recipient;
     }
 

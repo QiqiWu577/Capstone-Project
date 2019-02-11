@@ -102,10 +102,11 @@ public class ScheduleMaker {
             //for every shift that needs to be filled (runs around 3-5 times/day)
             System.out.println("EmpList Size" + empList.size());
             System.out.println("ShiftTemplate: " + shiftList.size());
+            int w = 1;
             for(ShiftTemplate shiftTemplate: shiftList) {
 
-
-
+                System.out.println("Shift " + w);
+                w++;
                 //holds employees who can work but dont prefer to
                 ArrayList<Employee> secondary = new ArrayList<>();
 
@@ -117,9 +118,14 @@ public class ScheduleMaker {
 
 
                     boolean availShift = true;
-                    boolean prefShift = false;
+                    boolean prefShift = true;
+                    if(availability.get(j) != null) {
+                    System.out.println(availList.get(j).getEmpID());
 
+                    }
+                    System.out.println(prefShift);
                     //gives the hour of the day as an int in 24 hour format eg. 11 for 11am
+
                     int startHour = shiftTemplate.getStartTime().getHourOfDay();
                     int endHour = shiftTemplate.getEndTime().getHourOfDay();
 
@@ -129,46 +135,57 @@ public class ScheduleMaker {
                         currentEmpAvail = availability.get(j);
                     }
                     boolean[] currentEmpPref = null;
-                    if(preferences.get(j) != null) {
-                        currentEmpPref = preferences.get(j);
-                        prefShift = true;
-                    }
-                    if(availList.get(j) == null) {
-                        availShift = false;
+
+                    if(preferences.get(j) == null) {
+                        System.out.println("null");
                         prefShift = false;
+                    } else {
+                        currentEmpPref = preferences.get(j);
+
                     }
+
+
+
+
                     //Checks Availability and preferences for each shift (every hour in the shift: around 8 times/shift)
-                    for(int i = startHour; i < endHour; i++) {
+                    System.out.println(startHour +"-"+endHour);
+                    for(int i = startHour; i <= endHour; i++) {
 
 
 
                         //if they can't work any hour of the shift don't schedule them
-                        if(currentEmpAvail != null && !currentEmpAvail[i]) {
-                            System.out.println("Fail");
+                        if(currentEmpAvail != null && !currentEmpAvail[i] && availShift) {
                             availShift = false;
                         }
                         //if they don't prefer to work any hour in this shift don't set them as preferred
-                        if(currentEmpPref != null && !currentEmpPref[i]) {
+                        if(currentEmpPref != null && !currentEmpPref[i] && prefShift) {
+                            System.out.println("Fail");
                             prefShift = false;
                         }
                     }
+                    System.out.println(prefShift);
+
+                    if(availList.get(j) == null) {
+                        availShift = false;
+                        prefShift = false;
+                    }
+                    if(prefList.get(j) == null) {
+                        prefShift = false;
+                    }
 
                     //if they are available and prefer the shift add them to the schedule
-
                     if(availShift && prefShift && shift.getEmpList().size() < shift.getMaximumNumberOfEmployees()) {
-                        System.out.println("Added!");
-                        if(prefList.get(j) != null && availList.get(j) != null) {
+                            System.out.println("Added to shift");
+
                             ScheduledEmployee schedEmp = new ScheduledEmployee(prefList.get(j));
                             shift.getEmpList().add(schedEmp);
                             availList.set(j, null);
                             prefList.set(j, null);
                             availability.set(j, null);
+                            preferences.set(j, null);
                             // if they dont prefer but can work add them to the secondary list
-                        } else {
-                            System.out.println("tried to add null");
-                        }
                     } else if(availShift) {
-                        System.out.println("Secondary");
+                        System.out.println("Secondary to secondary list");
                         secondary.add(availList.get(j));
                     }
                 }
@@ -177,13 +194,14 @@ public class ScheduleMaker {
                 int x  = 0;
                 for(int i = shift.getEmpList().size(); i < shift.getMinimumNumberOfEmployees(); i++) {
                         if(x < secondary.size()) {
-                            System.out.println("Added!");
+                            System.out.println("Added from secondary");
                             shift.getEmpList().add(new ScheduledEmployee(secondary.get(x)));
                             int index = getIndex(availList, secondary.get(x));
                             System.out.println(availList.size() + " " + prefList.size());
                             availList.set(index, null);
                             prefList.set(index, null);
                             availability.set(index, null);
+                            preferences.set(index, null);
                             x++;
                         }
                 }
@@ -193,10 +211,43 @@ public class ScheduleMaker {
                     System.out.println("Shift Generated incorrectly for shift starting at: " + shift.getStartTime() + " On: " + day);
                 }
                 today.getShiftList().add(shift);
+
             }
             schedule.add(today);
         }
         return schedule;
+    }
+
+    private void printArrays() {
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        for(int i = 0; i < availList.size(); i++) {
+            if(availList.get(i) != null) {
+                System.out.println(availList.get(i).getFirstname());
+            } else {
+                System.out.println("Employee Null");
+            }
+
+            if(availability.get(i) != null) {
+                System.out.println("True");
+            } else {
+                System.out.println("False");
+            }
+
+            if(prefList.get(i) != null) {
+                System.out.println(prefList.get(i).getFirstname());
+            } else {
+                System.out.println("Employee PrefList Null");
+            }
+
+            if(preferences.get(i) != null) {
+                System.out.println(true);
+            } else {
+                System.out.println(false);
+            }
+        }
+
+
+
     }
 
     private int getIndex(ArrayList<Employee> list, Employee e) {
@@ -218,7 +269,7 @@ public class ScheduleMaker {
         Collections.shuffle(availList, new Random(seed));
         Collections.shuffle(prefList, new Random(seed));
         Collections.shuffle(availability, new Random(seed));
-
+        Collections.shuffle(preferences, new Random(seed));
     }
 
     private DayTemplate getDayTemplate(String day) {

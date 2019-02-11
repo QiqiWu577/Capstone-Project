@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -23,7 +22,7 @@ public class ScheduleMaker {
     private ArrayList<boolean[]> preferences;
 
     private final String filename = "./src/main/webapp/res/days.txt";
-    private final String empFilename = "./src/main/webapp/res/employees2.txt";
+    private final String empFilename = "./src/main/webapp/res/employees.txt";
 
     private ArrayList<DayTemplate> dayList;
 
@@ -77,107 +76,111 @@ public class ScheduleMaker {
     }
 
     public ArrayList<Day> generateSchedule() {
-        ArrayList<Day> schedule = new ArrayList<Day>();
+
         //for every day of the week starting with monday (runs 7 times)
-        for(String day: days) {
+        boolean retry = true;
+        ArrayList<Day> schedule = new ArrayList<Day>();
 
+        int iteration = 0;
 
-            //gets all the employees availability for a given day
-            sortEmployees(day);
-            System.out.println(availList.size() + " " + prefList.size());
-            //gets the day and makes a day object with the opening and closing time
-            DayTemplate template = getDayTemplate(day);
-            Day today = new Day();
-            today.setOpenTime(LocalDateTime.now().withTime(template.getOpenTime().getHourOfDay(), template.getOpenTime().getMinuteOfHour(),
-                    template.getOpenTime().getSecondOfMinute(), template.getOpenTime().getMillisOfSecond()));
-            today.setCloseTime(LocalDateTime.now().withTime(template.getCloseTime().getHourOfDay(), template.getCloseTime().getMinuteOfHour(),
-                    template.getCloseTime().getSecondOfMinute(), template.getCloseTime().getMillisOfSecond()));
+        while(retry && iteration < 100) {
+            schedule = new ArrayList<>();
+            retry = false;
+            for (String day : days) {
 
-            //gets the shift templates from the day
-            ArrayList<ShiftTemplate> shiftList = template.getShiftList();
+                //gets all the employees availability for a given day
+                sortEmployees(day);
+                //System.out.println(availList.size() + " " + prefList.size());
+                //gets the day and makes a day object with the opening and closing time
+                DayTemplate template = getDayTemplate(day);
+                Day today = new Day();
+                today.setOpenTime(LocalDateTime.now().withTime(template.getOpenTime().getHourOfDay(), template.getOpenTime().getMinuteOfHour(),
+                        template.getOpenTime().getSecondOfMinute(), template.getOpenTime().getMillisOfSecond()));
+                today.setCloseTime(LocalDateTime.now().withTime(template.getCloseTime().getHourOfDay(), template.getCloseTime().getMinuteOfHour(),
+                        template.getCloseTime().getSecondOfMinute(), template.getCloseTime().getMillisOfSecond()));
 
-            //randomizes the employees
-            randomizeList();
+                //gets the shift templates from the day
+                ArrayList<ShiftTemplate> shiftList = template.getShiftList();
 
-            //for every shift that needs to be filled (runs around 3-5 times/day)
+                //randomizes the employees
+                randomizeList();
+
+                //for every shift that needs to be filled (runs around 3-5 times/day)
 //            System.out.println("EmpList Size" + empList.size());
 //            System.out.println("ShiftTemplate: " + shiftList.size());
 //            int w = 1;
-            for(ShiftTemplate shiftTemplate: shiftList) {
+                for (ShiftTemplate shiftTemplate : shiftList) {
 
-                //System.out.println("Shift " + w);
-               // w++;
-                //holds employees who can work but dont prefer to
-                ArrayList<Employee> secondary = new ArrayList<>();
+                    //System.out.println("Shift " + w);
+                    // w++;
+                    //holds employees who can work but dont prefer to
+                    ArrayList<Employee> secondary = new ArrayList<>();
 
-                //creates a shift to be filled
-                Shift shift = new Shift(shiftTemplate.getStartTime(), shiftTemplate.getEndTime(), 'S', 2, 1);
+                    //creates a shift to be filled
+                    Shift shift = new Shift(shiftTemplate.getStartTime(), shiftTemplate.getEndTime(), 'S', 2, 1);
 
-                //for every employee in the available list of employees
-                for(int j = 0; j < availList.size(); j++) {
+                    //for every employee in the available list of employees
+                    for (int j = 0; j < availList.size(); j++) {
 
 
-                    boolean availShift = true;
-                    boolean prefShift = true;
+                        boolean availShift = true;
+                        boolean prefShift = true;
 //                    if(availability.get(j) != null) {
 //                    System.out.println(availList.get(j).getFirstname());
 //
 //                    }
-                    //gives the hour of the day as an int in 24 hour format eg. 11 for 11am
+                        //gives the hour of the day as an int in 24 hour format eg. 11 for 11am
 
-                    int startHour = shiftTemplate.getStartTime().getHourOfDay();
-                    int endHour = shiftTemplate.getEndTime().getHourOfDay();
+                        int startHour = shiftTemplate.getStartTime().getHourOfDay();
+                        int endHour = shiftTemplate.getEndTime().getHourOfDay();
 
-                    //holds the employees availability and preferences for the day
-                    boolean[] currentEmpAvail = null;
-                    if(availability.get(j) != null) {
-                        currentEmpAvail = availability.get(j);
-                    }
-                    boolean[] currentEmpPref = null;
-
-                    if(preferences.get(j) == null) {
-                        //System.out.println("null");
-                        prefShift = false;
-                    } else {
-                        currentEmpPref = preferences.get(j);
-
-                    }
-
-
-
-
-                    //Checks Availability and preferences for each shift (every hour in the shift: around 8 times/shift)
-                    for(int i = startHour; i < endHour; i++) {
-
-
-
-                        //if they can't work any hour of the shift don't schedule them
-                        if(currentEmpAvail != null && !currentEmpAvail[i] && availShift) {
-                            availShift = false;
+                        //holds the employees availability and preferences for the day
+                        boolean[] currentEmpAvail = null;
+                        if (availability.get(j) != null) {
+                            currentEmpAvail = availability.get(j);
                         }
-                        //if they don't prefer to work any hour in this shift don't set them as preferred
-                        if(currentEmpPref != null && !currentEmpPref[i] && prefShift) {
-                           // int y = 0;
-                           // for(Boolean b: currentEmpPref) {
+                        boolean[] currentEmpPref = null;
+
+                        if (preferences.get(j) == null) {
+                            //System.out.println("null");
+                            prefShift = false;
+                        } else {
+                            currentEmpPref = preferences.get(j);
+
+                        }
+
+
+                        //Checks Availability and preferences for each shift (every hour in the shift: around 8 times/shift)
+                        for (int i = startHour; i < endHour; i++) {
+
+
+                            //if they can't work any hour of the shift don't schedule them
+                            if (currentEmpAvail != null && !currentEmpAvail[i] && availShift) {
+                                availShift = false;
+                            }
+                            //if they don't prefer to work any hour in this shift don't set them as preferred
+                            if (currentEmpPref != null && !currentEmpPref[i] && prefShift) {
+                                // int y = 0;
+                                // for(Boolean b: currentEmpPref) {
                                 //System.out.print(y + "-" + (y+1) + " " + b + " ");
-                             //   y++;
-                           // }
-                            //System.out.println("Fail");
+                                //   y++;
+                                // }
+                                //System.out.println("Fail");
+                                prefShift = false;
+                            }
+                        }
+
+                        if (availList.get(j) == null) {
+                            availShift = false;
                             prefShift = false;
                         }
-                    }
+                        if (prefList.get(j) == null) {
+                            prefShift = false;
+                        }
 
-                    if(availList.get(j) == null) {
-                        availShift = false;
-                        prefShift = false;
-                    }
-                    if(prefList.get(j) == null) {
-                        prefShift = false;
-                    }
-
-                    //if they are available and prefer the shift add them to the schedule
-                    //System.out.println(availShift + "-" + prefShift + "-" + shift.getEmpList().size() + "-" + shift.getMaximumNumberOfEmployees());
-                    if(availShift && prefShift && shift.getEmpList().size() < shift.getMaximumNumberOfEmployees()) {
+                        //if they are available and prefer the shift add them to the schedule
+                        //System.out.println(availShift + "-" + prefShift + "-" + shift.getEmpList().size() + "-" + shift.getMaximumNumberOfEmployees());
+                        if (availShift && prefShift && shift.getEmpList().size() < shift.getMaximumNumberOfEmployees()) {
                             //System.out.println("Added to shift");
 
                             ScheduledEmployee schedEmp = new ScheduledEmployee(prefList.get(j));
@@ -187,16 +190,16 @@ public class ScheduleMaker {
                             availability.set(j, null);
                             preferences.set(j, null);
                             // if they dont prefer but can work add them to the secondary list
-                    } else if(availShift) {
-                       // System.out.println("Secondary to secondary list");
-                        secondary.add(availList.get(j));
+                        } else if (availShift) {
+                            // System.out.println("Secondary to secondary list");
+                            secondary.add(availList.get(j));
+                        }
                     }
-                }
 
-                //for every spot in the shift that still needs to be filled add from secondary (anywhere from 1-5 times)
-                int x  = 0;
-                for(int i = shift.getEmpList().size(); i < shift.getMinimumNumberOfEmployees(); i++) {
-                        if(x < secondary.size()) {
+                    //for every spot in the shift that still needs to be filled add from secondary (anywhere from 1-5 times)
+                    int x = 0;
+                    for (int i = shift.getEmpList().size(); i < shift.getMinimumNumberOfEmployees(); i++) {
+                        if (x < secondary.size()) {
                             //System.out.println("Added from secondary");
                             shift.getEmpList().add(new ScheduledEmployee(secondary.get(x)));
                             int index = getIndex(availList, secondary.get(x));
@@ -207,23 +210,31 @@ public class ScheduleMaker {
                             preferences.set(index, null);
                             x++;
                         }
-                }
-
-                // if the shift had issues generating tell me
-                if(shift.getEmpList().size() < shift.getMinimumNumberOfEmployees() || shift.getEmpList().size() > shift.getMaximumNumberOfEmployees()) {
-                   // System.out.println("Shift Generated incorrectly for shift starting at: " + shift.getStartTime() + " On: " + day);
-                    try {
-                        throw new ShiftCannotBeFilledException(day);
-                    } catch (ShiftCannotBeFilledException e) {
-                        e.printStackTrace();
                     }
-                }
-                today.getShiftList().add(shift);
 
+                    // if the shift had issues generating tell me
+                    if (shift.getEmpList().size() < shift.getMinimumNumberOfEmployees() || shift.getEmpList().size() > shift.getMaximumNumberOfEmployees()) {
+                        // System.out.println("Shift Generated incorrectly for shift starting at: " + shift.getStartTime() + " On: " + day);
+                        try {
+                            throw new ShiftCannotBeFilledException(day);
+                        } catch (ShiftCannotBeFilledException e) {
+                            e.printStackTrace();
+                            retry = true;
+                            iteration++;
+                        }
+
+                    }
+                    today.getShiftList().add(shift);
+
+                }
+                schedule.add(today);
             }
-            schedule.add(today);
+        }
+        if(iteration >= 100) {
+            System.out.println("Failed to generate schedule after 100 iterations");
         }
         return schedule;
+
     }
 
     private void printArrays() {
@@ -305,7 +316,7 @@ public class ScheduleMaker {
 
                     ArrayList<ShiftTemplate> shiftArray = new ArrayList<ShiftTemplate>();
 
-                    System.out.println("Length of Shift Data Array: " + shiftData.length);
+                    //System.out.println("Length of Shift Data Array: " + shiftData.length);
 
                     for (int i=0; i<shiftData.length;i++){
 

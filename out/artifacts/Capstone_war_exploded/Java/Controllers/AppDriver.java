@@ -9,9 +9,8 @@ public class AppDriver {
     public static void main(String[] args) {
 
         Long start = System.currentTimeMillis();
+
         ScheduleMaker sm = new ScheduleMaker(0);
-
-
         ArrayList<Day> dayList = sm.generateSchedule();
 
 

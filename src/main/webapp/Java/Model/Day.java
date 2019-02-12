@@ -58,13 +58,13 @@ public class Day {
 
     @Override
     public String toString() {
-        int i = 0;
+        int i = 1;
         String result = "*************************************************************\n";
         result += "Open Time: " + getOpenTime() + "Close Time: " + getCloseTime() + "\n";
         for(Shift s : shiftList) {
             result += "-------------------------------------------------------------\n";
             result += "Shift " + i + "\n";
-            result += "StartTime: " + s.getStartTime() + " Close Time" + s.getCloseTime() + "\n";
+            result += "StartTime: " + s.getStartTime() + " Close Time: " + s.getCloseTime() + "\n";
             for(ScheduledEmployee emp: s.getEmpList()) {
                 if(emp.getEmp()!= null) {
                     result += emp.getEmp().getFirstname() + "\n";

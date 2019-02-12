@@ -11,4 +11,8 @@ public class ScheduledEmployee {
     public int getDailyHours() {
         return dailyHours;
     }
+
+    public Employee getEmp() {
+        return emp;
+    }
 }

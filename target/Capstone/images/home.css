@@ -1,0 +1,91 @@
+body {
+    font-family: "Arial", sans-serif;
+    margin: 0px;
+}
+
+.sidebar {
+    text-align: center;
+    height: 100%;
+    width: 13%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 15px;
+}
+
+a {
+    font-family: "Arial", sans-serif;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+a:hover {
+    color: white;
+}
+
+
+.main {
+    margin-left: 13%;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.field {
+    margin-bottom: 20px;
+    color: white;
+    border-bottom: 3px solid #909090;
+}
+
+input {
+    padding: 10px 0;
+
+    border: 0px solid;
+    width: 90%;
+    font-size: 16px;
+    background-color: white;
+    margin-bottom: 20px;
+}
+
+.topbar {
+    text-align: right;
+    height: 38px;
+    background-color: #5f5f5f;
+    width: 100%;
+    display: block;
+    padding: 3px 0px 3px 0px;
+}
+
+#position {
+    background-color:  #00ccff;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+}
+
+/* Clear floats after the columns */
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

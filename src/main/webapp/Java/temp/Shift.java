@@ -5,17 +5,15 @@
  */
 package temp;
 
-import Model.ScheduledEmployee;
 import org.joda.time.LocalTime;
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.*;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -82,7 +80,7 @@ public class Shift implements Serializable {
     private int maximumNumberOfEmployees;
 
     @Transient
-    private ArrayList<ScheduledEmployee> empList;
+    private ArrayList<Employee> empList;
 
     public Shift() {
     }
@@ -169,11 +167,11 @@ public class Shift implements Serializable {
         this.maximumNumberOfEmployees = maximumNumberOfEmployees;
     }
 
-    public ArrayList<ScheduledEmployee> getEmpList() {
+    public ArrayList<Employee> getEmpList() {
         return empList;
     }
 
-    public void setEmpList(ArrayList<ScheduledEmployee> empList) {
+    public void setEmpList(ArrayList<Employee> empList) {
         this.empList = empList;
     }
 

@@ -209,8 +209,7 @@ public class ScheduleMaker {
                             if (availShift && prefShift && shift.getEmpList().size() < shift.getMaximumNumberOfEmployees()) {
                                 //System.out.println("Added to shift");
 
-                                ScheduledEmployee schedEmp = new ScheduledEmployee(availList.get(j));
-                                shift.getEmpList().add(schedEmp);
+                                shift.getEmpList().add(availList.get(j));
                                 scheduled.add(availList.get(j));
 
                                 // if they dont prefer but can work add them to the secondary list
@@ -225,7 +224,7 @@ public class ScheduleMaker {
                         for (int i = shift.getEmpList().size(); i < shift.getMinimumNumberOfEmployees(); i++) {
 
                             if (x < secondary.size()) {
-                                shift.getEmpList().add(new ScheduledEmployee(secondary.get(x)));
+                                shift.getEmpList().add(secondary.get(x));
                                 scheduled.add(secondary.get(x));
                                 x++;
                             }

@@ -35,7 +35,7 @@ public class EmployeeConstraints {
 
     private String constraints;
 
-    public EmployeeConstraints(String constraints) throws InvalidConstraintException, ConstraintTooLongException {
+    public EmployeeConstraints(String constraints) throws InvalidConstraintException, ConstraintWrongSizeException {
         availableTimeMonday = new boolean[24];
         availableTimeTuesday = new boolean[24];
         availableTimeWednesday = new boolean[24];
@@ -56,7 +56,7 @@ public class EmployeeConstraints {
         parseConstraints(constraints);
     }
 
-    private void parseConstraints(String constraints) throws InvalidConstraintException, ConstraintTooLongException{
+    private void parseConstraints(String constraints) throws InvalidConstraintException, ConstraintWrongSizeException {
         String [] list = constraints.split(",");
         final int HOURSPERDAY = 24;
         int hourOfDay;
@@ -81,7 +81,7 @@ public class EmployeeConstraints {
                 }
             }
         } else {
-            throw new ConstraintTooLongException("Monday");
+            throw new ConstraintWrongSizeException("Monday");
         }
 
         if(list[1].length() == 24) {
@@ -106,7 +106,7 @@ public class EmployeeConstraints {
                 }
             }
         }else {
-            throw new ConstraintTooLongException("Tuesday");
+            throw new ConstraintWrongSizeException("Tuesday");
         }
         if(list[1].length() == 24) {
             for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
@@ -130,7 +130,7 @@ public class EmployeeConstraints {
                 }
             }
         } else {
-            throw new ConstraintTooLongException("Wednesday");
+            throw new ConstraintWrongSizeException("Wednesday");
         }
         if(list[1].length() == 24) {
             for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
@@ -154,7 +154,7 @@ public class EmployeeConstraints {
                 }
             }
         } else {
-            throw new ConstraintTooLongException("Thursday");
+            throw new ConstraintWrongSizeException("Thursday");
         }
         if(list[1].length() == 24) {
             for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
@@ -179,7 +179,7 @@ public class EmployeeConstraints {
 
             }
         } else {
-            throw new ConstraintTooLongException("Friday");
+            throw new ConstraintWrongSizeException("Friday");
         }
         if(list[1].length() == 24) {
             for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
@@ -204,7 +204,7 @@ public class EmployeeConstraints {
 
             }
         } else {
-            throw new ConstraintTooLongException("Saturday");
+            throw new ConstraintWrongSizeException("Saturday");
         }
         if(list[1].length() == 24) {
             for(hourOfDay = 0; hourOfDay< HOURSPERDAY; hourOfDay++) {
@@ -229,7 +229,7 @@ public class EmployeeConstraints {
 
             }
         } else {
-            throw new ConstraintTooLongException("Sunday");
+            throw new ConstraintWrongSizeException("Sunday");
         }
 
 

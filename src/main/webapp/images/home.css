@@ -89,3 +89,16 @@ input {
     display: table;
     clear: both;
 }
+
+.btn {
+    cursor: pointer;
+    margin-bottom: 5px;
+    font-family: sans-serif;
+    font-size: 16px;
+    background-color: #00ccff;
+    transition: border .2s, background-color .2s;
+}
+
+.btn:hover {
+    background-color: #008db1;
+}

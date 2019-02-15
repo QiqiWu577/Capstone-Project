@@ -18,6 +18,6 @@
   </resource-ref>
 
   <welcome-file-list>
-    <welcome-file>/test/ManagerSchedule.jsp</welcome-file>
+    <welcome-file>test/ManagerSchedule.jsp</welcome-file>
   </welcome-file-list>
 </web-app>

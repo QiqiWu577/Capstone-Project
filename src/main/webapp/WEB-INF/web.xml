@@ -16,8 +16,13 @@
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
-
+  
   <welcome-file-list>
+<<<<<<< HEAD
     <welcome-file>test/ManagerSchedule.jsp</welcome-file>
+=======
+    <welcome-file>./WEB-INF/Presentation/Manager/ManagerEdit.jsp</welcome-file>
+>>>>>>> 42fc6e6b8fa01ffe0721a4a1a6deaa4e4ed556e3
   </welcome-file-list>
+
 </web-app>

@@ -5,7 +5,6 @@
  */
 package temp;
 
-import Model.ScheduledEmployee;
 import org.joda.time.LocalTime;
 
 import java.io.Serializable;

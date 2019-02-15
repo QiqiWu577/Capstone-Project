@@ -48,7 +48,11 @@ CREATE TABLE Shift(
                     shift_name varchar(30) not null,
                     shift_type char(1) not null,
                     active bit not null,
+<<<<<<< HEAD
                     primary key(shift_id,day_id),
+=======
+                    primary key(shift_id, day_id),
+>>>>>>> 42fc6e6b8fa01ffe0721a4a1a6deaa4e4ed556e3
                     FOREIGN KEY (day_id) REFERENCES days(day_id)
 );
 

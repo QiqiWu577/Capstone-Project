@@ -3,14 +3,14 @@
 
 <head>
     <title>Login</title>
-    <link href="../images/style.css" rel="stylesheet" type="text/css">
+    <link href="./images/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <div class="header-container">
 </div>
 <div class="box">
-    <img src="/res/2030.png" alt="2030" height="250" width="250">
+    <img src="./images/2030.png" alt="2030" height="250" width="250">
     <form name="login">
         <input type="text" name="username" placeholder="Username" class="field" required><br/>
         <input type="password" name="password" placeholder="Password" class="field" required><br/>

@@ -65,13 +65,13 @@ public class Day {
             result += "-------------------------------------------------------------\n";
             result += "Shift " + i + "\n";
             result += "StartTime: " + s.getStartTime() + " Close Time: " + s.getCloseTime() + "\n";
-            for(ScheduledEmployee emp: s.getEmpList()) {
-                if(emp.getEmp()!= null) {
-                    result += emp.getEmp().getFirstname() + "\n";
-                } else {
-                    result += "null? \n";
-                }
-            }
+//            for(ScheduledEmployee emp: s.getEmpList()) {
+//                if(emp.getEmp()!= null) {
+//                    result += emp.getEmp().getFirstname() + "\n";
+//                } else {
+//                    result += "null? \n";
+//                }
+//            }
             i++;
             result += "-------------------------------------------------------------\n";
         }

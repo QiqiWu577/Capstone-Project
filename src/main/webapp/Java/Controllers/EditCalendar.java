@@ -1,46 +1,35 @@
-package test;
+package Controllers;
 
 import Persistance.DBOperation;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonReader;
+import temp.CalendarDAO;
+import temp.Day;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
-@WebServlet(name = "TestServlet",urlPatterns = "/TestServlet")
-public class TestServlet extends HttpServlet {
+@WebServlet(name = "EditCalendar",urlPatterns = "/EditCalendar")
+public class EditCalendar extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String rememberMe = request.getParameter("rememberMe");
-        String logout = request.getParameter("logout");
+            //get the calendar event from the ajax function of the js
+            JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
+            String title = data.get("title").getAsString();
+            String start = data.get("start").getAsString();
+            String end = data.get("end").getAsString();
 
-        if(logout!=null){
+            System.out.println(title+","+start+","+end);
 
-            //destroy the seesion
-            HttpSession session = request.getSession();
-            session.invalidate();
-
-            request.setAttribute("message", "Logged out");
-            request.getRequestDispatcher("/WEB-INF/test/login.jsp").forward(request, response);
-        }else if(username == null || password == null){
-
-            request.getRequestDispatcher("/WEB-INF/test/login.jsp").forward(request, response);
-        }else if(username.equals("") || password.equals("")){
-            System.out.println(577);
-            request.setAttribute("message", "Both values are required!");
-            request.getRequestDispatcher("/WEB-INF/test/login.jsp").forward(request, response);
-        }else{
-
-            if(username.equals("577") && !password.equals("")){
-
-                DBOperation dbOperation = new DBOperation();
-                dbOperation.run();
-            }
-        }
 
     }
 

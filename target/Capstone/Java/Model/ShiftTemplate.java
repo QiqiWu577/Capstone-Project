@@ -8,12 +8,14 @@ public class ShiftTemplate {
     private LocalTime startTime;
     private LocalTime endTime;
     private int minimumEmployees;
+    private int maximumEmployees;
 
-    public ShiftTemplate(int shiftId, LocalTime startTime, LocalTime endTime, int minimumEmployees) {
+    public ShiftTemplate(int shiftId, LocalTime startTime, LocalTime endTime, int minimumEmployees, int maximumEmployeess) {
         this.shiftId = shiftId;
         this.startTime = startTime;
         this.endTime = endTime;
         this.minimumEmployees = minimumEmployees;
+        this.maximumEmployees = maximumEmployeess;
     }
 
     public int getShiftId() {
@@ -47,4 +49,5 @@ public class ShiftTemplate {
     public void setMinimumEmployees(int minimumEmployees) {
         this.minimumEmployees = minimumEmployees;
     }
+    public int getMaximumEmployees() {return maximumEmployees;}
 }

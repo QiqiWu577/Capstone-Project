@@ -23,94 +23,23 @@
     <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 
+    <!-- fullcalendar' need -->
     <link href='css/calendarCSS/fullcalendar.min.css' rel='stylesheet' />
     <link href='css/calendarCSS/fullcalendar.print.min.css' rel='stylesheet' media='print' />
     <script src='js/calendarJS/moment.min.js'></script>
     <script src='js/calendarJS/jquery.min.js'></script>
     <script src='js/calendarJS/fullcalendar.min.js'></script>
+    <script src='js/calendarJS/manageEvent.js'></script>
 
-    <script>
+    <!-- fullcalendar' jquery theme -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link href="https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css" rel="stylesheet" />
 
-        $(document).ready(function() {
-
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,basicWeek,basicDay'
-                },
-                defaultDate: '2019-01-12',
-                navLinks: true, // can click day/week names to navigate views
-                editable: true,
-                eventLimit: true, // allow "more" link when too many events
-                events: [
-                    {
-                        title: 'All Day Event',
-                        start: '2019-01-01'
-                    },
-                    {
-                        title: 'Long Event',
-                        start: '2019-01-07',
-                        end: '2019-01-10'
-                    },
-                    {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: '2019-01-09T16:00:00'
-                    },
-                    {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: '2019-01-16T16:00:00'
-                    },
-                    {
-                        title: 'Conference',
-                        start: '2019-01-11',
-                        end: '2019-01-13'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2019-01-12T10:30:00',
-                        end: '2019-01-12T12:30:00'
-                    },
-                    {
-                        title: 'Lunch',
-                        start: '2019-01-12T12:00:00'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2019-01-12T14:30:00'
-                    },
-                    {
-                        title: 'Happy Hour',
-                        start: '2019-01-12T17:30:00'
-                    },
-                    {
-                        title: 'Dinner',
-                        start: '2019-01-12T20:00:00'
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: '2019-01-13T07:00:00'
-                    },
-                    {
-                        title: 'Click for Google',
-                        url: 'http://google.com/',
-                        start: '2019-01-28'
-                    }
-                ]
-            });
-
-        });
-
-    </script>
     <style>
 
         body {
             margin: 40px 10px;
             padding: 0;
-            font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-            font-size: 14px;
         }
 
         #calendar {

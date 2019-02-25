@@ -1,46 +1,43 @@
-package test;
+package Controllers;
 
-import Persistance.DBOperation;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import temp.CalendarDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@WebServlet(name = "TestServlet",urlPatterns = "/TestServlet")
-public class TestServlet extends HttpServlet {
-
+@WebServlet(name = "ShowCalendar",urlPatterns = "/ShowCalendar")
+public class ShowCalendar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String rememberMe = request.getParameter("rememberMe");
-        String logout = request.getParameter("logout");
+            ArrayList<CalendarDAO> test = new ArrayList();
+            String input1 = "2019-02-07 17:30:00.00".replace( " " , "T" ) ;
+            String input2 = "2019-02-07 21:30:00.00".replace( " " , "T" ) ;
+            String input3 = "2019-02-08 08:30:00.00".replace( " " , "T" ) ;
+            String input4 = "2019-02-08 15:30:00.00".replace( " " , "T" ) ;
+            LocalDateTime dt1 = LocalDateTime.parse(input1);
+            LocalDateTime dt2 = LocalDateTime.parse(input2);
+            LocalDateTime dt3 = LocalDateTime.parse(input3);
+            LocalDateTime dt4 = LocalDateTime.parse(input4);
+            test.add(new CalendarDAO(1,"Qiqi",input1,input2));
+            test.add(new CalendarDAO(2,"John",input3,input4));
 
-        if(logout!=null){
+            //send the generate schedule in json format to the fullcalendar
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            out.write(new Gson().toJson(test));
 
-            //destroy the seesion
-            HttpSession session = request.getSession();
-            session.invalidate();
-
-            request.setAttribute("message", "Logged out");
-            request.getRequestDispatcher("/WEB-INF/test/login.jsp").forward(request, response);
-        }else if(username == null || password == null){
-
-            request.getRequestDispatcher("/WEB-INF/test/login.jsp").forward(request, response);
-        }else if(username.equals("") || password.equals("")){
-            System.out.println(577);
-            request.setAttribute("message", "Both values are required!");
-            request.getRequestDispatcher("/WEB-INF/test/login.jsp").forward(request, response);
-        }else{
-
-            if(username.equals("577") && !password.equals("")){
-
-                DBOperation dbOperation = new DBOperation();
-                dbOperation.run();
-            }
-        }
 
     }
 

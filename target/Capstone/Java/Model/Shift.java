@@ -11,7 +11,8 @@ public class Shift {
     private char shiftType;
     private int minimumNumberOfEmployees;
     private int maximumNumberOfEmployees;
-    private ArrayList<ScheduledEmployee> empList;
+    private ArrayList<Employee> empList;
+    private int dailyHours;
 
     public Shift(LocalTime startTime, LocalTime closeTime, char shiftType, int maximumNumberOfEmployees, int minimumNumberOfEmployees) {
         this.startTime = startTime;
@@ -22,7 +23,7 @@ public class Shift {
         empList = new ArrayList<>();
     }
 
-    public Shift(LocalTime startTime, LocalTime closeTime, char shiftType, int minimumNumberOfEmployees, int maximumNumberOfEmployees, ArrayList<ScheduledEmployee> empList) {
+    public Shift(LocalTime startTime, LocalTime closeTime, char shiftType, int minimumNumberOfEmployees, int maximumNumberOfEmployees, ArrayList<Employee> empList) {
         this.startTime = startTime;
         this.closeTime = closeTime;
         this.shiftType = shiftType;
@@ -71,11 +72,14 @@ public class Shift {
         this.maximumNumberOfEmployees = maximumNumberOfEmployees;
     }
 
-    public ArrayList<ScheduledEmployee> getEmpList() {
+    public ArrayList<Employee> getEmpList() {
         return empList;
     }
 
-    public void setEmpList(ArrayList<ScheduledEmployee> empList) {
+    public void setEmpList(ArrayList<Employee> empList) {
         this.empList = empList;
+    }
+    public int getDailyHours() {
+        return dailyHours;
     }
 }

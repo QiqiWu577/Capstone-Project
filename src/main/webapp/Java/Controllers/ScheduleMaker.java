@@ -40,6 +40,10 @@ public class ScheduleMaker {
 
     }
 
+    /**
+     * This method will get the avail and prefer time for each employee from
+     * the file and add to the empList ArrayList.
+     */
     private void getEmployees() {
 
         try {

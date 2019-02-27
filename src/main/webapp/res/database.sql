@@ -7,7 +7,6 @@ USE ScheduleCapstone;
 drop table if exists shift_template;
 drop table if exists day_template;
 drop table if exists notifications;
-drop table if exists scheduled_employees;
 drop table if exists shift;
 drop table if exists days;
 drop table if exists employee_constraints;
@@ -43,24 +42,18 @@ CREATE TABLE Days (
 CREATE TABLE Shift(
                     shift_id int(6) auto_increment,
                     day_id int(4),
+                    emp_id int(4),
                     startTime DATETIME not null,
                     endTime DATETIME not null,
                     shift_name varchar(30) not null,
                     shift_type char(1) not null,
                     active bit not null,
-                    primary key(shift_id,day_id),
-                    FOREIGN KEY (day_id) REFERENCES days(day_id)
+                    primary key(shift_id),
+                    FOREIGN KEY (day_id) REFERENCES days(day_id),
+                    FOREIGN KEY (emp_id) REFERENCES employees(emp_id)
 );
 
-CREATE TABLE Scheduled_Employees(
-                                  emp_id INT(4),
-                                  shift_id INT(6),
-                                  PRIMARY KEY(emp_id,shift_id),
-                                  FOREIGN KEY(emp_id) REFERENCES Employees(emp_id),
-                                  FOREIGN KEY (shift_id) REFERENCES shift(shift_id)
-);
-
-CREATE TABLE notifications (
+CREATE TABLE Notifications (
                              Notif_id INT(5) AUTO_INCREMENT,
                              Sender INT(4) NOT NULL,
                              Recipient INT(4) NOT NULL,
@@ -74,16 +67,16 @@ CREATE TABLE notifications (
 
 CREATE TABLE day_template (
                             day_of_week VARCHAR(10),
-                            open_time   datetime,
-                            close_time  datetime,
+                            open_time   VARCHAR(8),
+                            close_time  VARCHAR(8),
                             PRIMARY KEY(day_of_week)
 );
 
 CREATE TABLE shift_template (
                               shift_id    int(6) auto_increment,
                               day_of_week VARCHAR(10),
-                              start_time  datetime,
-                              end_time    datetime,
+                              start_time  VARCHAR(8),
+                              end_time    VARCHAR(8),
                               min_no_emp  INT(2),
                               max_no_emp  INT(2),
                               PRIMARY KEY(shift_id),

@@ -5,15 +5,22 @@
  */
 package temp;
 
-import org.joda.time.LocalTime;
-
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -23,71 +30,53 @@ import java.util.List;
 @Table(name = "shift")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "Shift.findAll", query = "SELECT s FROM Shift s")
-        , @NamedQuery(name = "Shift.findByShiftIdDayId", query = "SELECT s FROM Shift s WHERE s.shiftPK.shiftId = :shiftId and s.shiftPK.dayId = :dayId")
-        , @NamedQuery(name = "Shift.findByShiftId", query = "SELECT s FROM Shift s WHERE s.shiftPK.shiftId = :shiftId")
-        , @NamedQuery(name = "Shift.findByDayId", query = "SELECT s FROM Shift s WHERE s.shiftPK.dayId = :dayId")
-        , @NamedQuery(name = "Shift.findByStartTime", query = "SELECT s FROM Shift s WHERE s.startTime = :startTime")
-        , @NamedQuery(name = "Shift.findByEndTime", query = "SELECT s FROM Shift s WHERE s.endTime = :endTime")
-        , @NamedQuery(name = "Shift.findByShiftName", query = "SELECT s FROM Shift s WHERE s.shiftName = :shiftName")
-        , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")
-        , @NamedQuery(name = "Shift.findByActive", query = "SELECT s FROM Shift s WHERE s.active = :active")})
+    @NamedQuery(name = "Shift.findAll", query = "SELECT s FROM Shift s")
+    , @NamedQuery(name = "Shift.findByShiftId", query = "SELECT s FROM Shift s WHERE s.shiftId = :shiftId")
+    , @NamedQuery(name = "Shift.findByStartTime", query = "SELECT s FROM Shift s WHERE s.startTime = :startTime")
+    , @NamedQuery(name = "Shift.findByEndTime", query = "SELECT s FROM Shift s WHERE s.endTime = :endTime")
+    , @NamedQuery(name = "Shift.findByShiftName", query = "SELECT s FROM Shift s WHERE s.shiftName = :shiftName")
+    , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")
+    , @NamedQuery(name = "Shift.findByActive", query = "SELECT s FROM Shift s WHERE s.active = :active")})
 public class Shift implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @EmbeddedId
-    protected ShiftPK shiftPK;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "shift_id")
+    private Integer shiftId;
     @Basic(optional = false)
     @Column(name = "startTime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startTime;
-
     @Basic(optional = false)
     @Column(name = "endTime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
-
-    @Transient
-    private LocalTime sTime;
-    @Transient
-    private LocalTime eTime;
-
     @Basic(optional = false)
     @Column(name = "shift_name")
     private String shiftName;
-
     @Basic(optional = false)
     @Column(name = "shift_type")
     private Character shiftType;
-
     @Basic(optional = false)
     @Column(name = "active")
     private boolean active;
-
-    @ManyToMany(mappedBy = "shiftList")
-    private List<Employee> employeesList;
-
-    @JoinColumn(name = "day_id", referencedColumnName = "day_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "day_id", referencedColumnName = "day_id")
+    @ManyToOne
     private Day dayId;
-
-    @Transient
-    private int minimumNumberOfEmployees;
-
-    @Transient
-    private int maximumNumberOfEmployees;
-
-    @Transient
-    private ArrayList<Employee> empList;
+    @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id")
+    @ManyToOne
+    private Employee empId;
 
     public Shift() {
     }
 
-    public Shift(ShiftPK shiftPK, Date startTime, Date endTime, String shiftName, Character shiftType, boolean active) {
+    public Shift(Integer shiftId) {
+        this.shiftId = shiftId;
+    }
 
-        this.shiftPK = shiftPK;
+    public Shift(Integer shiftId, Date startTime, Date endTime, String shiftName, Character shiftType, boolean active) {
+        this.shiftId = shiftId;
         this.startTime = startTime;
         this.endTime = endTime;
         this.shiftName = shiftName;
@@ -95,12 +84,12 @@ public class Shift implements Serializable {
         this.active = active;
     }
 
-    public ShiftPK getShiftPK() {
-        return shiftPK;
+    public Integer getShiftId() {
+        return shiftId;
     }
 
-    public void setShiftPK(ShiftPK shiftPK) {
-        this.shiftPK = shiftPK;
+    public void setShiftId(Integer shiftId) {
+        this.shiftId = shiftId;
     }
 
     public Date getStartTime() {
@@ -143,46 +132,45 @@ public class Shift implements Serializable {
         this.active = active;
     }
 
-    @XmlTransient
-    public List<Employee> getEmployeesList() {
-        return employeesList;
-    }
-
-    public void setEmployeesList(List<Employee> employeesList) {
-        this.employeesList = employeesList;
-    }
-
     public Day getDayId() {
         return dayId;
     }
 
-    public void setDayId(Day days) {
-        this.dayId = days;
+    public void setDayId(Day dayId) {
+        this.dayId = dayId;
     }
 
-    public int getMinimumNumberOfEmployees() {
-        return minimumNumberOfEmployees;
+    public Employee getEmpId() {
+        return empId;
     }
 
-    public void setMinimumNumberOfEmployees(int minimumNumberOfEmployees) {
-        this.minimumNumberOfEmployees = minimumNumberOfEmployees;
+    public void setEmpId(Employee empId) {
+        this.empId = empId;
     }
 
-    public int getMaximumNumberOfEmployees() {
-        return maximumNumberOfEmployees;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (shiftId != null ? shiftId.hashCode() : 0);
+        return hash;
     }
 
-    public void setMaximumNumberOfEmployees(int maximumNumberOfEmployees) {
-        this.maximumNumberOfEmployees = maximumNumberOfEmployees;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Shift)) {
+            return false;
+        }
+        Shift other = (Shift) object;
+        if ((this.shiftId == null && other.shiftId != null) || (this.shiftId != null && !this.shiftId.equals(other.shiftId))) {
+            return false;
+        }
+        return true;
     }
 
-    public ArrayList<Employee> getEmpList() {
-        return empList;
+    @Override
+    public String toString() {
+        return "data.Shift[ shiftId=" + shiftId + " ]";
     }
-
-    public void setEmpList(ArrayList<Employee> empList) {
-        this.empList = empList;
-    }
-
-
+    
 }

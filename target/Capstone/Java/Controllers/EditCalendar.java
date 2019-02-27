@@ -1,20 +1,12 @@
 package Controllers;
 
-import Persistance.DBOperation;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonReader;
-import temp.CalendarDAO;
-import temp.Day;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 @WebServlet(name = "EditCalendar",urlPatterns = "/EditCalendar")
 public class EditCalendar extends HttpServlet {
@@ -29,6 +21,7 @@ public class EditCalendar extends HttpServlet {
             String end = data.get("end").getAsString();
 
             System.out.println(title+","+start+","+end);
+
 
 
     }

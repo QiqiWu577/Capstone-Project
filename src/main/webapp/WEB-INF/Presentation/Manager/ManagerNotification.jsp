@@ -29,7 +29,7 @@
 
         <div class="notification">
             <div class="left">
-                <img src="res/bell.png" height="100" width="100">
+                <img src="images/bell.png" height="100" width="100">
             </div>
             <br />
 

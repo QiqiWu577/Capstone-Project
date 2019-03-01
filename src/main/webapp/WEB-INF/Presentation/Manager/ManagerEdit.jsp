@@ -3,13 +3,13 @@
 
 <head>
     <title>Employee Management</title>
-    <link href="../../../images/employeemgmt.css" rel="stylesheet" type="text/css">
+    <link href="images/employeemgmt.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <div class="sidebar">
     <div class="logo">
-        <img src="res/2030%20logo.png" alt="2030" height="100" width="100">
+        <img src="images/2030.png" alt="2030" height="100" width="100">
     </div>
     <a href="home.html">Home</a>
     <a href="employeemgmt.html">Employee Management</a>

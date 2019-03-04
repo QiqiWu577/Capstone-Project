@@ -19,7 +19,7 @@
 <div class="main">
     <div class="topbar">
         <a href="notifications.html">
-            <img src="res/61073.svg" height="30" width="30">
+            <img src="images/61073.svg" height="30" width="30">
         </a>
     </div>
     <div class="title">
@@ -29,7 +29,7 @@
 
         <div class="notification">
             <div class="left">
-                <img src="res/bell.png" height="100" width="100">
+                <img src="images/bell.png" height="100" width="100">
             </div>
             <br />
 

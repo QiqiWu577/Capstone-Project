@@ -1,3 +1,4 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -31,43 +32,24 @@
             <input type="text" placeholder="Search"><br/>
             <div class="table">
             </div>
-            <table>
-                <tr class="positions-top">
+            <table border='1' style='border-collapse:collapse'>
+                <tr>
                     <th>ID</th>
-                    <th>Name</th>
+                    <th>Last</th>
+                    <th>First</th>
                     <th>Position</th>
                 </tr>
-                <tr class="alt">
-                    <td>001</td>
-                    <td>Dave Johnson</td>
-                    <td>Bartender</td>
-                </tr>
-                <tr class="alt">
-                    <td>002</td>
-                    <td>Mark Smith</td>
-                    <td>Server</td>
-                </tr>
-                <tr class="alt">
-                    <td>003</td>
-                    <td>Ronald McDonald</td>
-                    <td>Kitchen</td>
-                </tr>
-                <tr class="alt">
-                    <td>004</td>
-                    <td>John Smith</td>
-                    <td>Kitchen</td>
-                </tr>
-                <tr class="alt">
-                    <td>005</td>
-                    <td>Mark Wahlberg</td>
-                    <td>Bartender</td>
-                </tr>
-                <tr class="alt">
-                    <td>006</td>
-                    <td>Michael Scott</td>
-                    <td>Kitchen</td>
-                </tr>
+                <c:forEach var="employee" items="${requestScope.employees}">
+                    <tr>
+                        <form action="EmployeeServices" method="GET">
 
+                            <td>${employee.getEmpID()}</td>
+                            <td>${employee.getLastName()}</td>
+                            <td>${employee.getFirstname()}</td>
+                            <td>${employee.getPosition()}</td>
+                        </form>
+                    </tr>
+                </c:forEach>
             </table>
         </div>
         <div class="column" style="background-color:#d8d8d8;">

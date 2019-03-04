@@ -1,9 +1,10 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Employee Management</title>
-    <link href="images/employeemgmt.css" rel="stylesheet" type="text/css">
+    <link href="css/employeemgmt.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -13,7 +14,7 @@
     </div>
     <a href="home.html">Home</a>
     <a href="employeemgmt.html">Employee Management</a>
-    <a href="settings.html">Settings</a>
+    <a href="WEB-INF/Presentation/Manager/ManagerSetting.jsp">Settings</a>
 </div>
 
 <div class="main">
@@ -30,45 +31,66 @@
             <br>
             <input type="text" placeholder="Search"><br/>
             <div class="table">
-            </div>
-            <table>
-                <tr class="positions-top">
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Position</th>
-                </tr>
-                <tr class="alt">
-                    <td>001</td>
-                    <td>Dave Johnson</td>
-                    <td>Bartender</td>
-                </tr>
-                <tr class="alt">
-                    <td>002</td>
-                    <td>Mark Smith</td>
-                    <td>Server</td>
-                </tr>
-                <tr class="alt">
-                    <td>003</td>
-                    <td>Ronald McDonald</td>
-                    <td>Kitchen</td>
-                </tr>
-                <tr class="alt">
-                    <td>004</td>
-                    <td>John Smith</td>
-                    <td>Kitchen</td>
-                </tr>
-                <tr class="alt">
-                    <td>005</td>
-                    <td>Mark Wahlberg</td>
-                    <td>Bartender</td>
-                </tr>
-                <tr class="alt">
-                    <td>006</td>
-                    <td>Michael Scott</td>
-                    <td>Kitchen</td>
-                </tr>
 
-            </table>
+                <table border='1' style='border-collapse:collapse'>
+                    <tr>
+                        <th>ID</th>
+                        <th>Last</th>
+                        <th>First</th>
+                        <th>Position</th>
+                    </tr>
+                    <c:forEach var="employee" items="${requestScope.employees}">
+                        <tr>
+                            <form action="EmployeeServices" method="GET">
+
+                                <td>${employee.getEmpID()}</td>
+                                <td>${employee.getLastName()}</td>
+                                <td>${employee.getFirstname()}</td>
+                                <td>${employee.getPosition()}</td>
+                            </form>
+                        </tr>
+                    </c:forEach>
+                </table>
+
+            </div>
+            <%--<table>--%>
+                <%--<tr class="positions-top">--%>
+                    <%--<th>ID</th>--%>
+                    <%--<th>Name</th>--%>
+                    <%--<th>Position</th>--%>
+                <%--</tr>--%>
+                <%--<tr class="alt">--%>
+                    <%--<td>001</td>--%>
+                    <%--<td>Dave Johnson</td>--%>
+                    <%--<td>Bartender</td>--%>
+                <%--</tr>--%>
+                <%--<tr class="alt">--%>
+                    <%--<td>002</td>--%>
+                    <%--<td>Mark Smith</td>--%>
+                    <%--<td>Server</td>--%>
+                <%--</tr>--%>
+                <%--<tr class="alt">--%>
+                    <%--<td>003</td>--%>
+                    <%--<td>Ronald McDonald</td>--%>
+                    <%--<td>Kitchen</td>--%>
+                <%--</tr>--%>
+                <%--<tr class="alt">--%>
+                    <%--<td>004</td>--%>
+                    <%--<td>John Smith</td>--%>
+                    <%--<td>Kitchen</td>--%>
+                <%--</tr>--%>
+                <%--<tr class="alt">--%>
+                    <%--<td>005</td>--%>
+                    <%--<td>Mark Wahlberg</td>--%>
+                    <%--<td>Bartender</td>--%>
+                <%--</tr>--%>
+                <%--<tr class="alt">--%>
+                    <%--<td>006</td>--%>
+                    <%--<td>Michael Scott</td>--%>
+                    <%--<td>Kitchen</td>--%>
+                <%--</tr>--%>
+
+            <%--</table>--%>
         </div>
         <div class="column" style="background-color:#d8d8d8;">
 

@@ -5,14 +5,18 @@
  */
 package temp;
 
-import org.joda.time.LocalTime;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -24,43 +28,29 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "day_template")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "DayTemplate.findAll", query = "SELECT d FROM DayTemplate d")
-        , @NamedQuery(name = "DayTemplate.findByDayOfWeek", query = "SELECT d FROM DayTemplate d WHERE d.dayOfWeek = :dayOfWeek")
-        , @NamedQuery(name = "DayTemplate.findByOpenTime", query = "SELECT d FROM DayTemplate d WHERE d.openTime = :openTime")
-        , @NamedQuery(name = "DayTemplate.findByCloseTime", query = "SELECT d FROM DayTemplate d WHERE d.closeTime = :closeTime")})
+    @NamedQuery(name = "DayTemplate.findAll", query = "SELECT d FROM DayTemplate d")
+    , @NamedQuery(name = "DayTemplate.findByDayOfWeek", query = "SELECT d FROM DayTemplate d WHERE d.dayOfWeek = :dayOfWeek")
+    , @NamedQuery(name = "DayTemplate.findByOpenTime", query = "SELECT d FROM DayTemplate d WHERE d.openTime = :openTime")
+    , @NamedQuery(name = "DayTemplate.findByCloseTime", query = "SELECT d FROM DayTemplate d WHERE d.closeTime = :closeTime")})
 public class DayTemplate implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "day_of_week")
     private String dayOfWeek;
-
     @Column(name = "open_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date openTime;
-
+    private String openTime;
     @Column(name = "close_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date closeTime;
-
-    @Transient
-    private LocalTime oTime;
-    @Transient
-    private LocalTime cTime;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "dayOfWeek")
+    private String closeTime;
+    @OneToMany(mappedBy = "dayOfWeek")
     private List<ShiftTemplate> shiftTemplateList;
 
-
     public DayTemplate() {
+        shiftTemplateList = new ArrayList<ShiftTemplate>();
     }
 
-    //used to store the datatime into the database
-    public DayTemplate(String dayOfWeek, LocalDateTime openTime, LocalDateTime closeTime) {
-
+    public DayTemplate(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
-        this.openTime = Date.from(openTime.atZone(ZoneId.systemDefault()).toInstant());
-        this.closeTime = Date.from(closeTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public String getDayOfWeek() {
@@ -71,24 +61,24 @@ public class DayTemplate implements Serializable {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public Date getOpenTime() {
+    public String getOpenTime() {
         return openTime;
     }
 
-    public void setOpenTime(Date openTime) {
+    public void setOpenTime(String openTime) {
         this.openTime = openTime;
     }
 
-    public Date getCloseTime() {
+    public String getCloseTime() {
         return closeTime;
     }
 
-    public void setCloseTime(Date closeTime) {
+    public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
     }
 
     @XmlTransient
-    public List<ShiftTemplate> getShiftTemplateList() {
+    public Collection<ShiftTemplate> getShiftTemplateList() {
         return shiftTemplateList;
     }
 
@@ -116,4 +106,9 @@ public class DayTemplate implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "data.DayTemplate[ dayOfWeek=" + dayOfWeek + " ]";
+    }
+    
 }

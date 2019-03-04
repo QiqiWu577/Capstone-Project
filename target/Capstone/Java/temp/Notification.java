@@ -5,11 +5,21 @@
  */
 package temp;
 
-import org.joda.time.LocalDateTime;
-
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -20,13 +30,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "notifications")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "Notifications.findAll", query = "SELECT n FROM Notification n")
-        , @NamedQuery(name = "Notifications.findByNotifid", query = "SELECT n FROM Notification n WHERE n.notifid = :notifid")
-        , @NamedQuery(name = "Notifications.findByRecipient", query = "SELECT n FROM Notification n WHERE n.recipient = :recipient")
-        , @NamedQuery(name = "Notifications.findByContent", query = "SELECT n FROM Notification n WHERE n.content = :content")
-        , @NamedQuery(name = "Notifications.findByDate", query = "SELECT n FROM Notification n WHERE n.date = :date")
-        , @NamedQuery(name = "Notifications.findByNotiftype", query = "SELECT n FROM Notification n WHERE n.notiftype = :notiftype")
-        , @NamedQuery(name = "Notifications.findByStatus", query = "SELECT n FROM Notification n WHERE n.status = :status")})
+    @NamedQuery(name = "Notification.findAll", query = "SELECT n FROM Notification n")
+    , @NamedQuery(name = "Notification.findByNotifid", query = "SELECT n FROM Notification n WHERE n.notifid = :notifid")
+    , @NamedQuery(name = "Notification.findByRecipient", query = "SELECT n FROM Notification n WHERE n.recipient = :recipient")
+    , @NamedQuery(name = "Notification.findByContent", query = "SELECT n FROM Notification n WHERE n.content = :content")
+    , @NamedQuery(name = "Notification.findByDate", query = "SELECT n FROM Notification n WHERE n.date = :date")
+    , @NamedQuery(name = "Notification.findByNotiftype", query = "SELECT n FROM Notification n WHERE n.notiftype = :notiftype")
+    , @NamedQuery(name = "Notification.findByStatus", query = "SELECT n FROM Notification n WHERE n.status = :status")})
 public class Notification implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,30 +44,21 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Notif_id")
     private Integer notifid;
-
     @Basic(optional = false)
     @Column(name = "Recipient")
     private int recipient;
-
     @Column(name = "Content")
     private String content;
-
     @Basic(optional = false)
     @Column(name = "Date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
-
-    @Transient
-    private LocalDateTime sendTime;
-
     @Basic(optional = false)
     @Column(name = "Notif_type")
     private Character notiftype;
-
     @Basic(optional = false)
     @Column(name = "Status")
     private Character status;
-
     @JoinColumn(name = "Sender", referencedColumnName = "Emp_id")
     @ManyToOne(optional = false)
     private Employee sender;
@@ -69,11 +70,10 @@ public class Notification implements Serializable {
         this.notifid = notifid;
     }
 
-    public Notification(int recipient, Date date, String content, Character notiftype, Character status) {
-
+    public Notification(Integer notifid, int recipient, Date date, Character notiftype, Character status) {
+        this.notifid = notifid;
         this.recipient = recipient;
         this.date = date;
-        this.content = content;
         this.notiftype = notiftype;
         this.status = status;
     }
@@ -154,4 +154,9 @@ public class Notification implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "data.Notification[ notifid=" + notifid + " ]";
+    }
+    
 }

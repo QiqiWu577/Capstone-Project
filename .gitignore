@@ -7,3 +7,4 @@ Capstone.iml
 out/artifacts/Capstone/index.jsp
 out/artifacts/Capstone/WEB-INF/classes/Controllers/AdminServices.class
 out/artifacts/Capstone/WEB-INF/classes/Controllers/AppDriver.class
+*.class

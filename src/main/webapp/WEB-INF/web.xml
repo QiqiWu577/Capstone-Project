@@ -18,7 +18,11 @@
   </resource-ref>
   
   <welcome-file-list>
+<<<<<<< HEAD
     <welcome-file>/WEB-INF/Presentation/Manager/EmployeeManagement.jsp</welcome-file>
+=======
+    <welcome-file>/WEB-INF/Presentation/Admin/ChangePassword.jsp</welcome-file>
+>>>>>>> c767a165110ea827a4a484671b10156033b0c683
   </welcome-file-list>
 
 </web-app>

@@ -5,13 +5,18 @@
  */
 package temp;
 
-import org.joda.time.LocalTime;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -22,40 +27,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "shift_template")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "ShiftTemplate.findAll", query = "SELECT s FROM ShiftTemplate s")
-        , @NamedQuery(name = "ShiftTemplate.findByShiftId", query = "SELECT s FROM ShiftTemplate s WHERE s.shiftId = :shiftId")
-        , @NamedQuery(name = "ShiftTemplate.findByStartTime", query = "SELECT s FROM ShiftTemplate s WHERE s.startTime = :startTime")
-        , @NamedQuery(name = "ShiftTemplate.findByEndTime", query = "SELECT s FROM ShiftTemplate s WHERE s.endTime = :endTime")
-        , @NamedQuery(name = "ShiftTemplate.findByMinNoEmp", query = "SELECT s FROM ShiftTemplate s WHERE s.minNoEmp = :minNoEmp")
-        , @NamedQuery(name = "ShiftTemplate.findByMaxNoEmp", query = "SELECT s FROM ShiftTemplate s WHERE s.maxNoEmp = :maxNoEmp")})
+    @NamedQuery(name = "ShiftTemplate.findAll", query = "SELECT s FROM ShiftTemplate s")
+    , @NamedQuery(name = "ShiftTemplate.findByShiftId", query = "SELECT s FROM ShiftTemplate s WHERE s.shiftId = :shiftId")
+    , @NamedQuery(name = "ShiftTemplate.findByStartTime", query = "SELECT s FROM ShiftTemplate s WHERE s.startTime = :startTime")
+    , @NamedQuery(name = "ShiftTemplate.findByEndTime", query = "SELECT s FROM ShiftTemplate s WHERE s.endTime = :endTime")
+    , @NamedQuery(name = "ShiftTemplate.findByMinNoEmp", query = "SELECT s FROM ShiftTemplate s WHERE s.minNoEmp = :minNoEmp")
+    , @NamedQuery(name = "ShiftTemplate.findByMaxNoEmp", query = "SELECT s FROM ShiftTemplate s WHERE s.maxNoEmp = :maxNoEmp")})
 public class ShiftTemplate implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shift_id")
     private Integer shiftId;
-
     @Column(name = "start_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date startTime;
-
+    private String startTime;
     @Column(name = "end_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date endTime;
-
-    @Transient
-    private LocalTime sTime;
-    @Transient
-    private LocalTime eTime;
-
+    private String endTime;
     @Column(name = "min_no_emp")
     private Integer minNoEmp;
-
     @Column(name = "max_no_emp")
     private Integer maxNoEmp;
-
     @JoinColumn(name = "day_of_week", referencedColumnName = "day_of_week")
     @ManyToOne
     private DayTemplate dayOfWeek;
@@ -63,10 +55,8 @@ public class ShiftTemplate implements Serializable {
     public ShiftTemplate() {
     }
 
-    public ShiftTemplate(LocalDateTime openTime, LocalDateTime closeTime) {
-
-        this.startTime = Date.from(openTime.atZone(ZoneId.systemDefault()).toInstant());
-        this.endTime = Date.from(closeTime.atZone(ZoneId.systemDefault()).toInstant());
+    public ShiftTemplate(Integer shiftId) {
+        this.shiftId = shiftId;
     }
 
     public Integer getShiftId() {
@@ -77,19 +67,19 @@ public class ShiftTemplate implements Serializable {
         this.shiftId = shiftId;
     }
 
-    public Date getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
@@ -137,4 +127,9 @@ public class ShiftTemplate implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "data.ShiftTemplate[ shiftId=" + shiftId + " ]";
+    }
+    
 }

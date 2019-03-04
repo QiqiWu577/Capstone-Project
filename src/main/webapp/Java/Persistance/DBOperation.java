@@ -5,8 +5,7 @@ import Model.Employee;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.joda.time.LocalDateTime;
-import temp.Day;
-import test.Temp;
+
 
 import java.util.ArrayList;
 
@@ -30,6 +29,12 @@ public class DBOperation {
 
 
     public ArrayList<Employee> getEmployees() {
+        ArrayList<Employee> empList = new ArrayList<>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.
+
+
+        session.close();
 
     }
 

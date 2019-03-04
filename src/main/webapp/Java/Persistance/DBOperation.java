@@ -3,10 +3,7 @@ package Persistance;
 
 import org.hibernate.Session;
 import temp.Day;
-<<<<<<< HEAD
-//import test.Temp;
-=======
->>>>>>> c767a165110ea827a4a484671b10156033b0c683
+
 
 import java.time.LocalDateTime;
 
@@ -26,5 +23,7 @@ public class DBOperation {
         session.getTransaction().commit();
         session.close();
     }
+
+
 
 }

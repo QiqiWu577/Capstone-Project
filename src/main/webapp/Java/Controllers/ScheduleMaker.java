@@ -1,12 +1,12 @@
 package Controllers;
 import Model.*;
-import org.joda.time.LocalDateTime;
-import org.joda.time.LocalTime;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.*;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -90,13 +90,18 @@ public class ScheduleMaker {
 
             schedule = new ArrayList<>();
 
+            LocalDateTime ldt = getPeriod();
+
+
             for (String day : days) {
 
                 boolean redoDay = true;
                 int dayCount = 0;
                 boolean noPref = false;
 
-
+                if(ldt.getDayOfWeek() != DayOfWeek.MONDAY) {
+                    ldt.plusDays(1);
+                }
 
 
                     //gets all the employees availability for a given day
@@ -104,11 +109,21 @@ public class ScheduleMaker {
                     //gets the day and makes a day object with the opening and closing time
                     DayTemplate template = getDayTemplate(day);
                     Day today = new Day();
-                    today.setOpenTime(LocalDateTime.now().withTime(template.getOpenTime().getHourOfDay(), template.getOpenTime().getMinuteOfHour(),
-                            template.getOpenTime().getSecondOfMinute(), template.getOpenTime().getMillisOfSecond()));
-                    today.setCloseTime(LocalDateTime.now().withTime(template.getCloseTime().getHourOfDay(), template.getCloseTime().getMinuteOfHour(),
-                            template.getCloseTime().getSecondOfMinute(), template.getCloseTime().getMillisOfSecond()));
 
+                    int hours = parseHours(template.getOpenTime());
+                    int minutes = parseMinutes(template.getOpenTime());
+                    LocalDateTime temp = ldt.withHour(hours);
+                    LocalDateTime openTime = temp.withMinute(minutes);
+
+                    today.setStartTime(openTime);
+
+                    hours = parseHours(template.getCloseTime());
+                    minutes = parseMinutes(template.getCloseTime());
+
+                    LocalDateTime mintemp = ldt.withHour(hours);
+                    LocalDateTime closeTime = mintemp.withMinute(minutes);
+
+                    today.setEndTime(closeTime);
                     //gets the shift templates from the day
                     ArrayList<ShiftTemplate> shiftList = template.getShiftList();
 
@@ -151,8 +166,8 @@ public class ScheduleMaker {
 
                             //gives the hour of the day as an int in 24 hour format eg. 11 for 11am
 
-                            int startHour = shiftTemplate.getStartTime().getHourOfDay();
-                            int endHour = shiftTemplate.getEndTime().getHourOfDay();
+                            int startHour = parseHours(shiftTemplate.getStartTime());
+                            int endHour = parseHours(shiftTemplate.getEndTime());
 
                             //holds the employees availability and preferences for the day
                             boolean[] currentEmpAvail = null;
@@ -273,6 +288,25 @@ public class ScheduleMaker {
         }
         return schedule;
 
+    }
+
+    private int parseHours(String time) {
+
+        String[] hm = time.split(":");
+        int hour = Integer.parseInt(hm[0]);
+        return hour;
+    }
+
+    private int parseMinutes(String time) {
+
+        String[] hm = time.split(":");
+        int minutes = Integer.parseInt(hm[1]);
+        return minutes;
+    }
+
+    private LocalDateTime getPeriod() {
+        LocalDateTime ldt = new LocalDateTime(TemporalAdjusters.next(DayOfWeek.MONDAY));
+        return ldt;
     }
 
     private void printArrays() {

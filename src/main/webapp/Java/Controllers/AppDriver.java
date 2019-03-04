@@ -1,6 +1,6 @@
 package Controllers;
 
-import Model.Day;
+import Old.Day;
 
 import java.util.ArrayList;
 

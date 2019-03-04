@@ -1,11 +1,19 @@
 package Persistance;
 
 
+import Model.Employee;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.joda.time.LocalDateTime;
 import temp.Day;
+<<<<<<< HEAD
 
+=======
+import test.Temp;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+>>>>>>> f4119cc08143d1426368a1693aaffeb99126ba04
+
 
 public class DBOperation {
 
@@ -25,5 +33,16 @@ public class DBOperation {
     }
 
 
+<<<<<<< HEAD
+=======
+    public ArrayList<Employee> getEmployees() {
+
+    }
+
+    public ArrayList<Day> getSchedule() {
+
+
+    }
+>>>>>>> f4119cc08143d1426368a1693aaffeb99126ba04
 
 }

@@ -1,12 +1,17 @@
-<!DOCTYPE html>
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2019-01-22
+  Time: 5:59 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-
 <head>
-    <title>Notifications</title>
-    <link href="notifications.css" rel="stylesheet" type="text/css">
+    <title>Title</title>
 </head>
-
 <body>
+<<<<<<< HEAD
 <div class="sidebar">
     <div class="logo">
         <img src="res/2030%20logo.png" alt="2030" height="100" width="100">
@@ -45,7 +50,8 @@
     </div>
 
 </div>
+=======
+>>>>>>> bc0ee6d35042de5e48b2937a844e9c87ddc20214
 
 </body>
-
 </html>

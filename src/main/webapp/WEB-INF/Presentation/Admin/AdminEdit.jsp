@@ -1,13 +1,22 @@
+<<<<<<< HEAD
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+=======
+<%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2019-01-22
+  Time: 3:48 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+>>>>>>> bc0ee6d35042de5e48b2937a844e9c87ddc20214
 <html>
-
 <head>
-    <title>Employee Management</title>
-    <link href="images/employeemgmt.css" rel="stylesheet" type="text/css">
+    <title>Title</title>
 </head>
-
 <body>
+<<<<<<< HEAD
 <div class="sidebar">
     <div class="logo">
         <img src="images/2030.png" alt="2030" height="100" width="100">
@@ -298,7 +307,8 @@
         </div>
     </div>
 </div>
+=======
+>>>>>>> bc0ee6d35042de5e48b2937a844e9c87ddc20214
 
 </body>
-
 </html>

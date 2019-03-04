@@ -41,8 +41,8 @@ entity class from database
 
 
 mainly use localdate or localdatetime
-retrieve data: sql.Date to localdate
-save data: string to sql.Date?
+retrieve data: util.Date to localdate
+save data: string to util.Date?
 
 mysql does not support localdate
 1.use localdate, but firstly store the date value into string and then parse

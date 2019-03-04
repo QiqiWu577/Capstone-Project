@@ -1,10 +1,14 @@
 package Persistance;
 
 
+import Model.Employee;
 import org.hibernate.Session;
-import temp.Day;
+import org.hibernate.Transaction;
+import org.joda.time.LocalDateTime;
 
-import java.time.LocalDateTime;
+
+import java.util.ArrayList;
+
 
 public class DBOperation {
 
@@ -21,6 +25,22 @@ public class DBOperation {
         session.save(new Day(dt1,dt2));
         session.getTransaction().commit();
         session.close();
+    }
+
+
+    public ArrayList<Employee> getEmployees() {
+        ArrayList<Employee> empList = new ArrayList<>();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.
+
+
+        session.close();
+
+    }
+
+    public ArrayList<Day> getSchedule() {
+
+
     }
 
 }

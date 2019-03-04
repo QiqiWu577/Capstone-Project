@@ -18,7 +18,11 @@
   </resource-ref>
   
   <welcome-file-list>
+<<<<<<< HEAD
+    <welcome-file>/WEB-INF/Presentation/Manager/ManagerListEmail.jsp</welcome-file>
+=======
     <welcome-file>test/ManagerSchedule.jsp</welcome-file>
+>>>>>>> bc0ee6d35042de5e48b2937a844e9c87ddc20214
   </welcome-file-list>
 
 </web-app>

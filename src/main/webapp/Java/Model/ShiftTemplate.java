@@ -1,132 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Model;
 
 import org.joda.time.LocalTime;
 
-import java.io.Serializable;
-import javax.persistence.*;
-import javax.xml.bind.annotation.XmlRootElement;
+public class ShiftTemplate {
 
-/**
- *
- * @author Administrator
- */
-@Entity
-@Table(name = "shift_template")
-@XmlRootElement
-@NamedQueries({
-        @NamedQuery(name = "ShiftTemplate.findAll", query = "SELECT s FROM ShiftTemplate s")
-        , @NamedQuery(name = "ShiftTemplate.findByShiftId", query = "SELECT s FROM ShiftTemplate s WHERE s.shiftId = :shiftId")
-        , @NamedQuery(name = "ShiftTemplate.findByStartTime", query = "SELECT s FROM ShiftTemplate s WHERE s.startTime = :startTime")
-        , @NamedQuery(name = "ShiftTemplate.findByEndTime", query = "SELECT s FROM ShiftTemplate s WHERE s.endTime = :endTime")
-        , @NamedQuery(name = "ShiftTemplate.findByMinNoEmp", query = "SELECT s FROM ShiftTemplate s WHERE s.minNoEmp = :minNoEmp")
-        , @NamedQuery(name = "ShiftTemplate.findByMaxNoEmp", query = "SELECT s FROM ShiftTemplate s WHERE s.maxNoEmp = :maxNoEmp")})
-public class ShiftTemplate implements Serializable {
+    private int shiftId;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    private int minimumEmployees;
+    private int maximumEmployees;
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "shift_id")
-    private Integer shiftId;
-
-    @Column(name = "start_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private String startTime;
-
-    @Column(name = "end_time")
-    @Temporal(TemporalType.TIMESTAMP)
-    private String endTime;
-
-    @Column(name = "min_no_emp")
-    private Integer minNoEmp;
-
-    @Column(name = "max_no_emp")
-    private Integer maxNoEmp;
-
-    @JoinColumn(name = "day_of_week", referencedColumnName = "day_of_week")
-    @ManyToOne
-    private DayTemplate dayOfWeek;
-
-    public ShiftTemplate() {
+    public ShiftTemplate(int shiftId, LocalTime startTime, LocalTime endTime, int minimumEmployees, int maximumEmployeess) {
+        this.shiftId = shiftId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.minimumEmployees = minimumEmployees;
+        this.maximumEmployees = maximumEmployeess;
     }
 
-    public ShiftTemplate(String openTime, String closeTime) {
-
-        this.startTime = openTime;
-        this.endTime = closeTime;
-    }
-
-    public Integer getShiftId() {
+    public int getShiftId() {
         return shiftId;
     }
 
-    public void setShiftId(Integer shiftId) {
+    public void setShiftId(int shiftId) {
         this.shiftId = shiftId;
     }
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
-    public Integer getMinNoEmp() {
-        return minNoEmp;
+    public int getMinimumEmployees() {
+        return minimumEmployees;
     }
 
-    public void setMinNoEmp(Integer minNoEmp) {
-        this.minNoEmp = minNoEmp;
+    public void setMinimumEmployees(int minimumEmployees) {
+        this.minimumEmployees = minimumEmployees;
     }
-
-    public Integer getMaxNoEmp() {
-        return maxNoEmp;
-    }
-
-    public void setMaxNoEmp(Integer maxNoEmp) {
-        this.maxNoEmp = maxNoEmp;
-    }
-
-    public DayTemplate getDayOfWeek() {
-        return dayOfWeek;
-    }
-
-    public void setDayOfWeek(DayTemplate dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (shiftId != null ? shiftId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ShiftTemplate)) {
-            return false;
-        }
-        ShiftTemplate other = (ShiftTemplate) object;
-        if ((this.shiftId == null && other.shiftId != null) || (this.shiftId != null && !this.shiftId.equals(other.shiftId))) {
-            return false;
-        }
-        return true;
-    }
-
+    public int getMaximumEmployees() {return maximumEmployees;}
 }

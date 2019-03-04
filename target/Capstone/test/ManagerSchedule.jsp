@@ -33,23 +33,23 @@
 
     <!-- fullcalendar' jquery theme -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <link href="https://code.jquery.com/ui/1.12.1/themes/hot-sneaks/jquery-ui.css" rel="stylesheet" />
+    <link href="https://code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css" rel="stylesheet" />
 
     <style>
 
         body {
             margin: 40px 10px;
             padding: 0;
+            overflow: hidden;
         }
 
         #calendar {
             max-width: 900px;
             margin: 0 auto;
-        }
 
+        }
     </style>
 </head>
-<body class="body-2">
 
 <!--Left side Menu -->
 <div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">

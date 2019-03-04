@@ -63,7 +63,7 @@
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  overflow: visible;
+  overflow: auto;
   margin-top: 0px;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -448,7 +448,6 @@
   overflow: visible;
   min-height: 100vh;
   padding-top: 25px;
-  border-bottom: 85% none #000;
   background-image: none;
 }
 

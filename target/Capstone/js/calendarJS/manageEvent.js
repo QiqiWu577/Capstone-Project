@@ -23,13 +23,15 @@ $(document).ready(function() {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
+        height: 550,
+        contentHeight: 'auto',
+        handleWindowResize: true,
         navLinks: true,
         editable: true,
         eventLimit: true,
         themeSystem: 'jquery-ui',
         selectable: true,
         allDaySlot: false,
-
         events:  'ShowCalendar',
 
         select: function(start,end,jsEvent,view){

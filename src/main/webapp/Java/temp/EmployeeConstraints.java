@@ -25,9 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "employee_constraints")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EmployeeConstraint.findAll", query = "SELECT e FROM EmployeeConstraints e")
-    , @NamedQuery(name = "EmployeeConstraint.findByEmpId", query = "SELECT e FROM EmployeeConstraints e WHERE e.empId = :empId")
-    , @NamedQuery(name = "EmployeeConstraint.findByConstraints", query = "SELECT e FROM EmployeeConstraints e WHERE e.constraints = :constraints")})
+    @NamedQuery(name = "EmployeeConstraints.findAll", query = "SELECT e FROM EmployeeConstraints e")
+    , @NamedQuery(name = "EmployeeConstraints.findByEmpId", query = "SELECT e FROM EmployeeConstraints e WHERE e.empId = :empId")
+    , @NamedQuery(name = "EmployeeConstraints.findByConstraints", query = "SELECT e FROM EmployeeConstraints e WHERE e.constraints = :constraints")})
 public class EmployeeConstraints implements Serializable {
 
     private static final long serialVersionUID = 1L;

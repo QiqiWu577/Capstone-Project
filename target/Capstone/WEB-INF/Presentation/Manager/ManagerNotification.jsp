@@ -23,11 +23,29 @@
     <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 </head>
+<<<<<<< HEAD
+
+<body>
+<div class="sidebar">
+    <div class="logo">
+        <img src="images/2030.png" alt="2030" height="100" width="100">
+    </div>
+    <a href="home.html">Home</a>
+    <a href="employeemgmt.html">Employee Management</a>
+    <a href="settings.html">Settings</a>
+</div>
+
+<div class="main">
+    <div class="topbar">
+        <a href="notifications.html">
+            <img src="images/61073.svg" height="30" width="30">
+=======
 <body class="body-2">
 <div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
     <div class="container-3 w-container">
         <a href="#" class="brand w-nav-brand">
             <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
+>>>>>>> bc0ee6d35042de5e48b2937a844e9c87ddc20214
         </a>
         <nav role="navigation" class="w-nav-menu"><a href="#" class="nav-links w-nav-link">Employee Management</a><a href="#" class="nav-links selected w-nav-link">Notifications</a><a href="#" class="nav-links w-nav-link">Settings</a></nav>
         <div class="menu-button w-nav-button"><img src="images/Hamburger_icon.svg.png" alt="" class="image-3"></div>

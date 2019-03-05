@@ -1,3 +1,21 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="images/settings.css" rel="stylesheet" type="text/css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <title>Settings</title>
+    </head>
+
+<body>
+<div class="sidebar">
+    <div class="logo">
+        <img src="images/2030.png" alt="2030" height="100" width="100">
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -297,6 +315,28 @@
             </div>
             <div data-w-tab="Tab 2" class="w-tab-pane"></div>
             <div data-w-tab="Tab 3" class="w-tab-pane"></div>
+        </div>
+    </div>
+    <div name="shifts">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#front">Front End</a></li>
+            <li><a data-toggle="tab" href="#bar">Bar</a></li>
+            <li><a data-toggle="tab" href="#kitchen">Kitchen</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="front" class="tab-pane fade in active">
+                <h3>Front End</h3>
+                <p>table here</p>
+            </div>
+            <div id="bar" class="tab-pane fade">
+                <h3>Bar</h3>
+                <p>Some content in menu 1.</p>
+            </div>
+            <div id="kitchen" class="tab-pane fade">
+                <h3>Kitchen</h3>
+                <p>Some content in menu 2.</p>
+            </div>
         </div>
     </div>
 </div>

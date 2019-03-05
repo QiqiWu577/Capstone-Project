@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class DBOperation {
         LocalDateTime dt2 = LocalDateTime.parse( input2 ) ;
 
         session.beginTransaction();
-        session.save(new Day(dt1,dt2));
+        //session.save(new Day(dt1,dt2));
         session.getTransaction().commit();
         session.close();
     }
@@ -123,6 +124,7 @@ public class DBOperation {
         return schedule;
 
 
+        return null;
     }
 
 }

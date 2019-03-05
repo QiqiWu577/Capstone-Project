@@ -12,7 +12,7 @@ $(document).ready(function() {
             type: "POST",
             url: 'EditCalendar',
             contentType: "application/json",
-            data: JSON.stringify(data),
+            data: JSON.stringify(data)
         });
 
     }

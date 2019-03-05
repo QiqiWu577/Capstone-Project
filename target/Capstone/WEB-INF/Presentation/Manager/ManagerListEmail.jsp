@@ -1,15 +1,16 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Home</title>
-    <link href="home.css" rel="stylesheet" type="text/css">
+    <link href="css/home.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <div class="sidebar">
     <div class="logo">
-        <img src="/res/2030.png" alt="2030" height="100" width="100">
+        <img src="images/2030.png" alt="2030" height="100" width="100">
     </div>
     <a href="#">Home</a>
     <a href="#">Employees</a>
@@ -22,36 +23,32 @@
 
     <div class="row">
         <div class="column" style="background-color:#aaa;">
-            <input type="text" value="Search"><br/>
+            <input type="text" placeholder="Search"><br/>
             <div class="table">
+
+                <table border='1' style='border-collapse:collapse'>
+                    <tr>
+                        <th>Last</th>
+                        <th>First</th>
+                        <th>Email</th>
+                        <th></th>
+                    </tr>
+                    <c:forEach var="employee" items="${requestScope.employees}">
+                        <tr>
+                            <form action="EmployeeServices" method="GET">
+
+                                <td>${employee.getLastName()}</td>
+                                <td>${employee.getFirstname()}</td>
+                                <td>${employee.getEmail()}</td>
+                                <td><input type="submit" value="Message"class='btn'></td>
+                                <%--<a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Send Mail</a>--%>
+                            </form>
+                        </tr>
+                    </c:forEach>
+                </table>
+
             </div>
 
-        </div>
-        <div class="column" style="background-color:#bbb;">
-            <div class="row">
-                <div class="column" style="background-color:#bbb;">
-                    <label for="id">ID</label><br/>
-                    <input type="text" id="id"><br/>
-                    <label for="fname">First Name</label>
-                    <input type="text" placeholder="John" id="fname"><br/>
-                    <label for="lname">Last Name</label>
-                    <input type="text" placeholder="Doe" id="lname"><br/>
-                    <label for="position">Position</label><br/>
-                    <select id="position">
-                        <option value="Bartender">Bartender</option>
-                        <option value="Server">Server</option>
-                        <option value="Kitchen">Kitchen</option>
-                    </select>
-                </div>
-                <div class="column" style="background-color:#bbb;">
-                    <label for="email">Email Address</label><br/>
-                    <input type="text" id="email"><br/>
-                    <label for="address">Address</label><br/>
-                    <input type="text" id="address"><br/>
-                    <label for="phone">Phone Number</label><br/>
-                    <input type="text" id="phone"><br/>
-                </div>
-            </div>
         </div>
     </div>
 </div>

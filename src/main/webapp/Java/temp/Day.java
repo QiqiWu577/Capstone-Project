@@ -6,10 +6,6 @@
 package temp;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -58,17 +54,16 @@ public class Day implements Serializable {
     private List<Shift> shiftList;
 
     public Day() {
-        shiftList = new ArrayList<Shift>();
     }
 
     public Day(Integer dayId) {
         this.dayId = dayId;
     }
 
-    public Day(LocalDateTime startTime, LocalDateTime endTime) {
-
-        this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
-        this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
+    public Day(Integer dayId, Date startTime, Date endTime) {
+        this.dayId = dayId;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public Integer getDayId() {
@@ -96,11 +91,11 @@ public class Day implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Shift> getShiftList() {
+    public List<Shift> getShiftList() {
         return shiftList;
     }
 
-    public void setShiftList(ArrayList<Shift> shiftList) {
+    public void setShiftList(List<Shift> shiftList) {
         this.shiftList = shiftList;
     }
 

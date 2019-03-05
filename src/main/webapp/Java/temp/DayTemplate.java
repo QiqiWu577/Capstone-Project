@@ -6,8 +6,6 @@
 package temp;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -46,7 +44,6 @@ public class DayTemplate implements Serializable {
     private List<ShiftTemplate> shiftTemplateList;
 
     public DayTemplate() {
-        shiftTemplateList = new ArrayList<ShiftTemplate>();
     }
 
     public DayTemplate(String dayOfWeek) {
@@ -78,7 +75,7 @@ public class DayTemplate implements Serializable {
     }
 
     @XmlTransient
-    public Collection<ShiftTemplate> getShiftTemplateList() {
+    public List<ShiftTemplate> getShiftTemplateList() {
         return shiftTemplateList;
     }
 

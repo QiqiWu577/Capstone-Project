@@ -97,12 +97,12 @@ public class ScheduleMaker {
 
 
 
+                    //gets all the employees availability for a given day
+                    //System.out.println(availList.size() + " " + prefList.size());
+                    //gets the day and makes a day object with the opening and closing time
+                    DayTemplate template = getDayTemplate(day);
+                    Day today = new Day();
 
-                //gets all the employees availability for a given day
-                //System.out.println(availList.size() + " " + prefList.size());
-                //gets the day and makes a day object with the opening and closing time
-                DayTemplate template = getDayTemplate(day);
-                Day today = new Day();
 
                 String[] split = template.getOpenTime().split(":");
 

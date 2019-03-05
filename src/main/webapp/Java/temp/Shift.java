@@ -7,6 +7,7 @@ package temp;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,9 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Shift.findByShiftId", query = "SELECT s FROM Shift s WHERE s.shiftId = :shiftId")
     , @NamedQuery(name = "Shift.findByStartTime", query = "SELECT s FROM Shift s WHERE s.startTime = :startTime")
     , @NamedQuery(name = "Shift.findByEndTime", query = "SELECT s FROM Shift s WHERE s.endTime = :endTime")
-    , @NamedQuery(name = "Shift.findByShiftName", query = "SELECT s FROM Shift s WHERE s.shiftName = :shiftName")
-    , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")
-    , @NamedQuery(name = "Shift.findByActive", query = "SELECT s FROM Shift s WHERE s.active = :active")})
+    , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")})
 public class Shift implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,20 +54,13 @@ public class Shift implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
     @Basic(optional = false)
-    @Column(name = "shift_name")
-    private String shiftName;
-    @Basic(optional = false)
     @Column(name = "shift_type")
     private Character shiftType;
-    @Basic(optional = false)
-    @Column(name = "active")
-    private boolean active;
+    @ManyToMany(mappedBy = "shiftList")
+    private List<Employee> employeeList;
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
     @ManyToOne
     private Day dayId;
-    @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id")
-    @ManyToOne
-    private Employee empId;
 
     public Shift() {
     }
@@ -75,13 +69,11 @@ public class Shift implements Serializable {
         this.shiftId = shiftId;
     }
 
-    public Shift(Integer shiftId, Date startTime, Date endTime, String shiftName, Character shiftType, boolean active) {
+    public Shift(Integer shiftId, Date startTime, Date endTime, Character shiftType) {
         this.shiftId = shiftId;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.shiftName = shiftName;
         this.shiftType = shiftType;
-        this.active = active;
     }
 
     public Integer getShiftId() {
@@ -108,14 +100,6 @@ public class Shift implements Serializable {
         this.endTime = endTime;
     }
 
-    public String getShiftName() {
-        return shiftName;
-    }
-
-    public void setShiftName(String shiftName) {
-        this.shiftName = shiftName;
-    }
-
     public Character getShiftType() {
         return shiftType;
     }
@@ -124,12 +108,13 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
     }
 
-    public boolean getActive() {
-        return active;
+    @XmlTransient
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
     public Day getDayId() {
@@ -138,14 +123,6 @@ public class Shift implements Serializable {
 
     public void setDayId(Day dayId) {
         this.dayId = dayId;
-    }
-
-    public Employee getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(Employee empId) {
-        this.empId = empId;
     }
 
     @Override

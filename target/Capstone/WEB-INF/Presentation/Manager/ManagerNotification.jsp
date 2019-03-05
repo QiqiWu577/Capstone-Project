@@ -55,26 +55,10 @@
     <div class="w-container">
         <h1 class="heading">Notifications</h1>
     </div>
-<<<<<<< HEAD
-    <div class="column" style="width:100%">
-
-        <div class="notification">
-            <div class="left">
-                <img src="images/bell.png" height="100" width="100">
-            </div>
-            <br />
-
-            <strong>Notification Title</strong>
-            <p>This is the description for the notification.</p>
-
-            <div class="btngrp">
-                <input type="button" value="Dismiss" class="btns">
-=======
     <div class="div-block-10">
         <div class="columns-3 w-row">
             <div class="column-5 w-col w-col-2">
                 <div><img src="images/swap-62-457876.png" alt=""></div>
->>>>>>> bc0ee6d35042de5e48b2937a844e9c87ddc20214
             </div>
             <div class="w-col w-col-10">
                 <div class="text-block-2">5:42 PM</div>

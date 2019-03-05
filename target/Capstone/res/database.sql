@@ -14,9 +14,9 @@ drop table if exists employees;
 
 Create table employees (
                          Emp_id int(4) AUTO_INCREMENT primary key,
-                         Address varchar(50) not null,
                          Fname varchar(40) not null,
                          lname varchar(40) not null,
+                         Address varchar(50) not null,
                          Phone_no varchar(15) not null,
                          Email varchar(60) not null,
                          Type char(1) not null,
@@ -45,9 +45,7 @@ CREATE TABLE Shift(
                     emp_id int(4),
                     startTime DATETIME not null,
                     endTime DATETIME not null,
-                    shift_name varchar(30) not null,
                     shift_type char(1) not null,
-                    active bit not null,
                     primary key(shift_id),
                     FOREIGN KEY (day_id) REFERENCES days(day_id),
                     FOREIGN KEY (emp_id) REFERENCES employees(emp_id)

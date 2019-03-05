@@ -1,5 +1,6 @@
 package Controllers;
 
+import Persistance.FullcalendarDBOps;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import temp.CalendarDAO;
@@ -20,24 +21,42 @@ public class ShowCalendar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            ArrayList<CalendarDAO> test = new ArrayList();
-            String input1 = "2019-02-07 17:30:00.00".replace( " " , "T" ) ;
-            String input2 = "2019-02-07 21:30:00.00".replace( " " , "T" ) ;
-            String input3 = "2019-02-08 08:30:00.00".replace( " " , "T" ) ;
-            String input4 = "2019-02-08 15:30:00.00".replace( " " , "T" ) ;
-            LocalDateTime dt1 = LocalDateTime.parse(input1);
-            LocalDateTime dt2 = LocalDateTime.parse(input2);
-            LocalDateTime dt3 = LocalDateTime.parse(input3);
-            LocalDateTime dt4 = LocalDateTime.parse(input4);
-            test.add(new CalendarDAO(1,"Qiqi",input1,input2));
-            test.add(new CalendarDAO(2,"John",input3,input4));
+        FullcalendarDBOps DBOps = new FullcalendarDBOps();
+        ArrayList<CalendarDAO> list = new ArrayList();
+
+        //get the shift list from the shift table
+        String shiftList = DBOps.getShifts();
+
+        if(!shiftList.equals("")){
+
+            String[] rows = shiftList.split(";");
+            for(String row:rows){
+                String[] detail = row.split(",");
+                String empId = detail[1];
+
+                //get employee's firstName
+                String firstName = DBOps.getNameOfEmp(empId);
+
+                //set the event color
+                String color = "";
+                if(detail[4].equals("D")){
+
+                    color = "green";
+                }else {
+
+                    color = "purple";
+                }
+
+                //store id,title,start,end as CalendarDAO object into the ArrayList
+                list.add(new CalendarDAO(Integer.parseInt(detail[0]),firstName,detail[2],detail[3],color));
+            }
 
             //send the generate schedule in json format to the fullcalendar
             response.setContentType("application/json");
             response.setCharacterEncoding("UTF-8");
             PrintWriter out = response.getWriter();
-            out.write(new Gson().toJson(test));
-
+            out.write(new Gson().toJson(list));
+        }
 
     }
 

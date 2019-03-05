@@ -14,9 +14,9 @@ drop table if exists employees;
 
 Create table employees (
                          Emp_id int(4) AUTO_INCREMENT primary key,
-                         Address varchar(50) not null,
                          Fname varchar(40) not null,
                          lname varchar(40) not null,
+                         Address varchar(50) not null,
                          Phone_no varchar(15) not null,
                          Email varchar(60) not null,
                          Type char(1) not null,

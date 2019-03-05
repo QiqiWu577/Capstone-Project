@@ -5,6 +5,7 @@ import Model.Employee;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.joda.time.LocalDateTime;
+import temp.Day;
 
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public class DBOperation {
         LocalDateTime dt2 = LocalDateTime.parse( input2 ) ;
 
         session.beginTransaction();
-        session.save(new Day(dt1,dt2));
+        //session.save(new Day(dt1,dt2));
         session.getTransaction().commit();
         session.close();
     }
@@ -31,16 +32,16 @@ public class DBOperation {
     public ArrayList<Employee> getEmployees() {
         ArrayList<Employee> empList = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.
-
 
         session.close();
 
+        return empList;
     }
 
     public ArrayList<Day> getSchedule() {
 
 
+        return null;
     }
 
 }

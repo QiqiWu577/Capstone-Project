@@ -104,10 +104,10 @@ public class ScheduleMaker {
                     //gets the day and makes a day object with the opening and closing time
                     DayTemplate template = getDayTemplate(day);
                     Day today = new Day();
-                    today.setOpenTime(LocalDateTime.now().withTime(template.getOpenTime().getHourOfDay(), template.getOpenTime().getMinuteOfHour(),
-                            template.getOpenTime().getSecondOfMinute(), template.getOpenTime().getMillisOfSecond()));
-                    today.setCloseTime(LocalDateTime.now().withTime(template.getCloseTime().getHourOfDay(), template.getCloseTime().getMinuteOfHour(),
-                            template.getCloseTime().getSecondOfMinute(), template.getCloseTime().getMillisOfSecond()));
+                    //today.setOpenTime(LocalDateTime.now().withTime(template.getOpenTime().getHourOfDay(), template.getOpenTime().getMinuteOfHour(),
+                            //template.getOpenTime().getSecondOfMinute(), template.getOpenTime().getMillisOfSecond()));
+                    //today.setCloseTime(LocalDateTime.now().withTime(template.getCloseTime().getHourOfDay(), template.getCloseTime().getMinuteOfHour(),
+                            //template.getCloseTime().getSecondOfMinute(), template.getCloseTime().getMillisOfSecond()));
 
                     //gets the shift templates from the day
                     ArrayList<ShiftTemplate> shiftList = template.getShiftList();

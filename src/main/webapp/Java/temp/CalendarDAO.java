@@ -8,12 +8,14 @@ public class CalendarDAO implements Serializable {
     private String title;
     private String start;
     private String end;
+    private String color;
 
-    public CalendarDAO(int id, String title, String start, String end) {
+    public CalendarDAO(int id, String title, String start, String end, String color) {
         this.id = id;
         this.title = title;
         this.start = start;
         this.end = end;
+        this.color = color;
     }
 
     public int getId() {
@@ -46,5 +48,13 @@ public class CalendarDAO implements Serializable {
 
     public void setEnd(String end) {
         this.end = end;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

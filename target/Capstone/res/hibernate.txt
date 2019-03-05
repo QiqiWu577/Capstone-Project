@@ -41,8 +41,8 @@ entity class from database
 
 
 mainly use localdate or localdatetime
-retrieve data: sql.Date to localdate
-save data: string to sql.Date?
+retrieve data: util.Date to localdate
+save data: string to util.Date?
 
 mysql does not support localdate
 1.use localdate, but firstly store the date value into string and then parse
@@ -52,7 +52,7 @@ to localdate
 https://stackoverflow.com/questions/2400955/how-to-store-java-date-to-mysql-datetime
 
 
-String input1 = "2007-02-07 17:29:46.00".replace( " " , "T" ) ;
+        String input1 = "2007-02-07 17:29:46.00".replace( " " , "T" ) ;
         String input2 = "2008-02-07 17:29:46.00".replace( " " , "T" ) ;
         LocalDateTime dt1 = LocalDateTime.parse(input1);
         LocalDateTime dt2 = LocalDateTime.parse(input2);

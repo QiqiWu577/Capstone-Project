@@ -2,6 +2,7 @@ package Persistance;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import temp.Employee;
 import temp.Shift;
 
 import java.util.List;

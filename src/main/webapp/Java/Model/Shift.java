@@ -8,14 +8,12 @@ package Model;
 import Model.Day;
 import Model.Employee;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,9 +27,7 @@ import java.util.Date;
     , @NamedQuery(name = "Shift.findByShiftId", query = "SELECT s FROM Shift s WHERE s.shiftId = :shiftId")
     , @NamedQuery(name = "Shift.findByStartTime", query = "SELECT s FROM Shift s WHERE s.startTime = :startTime")
     , @NamedQuery(name = "Shift.findByEndTime", query = "SELECT s FROM Shift s WHERE s.endTime = :endTime")
-    , @NamedQuery(name = "Shift.findByShiftName", query = "SELECT s FROM Shift s WHERE s.shiftName = :shiftName")
-    , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")
-    , @NamedQuery(name = "Shift.findByActive", query = "SELECT s FROM Shift s WHERE s.active = :active")})
+    , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")})
 public class Shift implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,23 +44,32 @@ public class Shift implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
     @Basic(optional = false)
-    @Column(name = "shift_name")
-    private String shiftName;
-    @Basic(optional = false)
     @Column(name = "shift_type")
     private Character shiftType;
-    @Basic(optional = false)
-    @Column(name = "active")
-    private boolean active;
+    @ManyToMany(mappedBy = "shiftList")
+    private List<Model.Employee> employeeList;
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
     @ManyToOne
-    private Day dayId;
-    @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id")
-    @ManyToOne
-    private Employee empId;
-
+    private Model.Day dayId;
     @Transient
     private int maxNoEmp;
+
+    public int getMaxNoEmp() {
+        return maxNoEmp;
+    }
+
+    public void setMaxNoEmp(int maxNoEmp) {
+        this.maxNoEmp = maxNoEmp;
+    }
+
+    public int getMinNoEmp() {
+        return minNoEmp;
+    }
+
+    public void setMinNoEmp(int minNoEmp) {
+        this.minNoEmp = minNoEmp;
+    }
+
     @Transient
     private int minNoEmp;
 
@@ -74,21 +79,6 @@ public class Shift implements Serializable {
     public Shift(Integer shiftId) {
         this.shiftId = shiftId;
     }
-
-
-    public Shift(String startTime, String endTime, Character shiftType, int maxNoEmp, int minNoEmp) {
-        try {
-            this.startTime = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("01/01/2000 " + startTime);
-            this.endTime = new SimpleDateFormat("dd/MM/yyyy HH:mm").parse("01/01/2000 " + endTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        this.maxNoEmp = maxNoEmp;
-        this.minNoEmp = minNoEmp;
-        this.shiftType = shiftType;
-    }
-
 
     public Shift(Integer shiftId, Date startTime, Date endTime, Character shiftType) {
         this.shiftId = shiftId;
@@ -105,33 +95,20 @@ public class Shift implements Serializable {
         this.shiftId = shiftId;
     }
 
-    public LocalDateTime getStartTime() {
-
-        return  startTime.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
-    }
-
-    public String getShiftName() {
-        return shiftName;
-    }
-
-    public void setShiftName(String shiftName) {
-        this.shiftName = shiftName;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
     public Character getShiftType() {
@@ -142,28 +119,21 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
     }
 
-    public boolean getActive() {
-        return active;
+    @XmlTransient
+    public List<Model.Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
-    public Day getDayId() {
+    public Model.Day getDayId() {
         return dayId;
     }
 
     public void setDayId(Day dayId) {
         this.dayId = dayId;
-    }
-
-    public Employee getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(Employee empId) {
-        this.empId = empId;
     }
 
     @Override
@@ -190,5 +160,5 @@ public class Shift implements Serializable {
     public String toString() {
         return "data.Shift[ shiftId=" + shiftId + " ]";
     }
-
+    
 }

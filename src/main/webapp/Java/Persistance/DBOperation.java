@@ -92,12 +92,7 @@ public class DBOperation {
         return dayTemplateList;
     }
 
-
-
-
-
-
-
+    
     public ArrayList<Day> getSchedule(LocalDateTime monday) {
 
 
@@ -122,9 +117,6 @@ public class DBOperation {
         session.close();
 
         return schedule;
-
-
-        return null;
     }
 
 }

@@ -7,3 +7,6 @@ Capstone.iml
 out/artifacts/Capstone/index.jsp
 out/artifacts/Capstone/WEB-INF/classes/Controllers/AdminServices.class
 out/artifacts/Capstone/WEB-INF/classes/Controllers/AppDriver.class
+src/main/webapp/WEB-INF/web.xml
+src/main/webapp/WEB-INF/web.xml
+target/Capstone/WEB-INF/classes/Controllers/EditCalendar.class

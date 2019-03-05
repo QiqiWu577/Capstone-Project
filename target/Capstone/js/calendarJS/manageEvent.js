@@ -12,7 +12,7 @@ $(document).ready(function() {
             type: "POST",
             url: 'EditCalendar',
             contentType: "application/json",
-            data: JSON.stringify(data),
+            data: JSON.stringify(data)
         });
 
     }
@@ -71,16 +71,6 @@ $(document).ready(function() {
 
             saveEvent(event);
 
-        },
-
-        eventRender: function(eventObj, $el) {
-            $el.popover({
-                title: eventObj.title,
-                content: eventObj.description,
-                trigger: 'hover',
-                placement: 'top',
-                container: 'body'
-            });
         }
 
     });

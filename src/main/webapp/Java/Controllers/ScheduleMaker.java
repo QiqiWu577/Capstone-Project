@@ -1,12 +1,11 @@
 package Controllers;
 import Model.*;
-import org.joda.time.LocalDateTime;
-import org.joda.time.LocalTime;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -99,18 +98,29 @@ public class ScheduleMaker {
 
 
 
-                    //gets all the employees availability for a given day
-                    //System.out.println(availList.size() + " " + prefList.size());
-                    //gets the day and makes a day object with the opening and closing time
-                    DayTemplate template = getDayTemplate(day);
-                    Day today = new Day();
-                    today.setOpenTime(LocalDateTime.now().withTime(template.getOpenTime().getHourOfDay(), template.getOpenTime().getMinuteOfHour(),
-                            template.getOpenTime().getSecondOfMinute(), template.getOpenTime().getMillisOfSecond()));
-                    today.setCloseTime(LocalDateTime.now().withTime(template.getCloseTime().getHourOfDay(), template.getCloseTime().getMinuteOfHour(),
-                            template.getCloseTime().getSecondOfMinute(), template.getCloseTime().getMillisOfSecond()));
+                //gets all the employees availability for a given day
+                //System.out.println(availList.size() + " " + prefList.size());
+                //gets the day and makes a day object with the opening and closing time
+                DayTemplate template = getDayTemplate(day);
+                Day today = new Day();
 
-                    //gets the shift templates from the day
-                    ArrayList<ShiftTemplate> shiftList = template.getShiftList();
+                String[] split = template.getOpenTime().split(":");
+
+
+                int hour = Integer.parseInt(split[0]);
+                int minute = Integer.parseInt(split[1]);
+
+                today.setStartTime(LocalDateTime.now().withHour(hour).withMinute(minute));
+
+                split = template.getCloseTime().split(":");
+                hour = Integer.parseInt(split[0]);
+                minute = Integer.parseInt(split[1]);
+
+
+                today.setEndTime(LocalDateTime.now().withHour(hour).withMinute(minute));
+
+                //gets the shift templates from the day
+                ArrayList<ShiftTemplate> shiftList = template.getShiftTemplateList();
 
                 while (redoDay && dayCount < 50) {
 
@@ -133,7 +143,7 @@ public class ScheduleMaker {
                         ArrayList<Employee> secondary = new ArrayList<>();
                         ArrayList<Employee> scheduled = new ArrayList<>();
 
-                        Shift shift = new Shift(shiftTemplate.getStartTime(), shiftTemplate.getEndTime(), 'S', shiftTemplate.getMinimumEmployees(), shiftTemplate.getMaximumEmployees());
+                        Shift shift = new Shift(shiftTemplate.getStartTime(), shiftTemplate.getEndTime(), 'S', shiftTemplate.getMinNoEmp(), shiftTemplate.getMaxNoEmp());
 
 
                         //System.out.println("Shift " + w);
@@ -151,8 +161,8 @@ public class ScheduleMaker {
 
                             //gives the hour of the day as an int in 24 hour format eg. 11 for 11am
 
-                            int startHour = shiftTemplate.getStartTime().getHourOfDay();
-                            int endHour = shiftTemplate.getEndTime().getHourOfDay();
+                            int startHour = Integer.parseInt(shiftTemplate.getStartTime().split(":")[0]);
+                            int endHour = Integer.parseInt(shiftTemplate.getEndTime().split(":")[0]);
 
                             //holds the employees availability and preferences for the day
                             boolean[] currentEmpAvail = null;

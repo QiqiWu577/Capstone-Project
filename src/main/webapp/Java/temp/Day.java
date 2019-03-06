@@ -5,6 +5,8 @@
  */
 package temp;
 
+import Model.Shift;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;

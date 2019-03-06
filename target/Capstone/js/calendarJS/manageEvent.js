@@ -3,6 +3,7 @@ $(document).ready(function() {
     function saveEvent(event){
 
         var data = {
+            id: event.id,
             title: event.title,
             start: event.start,
             end: event.end

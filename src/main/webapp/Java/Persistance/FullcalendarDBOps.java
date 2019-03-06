@@ -2,6 +2,7 @@ package Persistance;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import temp.Employee;
 import temp.Shift;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class FullcalendarDBOps {
 
             for(Shift shift : shiftList){
 
-                result = result + shift.getShiftId() + "," + shift.getEmpId().getEmpid() + "," + shift.getStartTime() + "," + shift.getEndTime() + "," + shift.getShiftType() + ";";
+                result = result + shift.getShiftId() + "," + shift.getStartTime() + "," + shift.getEndTime() + "," + shift.getShiftType() + ";";
             }
 
         }finally{
@@ -34,23 +35,25 @@ public class FullcalendarDBOps {
         return result;
     }
 
-    public String getNameOfEmp(String empId){
+    public String getNameOfEmp(String shiftId){
 
         String result = "";
 
-        String hsql = "SELECT e FROM Employee e WHERE e.empid = :empid";
+        String hsql = "SELECT s.employeeList from Shift s where s.shiftId = :shiftId";
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         Query q = session.createQuery(hsql);
-        q.setParameter("empid",Integer.parseInt(empId));
+        q.setParameter("shiftId",Integer.parseInt(shiftId));
 
         try{
 
-            Employee emp = (Employee)q.uniqueResult();
+            List<Employee> empList = q.list();
 
-            result = emp.getFname();
+            for(Employee emp : empList){
 
+                result = result + emp.getFname() + ";";
+            }
 
         }finally{
             session.close();

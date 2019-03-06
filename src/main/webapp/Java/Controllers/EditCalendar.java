@@ -16,15 +16,12 @@ public class EditCalendar extends HttpServlet {
 
             //get the calendar event from the ajax function of the js
             JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
-            String id = data.get("id").getAsString();
             String title = data.get("title").getAsString();
             String start = data.get("start").getAsString();
             String end = data.get("end").getAsString();
 
 
-            System.out.println(id+","+title+","+start+","+end);
-
-
+            System.out.println(title+","+start+","+end);
 
     }
 

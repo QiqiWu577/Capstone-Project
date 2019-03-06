@@ -6,8 +6,6 @@
 package temp;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -16,6 +14,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,9 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
     , @NamedQuery(name = "Employee.findByEmpid", query = "SELECT e FROM Employee e WHERE e.empid = :empid")
-    , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")
     , @NamedQuery(name = "Employee.findByFname", query = "SELECT e FROM Employee e WHERE e.fname = :fname")
     , @NamedQuery(name = "Employee.findByLname", query = "SELECT e FROM Employee e WHERE e.lname = :lname")
+    , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")
     , @NamedQuery(name = "Employee.findByPhoneno", query = "SELECT e FROM Employee e WHERE e.phoneno = :phoneno")
     , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
     , @NamedQuery(name = "Employee.findByType", query = "SELECT e FROM Employee e WHERE e.type = :type")
@@ -51,14 +52,14 @@ public class Employee implements Serializable {
     @Column(name = "Emp_id")
     private Integer empid;
     @Basic(optional = false)
-    @Column(name = "Address")
-    private String address;
-    @Basic(optional = false)
     @Column(name = "Fname")
     private String fname;
     @Basic(optional = false)
     @Column(name = "lname")
     private String lname;
+    @Basic(optional = false)
+    @Column(name = "Address")
+    private String address;
     @Basic(optional = false)
     @Column(name = "Phone_no")
     private String phoneno;
@@ -76,27 +77,28 @@ public class Employee implements Serializable {
     private boolean active;
     @Column(name = "Notes")
     private String notes;
+    @JoinTable(name = "schedule_employee", joinColumns = {
+        @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id")}, inverseJoinColumns = {
+        @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")})
+    @ManyToMany
+    private List<Shift> shiftList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
     private EmployeeConstraints employeeConstraints;
-    @OneToMany(mappedBy = "empId")
-    private List<Shift> shiftList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     private List<Notification> notificationList;
 
     public Employee() {
-        shiftList = new ArrayList<Shift>();
-        notificationList = new ArrayList<Notification>();
     }
 
     public Employee(Integer empid) {
         this.empid = empid;
     }
 
-    public Employee(Integer empid, String address, String fname, String lname, String phoneno, String email, Character type, boolean newHire, boolean active) {
+    public Employee(Integer empid, String fname, String lname, String address, String phoneno, String email, Character type, boolean newHire, boolean active) {
         this.empid = empid;
-        this.address = address;
         this.fname = fname;
         this.lname = lname;
+        this.address = address;
         this.phoneno = phoneno;
         this.email = email;
         this.type = type;
@@ -110,14 +112,6 @@ public class Employee implements Serializable {
 
     public void setEmpid(Integer empid) {
         this.empid = empid;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getFname() {
@@ -134,6 +128,14 @@ public class Employee implements Serializable {
 
     public void setLname(String lname) {
         this.lname = lname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhoneno() {
@@ -184,6 +186,15 @@ public class Employee implements Serializable {
         this.notes = notes;
     }
 
+    @XmlTransient
+    public List<Shift> getShiftList() {
+        return shiftList;
+    }
+
+    public void setShiftList(List<Shift> shiftList) {
+        this.shiftList = shiftList;
+    }
+
     public EmployeeConstraints getEmployeeConstraints() {
         return employeeConstraints;
     }
@@ -193,20 +204,11 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Shift> getShiftList() {
-        return shiftList;
-    }
-
-    public void setShiftList(ArrayList<Shift> shiftList) {
-        this.shiftList = shiftList;
-    }
-
-    @XmlTransient
-    public Collection<Notification> getNotificationList() {
+    public List<Notification> getNotificationList() {
         return notificationList;
     }
 
-    public void setNotificationList(ArrayList<Notification> notificationList) {
+    public void setNotificationList(List<Notification> notificationList) {
         this.notificationList = notificationList;
     }
 

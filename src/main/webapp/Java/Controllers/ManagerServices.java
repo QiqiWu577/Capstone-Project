@@ -1,5 +1,7 @@
 package Controllers;
 
+import Persistance.DBOperation;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +24,7 @@ public class ManagerServices extends HttpServlet {
         String friday = request.getParameter("friday");
         String saturday = request.getParameter("saturday");
 
-        DBoperations db = new DBoperations();
+        DBOperation db = new DBOperation();
 
         if (newShiftDay!=null) {
 

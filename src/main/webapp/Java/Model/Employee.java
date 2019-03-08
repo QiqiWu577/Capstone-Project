@@ -5,10 +5,6 @@
  */
 package Model;
 
-import Model.EmployeeConstraints;
-import Model.Notification;
-import Model.Shift;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -25,17 +21,17 @@ import java.util.List;
 @Table(name = "employees")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
-    , @NamedQuery(name = "Employee.findByEmpid", query = "SELECT e FROM Employee e WHERE e.empid = :empid")
-    , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")
-    , @NamedQuery(name = "Employee.findByFname", query = "SELECT e FROM Employee e WHERE e.fname = :fname")
-    , @NamedQuery(name = "Employee.findByLname", query = "SELECT e FROM Employee e WHERE e.lname = :lname")
-    , @NamedQuery(name = "Employee.findByPhoneno", query = "SELECT e FROM Employee e WHERE e.phoneno = :phoneno")
-    , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
-    , @NamedQuery(name = "Employee.findByType", query = "SELECT e FROM Employee e WHERE e.type = :type")
-    , @NamedQuery(name = "Employee.findByNewHire", query = "SELECT e FROM Employee e WHERE e.newHire = :newHire")
-    , @NamedQuery(name = "Employee.findByActive", query = "SELECT e FROM Employee e WHERE e.active = :active")
-    , @NamedQuery(name = "Employee.findByNotes", query = "SELECT e FROM Employee e WHERE e.notes = :notes")})
+        @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
+        , @NamedQuery(name = "Employee.findByEmpid", query = "SELECT e FROM Employee e WHERE e.empid = :empid")
+        , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")
+        , @NamedQuery(name = "Employee.findByFname", query = "SELECT e FROM Employee e WHERE e.fname = :fname")
+        , @NamedQuery(name = "Employee.findByLname", query = "SELECT e FROM Employee e WHERE e.lname = :lname")
+        , @NamedQuery(name = "Employee.findByPhoneno", query = "SELECT e FROM Employee e WHERE e.phoneno = :phoneno")
+        , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
+        , @NamedQuery(name = "Employee.findByType", query = "SELECT e FROM Employee e WHERE e.type = :type")
+        , @NamedQuery(name = "Employee.findByNewHire", query = "SELECT e FROM Employee e WHERE e.newHire = :newHire")
+        , @NamedQuery(name = "Employee.findByActive", query = "SELECT e FROM Employee e WHERE e.active = :active")
+        , @NamedQuery(name = "Employee.findByNotes", query = "SELECT e FROM Employee e WHERE e.notes = :notes")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;

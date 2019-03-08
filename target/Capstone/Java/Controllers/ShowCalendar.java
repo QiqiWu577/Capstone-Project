@@ -22,7 +22,7 @@ public class ShowCalendar extends HttpServlet {
 
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list = new ArrayList();
-        //HttpSession session = new HttpSession().;
+        HttpSession session = request.getSession();
 
         //get the shift list from the shift table
         String shiftList = DBOps.getShifts();
@@ -30,13 +30,15 @@ public class ShowCalendar extends HttpServlet {
         if(!shiftList.equals("")){
 
             String[] rows = shiftList.split(";");
+            int i = 0;  //keep track of the index of the list for editing
+
             for(String row:rows){
                 String[] detail = row.split(",");
                 System.out.println(row);
 
                 //set the event color
                 String color = "";
-                if(detail[3].equals("D")){
+                if(detail[4].equals("D")){
 
                     color = "green";
                 }else {
@@ -51,11 +53,14 @@ public class ShowCalendar extends HttpServlet {
 
                     //store id,title,start,end as CalendarDAO object into the ArrayList if one on the shift or
                     // more than one employees on the same shift
-                    list.add(new CalendarDAO(Integer.parseInt(detail[0]),name,detail[1],detail[2],color));
-
+                    list.add(new CalendarDAO(i,name,detail[2],detail[3],color,Integer.parseInt(detail[0]),Integer.parseInt(detail[1])));
+                    i++;
                 }
 
             }
+
+            //store the list as session for the use of editing
+            session.setAttribute("shiftList",list);
 
             //send the generate schedule in json format to the fullcalendar
             response.setContentType("application/json");

@@ -1,12 +1,16 @@
 package Controllers;
 
+import Persistance.FullcalendarDBOps;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import temp.CalendarDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @WebServlet(name = "EditCalendar",urlPatterns = "/EditCalendar")
 public class EditCalendar extends HttpServlet {
@@ -14,14 +18,71 @@ public class EditCalendar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            //get the calendar event from the ajax function of the js
-            JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
-            String title = data.get("title").getAsString();
-            String start = data.get("start").getAsString();
-            String end = data.get("end").getAsString();
+        HttpSession session = request.getSession();
+        FullcalendarDBOps DBOps = new FullcalendarDBOps();
+        ArrayList<CalendarDAO> list;
 
+        //get the shifList from the session
+        //get the calendar event from the ajax function of the js
+        list = (ArrayList<CalendarDAO>)session.getAttribute("shiftList");
+        JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
+        String id= data.get("id").getAsString();
+        String title = data.get("title").getAsString();
+        String start = data.get("start").getAsString();
+        String end = data.get("end").getAsString();
 
-            System.out.println(title+","+start+","+end);
+        CalendarDAO change = list.get(Integer.parseInt(id));
+        int shiftId = change.getShiftId(); //used to save change into shift table
+        int dayId = change.getDayId();      // used to get the operation hours and save change into day table
+
+        //get OpsHours from day table
+        String opsHours = DBOps.getOpsHours(dayId);
+
+        String[] detail = opsHours.split(",");
+
+        String startOps = detail[0].replace(" ","T");
+        String endOps = detail[1].replace(" ","T");
+
+        LocalDateTime s = LocalDateTime.parse(start);
+        LocalDateTime e = LocalDateTime.parse(end);
+        LocalDateTime sO = LocalDateTime.parse(startOps);
+        LocalDateTime eO = LocalDateTime.parse(endOps);
+
+        if(s.compareTo(sO)< 0 && e.compareTo(eO)<0){
+
+            //update startOps in the day table
+            boolean test1 = DBOps.updateDayOps(dayId,s,e,1);
+
+            //update shift table
+            boolean test2 = DBOps.updateShift(shiftId,s,e);
+
+        }else if(s.compareTo(sO)> 0 && e.compareTo(eO)>0){
+
+            //update endOps in the day table
+            boolean test1 = DBOps.updateDayOps(dayId,s,e,2);
+
+            //update shift table
+            boolean test2 = DBOps.updateShift(shiftId,s,e);
+
+        }else if((s.compareTo(sO)< 0 && e.compareTo(eO)>0)||(e.compareTo(sO) < 0)||(s.compareTo(eO) > 0)){
+
+            //update startOps and endOps in the day table
+            boolean test1 = DBOps.updateDayOps(dayId,s,e,3);
+
+            //update shift table
+            boolean test2 = DBOps.updateShift(shiftId,s,e);
+
+        }else{
+
+            //update shift table only
+            if(DBOps.checkEmpShift(shiftId)>1){
+
+                DBOps.addShift(dayId,s,e);
+            }else {
+                boolean test = DBOps.updateShift(shiftId,s,e);
+            }
+
+        }
 
     }
 

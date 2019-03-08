@@ -30,7 +30,7 @@ entity class from database
     <mapping class="temp.Employees"/>
     <mapping class="temp.Notification"/>
     <mapping class="temp.ScheduledEmployee"/>
-    <mapping class="temp.Shift"/>
+    <mapping class="Model.Shift"/>
     <mapping class="temp.ShiftTemplate"/>
 
 

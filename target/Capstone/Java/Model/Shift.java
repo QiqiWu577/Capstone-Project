@@ -1,85 +1,161 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Model;
 
-import org.joda.time.LocalTime;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-import java.util.ArrayList;
+/**
+ *
+ * @author Administrator
+ */
+@Entity
+@Table(name = "shift")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Shift.findAll", query = "SELECT s FROM Shift s")
+    , @NamedQuery(name = "Shift.findByShiftId", query = "SELECT s FROM Shift s WHERE s.shiftId = :shiftId")
+    , @NamedQuery(name = "Shift.findByStartTime", query = "SELECT s FROM Shift s WHERE s.startTime = :startTime")
+    , @NamedQuery(name = "Shift.findByEndTime", query = "SELECT s FROM Shift s WHERE s.endTime = :endTime")
+    , @NamedQuery(name = "Shift.findByShiftType", query = "SELECT s FROM Shift s WHERE s.shiftType = :shiftType")})
+public class Shift implements Serializable {
 
-public class Shift {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "shift_id")
+    private Integer shiftId;
+    @Basic(optional = false)
+    @Column(name = "startTime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startTime;
+    @Basic(optional = false)
+    @Column(name = "endTime")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endTime;
+    @Basic(optional = false)
+    @Column(name = "shift_type")
+    private Character shiftType;
+    @ManyToMany(mappedBy = "shiftList")
+    private List<Model.Employee> employeeList;
+    @JoinColumn(name = "day_id", referencedColumnName = "day_id")
+    @ManyToOne
+    private Model.Day dayId;
+    @Transient
+    private int maxNoEmp;
 
-    private LocalTime startTime;
-    private LocalTime closeTime;
-    private char shiftType;
-    private int minimumNumberOfEmployees;
-    private int maximumNumberOfEmployees;
-    private ArrayList<Employee> empList;
-    private int dailyHours;
-
-    public Shift(LocalTime startTime, LocalTime closeTime, char shiftType, int maximumNumberOfEmployees, int minimumNumberOfEmployees) {
-        this.startTime = startTime;
-        this.closeTime = closeTime;
-        this.shiftType = shiftType;
-        this.maximumNumberOfEmployees = maximumNumberOfEmployees;
-        this.minimumNumberOfEmployees = minimumNumberOfEmployees;
-        empList = new ArrayList<>();
+    public int getMaxNoEmp() {
+        return maxNoEmp;
     }
 
-    public Shift(LocalTime startTime, LocalTime closeTime, char shiftType, int minimumNumberOfEmployees, int maximumNumberOfEmployees, ArrayList<Employee> empList) {
-        this.startTime = startTime;
-        this.closeTime = closeTime;
-        this.shiftType = shiftType;
-        this.minimumNumberOfEmployees = minimumNumberOfEmployees;
-        this.maximumNumberOfEmployees = maximumNumberOfEmployees;
-        this.empList = empList;
+    public void setMaxNoEmp(int maxNoEmp) {
+        this.maxNoEmp = maxNoEmp;
     }
 
-    public LocalTime getStartTime() {
+    public int getMinNoEmp() {
+        return minNoEmp;
+    }
+
+    public void setMinNoEmp(int minNoEmp) {
+        this.minNoEmp = minNoEmp;
+    }
+
+    @Transient
+    private int minNoEmp;
+
+    public Shift() {
+    }
+
+    public Shift(Integer shiftId) {
+        this.shiftId = shiftId;
+    }
+
+    public Shift(Integer shiftId, Date startTime, Date endTime, Character shiftType) {
+        this.shiftId = shiftId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.shiftType = shiftType;
+    }
+
+    public Integer getShiftId() {
+        return shiftId;
+    }
+
+    public void setShiftId(Integer shiftId) {
+        this.shiftId = shiftId;
+    }
+
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalTime startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public LocalTime getCloseTime() {
-        return closeTime;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setCloseTime(LocalTime closeTime) {
-        this.closeTime = closeTime;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
-    public char getShiftType() {
+    public Character getShiftType() {
         return shiftType;
     }
 
-    public void setShiftType(char shiftType) {
+    public void setShiftType(Character shiftType) {
         this.shiftType = shiftType;
     }
 
-    public int getMinimumNumberOfEmployees() {
-        return minimumNumberOfEmployees;
+    @XmlTransient
+    public List<Model.Employee> getEmployeeList() {
+        return employeeList;
     }
 
-    public void setMinimumNumberOfEmployees(int minimumNumberOfEmployees) {
-        this.minimumNumberOfEmployees = minimumNumberOfEmployees;
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
     }
 
-    public int getMaximumNumberOfEmployees() {
-        return maximumNumberOfEmployees;
+    public Model.Day getDayId() {
+        return dayId;
     }
 
-    public void setMaximumNumberOfEmployees(int maximumNumberOfEmployees) {
-        this.maximumNumberOfEmployees = maximumNumberOfEmployees;
+    public void setDayId(Day dayId) {
+        this.dayId = dayId;
     }
 
-    public ArrayList<Employee> getEmpList() {
-        return empList;
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (shiftId != null ? shiftId.hashCode() : 0);
+        return hash;
     }
 
-    public void setEmpList(ArrayList<Employee> empList) {
-        this.empList = empList;
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Shift)) {
+            return false;
+        }
+        Shift other = (Shift) object;
+        if ((this.shiftId == null && other.shiftId != null) || (this.shiftId != null && !this.shiftId.equals(other.shiftId))) {
+            return false;
+        }
+        return true;
     }
-    public int getDailyHours() {
-        return dailyHours;
+
+    @Override
+    public String toString() {
+        return "data.Shift[ shiftId=" + shiftId + " ]";
     }
+    
 }

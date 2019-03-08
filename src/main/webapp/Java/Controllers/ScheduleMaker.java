@@ -143,7 +143,7 @@ public class ScheduleMaker {
                         ArrayList<Employee> secondary = new ArrayList<>();
                         ArrayList<Employee> scheduled = new ArrayList<>();
 
-                        Shift shift = new Shift(shiftTemplate.getStartTime(), shiftTemplate.getEndTime(), 'S', shiftTemplate.getMinNoEmp(), shiftTemplate.getMaxNoEmp());
+                        //Shift shift = new Shift(shiftTemplate.getStartTime(), shiftTemplate.getEndTime(), 'S', shiftTemplate.getMinNoEmp(), shiftTemplate.getMaxNoEmp());
 
 
                         //System.out.println("Shift " + w);
@@ -220,43 +220,43 @@ public class ScheduleMaker {
 
 
 
-                            if (availShift && prefShift && shift.getEmployeeList().size() < shift.getMaxNoEmp()) {
-                                //System.out.println("Added to shift");
-
-                                shift.getEmployeeList().add(availList.get(j));
-                                scheduled.add(availList.get(j));
-
-                                // if they dont prefer but can work add them to the secondary list
-                            } else if (availShift) {
-                                // System.out.println("Secondary to secondary list");
-                                secondary.add(availList.get(j));
-                            }
+//                            if (availShift && prefShift && shift.getEmployeeList().size() < shift.getMaxNoEmp()) {
+//                                //System.out.println("Added to shift");
+//
+//                                shift.getEmployeeList().add(availList.get(j));
+//                                scheduled.add(availList.get(j));
+//
+//                                // if they dont prefer but can work add them to the secondary list
+//                            } else if (availShift) {
+//                                // System.out.println("Secondary to secondary list");
+//                                secondary.add(availList.get(j));
+//                            }
                         }
 
                         //for every spot in the shift that still needs to be filled add from secondary (anywhere from 1-5 times)
                         int x = 0;
-                        for (int i = shift.getEmployeeList().size(); i < shift.getMinNoEmp(); i++) {
-
-                            if (x < secondary.size()) {
-                                shift.getEmployeeList().add(secondary.get(x));
-                                scheduled.add(secondary.get(x));
-                                x++;
-                            }
-                        }
-
-                        // if the shift had issues generating tell me
-                        if (shift.getEmployeeList().size() < shift.getMinNoEmp() || shift.getEmployeeList().size() > shift.getMaxNoEmp()) {
-                            // System.out.println("Shift Generated incorrectly for shift starting at: " + shift.getStartTime() + " On: " + day);
-                            try {
-                                throw new ShiftCannotBeFilledException(day);
-                            } catch (ShiftCannotBeFilledException e) {
-                                e.printStackTrace();
-                                retryWeek = true;
-                                noPref = true;
-                                redoDay = true;
-                            }
-
-                        }
+//                        for (int i = shift.getEmployeeList().size(); i < shift.getMinNoEmp(); i++) {
+//
+//                            if (x < secondary.size()) {
+//                                shift.getEmployeeList().add(secondary.get(x));
+//                                scheduled.add(secondary.get(x));
+//                                x++;
+//                            }
+//                        }
+//
+//                        // if the shift had issues generating tell me
+//                        if (shift.getEmployeeList().size() < shift.getMinNoEmp() || shift.getEmployeeList().size() > shift.getMaxNoEmp()) {
+//                            // System.out.println("Shift Generated incorrectly for shift starting at: " + shift.getStartTime() + " On: " + day);
+//                            try {
+//                                throw new ShiftCannotBeFilledException(day);
+//                            } catch (ShiftCannotBeFilledException e) {
+//                                e.printStackTrace();
+//                                retryWeek = true;
+//                                noPref = true;
+//                                redoDay = true;
+//                            }
+//
+//                        }
 
                         //deletes the scheduled employees from the days list of available employees once theyve been scheduled for a shift
                         for (Employee toRemove : scheduled) {
@@ -267,7 +267,7 @@ public class ScheduleMaker {
                             availability.set(index, null);
                             preferences.set(index, null);
                         }
-                        today.getShiftList().add(shift);
+                        //today.getShiftList().add(shift);
                     }
                 //while loop
                     dayCount++;

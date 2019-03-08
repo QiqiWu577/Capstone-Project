@@ -5,9 +5,10 @@
  */
 package temp;
 
-import Model.Shift;
-
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -33,10 +34,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "days")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Day.findAll", query = "SELECT d FROM Day d")
-    , @NamedQuery(name = "Day.findByDayId", query = "SELECT d FROM Day d WHERE d.dayId = :dayId")
-    , @NamedQuery(name = "Day.findByStartTime", query = "SELECT d FROM Day d WHERE d.startTime = :startTime")
-    , @NamedQuery(name = "Day.findByEndTime", query = "SELECT d FROM Day d WHERE d.endTime = :endTime")})
+        @NamedQuery(name = "Day.findAll", query = "SELECT d FROM Day d")
+        , @NamedQuery(name = "Day.findByDayId", query = "SELECT d FROM Day d WHERE d.dayId = :dayId")
+        , @NamedQuery(name = "Day.findByStartTime", query = "SELECT d FROM Day d WHERE d.startTime = :startTime")
+        , @NamedQuery(name = "Day.findByEndTime", query = "SELECT d FROM Day d WHERE d.endTime = :endTime")})
 public class Day implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,20 +77,24 @@ public class Day implements Serializable {
         this.dayId = dayId;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public String getStartTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        return formatter.format(startTime);
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public String getEndTime() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        return formatter.format(endTime);
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     @XmlTransient
@@ -125,5 +130,5 @@ public class Day implements Serializable {
     public String toString() {
         return "data.Day[ dayId=" + dayId + " ]";
     }
-    
+
 }

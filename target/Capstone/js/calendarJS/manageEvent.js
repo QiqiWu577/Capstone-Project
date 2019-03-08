@@ -6,7 +6,8 @@ $(document).ready(function() {
             id: event.id,
             title: event.title,
             start: event.start,
-            end: event.end
+            end: event.end,
+            color: event.color
         };
 
         $.ajax({

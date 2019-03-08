@@ -10,11 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "ShowCalendar",urlPatterns = "/ShowCalendar")
 public class ShowCalendar extends HttpServlet {
@@ -23,6 +22,7 @@ public class ShowCalendar extends HttpServlet {
 
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list = new ArrayList();
+        HttpSession session = request.getSession();
 
         //get the shift list from the shift table
         String shiftList = DBOps.getShifts();
@@ -32,14 +32,11 @@ public class ShowCalendar extends HttpServlet {
             String[] rows = shiftList.split(";");
             for(String row:rows){
                 String[] detail = row.split(",");
-                String empId = detail[1];
-
-                //get employee's firstName
-                String firstName = DBOps.getNameOfEmp(empId);
+                System.out.println(row);
 
                 //set the event color
                 String color = "";
-                if(detail[4].equals("D")){
+                if(detail[3].equals("D")){
 
                     color = "green";
                 }else {
@@ -47,9 +44,21 @@ public class ShowCalendar extends HttpServlet {
                     color = "purple";
                 }
 
-                //store id,title,start,end as CalendarDAO object into the ArrayList
-                list.add(new CalendarDAO(Integer.parseInt(detail[0]),firstName,detail[2],detail[3],color));
+                //get employee's firstName
+                String fnameList = DBOps.getNameOfEmp(detail[0]);
+                String[] names = fnameList.split(";");
+                for(String name:names){
+
+                    //store id,title,start,end as CalendarDAO object into the ArrayList if one on the shift or
+                    // more than one employees on the same shift
+                    list.add(new CalendarDAO(Integer.parseInt(detail[0]),name,detail[1],detail[2],color));
+
+                }
+
             }
+
+            //store the list as session for the use of editing
+            session.setAttribute("shiftList",list);
 
             //send the generate schedule in json format to the fullcalendar
             response.setContentType("application/json");

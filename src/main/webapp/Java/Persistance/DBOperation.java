@@ -31,11 +31,9 @@ public class DBOperation {
 
 
     public ArrayList<Employee> getEmployees() {
+        ArrayList<Employee> empList = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
 
-        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
-        session.getTransaction().commit();
         session.close();
 
         return empList;
@@ -102,10 +100,10 @@ public class DBOperation {
 
     public ArrayList<Day> getSchedule(LocalDateTime monday) {
 
-
+        monday.withHour(0);
+        monday.withMinute(0);
         Date start = Date.from(monday.atZone(ZoneId.systemDefault()).toInstant());
-        start.setHours(0);
-        start.setMinutes(0);
+
 
         //set end time to a week -1 minute
         LocalDateTime endDate = monday.plusDays(6).plusHours(23).plusMinutes(59);
@@ -123,7 +121,6 @@ public class DBOperation {
 
         session.getTransaction().commit();
         session.close();
-
         return schedule;
     }
 
@@ -153,7 +150,6 @@ public class DBOperation {
             session.getTransaction().commit();
 
         }
-
         session.close();
     }
 }

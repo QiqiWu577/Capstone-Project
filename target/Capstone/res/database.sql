@@ -6,6 +6,7 @@ USE ScheduleCapstone;
 
 drop table if exists shift_template;
 drop table if exists day_template;
+drop table if exists schedule_employee;
 drop table if exists notifications;
 drop table if exists shift;
 drop table if exists days;
@@ -42,13 +43,11 @@ CREATE TABLE Days (
 CREATE TABLE Shift(
                     shift_id int(6) auto_increment,
                     day_id int(4),
-                    emp_id int(4),
                     startTime DATETIME not null,
                     endTime DATETIME not null,
                     shift_type char(1) not null,
                     primary key(shift_id),
-                    FOREIGN KEY (day_id) REFERENCES days(day_id),
-                    FOREIGN KEY (emp_id) REFERENCES employees(emp_id)
+                    FOREIGN KEY (day_id) REFERENCES days(day_id)
 );
 
 CREATE TABLE Notifications (
@@ -61,6 +60,14 @@ CREATE TABLE Notifications (
                              Status CHAR(1) NOT NULL,
                              PRIMARY KEY(Notif_id),
                              FOREIGN KEY (Sender) references Employees(emp_id)
+);
+
+create table schedule_employee (
+                             emp_id int(4),
+                             shift_id int(6),
+                             primary key(emp_id,shift_id),
+                             FOREIGN KEY (emp_id) REFERENCES employees(emp_id),
+                             FOREIGN KEY (shift_id) REFERENCES shift(shift_id)
 );
 
 CREATE TABLE day_template (

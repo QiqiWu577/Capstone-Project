@@ -4,26 +4,27 @@ import java.io.Serializable;
 
 public class CalendarDAO implements Serializable {
 
-    private int id;
+    private int shiftId;
     private String title;
     private String start;
     private String end;
     private String color;
 
-    public CalendarDAO(int id, String title, String start, String end, String color) {
-        this.id = id;
+    public CalendarDAO(int shiftId, String title, String start, String end, String color) {
+
+        this.shiftId = shiftId;
         this.title = title;
         this.start = start;
         this.end = end;
         this.color = color;
     }
 
-    public int getId() {
-        return id;
+    public int getShiftId() {
+        return shiftId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setShiftId(int shiftId) {
+        this.shiftId = shiftId;
     }
 
     public String getTitle() {

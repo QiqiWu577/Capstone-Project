@@ -5,8 +5,6 @@
  */
 package Model;
 
-import Model.Shift;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -121,7 +119,7 @@ public class Day implements Serializable {
 
     @Override
     public String toString() {
-        return "data.Day[ dayId=" + dayId + " ]";
+        return dayId + " " + startTime.toString() + " " + endTime.toString();
     }
 
 }

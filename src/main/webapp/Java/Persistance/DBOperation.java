@@ -3,7 +3,6 @@ package Persistance;
 
 import Model.*;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 
@@ -54,6 +53,15 @@ public class DBOperation {
     }
 
 
+    public void updateEmployee(Employee e) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(e);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+
     public void addShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -70,7 +78,6 @@ public class DBOperation {
         session.getTransaction().commit();
         session.close();
     }
-
 
     public void updateDayTemplate(DayTemplate dt) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -92,7 +99,7 @@ public class DBOperation {
         return dayTemplateList;
     }
 
-    
+
     public ArrayList<Day> getSchedule(LocalDateTime monday) {
 
 
@@ -100,7 +107,8 @@ public class DBOperation {
         start.setHours(0);
         start.setMinutes(0);
 
-        LocalDateTime endDate = monday.plusDays(6);
+        //set end time to a week -1 minute
+        LocalDateTime endDate = monday.plusDays(6).plusHours(23).plusMinutes(59);
 
         Date end = Date.from(endDate.atZone(ZoneId.systemDefault()).toInstant());
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -119,4 +127,33 @@ public class DBOperation {
         return schedule;
     }
 
+
+    public void updateSchedule(ArrayList<Day> schedule) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        for(Day day: schedule) {
+
+            session.beginTransaction();
+            session.update(day);
+            session.getTransaction().commit();
+
+        }
+
+        session.close();
+    }
+
+
+    public void addSchedule(ArrayList<Day> schedule) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        for(Day day: schedule) {
+
+            session.beginTransaction();
+            session.save(day);
+            session.getTransaction().commit();
+
+        }
+
+        session.close();
+    }
 }

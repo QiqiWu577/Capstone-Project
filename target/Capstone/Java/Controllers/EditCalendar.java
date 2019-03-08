@@ -75,7 +75,13 @@ public class EditCalendar extends HttpServlet {
         }else{
 
             //update shift table only
-            boolean test = DBOps.updateShift(shiftId,s,e);
+            if(DBOps.checkEmpShift(shiftId)>1){
+
+                DBOps.addShift(dayId,s,e);
+            }else {
+                boolean test = DBOps.updateShift(shiftId,s,e);
+            }
+
         }
 
     }

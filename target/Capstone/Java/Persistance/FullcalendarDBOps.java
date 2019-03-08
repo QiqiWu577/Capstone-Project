@@ -1,7 +1,6 @@
 package Persistance;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import temp.Day;
 import temp.Employee;
@@ -20,9 +19,9 @@ public class FullcalendarDBOps {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Query q = session.createQuery(hsql);
-
         try{
+
+            Query q = session.createQuery(hsql);
 
             List<Shift> shiftList = q.list();
 
@@ -46,10 +45,10 @@ public class FullcalendarDBOps {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Query q = session.createQuery(hsql);
-        q.setParameter("shiftId",Integer.parseInt(shiftId));
-
         try{
+
+            Query q = session.createQuery(hsql);
+            q.setParameter("shiftId",Integer.parseInt(shiftId));
 
             List<Employee> empList = q.list();
 
@@ -73,10 +72,10 @@ public class FullcalendarDBOps {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        Query q = session.createQuery(hsql);
-        q.setParameter("dayId",dayId);
-
         try{
+
+            Query q = session.createQuery(hsql);
+            q.setParameter("dayId",dayId);
 
             Day day = (Day) q.uniqueResult();
 
@@ -146,9 +145,12 @@ public class FullcalendarDBOps {
 
             session.beginTransaction();
 
+            char type = checkType(s,e);
+
             Shift shift = session.find(Shift.class,shiftId);
             shift.setStartTime(s);
             shift.setEndTime(e);
+            shift.setShiftType(type);
             session.update(shift);
 
             session.getTransaction().commit();
@@ -161,5 +163,61 @@ public class FullcalendarDBOps {
         }
 
         return result;
+    }
+
+    public int checkEmpShift(int shiftId){
+
+        int check = 0;
+
+        String hsql = "SELECT count(s.employeeList) from Shift s where s.shiftId = :shiftId";
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+
+            Query q = session.createQuery(hsql);
+            q.setParameter("shiftId",shiftId);
+
+            check = (Integer) q.uniqueResult();
+
+        }finally {
+            session.close();
+        }
+
+        return check;
+    }
+
+    public boolean addShift(int dayId,LocalDateTime s,LocalDateTime e){
+
+        boolean result=false;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            char type = checkType(s,e);
+
+            session.save(new Shift(dayId,s,e,type));
+
+            session.getTransaction().commit();
+            result = true;
+        }catch (Exception ex){
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return result;
+    }
+
+    public char checkType(LocalDateTime s,LocalDateTime e){
+
+        char type = ' ';
+
+
+
+        return type;
     }
 }

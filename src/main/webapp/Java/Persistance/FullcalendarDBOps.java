@@ -1,7 +1,6 @@
 package Persistance;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import temp.Day;
 import temp.Employee;

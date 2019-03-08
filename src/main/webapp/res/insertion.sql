@@ -1,11 +1,11 @@
 #############Testing for FullCalendar##############
 
 #Employee(7 employees)
-insert into employees values (null,'Alec','Gralewski','840 9 Ave SW, Calgary, AB T2P 0L9','587-766-8877','alecgralewski@gmail.com','C',1,1,'Need more training!');
-insert into employees values (null,'Anthony','Doucet','800 6 Ave SW, Calgary, AB T2P 3G3','403-577-966','anthonydoucet@gmail.com','C',1,1,'Need more training!');
-insert into employees values (null,'Jason','Sy','1415 14 Ave NW, Calgary, AB T2N 1M4','587-777-333','jasonsy@gmail.com','C',1,1,'Need more training!');
-insert into employees values (null,'Matthew','Kelemen','512 18 St NW, Calgary, AB T2N 2G5','403-123-456','matthewkelemen@gmail.com','S',1,1,'Need more training!');
-insert into employees values (null,'Qiqi','Wu','2404 Kensington Rd NW, Calgary, AB T2N 3S1','587-966-3731','qiqiwu@gmail.com','S',1,1,'Need more training!');
+insert into employees values (null,'Alec','Gralewski','840 9 Ave SW, Calgary, AB T2P 0L9','587-766-8877','alecgralewski@gmail.com','K',1,1,'Need more training!');
+insert into employees values (null,'Anthony','Doucet','800 6 Ave SW, Calgary, AB T2P 3G3','403-577-966','anthonydoucet@gmail.com','K',1,1,'Need more training!');
+insert into employees values (null,'Jason','Sy','1415 14 Ave NW, Calgary, AB T2N 1M4','587-777-333','jasonsy@gmail.com','K',1,1,'Need more training!');
+insert into employees values (null,'Matthew','Kelemen','512 18 St NW, Calgary, AB T2N 2G5','403-123-456','matthewkelemen@gmail.com','B',1,1,'Need more training!');
+insert into employees values (null,'Qiqi','Wu','2404 Kensington Rd NW, Calgary, AB T2N 3S1','587-966-3731','qiqiwu@gmail.com','B',1,1,'Need more training!');
 insert into employees values (null,'John','Wood','1818 16 Ave NW, Calgary, AB T2M 0L8','403-855-123','johnwood@gmail.com','S',1,1,'Need more training!');
 insert into employees values (null,'Kitty','Chen','1401 20 Ave NW, Calgary, AB T2M 1G6','587-567-890','kittychen@gmail.com','S',1,1,'Need more training!');
 
@@ -42,7 +42,7 @@ insert into shift values (null,4,'2019-03-14 17:00:00','2019-03-14 23:00:00','N'
 insert into shift values (null,5,'2019-03-15 12:00:00','2019-03-15 17:00:00','D');
 insert into shift values (null,5,'2019-03-15 17:00:00','2019-03-15 23:00:00','N');
 insert into shift values (null,5,'2019-03-15 12:00:00','2019-03-15 17:00:00','D');
-insert into shift values (null,5,'2019-03-15 16:00:00','2019-03-15 22:00:00','N');
+insert into shift values (null,5,'2019-03-15 13:00:00','2019-03-15 16:00:00','M');
 insert into shift values (null,5,'2019-03-15 18:00:00','2019-03-16 02:00:00','N');
 
 insert into shift values (null,6,'2019-03-16 12:00:00','2019-03-16 17:00:00','D');

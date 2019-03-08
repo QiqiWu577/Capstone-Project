@@ -67,23 +67,15 @@ public class Shift implements Serializable {
     public Shift() {
     }
 
-    public Shift(Integer shiftId) {
-        this.shiftId = shiftId;
-    }
-
-    public Shift(Integer shiftId, Date startTime, Date endTime, Character shiftType) {
-        this.shiftId = shiftId;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public Shift(int dayId, LocalDateTime startTime, LocalDateTime endTime, Character shiftType) {
+        this.dayId.setDayId(dayId);
+        this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
+        this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
         this.shiftType = shiftType;
     }
 
     public Integer getShiftId() {
         return shiftId;
-    }
-
-    public void setShiftId(Integer shiftId) {
-        this.shiftId = shiftId;
     }
 
     public Date getStartTime() {

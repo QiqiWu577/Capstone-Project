@@ -38,16 +38,27 @@
     <style>
 
         body {
-            margin: 40px 10px;
+            margin: 30px 10px;
             padding: 0;
         }
 
         #calendar {
             max-width: 900px;
             margin: 0 auto;
-
+            margin-left: 25%;
         }
+
+        .widget{
+            margin-left: 25%;
+        }
+
     </style>
+
+    <script>
+        $( function() {
+            $( ".widget a" ).button();
+        } );
+    </script>
 </head>
 
 <!--Left side Menu -->
@@ -69,8 +80,14 @@
 </div>
 
 <!--Calendar Schedule -->
+<div class="widget">
+    <a href="ManageScheduleViews?message=server">Server</a>
+    <a href="ManageScheduleViews?message=bartender">Bartender</a>
+    <a href="ManageScheduleViews?message=kitchen">Kitchen</a>
+</div>
+<br/>
+<div id='calendar'></div>
 
-<div id='calendar' style="margin-left: 25%"></div>
 
 <script src="js/webflow.js" type="text/javascript"></script>
 <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->

@@ -1,23 +1,27 @@
 package Controllers;
 
 import Model.Day;
+import Persistance.DBOperation;
 
+import javax.sound.midi.Soundbank;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AppDriver {
 
     public static void main(String[] args) {
 
-        Long start = System.currentTimeMillis();
+        LocalDateTime monday = LocalDateTime.of(2019,03,11,0,0);
+        DBOperation dbops = new DBOperation();
 
-        ScheduleMaker sm = new ScheduleMaker(0);
-        ArrayList<Day> dayList = sm.generateSchedule();
+        ArrayList<Day> schedule = dbops.getSchedule(monday);
 
+        for(Day day: schedule) {
+            System.out.println(day.toString());
+        }
 
-
-        System.out.println(dayList);
-        Long end = System.currentTimeMillis();
-        System.out.println("Total Time: " + (end - start));
+        //2019-03-11 12:00:00
 
 
     }

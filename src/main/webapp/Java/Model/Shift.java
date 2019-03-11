@@ -5,9 +5,6 @@
  */
 package Model;
 
-import Model.Day;
-import Model.Employee;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -46,7 +43,7 @@ public class Shift implements Serializable {
     @Basic(optional = false)
     @Column(name = "shift_type")
     private Character shiftType;
-    @ManyToMany(mappedBy = "shiftList")
+    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "shiftList")
     private List<Model.Employee> employeeList;
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
     @ManyToOne

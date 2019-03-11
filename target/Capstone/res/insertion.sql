@@ -1,6 +1,6 @@
 #############Testing for FullCalendar##############
 
-#Employees(7 employees)
+#Employee(7 employees)
 insert into employees values (null,'Alec','Gralewski','840 9 Ave SW, Calgary, AB T2P 0L9','587-766-8877','alecgralewski@gmail.com','C',1,1,'Need more training!');
 insert into employees values (null,'Anthony','Doucet','800 6 Ave SW, Calgary, AB T2P 3G3','403-577-966','anthonydoucet@gmail.com','C',1,1,'Need more training!');
 insert into employees values (null,'Jason','Sy','1415 14 Ave NW, Calgary, AB T2N 1M4','587-777-333','jasonsy@gmail.com','C',1,1,'Need more training!');

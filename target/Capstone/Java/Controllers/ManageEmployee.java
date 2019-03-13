@@ -10,6 +10,7 @@ import java.io.IOException;
 @WebServlet(name = "ManageEmployee")
 public class ManageEmployee extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String constraints = request.getParameter("constraints");
 
     }
 

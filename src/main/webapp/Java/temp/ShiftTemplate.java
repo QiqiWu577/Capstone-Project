@@ -40,6 +40,8 @@ public class ShiftTemplate implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shift_id")
     private Integer shiftId;
+    @Column(name = "type")
+    private String type;
     @Column(name = "start_time")
     private String startTime;
     @Column(name = "end_time")

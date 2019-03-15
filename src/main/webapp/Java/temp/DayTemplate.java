@@ -7,14 +7,7 @@ package temp;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -40,7 +33,7 @@ public class DayTemplate implements Serializable {
     private String openTime;
     @Column(name = "close_time")
     private String closeTime;
-    @OneToMany(mappedBy = "dayOfWeek")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "dayOfWeek")
     private List<ShiftTemplate> shiftTemplateList;
 
     public DayTemplate() {

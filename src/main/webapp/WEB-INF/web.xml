@@ -16,10 +16,11 @@
     <res-type>javax.sql.DataSource</res-type>
     <res-auth>Container</res-auth>
   </resource-ref>
-  
+
+  <!--if want to use jsp pages inside the WEB-INF folder, must write "/" before WEB-INF -->
   <welcome-file-list>
 
-    <welcome-file>test/ManageSerSched.jsp</welcome-file>
+    <welcome-file>ManageScheduleViews</welcome-file>
 
   </welcome-file-list>
 

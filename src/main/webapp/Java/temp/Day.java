@@ -11,18 +11,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -53,7 +42,7 @@ public class Day implements Serializable {
     @Column(name = "end_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
-    @OneToMany(mappedBy = "dayId")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "dayId")
     private List<Shift> shiftList;
 
     public Day() {
@@ -63,10 +52,10 @@ public class Day implements Serializable {
         this.dayId = dayId;
     }
 
-    public Day(Integer dayId, Date startTime, Date endTime) {
-        this.dayId = dayId;
-        this.startTime = startTime;
-        this.endTime = endTime;
+    public Day(LocalDateTime startTime, LocalDateTime endTime) {
+
+        this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
+        this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
     public Integer getDayId() {

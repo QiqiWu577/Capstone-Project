@@ -11,8 +11,9 @@ public class CalendarDAO implements Serializable {
     private String color;
     private int shiftId;
     private int dayId;
+    private int empId;
 
-    public CalendarDAO(int id, String title, String start, String end, String color,int shiftId,int dayId) {
+    public CalendarDAO(int id, String title, String start, String end, String color,int shiftId,int dayId,int empId) {
 
         this.id = id;
         this.title = title;
@@ -21,6 +22,7 @@ public class CalendarDAO implements Serializable {
         this.color = color;
         this.shiftId = shiftId;
         this.dayId = dayId;
+        this.empId = empId;
     }
 
     public int getId() {
@@ -77,5 +79,13 @@ public class CalendarDAO implements Serializable {
 
     public void setDayId(int dayId) {
         this.dayId = dayId;
+    }
+
+    public int getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 }

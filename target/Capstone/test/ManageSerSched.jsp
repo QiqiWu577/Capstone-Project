@@ -26,10 +26,10 @@
     <!-- fullcalendar' need -->
     <link href='css/calendarCSS/fullcalendar.min.css' rel='stylesheet' />
     <link href='css/calendarCSS/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-    <script src='js/calendarJS/moment.min.js'></script>
-    <script src='js/calendarJS/jquery.min.js'></script>
-    <script src='js/calendarJS/fullcalendar.min.js'></script>
-    <script src='js/calendarJS/manageEvent.js'></script>
+    <script src='js/calendarCore/moment.min.js'></script>
+    <script src='js/calendarCore/jquery.min.js'></script>
+    <script src='js/calendarCore/fullcalendar.min.js'></script>
+    <script src='js/calendarMaintain/maintainSerEvent.js'></script>
 
     <!-- fullcalendar' jquery theme -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -79,13 +79,14 @@
     </div>
 </div>
 
-<!--Calendar Schedule -->
+<!--Different views for calendar-->
 <div class="widget">
     <a href="ManageScheduleViews?message=server">Server</a>
     <a href="ManageScheduleViews?message=bartender">Bartender</a>
     <a href="ManageScheduleViews?message=kitchen">Kitchen</a>
 </div>
 <br/>
+<!--Calendar Schedule -->
 <div id='calendar'></div>
 
 

@@ -1,8 +1,7 @@
-package Controllers;
+package Controllers.DisplayServices;
 
 import Persistance.FullcalendarDBOps;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import temp.CalendarDAO;
 
 import javax.servlet.ServletException;
@@ -15,52 +14,55 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-@WebServlet(name = "ShowCalendar",urlPatterns = "/ShowCalendar")
-public class ShowCalendar extends HttpServlet {
+@WebServlet(name = "ShowKitCalendar",urlPatterns = "/ShowKitCalendar")
+public class ShowKitCalendar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list = new ArrayList();
         HttpSession session = request.getSession();
+        char empType = 'K';
 
         //get the shift list from the shift table
-        String shiftList = DBOps.getShifts();
+        String empList = DBOps.getEmps(empType);
 
-        if(!shiftList.equals("")){
+        if(!empList.equals("")){
 
-            String[] rows = shiftList.split(";");
+            String[] rows = empList.split(";");
             int i = 0;  //keep track of the index of the list for editing
 
             for(String row:rows){
                 String[] detail = row.split(",");
-                System.out.println(row);
 
-                //set the event color
-                String color = "";
-                if(detail[4].equals("D")){
+                String shiftList = DBOps.getShifts(detail[0]);
+                String[] shifts = shiftList.split(";");
+                for(String shift:shifts){
+                    String[] shiftDetail = shift.split(",");
 
-                    color = "green";
-                }else {
+                    //set the event color
+                    String color = "";
+                    if(shiftDetail[4].equals("D")){
 
-                    color = "purple";
-                }
+                        color = "green";
+                    }else if(shiftDetail[4].equals("M")){
 
-                //get employee's firstName
-                String fnameList = DBOps.getNameOfEmp(detail[0]);
-                String[] names = fnameList.split(";");
-                for(String name:names){
+                        color = "yellow";
+                    }else {
 
-                    //store id,title,start,end as CalendarDAO object into the ArrayList if one on the shift or
+                        color = "purple";
+                    }
+
+                    //store id,title,start,end,shiftID,dayId and empId as CalendarDAO object into the ArrayList if one on the shift or
                     // more than one employees on the same shift
-                    list.add(new CalendarDAO(i,name,detail[2],detail[3],color,Integer.parseInt(detail[0]),Integer.parseInt(detail[1])));
+                    list.add(new CalendarDAO(i,detail[1],shiftDetail[2],shiftDetail[3],color,Integer.parseInt(shiftDetail[0]),Integer.parseInt(shiftDetail[1]),Integer.parseInt(detail[0])));
                     i++;
                 }
 
             }
 
             //store the list as session for the use of editing
-            session.setAttribute("shiftList",list);
+            session.setAttribute("kichenShifts",list);
 
             //send the generate schedule in json format to the fullcalendar
             response.setContentType("application/json");

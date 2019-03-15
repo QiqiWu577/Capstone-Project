@@ -10,20 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -58,7 +45,10 @@ public class Shift implements Serializable {
     @Basic(optional = false)
     @Column(name = "shift_type")
     private Character shiftType;
-    @ManyToMany(mappedBy = "shiftList")
+    @JoinTable(name = "schedule_employee", joinColumns = {
+            @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id")})
+    @ManyToMany
     private List<Employee> employeeList;
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
     @ManyToOne
@@ -67,11 +57,16 @@ public class Shift implements Serializable {
     public Shift() {
     }
 
-    public Shift(int dayId, LocalDateTime startTime, LocalDateTime endTime, Character shiftType) {
-        this.dayId.setDayId(dayId);
+    public Shift(Day dayId, LocalDateTime startTime, LocalDateTime endTime, Character shiftType) {
+        this.dayId = dayId;
         this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
         this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
         this.shiftType = shiftType;
+
+    }
+
+    public void setShiftId(Integer shiftId) {
+        this.shiftId = shiftId;
     }
 
     public Integer getShiftId() {

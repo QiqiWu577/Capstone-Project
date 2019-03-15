@@ -10,6 +10,7 @@ drop table if exists schedule_employee;
 drop table if exists notifications;
 drop table if exists shift;
 drop table if exists days;
+drop table if exists salt;
 drop table if exists employee_constraints;
 drop table if exists employees;
 
@@ -31,6 +32,14 @@ CREATE TABLE Employee_constraints (
                                     constraints VARCHAR(400) NOT NULL,
                                     PRIMARY KEY (emp_id),
                                     FOREIGN KEY (emp_id) REFERENCES Employees(emp_id)
+);
+
+CREATE TABLE salt (
+                    emp_id int(4),
+                    hash VARCHAR(400),
+                    salt VARCHAR(400),
+                    PRIMARY KEY(emp_id),
+                    FOREIGN KEY (emp_id) references Employees(emp_id)
 );
 
 CREATE TABLE Days (
@@ -79,6 +88,7 @@ CREATE TABLE day_template (
 
 CREATE TABLE shift_template (
                               shift_id    int(6) auto_increment,
+                              type        char(1),
                               day_of_week VARCHAR(10),
                               start_time  VARCHAR(8),
                               end_time    VARCHAR(8),

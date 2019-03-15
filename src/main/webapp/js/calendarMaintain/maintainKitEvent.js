@@ -12,7 +12,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: 'EditCalendar',
+            url: 'EditKitCalendar',
             contentType: "application/json",
             data: JSON.stringify(data)
         });
@@ -34,7 +34,7 @@ $(document).ready(function() {
         themeSystem: 'jquery-ui',
         selectable: true,
         allDaySlot: false,
-        events:  'ShowCalendar',
+        events:  'ShowKitCalendar',
 
         select: function(start,end,jsEvent,view){
 
@@ -43,7 +43,7 @@ $(document).ready(function() {
             if(title){
 
                 $('#calendar').fullCalendar('renderEvent',{
-                   title: title,
+                    title: title,
                     start: start,
                     end: end
                 });

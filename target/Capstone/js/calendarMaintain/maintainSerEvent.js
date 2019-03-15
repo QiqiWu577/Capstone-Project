@@ -12,6 +12,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
+            url: 'EditCalendar',
             contentType: "application/json",
             data: JSON.stringify(data)
         });

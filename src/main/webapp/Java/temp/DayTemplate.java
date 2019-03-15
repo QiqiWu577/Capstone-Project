@@ -18,11 +18,11 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "day_template")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "DayTemplate.findAll", query = "SELECT d FROM DayTemplate d")
-    , @NamedQuery(name = "DayTemplate.findByDayOfWeek", query = "SELECT d FROM DayTemplate d WHERE d.dayOfWeek = :dayOfWeek")
-    , @NamedQuery(name = "DayTemplate.findByOpenTime", query = "SELECT d FROM DayTemplate d WHERE d.openTime = :openTime")
-    , @NamedQuery(name = "DayTemplate.findByCloseTime", query = "SELECT d FROM DayTemplate d WHERE d.closeTime = :closeTime")})
+@NamedQueries(value = {
+        @NamedQuery(name = "DayTemplate.findAll", query = "SELECT d FROM DayTemplate d")
+        , @NamedQuery(name = "DayTemplate.findByDayOfWeek", query = "SELECT d FROM DayTemplate d WHERE d.dayOfWeek = :dayOfWeek")
+        , @NamedQuery(name = "DayTemplate.findByOpenTime", query = "SELECT d FROM DayTemplate d WHERE d.openTime = :openTime")
+        , @NamedQuery(name = "DayTemplate.findByCloseTime", query = "SELECT d FROM DayTemplate d WHERE d.closeTime = :closeTime")})
 public class DayTemplate implements Serializable {
 
     private static final long serialVersionUID = 1L;

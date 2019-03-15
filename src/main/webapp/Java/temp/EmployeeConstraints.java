@@ -5,8 +5,6 @@
  */
 package temp;
 
-import Model.ConstraintWrongSizeException;
-import Model.InvalidConstraintException;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -19,10 +17,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "employee_constraints")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "EmployeeConstraints.findAll", query = "SELECT e FROM EmployeeConstraints e")
-    , @NamedQuery(name = "EmployeeConstraints.findByEmpId", query = "SELECT e FROM EmployeeConstraints e WHERE e.empId = :empId")
-    , @NamedQuery(name = "EmployeeConstraints.findByConstraints", query = "SELECT e FROM EmployeeConstraints e WHERE e.constraints = :constraints")})
+@NamedQueries(value = {
+        @NamedQuery(name = "EmployeeConstraints.findAll", query = "SELECT e FROM EmployeeConstraints e")
+        , @NamedQuery(name = "EmployeeConstraints.findByEmpId", query = "SELECT e FROM EmployeeConstraints e WHERE e.empId = :empId")
+        , @NamedQuery(name = "EmployeeConstraints.findByConstraints", query = "SELECT e FROM EmployeeConstraints e WHERE e.constraints = :constraints")})
 public class EmployeeConstraints implements Serializable {
 
     private static final long serialVersionUID = 1L;

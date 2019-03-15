@@ -8,21 +8,22 @@
 </head>
 
 <body>
-<div class="sidebar">
-    <div class="logo">
-        <img src="${pageContext.request.contextPath}/images/2030_logo.png" alt="2030" height="100" width="100">
+<!--Left side Menu -->
+<div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
+    <div class="container-3 w-container">
+        <a href="#" class="brand w-nav-brand">
+            <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
+        </a>
+        <nav role="navigation" class="w-nav-menu">
+            <a href="<%=application.getContextPath() %>/TestServlet" class="nav-links w-nav-link">Home</a>
+            <a href="<%=application.getContextPath() %>/TestServlet?page=1" class="nav-links selected w-nav-link">Employee Management</a>
+            <a href="#" class="nav-links w-nav-link">Notifications</a>
+            <a href="#" class="nav-links w-nav-link">Settings</a>
+        </nav>
     </div>
-    <a href="home.html">Home</a>
-    <a href="employeemgmt.html">Employee Management</a>
-    <a href="settings.html">Settings</a>
 </div>
 
 <div class="main">
-    <div class="topbar">
-        <a href="notifications.html">
-            <img src="${pageContext.request.contextPath}/images/61073.svg" height="30" width="30">
-        </a>
-    </div>
     <div class="title">
         Employee Management
     </div>
@@ -38,6 +39,16 @@
                     <th class="avail">Name</th>
                     <th class="avail">Position</th>
                 </tr>
+                <%--<c:forEach items="${requestScope.employeeList}" var="emp" >--%>
+                    <%--<tr class="alt" onclick="populate('${emp.getEmpid()}','${emp.getFname()}','${emp.getLname()}',--%>
+                            <%--'${emp.getAddress()}','${emp.getPhoneno()}','${emp.getEmail()}','${emp.getType()}','${emp.getComments()}')">--%>
+                        <%--<td>${emp.getEmpid()}</td>--%>
+                        <%--<td>${emp.getFname()} ${emp.getLname()}</td>--%>
+                        <%--<td>${emp.getType()}</td>--%>
+                    <%--</tr>--%>
+
+                <%--</c:forEach>--%>
+
                 <tr class="alt">
                     <td>001</td>
                     <td>Dave Johnson</td>
@@ -71,14 +82,16 @@
 
             </table>
         </div>
-        <form action="" method="GET">
+        <form action="${pageContext.request.contextPath}/TestServlet" method="GET" id="myForm">
             <input type="hidden" id="constraints" onsubmit="generateString()" name="constraints">
+            <input type="hidden" name="page" value="1">
+
             <div class="column" style="background-color:#d8d8d8;">
 
                 <div class="row">
                     <div class="column" style="background-color:#d8d8d8;">
                         <label for="id">ID</label><br/>
-                        <input type="text" id="id" name="id"><br/>
+                        <input type="text" id="id" name="id" value="0" readonly><br/>
                         <label for="fname">First Name</label>
                         <input type="text" placeholder="John" id="fname" name="fname"><br/>
                         <label for="lname">Last Name</label>
@@ -106,8 +119,8 @@
                     <textarea name="comment" rows="4" cols="70" placeholder="Example Text"></textarea>
                     <div class="btngrp">
                         <input type="submit" value="Save" onclick="generateString()" class="btns">
-                        <input type="button" value="Clear" class="btns">
-                        <input type="button" value="Delete" class="btns">
+                        <input type="button" value="Clear" class="btns" onclick="clearFields()">
+                        <input type="submit" value="Delete" class="btns">
                     </div>
 
 
@@ -124,39 +137,39 @@
                             <tr><th></th><th>12am-5am</th><th>6am-11am</th><th>12pm-5pm</th><th>6pm-11pm</th></tr>
                             <tr>
                                 <th>
-                        <div class="heading">Monday</div>
+                                    <div class="heading">Monday</div>
                                 </th>
                                 <td style="border-right: 1px solid black;">
-                        <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
 
-                            <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
-                            </c:if>
-                            <label class="container">
-                                <input id="box_A_0_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
-                                <span class="checkmark"></span>
-                            </label>
-                        </c:forEach>
+                                </c:if>
+                                <label class="contain">
+                                    <input id="box_A_0_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                    </c:forEach>
                             </td>
                             </tr>
 
 
-                           <tr>
-                               <th>
+                            <tr>
+                                <th>
                                     <div class="heading">Tuesday</div>
-                               </th>
-                               <td style="border-right: 1px solid black;">
+                                </th>
+                                <td style="border-right: 1px solid black;">
                                     <c:forEach begin="0" end="23" varStatus="loop">
-                                        <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
-                                            </td><td style="border-right: 1px solid black;">
-                                        </c:if>
-                                        <label class="container">
-                                            <input id="box_A_1_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
-                                            <span class="checkmark"></span>
-                                        </label>
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="contain">
+                                    <input id="box_A_1_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
                                     </c:forEach>
-                               </td>
-                           </tr>
+                            </td>
+                            </tr>
 
                             <tr>
                                 <th>
@@ -167,11 +180,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_A_2_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -183,11 +196,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_A_3_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -199,11 +212,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_A_4_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -215,11 +228,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_A_5_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -231,11 +244,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_A_6_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
                         </table>
@@ -260,11 +273,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_P_0_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
 
@@ -278,11 +291,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_P_1_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
 
@@ -295,11 +308,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_P_2_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -311,11 +324,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_P_3_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -327,11 +340,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_P_4_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -343,11 +356,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_P_5_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -359,11 +372,11 @@
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
                                 </c:if>
-                                <label class="container">
+                                <label class="contain">
                                     <input id="box_P_6_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                </c:forEach>
+                                    </c:forEach>
                             </td>
                             </tr>
                         </table>
@@ -374,7 +387,12 @@
 
 
 
-                    <script>
+                    <script type="text/javascript">
+
+                        function clearFields() {
+                            document.getElementById("myForm").reset();
+                        }
+
                         function check(box) {
                             if (mouseDown) {
                                 box.checked = 1 - box.checked;
@@ -446,6 +464,61 @@
                             document.getElementById(cityName).style.position = "relative";
                             evt.currentTarget.className += " active";
                         }
+
+
+                        function populate(id,firstname,lastname, address,phoneNo,email,type,comments, constraints) {
+                            document.getElementById("id").value = id;
+                            document.getElementById("fname").value = firstname;
+                            document.getElementById("lastname").value = lastname;
+                            document.getElementById("address").value = address;
+                            document.getElementById("phone").value = phone;
+                            document.getElementById("email").value = email;
+                            document.getElementById("comments").value = comments;
+                            var selObj = document.getElementById('position');
+
+                            if(type == 'S') {
+                                selObj.selectedIndex = 1;
+                            } else if (type == 'B') {
+                                selObj.selectedIndex = 0;
+                            } else if (type == 'K') {
+                                selObj.selectedIndex = 2;
+                            }
+
+                            for (var i = 0; i < constraints.length; i++) {
+                                if(i<23) {
+
+                                } else if (i<48) {
+
+                                } else if (i < 73) {
+
+                                } else if (i < 98) {
+
+                                } else if (i < 123) {
+
+                                } else if (i < 148) {
+
+                                } else if (i < 173) {
+
+                                } else if (i < 198) {
+
+                                } else if (i < 223) {
+
+                                } else if (i < 248) {
+
+                                } else if (i < 273) {
+
+                                } else if (i < 298) {
+
+                                } else if (i < 323) {
+
+                                } else if (i < 348) {
+
+                                }
+                            }
+                        }
+
+
+
 
                     </script>
 

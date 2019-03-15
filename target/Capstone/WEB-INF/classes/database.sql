@@ -36,8 +36,8 @@ CREATE TABLE Employee_constraints (
 
 CREATE TABLE salt (
                     emp_id int(4),
-                    hash VARCHAR(100),
-                    salt VARCHAR(100),
+                    hash VARCHAR(400),
+                    salt VARCHAR(400),
                     PRIMARY KEY(emp_id),
                     FOREIGN KEY (emp_id) references Employees(emp_id)
 );
@@ -88,6 +88,7 @@ CREATE TABLE day_template (
 
 CREATE TABLE shift_template (
                               shift_id    int(6) auto_increment,
+                              type        char(1),
                               day_of_week VARCHAR(10),
                               start_time  VARCHAR(8),
                               end_time    VARCHAR(8),

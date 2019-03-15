@@ -12,29 +12,24 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-@WebServlet(name = "TestServlet", urlPatterns = {"/index.html", "/login", "/show_dbs"})
+@WebServlet(name = "TestServlet", urlPatterns = "/TestServlet")
 public class TestServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) {
 
-
-        LocalDateTime monday = LocalDateTime.of(2019,03,11,0,0);
-        DBOperation dbops = new DBOperation();
-
-        ArrayList<Day> schedule = dbops.getSchedule(monday);
-
-        for(Day day: schedule) {
-            System.out.println(day.toString());
-        }
-
+        String page = request.getParameter("page");
 
         try {
-            request.getRequestDispatcher("test/ManagerSchedule").forward(request,response);
+            if(page != null) {
+                request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request,response);
+            }
+            request.getRequestDispatcher("/test/ManageBarSched.jsp").forward(request,response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 

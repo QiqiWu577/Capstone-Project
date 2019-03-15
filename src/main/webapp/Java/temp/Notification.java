@@ -29,14 +29,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "notifications")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Notification.findAll", query = "SELECT n FROM Notification n")
-    , @NamedQuery(name = "Notification.findByNotifid", query = "SELECT n FROM Notification n WHERE n.notifid = :notifid")
-    , @NamedQuery(name = "Notification.findByRecipient", query = "SELECT n FROM Notification n WHERE n.recipient = :recipient")
-    , @NamedQuery(name = "Notification.findByContent", query = "SELECT n FROM Notification n WHERE n.content = :content")
-    , @NamedQuery(name = "Notification.findByDate", query = "SELECT n FROM Notification n WHERE n.date = :date")
-    , @NamedQuery(name = "Notification.findByNotiftype", query = "SELECT n FROM Notification n WHERE n.notiftype = :notiftype")
-    , @NamedQuery(name = "Notification.findByStatus", query = "SELECT n FROM Notification n WHERE n.status = :status")})
+@NamedQueries(value = {
+        @NamedQuery(name = "Notification.findAll", query = "SELECT n FROM Notification n")
+        , @NamedQuery(name = "Notification.findByNotifid", query = "SELECT n FROM Notification n WHERE n.notifid = :notifid")
+        , @NamedQuery(name = "Notification.findByRecipient", query = "SELECT n FROM Notification n WHERE n.recipient = :recipient")
+        , @NamedQuery(name = "Notification.findByContent", query = "SELECT n FROM Notification n WHERE n.content = :content")
+        , @NamedQuery(name = "Notification.findByDate", query = "SELECT n FROM Notification n WHERE n.date = :date")
+        , @NamedQuery(name = "Notification.findByNotiftype", query = "SELECT n FROM Notification n WHERE n.notiftype = :notiftype")
+        , @NamedQuery(name = "Notification.findByStatus", query = "SELECT n FROM Notification n WHERE n.status = :status")})
 public class Notification implements Serializable {
 
     private static final long serialVersionUID = 1L;

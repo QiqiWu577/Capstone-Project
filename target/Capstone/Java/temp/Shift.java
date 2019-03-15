@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "shift")
 @XmlRootElement
-@NamedQueries({
+@NamedQueries(value = {
         @NamedQuery(name = "Shift.findAll", query = "SELECT s FROM Shift s")
         , @NamedQuery(name = "Shift.findByShiftId", query = "SELECT s FROM Shift s WHERE s.shiftId = :shiftId")
         , @NamedQuery(name = "Shift.findByStartTime", query = "SELECT s FROM Shift s WHERE s.startTime = :startTime")

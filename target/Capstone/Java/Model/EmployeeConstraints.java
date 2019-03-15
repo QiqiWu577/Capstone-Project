@@ -1,41 +1,111 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Model;
-public class EmployeeConstraints {
 
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
+
+/**
+ *
+ * @author Administrator
+ */
+@Entity
+@Table(name = "employee_constraints")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "EmployeeConstraints.findAll", query = "SELECT e FROM EmployeeConstraints e")
+    , @NamedQuery(name = "EmployeeConstraints.findByEmpId", query = "SELECT e FROM EmployeeConstraints e WHERE e.empId = :empId")
+    , @NamedQuery(name = "EmployeeConstraints.findByConstraints", query = "SELECT e FROM EmployeeConstraints e WHERE e.constraints = :constraints")})
+public class EmployeeConstraints implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Column(name = "emp_id")
+    private Integer empId;
+    @Basic(optional = false)
+    @Column(name = "constraints")
+    private String constraints;
+    @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Employee employee;
+
+    @Transient
     private boolean[] availableTimeMonday;
+    @Transient
     private boolean[] availableTimeTuesday;
+    @Transient
     private boolean[] availableTimeWednesday;
+    @Transient
     private boolean[] availableTimeThursday;
+    @Transient
     private boolean[] availableTimeFriday;
+    @Transient
     private boolean[] availableTimeSaturday;
+    @Transient
     private boolean[] availableTimeSunday;
-
+    @Transient
     private boolean[] preferredTimeMonday;
+    @Transient
     private boolean[] preferredTimeTuesday;
+    @Transient
     private boolean[] preferredTimeWednesday;
+    @Transient
     private boolean[] preferredTimeThursday;
+    @Transient
     private boolean[] preferredTimeFriday;
+    @Transient
     private boolean[] preferredTimeSaturday;
+    @Transient
     private boolean[] preferredTimeSunday;
 
+    @Transient
     private boolean isAvailMonday;
+    @Transient
     private boolean isAvailTuesday;
+    @Transient
     private boolean isAvailWednesday;
+    @Transient
     private boolean isAvailThursday;
+    @Transient
     private boolean isAvailFriday;
+    @Transient
     private boolean isAvailSaturday;
+
+    @Transient
     private boolean isAvailSunday;
 
     private boolean isPrefMonday;
+    @Transient
     private boolean isPrefTuesday;
+    @Transient
     private boolean isPrefWednesday;
+    @Transient
     private boolean isPrefThursday;
+    @Transient
     private boolean isPrefFriday;
+    @Transient
     private boolean isPrefSaturday;
+    @Transient
     private boolean isPrefSunday;
 
-    private String constraints;
 
-    public EmployeeConstraints(String constraints) throws InvalidConstraintException, ConstraintWrongSizeException {
+
+
+
+    public EmployeeConstraints() {
+    }
+
+    public EmployeeConstraints(Integer empId) {
+        this.empId = empId;
+    }
+
+    public EmployeeConstraints(Integer empId, String constraints) throws InvalidConstraintException, ConstraintWrongSizeException{
+        this.empId = empId;
+        this.constraints = constraints;
         availableTimeMonday = new boolean[24];
         availableTimeTuesday = new boolean[24];
         availableTimeWednesday = new boolean[24];
@@ -52,8 +122,8 @@ public class EmployeeConstraints {
         preferredTimeSaturday = new boolean[24];
         preferredTimeSunday = new boolean[24];
 
-        this.constraints = constraints;
         parseConstraints(constraints);
+
     }
 
     private void parseConstraints(String constraints) throws InvalidConstraintException, ConstraintWrongSizeException {
@@ -235,12 +305,65 @@ public class EmployeeConstraints {
 
     }
 
+
+
+    public Integer getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(Integer empId) {
+        this.empId = empId;
+    }
+
+    public String getConstraints() {
+        return constraints;
+    }
+
+    public void setConstraints(String constraints) {
+        this.constraints = constraints;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (empId != null ? empId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof EmployeeConstraints)) {
+            return false;
+        }
+        EmployeeConstraints other = (EmployeeConstraints) object;
+        if ((this.empId == null && other.empId != null) || (this.empId != null && !this.empId.equals(other.empId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "data.EmployeeConstraints[ empId=" + empId + " ]";
+    }
+
+
+
     public boolean[] getAvailableTimeMonday() {
         return availableTimeMonday;
     }
 
-    public void setAvailableTimeMonday(boolean[] availableTimesMonday) {
-        this.availableTimeMonday = availableTimesMonday;
+    public void setAvailableTimeMonday(boolean[] availableTimeMonday) {
+        this.availableTimeMonday = availableTimeMonday;
     }
 
     public boolean[] getAvailableTimeTuesday() {
@@ -263,16 +386,16 @@ public class EmployeeConstraints {
         return availableTimeThursday;
     }
 
-    public void setAvailableTimeThursday(boolean[] availableTimeThrusday) {
-        this.availableTimeThursday = availableTimeThrusday;
+    public void setAvailableTimeThursday(boolean[] availableTimeThursday) {
+        this.availableTimeThursday = availableTimeThursday;
     }
 
     public boolean[] getAvailableTimeFriday() {
         return availableTimeFriday;
     }
 
-    public void setAvailableTimeFriday(boolean[] availableTimeFirday) {
-        this.availableTimeFriday = availableTimeFirday;
+    public void setAvailableTimeFriday(boolean[] availableTimeFriday) {
+        this.availableTimeFriday = availableTimeFriday;
     }
 
     public boolean[] getAvailableTimeSaturday() {
@@ -295,149 +418,56 @@ public class EmployeeConstraints {
         return preferredTimeMonday;
     }
 
-    public void setPreferredTimsMonday(boolean[] preferredTimesMonday) {
-        this.preferredTimeMonday = preferredTimesMonday;
+    public void setPreferredTimeMonday(boolean[] preferredTimeMonday) {
+        this.preferredTimeMonday = preferredTimeMonday;
     }
 
     public boolean[] getPreferredTimeTuesday() {
         return preferredTimeTuesday;
     }
 
-    public void setPreferredTimeTuesday(boolean[] preferredTimesTuesday) {
-        this.preferredTimeTuesday = preferredTimesTuesday;
+    public void setPreferredTimeTuesday(boolean[] preferredTimeTuesday) {
+        this.preferredTimeTuesday = preferredTimeTuesday;
     }
 
     public boolean[] getPreferredTimeWednesday() {
         return preferredTimeWednesday;
     }
 
-    public void setPreferredTimeWednesday(boolean[] preferredTimesWednesday) {
-        this.preferredTimeWednesday = preferredTimesWednesday;
+    public void setPreferredTimeWednesday(boolean[] preferredTimeWednesday) {
+        this.preferredTimeWednesday = preferredTimeWednesday;
     }
 
     public boolean[] getPreferredTimeThursday() {
         return preferredTimeThursday;
     }
 
-    public void setPreferredTimeThursday(boolean[] preferredTimesThursday) {
-        this.preferredTimeThursday = preferredTimesThursday;
+    public void setPreferredTimeThursday(boolean[] preferredTimeThursday) {
+        this.preferredTimeThursday = preferredTimeThursday;
     }
 
     public boolean[] getPreferredTimeFriday() {
         return preferredTimeFriday;
     }
 
-    public void setPreferredTimeFriday(boolean[] preferredTimesFirday) {
-        this.preferredTimeFriday = preferredTimesFirday;
+    public void setPreferredTimeFriday(boolean[] preferredTimeFriday) {
+        this.preferredTimeFriday = preferredTimeFriday;
     }
 
     public boolean[] getPreferredTimeSaturday() {
         return preferredTimeSaturday;
     }
 
-    public void setPreferredTimeSaturday(boolean[] preferredTimesSaturday) {
-        this.preferredTimeSaturday = preferredTimesSaturday;
+    public void setPreferredTimeSaturday(boolean[] preferredTimeSaturday) {
+        this.preferredTimeSaturday = preferredTimeSaturday;
     }
 
     public boolean[] getPreferredTimeSunday() {
         return preferredTimeSunday;
     }
 
-    public void setPreferredTimeSunday(boolean[] preferredTimesSunday) {
-        this.preferredTimeSunday = preferredTimesSunday;
-    }
-
-    public String getConstraints() {
-        return constraints;
-    }
-
-    public void setConstraints(String constraints) {
-        this.constraints = constraints;
-    }
-
-
-    @Override
-    public String toString() {
-        String result = "";
-        result += "Monday Avail: ";
-        for(boolean b: availableTimeMonday) {
-            result += b + " ";
-        }
-        result += "\n";
-        result += "Monday Pref: ";
-        for(boolean b: preferredTimeMonday) {
-            result += b + " ";
-        }
-        result += "\n";
-
-        result += "Tuesday Avail: ";
-        for(boolean b: availableTimeTuesday) {
-            result += b + " ";
-        }
-        result += "\n";
-        result += "Tuesday Pref: ";
-        for(boolean b: preferredTimeTuesday) {
-            result += b + " ";
-        }
-        result += "\n";
-
-        result += "Wednesday Avail: ";
-        for(boolean b: availableTimeWednesday) {
-            result += b + " ";
-        }
-        result += "\n";
-        result += "Wednesday Pref: ";
-        for(boolean b: preferredTimeWednesday) {
-            result += b + " ";
-        }
-        result += "\n";
-
-        result += "Thrusday Avail: ";
-        for(boolean b: availableTimeThursday) {
-            result += b + " ";
-        }
-        result += "\n";
-        result += "Thursday Pref: ";
-        for(boolean b: preferredTimeThursday) {
-            result += b + " ";
-        }
-        result += "\n";
-
-        result += "Friday Avail: ";
-        for(boolean b: availableTimeFriday) {
-            result += b + " ";
-        }
-        result += "\n";
-        result += "Friday Pref: ";
-        for(boolean b: preferredTimeFriday) {
-            result += b + " ";
-        }
-        result += "\n";
-
-
-        result += "Saturday Avail: ";
-        for(boolean b: availableTimeSaturday) {
-            result += b + " ";
-        }
-        result += "\n";
-        result += "Saturday Pref: ";
-        for(boolean b: preferredTimeSaturday) {
-            result += b + " ";
-        }
-        result += "\n";
-
-        result += "Sunday Avail: ";
-        for(boolean b: availableTimeSunday) {
-            result += b + " ";
-        }
-        result += "\n";
-        result += "Sunday Pref: ";
-        for(boolean b: preferredTimeSunday) {
-            result += b + " ";
-        }
-        result += "\n";
-
-        return result;
+    public void setPreferredTimeSunday(boolean[] preferredTimeSunday) {
+        this.preferredTimeSunday = preferredTimeSunday;
     }
 
     public boolean isAvailMonday() {
@@ -496,12 +526,6 @@ public class EmployeeConstraints {
         isAvailSunday = availSunday;
     }
 
-
-
-    public void setPreferredTimeMonday(boolean[] preferredTimeMonday) {
-        this.preferredTimeMonday = preferredTimeMonday;
-    }
-
     public boolean isPrefMonday() {
         return isPrefMonday;
     }
@@ -557,5 +581,8 @@ public class EmployeeConstraints {
     public void setPrefSunday(boolean prefSunday) {
         isPrefSunday = prefSunday;
     }
+
+
+
 
 }

@@ -23,9 +23,9 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Employee.findAll", query = "SELECT e FROM Employee e")
         , @NamedQuery(name = "Employee.findByEmpid", query = "SELECT e FROM Employee e WHERE e.empid = :empid")
-        , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")
         , @NamedQuery(name = "Employee.findByFname", query = "SELECT e FROM Employee e WHERE e.fname = :fname")
         , @NamedQuery(name = "Employee.findByLname", query = "SELECT e FROM Employee e WHERE e.lname = :lname")
+        , @NamedQuery(name = "Employee.findByAddress", query = "SELECT e FROM Employee e WHERE e.address = :address")
         , @NamedQuery(name = "Employee.findByPhoneno", query = "SELECT e FROM Employee e WHERE e.phoneno = :phoneno")
         , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
         , @NamedQuery(name = "Employee.findByType", query = "SELECT e FROM Employee e WHERE e.type = :type")
@@ -40,14 +40,14 @@ public class Employee implements Serializable {
     @Column(name = "Emp_id")
     private Integer empid;
     @Basic(optional = false)
-    @Column(name = "Address")
-    private String address;
-    @Basic(optional = false)
     @Column(name = "Fname")
     private String fname;
     @Basic(optional = false)
     @Column(name = "lname")
     private String lname;
+    @Basic(optional = false)
+    @Column(name = "Address")
+    private String address;
     @Basic(optional = false)
     @Column(name = "Phone_no")
     private String phoneno;
@@ -65,10 +65,13 @@ public class Employee implements Serializable {
     private boolean active;
     @Column(name = "Notes")
     private String notes;
+    @JoinTable(name = "schedule_employee", joinColumns = {
+            @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")})
+    @ManyToMany
+    private List<Shift> shiftList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
     private EmployeeConstraints employeeConstraints;
-    @OneToMany(mappedBy = "empId")
-    private List<Shift> shiftList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     private List<Notification> notificationList;
 
@@ -79,6 +82,8 @@ public class Employee implements Serializable {
 
     public Employee(Integer empid) {
         this.empid = empid;
+        shiftList = new ArrayList<Shift>();
+        notificationList = new ArrayList<Notification>();
     }
 
     public Employee(Integer empid, String address, String fname, String lname, String phoneno, String email, Character type, boolean newHire, boolean active) {
@@ -91,6 +96,8 @@ public class Employee implements Serializable {
         this.type = type;
         this.newHire = newHire;
         this.active = active;
+        shiftList = new ArrayList<Shift>();
+        notificationList = new ArrayList<Notification>();
     }
 
     public Integer getEmpid() {

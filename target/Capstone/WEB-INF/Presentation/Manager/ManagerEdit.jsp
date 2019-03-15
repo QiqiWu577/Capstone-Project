@@ -5,7 +5,7 @@
 <head>
 <<<<<<< HEAD
     <title>Employee Management</title>
-    <link href="css/employeemgmt.css" rel="stylesheet" type="text/css">
+    <link href="employeemgmt.css" rel="stylesheet" type="text/css">
 =======
     <title>Home</title>
     <link href="./images/home.css" rel="stylesheet" type="text/css">

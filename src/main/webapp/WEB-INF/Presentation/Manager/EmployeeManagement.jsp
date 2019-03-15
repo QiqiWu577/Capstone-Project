@@ -1,592 +1,460 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Administrator
-  Date: 2019-02-12
-  Time: 11:53 AM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html data-wf-page="5c005823a8e61a3b52d95568" data-wf-site="5bfd62d9457454d30221aa10">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+
 <head>
-    <meta charset="utf-8">
     <title>Employee Management</title>
-    <meta content="Employee Management" property="og:title">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta content="Webflow" name="generator">
-    <link href="css/normalize.css" rel="stylesheet" type="text/css">
-    <link href="css/webflow.css" rel="stylesheet" type="text/css">
-    <link href="css/matthews-cool-project-2c37b7.webflow.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js" type="text/javascript"></script>
-    <script type="text/javascript">WebFont.load({  google: {    families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic"]  }});</script>
-    <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
-    <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
-    <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+    <link href="${pageContext.request.contextPath}/css/employeemgmt.css" rel="stylesheet" type="text/css">
 </head>
-<body class="body-2">
-<div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
-    <div class="container-3 w-container">
-        <a href="#" class="brand w-nav-brand">
-            <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
+
+<body>
+<div class="sidebar">
+    <div class="logo">
+        <img src="${pageContext.request.contextPath}/images/2030_logo.png" alt="2030" height="100" width="100">
+    </div>
+    <a href="home.html">Home</a>
+    <a href="employeemgmt.html">Employee Management</a>
+    <a href="settings.html">Settings</a>
+</div>
+
+<div class="main">
+    <div class="topbar">
+        <a href="notifications.html">
+            <img src="${pageContext.request.contextPath}/images/61073.svg" height="30" width="30">
         </a>
-        <nav role="navigation" class="w-nav-menu"><a href="#" class="nav-links w-nav-link">Home</a><a href="#" class="nav-links selected w-nav-link">Employee Management</a><a href="#" class="nav-links w-nav-link">Notifications</a><a href="#" class="nav-links w-nav-link">Settings</a></nav>
-        <div class="menu-button w-nav-button"><img src="images/Hamburger_icon.svg.png" alt="" class="image-3"></div>
+    </div>
+    <div class="title">
+        Employee Management
+    </div>
+    <div class="row">
+        <div class="columnleft" style="background-color:#d8d8d8;">
+            <br>
+            <input type="text" placeholder="Search"><br/>
+            <div class="table">
+            </div>
+            <table class="emp">
+                <tr class="positions-top">
+                    <th class="avail">ID</th>
+                    <th class="avail">Name</th>
+                    <th class="avail">Position</th>
+                </tr>
+                <tr class="alt">
+                    <td>001</td>
+                    <td>Dave Johnson</td>
+                    <td>Bartender</td>
+                </tr>
+                <tr class="alt">
+                    <td>002</td>
+                    <td>Mark Smith</td>
+                    <td>Server</td>
+                </tr>
+                <tr class="alt">
+                    <td>003</td>
+                    <td>Ronald McDonald</td>
+                    <td>Kitchen</td>
+                </tr>
+                <tr class="alt">
+                    <td>004</td>
+                    <td>John Smith</td>
+                    <td>Kitchen</td>
+                </tr>
+                <tr class="alt">
+                    <td>005</td>
+                    <td>Mark Wahlberg</td>
+                    <td>Bartender</td>
+                </tr>
+                <tr class="alt">
+                    <td>006</td>
+                    <td>Michael Scott</td>
+                    <td>Kitchen</td>
+                </tr>
+
+            </table>
+        </div>
+        <form action="" method="GET">
+            <input type="hidden" id="constraints" onsubmit="generateString()" name="constraints">
+            <div class="column" style="background-color:#d8d8d8;">
+
+                <div class="row">
+                    <div class="column" style="background-color:#d8d8d8;">
+                        <label for="id">ID</label><br/>
+                        <input type="text" id="id" name="id"><br/>
+                        <label for="fname">First Name</label>
+                        <input type="text" placeholder="John" id="fname" name="fname"><br/>
+                        <label for="lname">Last Name</label>
+                        <input type="text" placeholder="Doe" id="lname" name="lname"><br/>
+                        <label for="position">Position</label><br/>
+                        <select id="position" name="position">
+                            <option value="Bartender">Bartender</option>
+                            <option value="Server">Server</option>
+                            <option value="Kitchen">Kitchen</option>
+                        </select>
+                    </div>
+                    <div class="column" style="background-color:#d8d8d8;">
+                        <label for="email">Email Address</label><br/>
+                        <input type="text" id="email" placeholder="email@example.com" name="email"><br/>
+                        <label for="address">Address</label><br/>
+                        <input type="text" id="address" placeholder="123 Main Street" name="address"><br/>
+                        <label for="phone">Phone Number</label><br/>
+                        <input type="text" id="phone" placeholder="### - ### - ####" name="phone"><br/>
+                    </div>
+                </div>
+
+                <div class="bottom">
+                    <label>Comments</label>
+                    <br>
+                    <textarea name="comment" rows="4" cols="70" placeholder="Example Text"></textarea>
+                    <div class="btngrp">
+                        <input type="submit" value="Save" onclick="generateString()" class="btns">
+                        <input type="button" value="Clear" class="btns">
+                        <input type="button" value="Delete" class="btns">
+                    </div>
+
+
+
+                    <div class="tab">
+                        <button type="button" class="tablinks" onclick="openCity(event, 'Availability')">Availability</button>
+                        <button type="button" class="tablinks" onclick="openCity(event, 'Preferences')">Preferences</button>
+                    </div>
+
+                    <!-- Tab content -->
+                    <div id="Availability" class="tabcontent">
+                        <div class="goodName">Availability</div><br>
+                        <table>
+                            <tr><th></th><th>12am-5am</th><th>6am-11am</th><th>12pm-5pm</th><th>6pm-11pm</th></tr>
+                            <tr>
+                                <th>
+                        <div class="heading">Monday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                        <c:forEach begin="0" end="23" varStatus="loop">
+
+                            <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                            </c:if>
+                            <label class="container">
+                                <input id="box_A_0_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                <span class="checkmark"></span>
+                            </label>
+                        </c:forEach>
+                            </td>
+                            </tr>
+
+
+                           <tr>
+                               <th>
+                                    <div class="heading">Tuesday</div>
+                               </th>
+                               <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                        <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                            </td><td style="border-right: 1px solid black;">
+                                        </c:if>
+                                        <label class="container">
+                                            <input id="box_A_1_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </c:forEach>
+                               </td>
+                           </tr>
+
+                            <tr>
+                                <th>
+                                    <div class="heading">Wednesday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_A_2_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div class="heading">Thursday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_A_3_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div class="heading">Friday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_A_4_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div class="heading">Saturday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_A_5_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div class="heading">Sunday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_A_6_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+
+
+
+
+                    <div id="Preferences" class="tabcontent">
+                        <div class="goodName">Preferences</div> <br>
+                        <table>
+                            <tr><th></th><th>12am-5am</th><th>6am-11am</th><th>12pm-5pm</th><th>6pm-11pm</th></tr>
+                            <tr>
+                                <th>
+                                    <div class="heading">Monday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_P_0_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+
+
+                            <tr>
+                                <th>
+                                    <div class="heading">Tuesday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_P_1_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+
+                            <tr>
+                                <th>
+                                    <div class="heading">Wednesday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_P_2_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div class="heading">Thursday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_P_3_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div class="heading">Friday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_P_4_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div class="heading">Saturday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_P_5_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <div class="heading">Sunday</div>
+                                </th>
+                                <td style="border-right: 1px solid black;">
+                                    <c:forEach begin="0" end="23" varStatus="loop">
+                                    <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                                </td><td style="border-right: 1px solid black;">
+                                </c:if>
+                                <label class="container">
+                                    <input id="box_P_6_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
+                                    <span class="checkmark"></span>
+                                </label>
+                                </c:forEach>
+                            </td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                    <br>
+
+
+
+                    <script>
+                        function check(box) {
+                            if (mouseDown) {
+                                box.checked = 1 - box.checked;
+                                if (box.checked) {
+                                    box.style.background = "white";
+                                } else {
+                                    box.style.background = "#A3FF9F";
+
+                                }
+                            }
+                        }
+
+
+                        var mouseDown = 0;
+                        document.body.onmousedown = function() {
+                            ++mouseDown;
+                        }
+                        document.body.onmouseup = function() {
+                            --mouseDown;
+                        }
+
+
+                        function generateString() {
+                            var string = "";
+                            console.log(true);
+                            for(var i =0; i < 7; i++) {
+                                for(var x=0; x<24; x++) {
+                                    if(document.getElementById("box_A_" + i + "_" + x).checked) {
+                                        console.log(true);
+                                        string = string + "1";
+                                    } else {
+                                        console.log(false);
+                                        string = string + "0";
+                                    }
+                                }
+                                string += ",";
+                                for(var j = 0; j < 24; j++) {
+                                    if(document.getElementById("box_P_" + i + "_" + j).checked) {
+                                        string = string + "1";
+                                    } else {
+                                        string = string + "0";
+                                    }
+                                }
+                                string += ",";
+                            }
+                            document.getElementById("constraints").value = string;
+                        }
+
+
+                        function openCity(evt, cityName) {
+                            // Declare all variables
+                            var i, tabcontent, tablinks;
+
+                            // Get all elements with class="tabcontent" and hide them
+                            tabcontent = document.getElementsByClassName("tabcontent");
+                            for (i = 0; i < tabcontent.length; i++) {
+                                tabcontent[i].style.visibility = "hidden";
+                                tabcontent[i].style.position = "absolute";
+                            }
+
+                            // Get all elements with class="tablinks" and remove the class "active"
+                            tablinks = document.getElementsByClassName("tablinks");
+                            for (i = 0; i < tablinks.length; i++) {
+                                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                            }
+
+                            // Show the current tab, and add an "active" class to the button that opened the tab
+                            document.getElementById(cityName).style.visibility = "visible";
+                            document.getElementById(cityName).style.position = "relative";
+                            evt.currentTarget.className += " active";
+                        }
+
+                    </script>
+
+                </div>
+            </div>
+        </form>
     </div>
 </div>
-<div class="section-4">
-    <div class="w-container">
-        <h1 class="heading">Employee Management</h1>
-    </div>
-    <div class="w-row">
-        <div class="w-col w-col-6">
-            <div class="div-block-5">
-                <div class="w-form">
-                    <form id="email-form-2" name="email-form-2" data-name="Email Form 2"><input type="text" class="w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder="Search" id="name-2"></form>
-                    <div class="w-form-done">
-                        <div>Thank you! Your submission has been received!</div>
-                    </div>
-                    <div class="w-form-fail">
-                        <div>Oops! Something went wrong while submitting the form.</div>
-                    </div>
-                </div>
-                <div class="columns-2 w-row">
-                    <div class="resultcolumn w-col w-col-4">
-                        <div class="columnheading">
-                            <div>ID</div>
-                        </div>
-                        <div class="columnblock">
-                            <div>001</div>
-                        </div>
-                        <div class="columnblock2">
-                            <div>002</div>
-                        </div>
-                        <div class="columnblock">
-                            <div>003</div>
-                        </div>
-                        <div class="columnblock2">
-                            <div>004</div>
-                        </div>
-                        <div class="columnblock">
-                            <div>005</div>
-                        </div>
-                    </div>
-                    <div class="resultcolumn w-col w-col-4">
-                        <div class="columnheading">
-                            <div>Name</div>
-                        </div>
-                        <div class="columnblock">
-                            <div>Alec Gralewski</div>
-                        </div>
-                        <div class="columnblock2">
-                            <div>Matthew Kellerman</div>
-                        </div>
-                        <div class="columnblock">
-                            <div>Jason Sy</div>
-                        </div>
-                        <div class="columnblock2">
-                            <div>James Finch</div>
-                        </div>
-                        <div class="columnblock">
-                            <div>Alex Gralewski</div>
-                        </div>
-                    </div>
-                    <div class="resultcolumn w-col w-col-4">
-                        <div class="columnheading">
-                            <div>Position</div>
-                        </div>
-                        <div class="columnblock">
-                            <div>Bartender</div>
-                        </div>
-                        <div class="columnblock2">
-                            <div>Server</div>
-                        </div>
-                        <div class="columnblock">
-                            <div>Kitchen</div>
-                        </div>
-                        <div class="columnblock2">
-                            <div>Server</div>
-                        </div>
-                        <div class="columnblock">
-                            <div>Server</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="column-2 w-col w-col-6">
-            <div class="w-row">
-                <div class="column-3 w-col w-col-6">
-                    <div class="w-form">
-                        <form id="email-form" name="email-form" data-name="Email Form" class="form-2"><label for="name">ID</label><input type="text" id="name" name="name" data-name="Name" maxlength="256" class="w-input"><label for="email">First Name</label><input type="email" class="w-input" maxlength="256" name="email" data-name="Email" placeholder="John" id="email" required=""><label for="email-2">Last Name</label><input type="text" class="w-input" maxlength="256" name="field" data-name="Field" placeholder="Smith" id="field" required=""><label for="email-2">Type</label><select id="field-5" name="field-5" class="w-select"><option value="">Select one...</option><option value="First">First Choice</option><option value="Second">Second Choice</option><option value="Third">Third Choice</option></select></form>
-                        <div class="w-form-done">
-                            <div>Thank you! Your submission has been received!</div>
-                        </div>
-                        <div class="w-form-fail">
-                            <div>Oops! Something went wrong while submitting the form.</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="w-col w-col-6">
-                    <div class="w-form">
-                        <form id="email-form" name="email-form" data-name="Email Form"><label for="name-3">Email Address</label><input type="email" class="w-input" maxlength="256" name="field-2" data-name="Field 2" placeholder="example@company.com" id="field-2" required=""><label for="email-3">Address</label><input type="text" class="w-input" maxlength="256" name="field-3" data-name="Field 3" placeholder="123 Example Drive" id="field-3" required=""><label for="email-3">Phone Number</label><input type="text" class="w-input" maxlength="256" name="field-3" data-name="Field 3" placeholder="###-###-####" id="field-3" required=""></form>
-                        <div class="w-form-done">
-                            <div>Thank you! Your submission has been received!</div>
-                        </div>
-                        <div class="w-form-fail">
-                            <div>Oops! Something went wrong while submitting the form.</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="w-form">
-                <form id="email-form-3" name="email-form-3" data-name="Email Form 3"><label>Comments:</label><textarea id="field-4" name="field-4" placeholder="Example Text" maxlength="5000" class="w-input"></textarea></form>
-                <div class="w-form-done">
-                    <div>Thank you! Your submission has been received!</div>
-                </div>
-                <div class="w-form-fail">
-                    <div>Oops! Something went wrong while submitting the form.</div>
-                </div>
-            </div>
-            <div class="container-4 w-container"><a href="#" class="button w-button">Save</a><a href="#" class="button w-button">Clear</a><a href="#" class="button w-button">Delete</a></div>
-            <div data-duration-in="300" data-duration-out="100" class="tabs w-tabs">
-                <div class="tabs-menu w-tab-menu">
-                    <a data-w-tab="Tab 1" class="w-inline-block w-tab-link w--current">
-                        <div>Availability</div>
-                    </a>
-                    <a data-w-tab="Tab 2" class="w-inline-block w-tab-link">
-                        <div>Preferred Hours</div>
-                    </a>
-                </div>
-                <div class="w-tab-content">
-                    <div data-w-tab="Tab 1" class="tab-pane-tab-1 w-tab-pane w--tab-active">
-                        <div class="w-row">
-                            <div class="column-4 w-col w-col-2">
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Sun</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Mon</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Tues</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Wed</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Thurs</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Fri</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Sat</div>
-                                </div>
-                            </div>
-                            <div class="w-col w-col-10">
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour selected"></div>
-                                    <div class="availabiltyhour selected"></div>
-                                    <div class="availabiltyhour selected"></div>
-                                    <div class="availabiltyhour selected"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour selected"></div>
-                                    <div class="availabiltyhour selected"></div>
-                                    <div class="availabiltyhour selected"></div>
-                                    <div class="availabiltyhour selected"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div data-w-tab="Tab 2" class="w-tab-pane">
-                        <div class="w-row">
-                            <div class="column-4 w-col w-col-2">
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Sun</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Mon</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Tues</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Wed</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Thurs</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Fri</div>
-                                </div>
-                                <div class="div-block-7">
-                                    <div class="availabilityday">Sat</div>
-                                </div>
-                            </div>
-                            <div class="w-col w-col-10">
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                                <div class="div-block-9">
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                    <div class="availabiltyhour"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-<script src="js/webflow.js" type="text/javascript"></script>
-<!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
+
 </body>
+
 </html>

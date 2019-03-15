@@ -143,7 +143,7 @@ public class ScheduleMaker {
 //                        ArrayList<Employee> secondary = new ArrayList<>();
 //                        ArrayList<Employee> scheduled = new ArrayList<>();
 //
-//                        Shift shift = new Shift(shiftTemplate.getStartTime(), shiftTemplate.getEndTime(), 'S', shiftTemplate.getMinNoEmp(), shiftTemplate.getMaxNoEmp());
+//                        /Shift shift = new Shift(shiftTemplate.getStartTime(), shiftTemplate.getEndTime(), 'S', shiftTemplate.getMinNoEmp(), shiftTemplate.getMaxNoEmp());
 //
 //
 //                        //System.out.println("Shift " + w);

@@ -118,8 +118,8 @@ public class DBOperation {
         query.setParameter("end", end);
 
         ArrayList<Day> schedule = new ArrayList<>(query.list());
-
         session.getTransaction().commit();
+
         session.close();
         return schedule;
     }

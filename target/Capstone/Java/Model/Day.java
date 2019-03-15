@@ -5,8 +5,6 @@
  */
 package Model;
 
-import Model.Shift;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -45,7 +43,7 @@ public class Day implements Serializable {
     @Column(name = "end_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
-    @OneToMany(mappedBy = "dayId")
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dayId")
     private List<Shift> shiftList;
 
     public Day() {
@@ -121,7 +119,12 @@ public class Day implements Serializable {
 
     @Override
     public String toString() {
-        return "data.Day[ dayId=" + dayId + " ]";
+
+        String shift = "---- Shifts ----\n";
+        for(Shift s: shiftList) {
+            shift += s.getStartTime().toString() + " " + s.getEndTime().toString() + "\n";
+        }
+        return "---Day---\n" + dayId + " " + startTime.toString() + " " + endTime.toString() + shift;
     }
 
 }

@@ -13,3 +13,5 @@ target/Capstone/WEB-INF/classes/Controllers/EditCalendar.class
 *.class
 *.class
 src/main/webapp/WEB-INF/web.xml
+src/main/webapp/WEB-INF/web.xml
+target/Capstone/Java/Controllers/ScheduleMaker.java

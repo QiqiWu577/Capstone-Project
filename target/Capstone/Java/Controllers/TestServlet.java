@@ -20,10 +20,7 @@ public class TestServlet extends HttpServlet {
         String page = request.getParameter("page");
 
         try {
-            if(page != null) {
                 request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request,response);
-            }
-            request.getRequestDispatcher("/test/ManageBarSched.jsp").forward(request,response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {

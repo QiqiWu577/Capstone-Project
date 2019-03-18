@@ -17,15 +17,24 @@
     <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="body-2">
+    <!--Left side Menu -->
     <div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
         <div class="container-3 w-container">
             <a href="#" class="brand w-nav-brand">
                 <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
             </a>
-            <nav role="navigation" class="w-nav-menu"><a href="#" class="nav-links w-nav-link">Employee Management</a><a href="#" class="nav-links selected w-nav-link">Settings</a></nav>
-            <div class="menu-button w-nav-button"><img src="images/Hamburger_icon.svg.png" alt="" class="image-3"></div>
+            <nav role="navigation" class="w-nav-menu">
+                <a href="#" class="nav-links selected w-nav-link">Home</a>
+                <a href="<%=application.getContextPath() %>/TestServlet" class="nav-links w-nav-link">Employee Management</a>
+                <a href="#" class="nav-links w-nav-link">Notifications</a>
+                <a href="#" class="nav-links w-nav-link">Settings</a>
+            </nav>
+            <div class="menu-button w-nav-button">
+                <img src="images/Hamburger_icon.svg.png" alt="" class="image-3">
+            </div>
         </div>
     </div>
+
     <div class="section-4-copy">
         <div class="w-container">
             <h1 class="heading">Settings</h1>

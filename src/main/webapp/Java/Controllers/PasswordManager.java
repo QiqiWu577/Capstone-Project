@@ -1,16 +1,63 @@
 package Controllers;
 
 
+import com.mysql.cj.protocol.Resultset;
+
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.crypto.Data;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.sql.*;
 
 public class PasswordManager {
 
+    private Connection getConnection() {
 
+        Connection conn=null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulecapstone", "root", "2030bubbletea");
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return conn;
+    }
+
+    public boolean getHashSalt(int empid, String verify) {
+        boolean valid=false;
+        String hash = null;
+        String salt = null;
+        CallableStatement cstmt = null;
+
+        Connection conn=getConnection();
+        String SQL = "call get_login(?)";
+
+        try {
+            cstmt = conn.prepareCall(SQL);
+
+            cstmt.setInt(1, empid);
+            ResultSet rs = cstmt.executeQuery();
+
+            rs.next();
+            hash = rs.getString(1);
+            salt = rs.getString(2);
+
+
+            cstmt.close();
+
+            //System.out.println(hash + " " + salt);
+            valid = checkPassword(hash, verify, salt);
+            //System.out.println(valid);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return valid;
+    }
 
     public static byte[] getSalt() throws NoSuchAlgorithmException
     {

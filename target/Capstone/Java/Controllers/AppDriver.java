@@ -12,14 +12,18 @@ public class AppDriver {
 
     public static void main(String[] args) {
 
-        LocalDateTime monday = LocalDateTime.of(2019,03,11,0,0);
-        DBOperation dbops = new DBOperation();
+        PasswordManager pm = new PasswordManager();
 
-        ArrayList<Day> schedule = dbops.getSchedule(monday);
+        pm.getHashSalt(5555, "meow");
 
-        for(Day day: schedule) {
-            System.out.println(day.toString());
-        }
+//        LocalDateTime monday = LocalDateTime.of(2019,03,11,0,0);
+//        DBOperation dbops = new DBOperation();
+//
+//        ArrayList<Day> schedule = dbops.getSchedule(monday);
+//
+//        for(Day day: schedule) {
+//            System.out.println(day.toString());
+//        }
 
         //2019-03-11 12:00:00
 

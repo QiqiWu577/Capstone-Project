@@ -41,7 +41,7 @@
                 </tr>
                 <c:forEach items="${requestScope.employeeList}" var="emp" >
                     <tr class="alt" onclick="populate('${emp.getEmpid()}','${emp.getFname()}','${emp.getLname()}',
-                            '${emp.getAddress()}','${emp.getPhoneno()}','${emp.getEmail()}','${emp.getType()}','${emp.getComments()}')">
+                            '${emp.getAddress()}','${emp.getPhoneno()}','${emp.getEmail()}','${emp.getType()}','${emp.getNotes()}','${emp.getEmployeeConstraints().getConstraints()}')">
                         <td>${emp.getEmpid()}</td>
                         <td>${emp.getFname()} ${emp.getLname()}</td>
                         <td>${emp.getType()}</td>
@@ -82,7 +82,7 @@
 
             </table>
         </div>
-        <form action="${pageContext.request.contextPath}/TestServlet" method="GET" id="myForm">
+        <form action="${pageContext.request.contextPath}/ManageEmployees" method="POST" id="myForm">
             <input type="hidden" id="constraints" onsubmit="generateString()" name="constraints">
             <input type="hidden" name="page" value="1">
 
@@ -116,13 +116,13 @@
                 <div class="bottom">
                     <label>Comments</label>
                     <br>
-                    <textarea name="comment" rows="4" cols="70" placeholder="Example Text"></textarea>
+                    <textarea name="comment" id="comment" rows="4" cols="70" placeholder="Example Text"></textarea>
                     <div class="btngrp">
-                        <input type="submit" value="Save" onclick="generateString()" class="btns">
+                        <input type="submit" name="action" value="Save" onclick="generateString()" class="btns">
                         <input type="button" value="Clear" class="btns" onclick="clearFields()">
-                        <input type="submit" value="Delete" class="btns">
+                        <input type="submit" name="action" value="Delete" class="btns">
                     </div>
-
+                    ${requestScope.message}
 
 
                     <div class="tab">
@@ -467,85 +467,113 @@
 
 
                         function populate(id,firstname,lastname, address,phoneNo,email,type,comments, constraints) {
+                            resetBoxes();
                             document.getElementById("id").value = id;
                             document.getElementById("fname").value = firstname;
-                            document.getElementById("lastname").value = lastname;
+                            document.getElementById("lname").value = lastname;
                             document.getElementById("address").value = address;
-                            document.getElementById("phone").value = phone;
+                            document.getElementById("phone").value = phoneNo;
                             document.getElementById("email").value = email;
-                            document.getElementById("comments").value = comments;
+                            document.getElementById("comment").value = comments;
                             var selObj = document.getElementById('position');
 
-                            if(type == 'S') {
+                            if (type === 'S') {
                                 selObj.selectedIndex = 1;
-                            } else if (type == 'B') {
+                            } else if (type === 'B') {
                                 selObj.selectedIndex = 0;
-                            } else if (type == 'K') {
+                            } else if (type === 'K') {
                                 selObj.selectedIndex = 2;
                             }
+                            console.log(constraints);
 
-                            for (var i = 0; i < constraints.length; i++) {
-                                if(i<23) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_0_" + i).checked = true;
+                            var cons = constraints.split(",");
+
+
+                            for (var j = 0; j < 7; j++) {
+                                for (var i = 0; i < cons[j].length; i++) {
+                                    if(constraints.charAt(i) === '1') {
+                                        document.getElementById("box_A_" + j + "_" + i).checked = true;
                                     }
-                                } else if (i<48) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_0_" + (i - 23)).checked = true;
-                                    }
-                                } else if (i < 73) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_1_" + (i - 73)).checked = true;
-                                    }
-                                } else if (i < 98) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_1_" + (i - 98)).checked = true;
-                                    }
-                                } else if (i < 123) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_2_" + (i - 123)).checked = true;
-                                    }
-                                } else if (i < 148) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_2_" + (i - 148)).checked = true;
-                                    }
-                                } else if (i < 173) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_3_" + (i - 173)).checked = true;
-                                    }
-                                } else if (i < 198) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_3_" + (i - 198)).checked = true;
-                                    }
-                                } else if (i < 223) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_4_" + (i - 223)).checked = true;
-                                    }
-                                } else if (i < 248) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_4_" + (i - 248)).checked = true;
-                                    }
-                                } else if (i < 273) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_5_" + (i - 273)).checked = true;
-                                    }
-                                } else if (i < 298) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_5_" + (i - 298)).checked = true;
-                                    }
-                                } else if (i < 323) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_6_" + (i - 323)).checked = true;
-                                    }
-                                } else if (i < 348) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_6_" + (i - 348)).checked = true;
+                                }
+                                for (var i = 0; i < cons[j+1].length; i++) {
+                                    if(constraints.charAt(i) === '1') {
+                                        document.getElementById("box_P_" + j + "_" + i).checked = true;
                                     }
                                 }
                             }
+
+
+                            // for (var i = 0; i < constraints.length; i++) {
+                            //     if(i<24) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_0_" + i).checked = true;
+                            //         }
+                            //     } else if (i<48) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_0_" + (i - 24)).checked = true;
+                            //         }
+                            //     } else if (i < 73) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_1_" + (i - 48)).checked = true;
+                            //         }
+                            //     } else if (i < 98) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_1_" + (i - 73)).checked = true;
+                            //         }
+                            //     } else if (i < 123) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_2_" + (i - 98)).checked = true;
+                            //         }
+                            //     } else if (i < 148) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_2_" + (i - 123)).checked = true;
+                            //         }
+                            //     } else if (i < 173) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_3_" + (i - 148)).checked = true;
+                            //         }
+                            //     } else if (i < 198) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_3_" + (i - 173)).checked = true;
+                            //         }
+                            //     } else if (i < 223) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_4_" + (i - 198)).checked = true;
+                            //         }
+                            //     } else if (i < 248) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_4_" + (i - 223)).checked = true;
+                            //         }
+                            //     } else if (i < 273) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_5_" + (i - 248)).checked = true;
+                            //         }
+                            //     } else if (i < 298) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_5_" + (i - 273)).checked = true;
+                            //         }
+                            //     } else if (i < 323) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_6_" + (i - 298)).checked = true;
+                            //         }
+                            //     } else if (i < 348) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_6_" + (i - 323)).checked = true;
+                            //         }
+                            //     }
+                            // }
                         }
 
-
+                        function resetBoxes() {
+                            for(var i =0; i < 7; i++) {
+                                for(var x=0; x<24; x++) {
+                                    document.getElementById("box_A_" + i + "_" + x).checked = false;
+                                }
+                                for(var j = 0; j < 24; j++) {
+                                    document.getElementById("box_P_" + i + "_" + j).checked = false;
+                                }
+                            }
+                        }
 
 
                     </script>

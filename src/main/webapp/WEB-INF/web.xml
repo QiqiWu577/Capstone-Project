@@ -20,7 +20,7 @@
   <!--if want to use jsp pages inside the WEB-INF folder, must write "/" before WEB-INF -->
   <welcome-file-list>
 
-    <welcome-file>/WEB-INF/Presentation/Manager/EmployeeManagement.jsp</welcome-file>
+    <welcome-file>ManagerServices</welcome-file>
 
   </welcome-file-list>
 

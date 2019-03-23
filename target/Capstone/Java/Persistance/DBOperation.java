@@ -152,4 +152,18 @@ public class DBOperation {
         }
         session.close();
     }
+
+    public ArrayList<ShiftTemplate> getShiftTemplates(char type) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("SELECT s FROM ShiftTemplate s WHERE s.type = :type");
+        query.setParameter("type", type);
+
+        ArrayList<ShiftTemplate> shiftTemplateList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return shiftTemplateList;
+    }
 }

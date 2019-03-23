@@ -89,6 +89,7 @@ CREATE TABLE day_template (
 CREATE TABLE shift_template (
                               shift_id    int(6) auto_increment,
                               type        char(1),
+                              name        VARCHAR(10),
                               day_of_week VARCHAR(10),
                               start_time  VARCHAR(8),
                               end_time    VARCHAR(8),

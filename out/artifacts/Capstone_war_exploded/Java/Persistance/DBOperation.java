@@ -184,4 +184,12 @@ public class DBOperation {
         session.close();
     }
 
+    public void addShiftTemplate(temp.ShiftTemplate st) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(st);
+        session.getTransaction().commit();
+        session.close();
+    }
+
 }

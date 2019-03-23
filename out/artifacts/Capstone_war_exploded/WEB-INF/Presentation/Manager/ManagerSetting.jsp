@@ -54,12 +54,11 @@
                         <tr>
                             <th>Day</th> <!-- -->
                             <th>Name</th> <!-- -->
-                            <th>Start of Shift</th> <!-- -->
-                            <th>End of Shift</th> <!-- -->
-                            <th>Minimum # of staff</th>
-                            <th>Max # of staff</th><!-- -->
-                            <th></th>
-                            <th></th>
+                            <th>Shift Start</th> <!-- -->
+                            <th>Shift End</th> <!-- -->
+                            <th>Min. # of Staff</th>
+                            <th>Max # of Staff</th><!-- -->
+                            <th colspan="2" align="center">Options</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -86,10 +85,9 @@
                             </tr>
                         </c:forEach>
                         <!-- Trigger the modal with a button -->
-                        <tr><td colspan="7"></td><td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button></td></tr>                        </tbody>
+                        <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>
+                        </tbody>
                     </table>
-
-                    ${requestScope.shiftMessage}<br/>
                 </div>
             </div>
             <div id="bar" class="tab-pane fade">
@@ -109,12 +107,11 @@
                         <tr>
                             <th>Day</th> <!-- -->
                             <th>Name</th> <!-- -->
-                            <th>Start of Shift</th> <!-- -->
-                            <th>End of Shift</th> <!-- -->
-                            <th>Minimum # of staff</th>
-                            <th>Max # of staff</th><!-- -->
-                            <th></th>
-                            <th></th>
+                            <th>Shift Start</th> <!-- -->
+                            <th>Shift End</th> <!-- -->
+                            <th>Min. # of Staff</th>
+                            <th>Max # of Staff</th><!-- -->
+                            <th colspan="2" align="center">Options</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -141,10 +138,8 @@
                             </tr>
                         </c:forEach>
                         <!-- Trigger the modal with a button -->
-                        <tr><td colspan="7"></td><td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button></td></tr>                        </tbody>
+                        <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>                        </tbody>
                     </table>
-
-                    ${requestScope.shiftMessage}<br/>
                 </div>
             </div>
             <div id="kitchen" class="tab-pane fade">
@@ -163,12 +158,11 @@
                         <tr>
                             <th>Day</th> <!-- -->
                             <th>Name</th> <!-- -->
-                            <th>Start of Shift</th> <!-- -->
-                            <th>End of Shift</th> <!-- -->
-                            <th>Minimum # of staff</th>
-                            <th>Max # of staff</th><!-- -->
-                            <th></th>
-                            <th></th>
+                            <th>Shift Start</th> <!-- -->
+                            <th>Shift End</th> <!-- -->
+                            <th>Min. # of Staff</th>
+                            <th>Max # of Staff</th><!-- -->
+                            <th colspan="2" align="center">Options</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -195,11 +189,9 @@
                             </tr>
                         </c:forEach>
                         <!-- Trigger the modal with a button -->
-                        <tr><td colspan="7"></td><td><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button></td></tr>
+                        <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>
                         </tbody>
                     </table>
-
-                    ${requestScope.shiftMessage}<br/>
                 </div>
             </div>
         </div>
@@ -217,38 +209,63 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Shift</h4>
+                <h2 class="modal-title">Add Shift</h2>
             </div>
+            <form action="ManagerSettings">
+                <input type="hidden" value="true" name="add">
             <div class="modal-body">
-                <form action="ManagerSettings">
-                    <div class="form-group">
-                    <label for="type">Department:</label>
-                    <select class="form-control" id="type">
-                        <option>Front End</option>
-                        <option>Bar</option>
-                        <option>Kitchen</option>
+                <div class="form-group">
+                <label for="type">Department:</label>
+                <select class="form-control" id="type" name="type">
+                    <option>Front End</option>
+                    <option>Bar</option>
+                    <option>Kitchen</option>
+                </select>
+                </div>
+                <div class="form-group">
+                    <label for="dayOfWeek">Day of Week:</label>
+                    <select class="form-control" id="dayOfWeek" name="dayOfWeek">
+                        <option>Sunday</option>
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
                     </select>
+                </div>
+                <label for="name">Name of Shift:</label>
+                <input type="text" class="form-control form-control-sm" name="name" id="name" placeholder="Ex: Opening">
+                <br>
+                <label for="duration">Shift Duration:</label>
+                <div class="form-inline" id="duration">
+                    <div class="form-group">
+                        <input data-date-format="HH:mm:ss" class="form-control form-control-sm" type="time" value="00:00:00" id="start" name="start">
                     </div>
                     <div class="form-group">
-                        <label for="dayOfWeek">Day of Week:</label>
-                        <select class="form-control" id="dayOfWeek">
-                            <option>Sunday</option>
-                            <option>Monday</option>
-                            <option>Tuesday</option>
-                            <option>Wednesday</option>
-                            <option>Thursday</option>
-                            <option>Friday</option>
-                            <option>Saturday</option>
-                        </select>
+                        <label for="end">To</label>
+                        <input data-date-format="HH:mm:ss" class="form-control form-control-sm" type="time" value="12:00:00" id="end" name="end">
                     </div>
-                    <input type="text" name="name" value="Opening">
-                </form>
+                </div>
+                <br>
+                <label for="numberEmp">Number of Employees:</label>
+                <div class="form-inline" id="numberEmp">
+                    <div class="form-group">
+                        <label for="min">Minimum:</label>
+                        <input type="number" class="form-control form-control-sm" name="min" id="min">
+                    </div>
+                    <div class="form-group">
+                        <label for="max">Maximum:</label>
+                        <input type="number" class="form-control form-control-sm" name="max" id="max">
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-info">Add Shift</button>
+            </form>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             </div>
         </div>
-
     </div>
 </div>
 

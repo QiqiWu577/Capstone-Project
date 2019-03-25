@@ -98,6 +98,7 @@ public class Employee implements Serializable {
         this.active = active;
         this.notes = notes;
         employeeConstraints = new EmployeeConstraints(this, constraints, empid);
+
         shiftList = new ArrayList<Shift>();
         notificationList = new ArrayList<Notification>();
     }

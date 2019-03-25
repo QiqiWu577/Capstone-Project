@@ -450,6 +450,8 @@
                             } else if (type === 'K') {
                                 selObj.selectedIndex = 2;
                             }
+                            console.log(constraints);
+
                             var cons = constraints.split(",");
 
 
@@ -465,7 +467,6 @@
                                     }
                                 }
                             }
-
                         }
 
                         function resetBoxes() {
@@ -478,6 +479,7 @@
                                 }
                             }
                         }
+
 
                     </script>
 

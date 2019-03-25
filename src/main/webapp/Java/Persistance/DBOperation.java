@@ -41,6 +41,13 @@ public class DBOperation {
 
     }
 
+    public Employee getEmployee() {
+        Employee emp = new Employee();
+
+
+        return emp;
+    }
+
 
     public void addEmployee(Employee e) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -165,4 +172,8 @@ public class DBOperation {
         }
         session.close();
     }
+
+
+
+
 }

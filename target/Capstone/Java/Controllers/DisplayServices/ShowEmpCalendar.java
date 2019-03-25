@@ -14,18 +14,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-@WebServlet(name = "ShowSerCalendar",urlPatterns = "/ShowSerCalendar")
-public class ShowSerCalendar extends HttpServlet {
+@WebServlet(name = "ShowEmpCalendar",urlPatterns = "/ShowEmpCalendar")
+public class ShowEmpCalendar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list = new ArrayList();
         HttpSession session = request.getSession();
-        char empType = 'S';
+        int empId = Integer.parseInt(request.getParameter("emp"));
 
         //get the shift list from the shift table
-        String empList = DBOps.getEmpsBT(empType);
+        String empList = DBOps.getEmpsBE(empId);
 
         if(!empList.equals("")){
 
@@ -62,7 +62,7 @@ public class ShowSerCalendar extends HttpServlet {
             }
 
             //store the list as session for the use of editing
-            session.setAttribute("serverShifts",list);
+            session.setAttribute("bartenderShifts",list);
 
             //send the generate schedule in json format to the fullcalendar
             response.setContentType("application/json");

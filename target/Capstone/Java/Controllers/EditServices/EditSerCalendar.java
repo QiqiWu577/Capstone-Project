@@ -10,9 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 
 @WebServlet(name = "EditSerCalendar",urlPatterns = "/EditSerCalendar")
 public class EditSerCalendar extends HttpServlet {
@@ -30,110 +28,109 @@ public class EditSerCalendar extends HttpServlet {
         JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
         String id= data.get("id").getAsString();
         String title = data.get("title").getAsString();
-        String start = data.get("start").getAsString();
-        String end = data.get("end").getAsString();
+        String currentStart = data.get("start").getAsString();
+        String currentEend = data.get("end").getAsString();
+        int newDayId = 0;
+        int newShiftId = 0;
+        String compareCheck;
 
-        if(id != null){
+        if(!id.equals("add")) {
             CalendarDAO change = list.get(Integer.parseInt(id));
-            int shiftId = change.getShiftId(); //used to save change into shift table
-            int dayId = change.getDayId();      // used to get the operation hours and save change into day table
-            int empId = change.getEmpId();      //used to update the schedule_employee table for the shift
+            int oldShiftId = change.getShiftId();
+            int oldDayId = change.getDayId();      //used to get the operation hours and save change into day table
+            int empId = change.getEmpId();         //used to update the schedule_employee table for the shift
 
-            //get OpsHours from day table
-            String opsHours = DBOps.getOpsHours(dayId);
+            LocalDateTime cs = LocalDateTime.parse(currentStart);
+            LocalDateTime ce = LocalDateTime.parse(currentEend);
 
-            String[] detail = opsHours.split(",");
+            //check if they are the same shift
+            //if they are, do nothing. or else continue to check
+            if(!DBOps.checkSameShift(oldShiftId, cs, ce)){
 
-            String startOps = detail[0].replace(" ","T");
-            String endOps = detail[1].replace(" ","T");
-            LocalDateTime sO = LocalDateTime.parse(startOps);
-            LocalDateTime eO = LocalDateTime.parse(endOps);
+                //check if the day exists
+                //if it doesn't, add a new day. or else compare the shift and the day to
+                //see whether or not to chang the date in the day table
+                newDayId = DBOps.dayExist(cs);
+                if(newDayId == 0){
 
-            LocalDateTime s = LocalDateTime.parse(start);
-            LocalDateTime e = LocalDateTime.parse(end);
+                    //add a new day in days table
+                    newDayId = DBOps.addDay(cs,ce);
 
-            Date st = Date.from(s.atZone(ZoneId.systemDefault()).toInstant());
-            Date et = Date.from(e.atZone(ZoneId.systemDefault()).toInstant());
+                    //add a new shift in the shift table
+                    newShiftId = DBOps.addShift(empId,newDayId,cs,ce);
 
-            boolean dayAdded = false;
-            //compare the date in day and shift to persist that only unique date can exist
-            String differDate = compareDayOps(dayId,s,e,sO,eO);
+                    //delete the old one and add the new one to the join table for the new shift
+                    boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
 
-            if(differDate.equals("different date")){
-
-                //if there is no such that day in Day table, add day
-                //if not, find that day and compare them and update the new day
-                String check = DBOps.checkEmpDay(s);
-                if(check.equals("0")){
-
-                    DBOps.addDay(s,e);
-                    dayAdded = true;
                 }else{
 
-                    //get the new date that already exists in the day table
-                    String[] dayDetail = check.split(",");
-                    dayId = Integer.parseInt(dayDetail[0]);
-                    LocalDateTime newST = LocalDateTime.parse(dayDetail[1]);
-                    LocalDateTime newET = LocalDateTime.parse(dayDetail[2]);
-                    String condition = compareDayOps(dayId,s,e,newST,newET);
+                    //get the ops hours of the newDayId
+                    String opsHours =  DBOps.getOpsHours(newDayId);
+                    String [] hours = opsHours.split(",");
+                    LocalDateTime sO = LocalDateTime.parse(hours[0].replace(" ","T"));
+                    LocalDateTime eO = LocalDateTime.parse(hours[1].replace(" ","T"));
+
+                    //compare the new shift and the new day in the days table
+                    //return the condition that which data needed to be updated
+                    compareCheck = compareDayOps(cs,ce,sO,eO);
+                    if(compareCheck.equals("s")){
+
+                        boolean test = DBOps.updateDayOps(newDayId,cs,ce,1);
+                    }else if(compareCheck.equals("e")){
+
+                        boolean test = DBOps.updateDayOps(newDayId,cs,ce,2);
+                    }else if(compareCheck.equals("both")){
+
+                        boolean test = DBOps.updateDayOps(newDayId,cs,ce,3);
+                    }
+
+                    //check if the newShift exists in the shift table
+                    //if it doesn't, add a new shift.update the join table
+                    newShiftId = DBOps.shiftExist(cs,ce);
+
+
+                   if(newShiftId == 0){
+
+                       newShiftId = DBOps.addShift(empId,newDayId,cs,ce);
+                       //delete the old one and add the new one to the join table for the new shift
+                       boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
+                   }else{
+                       //check if there are same emp on the same new shift
+                       //if it is, display the error and do nothing. or else continue the operation on shift table
+                       if(DBOps.checkSameEmpShift(empId,newShiftId)){
+                           session.setAttribute("message","sameEmp");
+                           request.getRequestDispatcher("ManageScheduleViews").forward(request,response);
+                       }else{
+                           //delete the old one and add the new one to the join table for the new shift
+                           boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
+                       }
+                   }
+
                 }
-            }
 
-            //update shift table
-            if(DBOps.checkEmpShift(shiftId)>1){
-
-                if(dayAdded == true){
-                    dayId = DBOps.getNewDayId(st,et);
-                }
-                //if there is more than one employee on the same shift,add a new shift
-                //And add the new employee's shift in the join table
-                DBOps.addShift(dayId,empId,s,e);
-
-                //get shiftId of new added shift
-                int newShiftId = DBOps.getNewShiftId(dayId,st,et);
-
-                //delete the old employee's shift in the join table
-                DBOps.deleteShiftJoinTable(shiftId,empId);
-
-            }else {
-                if(dayAdded == true){
-                    dayId = DBOps.getNewDayId(st,et);
-                }
-                boolean test = DBOps.updateShift(shiftId,dayId,s,e);
             }
 
         }else{
-
-            //if id = add, means user try to add a shift
-
-            //if id = delete, means user try to delete a shift
-
+            System.out.println("New Shift!");
         }
     }
 
-    public String compareDayOps(int dayId,LocalDateTime s,LocalDateTime e,LocalDateTime sO,LocalDateTime eO){
+    public String compareDayOps(LocalDateTime newStart,LocalDateTime newEnd,LocalDateTime oldStart,LocalDateTime oldEnd){
 
-        String check = "";
-        FullcalendarDBOps DBOps = new FullcalendarDBOps();
+        String check = "nothing";
 
-        if(s.compareTo(sO)< 0 && e.compareTo(eO)<=0 && e.compareTo(sO)>0){
+        if(newStart.compareTo(oldStart)<0 && newEnd.compareTo(oldEnd)<=0){
 
             //update startOps in the day table
-            DBOps.updateDayOps(dayId,s,e,1);
-            check = "update s";
-        }else if(s.compareTo(sO)>= 0 && e.compareTo(eO)>0 && s.compareTo(eO)<0){
+            check = "s";
+        }else if(newStart.compareTo(oldStart)>=0 && newEnd.compareTo(oldEnd)>0){
 
             //update endOps in the day table
-            DBOps.updateDayOps(dayId,s,e,2);
-            check = "update e";
-        }else if(s.compareTo(sO)< 0 && e.compareTo(eO)>0){
+            check = "e";
+        }else if(newStart.compareTo(oldStart)< 0 && newEnd.compareTo(oldEnd)>0){
 
             //update startOps and endOps in the day table
-            DBOps.updateDayOps(dayId,s,e,3);
-            check = "update both";
-        }else if((e.compareTo(sO) < 0)||(s.compareTo(eO) > 0)){
-
-            check = "different date";
+            check = "both";
         }
 
         return check;

@@ -57,6 +57,11 @@ public class Shift implements Serializable {
     public Shift() {
     }
 
+    public Shift(int shiftId){
+
+
+    }
+
     public Shift(Day dayId, LocalDateTime startTime, LocalDateTime endTime, Character shiftType) {
         this.dayId = dayId;
         this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());

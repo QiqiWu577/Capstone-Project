@@ -65,6 +65,7 @@ public class Validate extends HttpServlet {
                 } else if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'A') {
 
                 } else {
+                    request.getRequestDispatcher("/EmployeeServices").forward(request, response);
 
                 }
 

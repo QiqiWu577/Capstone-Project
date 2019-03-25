@@ -52,10 +52,12 @@ public class Validate extends HttpServlet {
 
 
 
-                request.getRequestDispatcher("/.jsp").forward(request, response);
 
 
                 if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'M') {
+
+                    request.getRequestDispatcher("/ManageEmployees").forward(request, response);
+
 
                 } else if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'A') {
 
@@ -66,12 +68,13 @@ public class Validate extends HttpServlet {
 
             }
             else {
-                request.setAttribute("message", "Invalid username or password!");
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+
             }
 
         }
-        else {
+        else if(username == null || password == null) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        } else {
             request.setAttribute("message", "Both username and password are required!");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }

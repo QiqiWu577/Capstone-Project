@@ -64,6 +64,9 @@ public class Validate extends HttpServlet {
 
                 } else if (emp.getType() == 'A') {
 
+                    request.getRequestDispatcher("/AdminServices").forward(request, response);
+
+
                 } else {
                     request.getRequestDispatcher("/EmployeeServices").forward(request, response);
 

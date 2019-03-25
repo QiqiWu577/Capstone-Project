@@ -21,77 +21,63 @@ insert into days values (null,'2019-03-17 12:00:00','2019-03-17 23:00:00');
 #Shift(2 cooks, 2 servers; but for Friday, there are 2 cooks and 3 servers)
 insert into shift values (null,1,'2019-03-11 12:00:00','2019-03-11 17:00:00','D');
 insert into shift values (null,1,'2019-03-11 17:00:00','2019-03-11 23:00:00','N');
-insert into shift values (null,1,'2019-03-11 12:00:00','2019-03-11 17:00:00','D');
-insert into shift values (null,1,'2019-03-11 17:00:00','2019-03-11 23:00:00','N');
 
-insert into shift values (null,2,'2019-03-12 12:00:00','2019-03-12 17:00:00','D');
-insert into shift values (null,2,'2019-03-12 17:00:00','2019-03-12 23:00:00','N');
 insert into shift values (null,2,'2019-03-12 12:00:00','2019-03-12 17:00:00','D');
 insert into shift values (null,2,'2019-03-12 17:00:00','2019-03-12 23:00:00','N');
 
 insert into shift values (null,3,'2019-03-13 12:00:00','2019-03-13 17:00:00','D');
 insert into shift values (null,3,'2019-03-13 17:00:00','2019-03-13 23:00:00','N');
-insert into shift values (null,3,'2019-03-13 12:00:00','2019-03-13 17:00:00','D');
-insert into shift values (null,3,'2019-03-13 17:00:00','2019-03-13 23:00:00','N');
 
-insert into shift values (null,4,'2019-03-14 12:00:00','2019-03-14 17:00:00','D');
-insert into shift values (null,4,'2019-03-14 17:00:00','2019-03-14 23:00:00','N');
 insert into shift values (null,4,'2019-03-14 12:00:00','2019-03-14 17:00:00','D');
 insert into shift values (null,4,'2019-03-14 17:00:00','2019-03-14 23:00:00','N');
 
 insert into shift values (null,5,'2019-03-15 12:00:00','2019-03-15 17:00:00','D');
 insert into shift values (null,5,'2019-03-15 17:00:00','2019-03-15 23:00:00','N');
-insert into shift values (null,5,'2019-03-15 12:00:00','2019-03-15 17:00:00','D');
 insert into shift values (null,5,'2019-03-15 13:00:00','2019-03-15 16:00:00','M');
-insert into shift values (null,5,'2019-03-15 18:00:00','2019-03-16 02:00:00','N');
 
 insert into shift values (null,6,'2019-03-16 12:00:00','2019-03-16 17:00:00','D');
 insert into shift values (null,6,'2019-03-16 17:00:00','2019-03-16 23:00:00','N');
-insert into shift values (null,6,'2019-03-16 12:00:00','2019-03-16 17:00:00','D');
-insert into shift values (null,6,'2019-03-16 17:00:00','2019-03-16 23:00:00','N');
 
-insert into shift values (null,7,'2019-03-17 12:00:00','2019-03-17 17:00:00','D');
-insert into shift values (null,7,'2019-03-17 17:00:00','2019-03-17 23:00:00','N');
 insert into shift values (null,7,'2019-03-17 12:00:00','2019-03-17 17:00:00','D');
 insert into shift values (null,7,'2019-03-17 17:00:00','2019-03-17 23:00:00','N');
 
 #schedule_employee
 insert into schedule_employee values (1,1);
 insert into schedule_employee values (2,2);
-insert into schedule_employee values (4,3);
-insert into schedule_employee values (5,4);
-insert into schedule_employee values (7,3);
+insert into schedule_employee values (4,1);
+insert into schedule_employee values (5,2);
+insert into schedule_employee values (7,1);
 
-insert into schedule_employee values (1,5);
+insert into schedule_employee values (1,3);
+insert into schedule_employee values (3,4);
+insert into schedule_employee values (5,3);
+insert into schedule_employee values (6,4);
+insert into schedule_employee values (7,4);
+
+insert into schedule_employee values (2,5);
 insert into schedule_employee values (3,6);
-insert into schedule_employee values (5,7);
-insert into schedule_employee values (6,8);
+insert into schedule_employee values (4,5);
+insert into schedule_employee values (7,6);
+
+insert into schedule_employee values (1,7);
+insert into schedule_employee values (3,8);
+insert into schedule_employee values (6,7);
 insert into schedule_employee values (7,8);
 
 insert into schedule_employee values (2,9);
 insert into schedule_employee values (3,10);
-insert into schedule_employee values (4,11);
-insert into schedule_employee values (7,12);
+insert into schedule_employee values (1,9);
+insert into schedule_employee values (4,9);
+insert into schedule_employee values (5,10);
+insert into schedule_employee values (6,9);
 
-insert into schedule_employee values (1,13);
-insert into schedule_employee values (3,14);
-insert into schedule_employee values (6,15);
-insert into schedule_employee values (7,16);
-
-insert into schedule_employee values (2,17);
-insert into schedule_employee values (3,18);
-insert into schedule_employee values (1,18);
-insert into schedule_employee values (4,19);
-insert into schedule_employee values (5,20);
-insert into schedule_employee values (6,21);
-
-insert into schedule_employee values (1,22);
-insert into schedule_employee values (2,23);
+insert into schedule_employee values (1,12);
+insert into schedule_employee values (2,13);
 insert into schedule_employee values (4,24);
 insert into schedule_employee values (7,25);
 
-insert into schedule_employee values (2,26);
-insert into schedule_employee values (3,27);
-insert into schedule_employee values (5,28);
-insert into schedule_employee values (7,29);
+insert into schedule_employee values (2,14);
+insert into schedule_employee values (3,15);
+insert into schedule_employee values (5,14);
+insert into schedule_employee values (7,15);
 

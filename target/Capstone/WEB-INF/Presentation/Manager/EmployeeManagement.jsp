@@ -48,38 +48,6 @@
                     </tr>
 
                 </c:forEach>
-
-                <tr class="alt">
-                    <td>001</td>
-                    <td>Dave Johnson</td>
-                    <td>Bartender</td>
-                </tr>
-                <tr class="alt">
-                    <td>002</td>
-                    <td>Mark Smith</td>
-                    <td>Server</td>
-                </tr>
-                <tr class="alt">
-                    <td>003</td>
-                    <td>Ronald McDonald</td>
-                    <td>Kitchen</td>
-                </tr>
-                <tr class="alt">
-                    <td>004</td>
-                    <td>John Smith</td>
-                    <td>Kitchen</td>
-                </tr>
-                <tr class="alt">
-                    <td>005</td>
-                    <td>Mark Wahlberg</td>
-                    <td>Bartender</td>
-                </tr>
-                <tr class="alt">
-                    <td>006</td>
-                    <td>Michael Scott</td>
-                    <td>Kitchen</td>
-                </tr>
-
             </table>
         </div>
         <form action="${pageContext.request.contextPath}/ManageEmployees" method="POST" id="myForm">
@@ -120,7 +88,7 @@
                     <div class="btngrp">
                         <input type="submit" name="action" value="Save" onclick="generateString()" class="btns">
                         <input type="button" value="Clear" class="btns" onclick="clearFields()">
-                        <input type="submit" name="action" value="Delete" class="btns">
+                        <input type="submit" name="action" value="Delete" class="btns" onclick="generateString()">
                     </div>
                     ${requestScope.message}
 
@@ -381,8 +349,6 @@
                             </tr>
                         </table>
                     </div>
-
-
                     <br>
 
 
@@ -484,8 +450,6 @@
                             } else if (type === 'K') {
                                 selObj.selectedIndex = 2;
                             }
-                            console.log(constraints);
-
                             var cons = constraints.split(",");
 
 
@@ -575,7 +539,10 @@
                             }
                         }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> d09902903ffde1327669838c38dad1b31fd12bf8
                     </script>
 
                 </div>

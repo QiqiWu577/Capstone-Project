@@ -48,38 +48,6 @@
                     </tr>
 
                 </c:forEach>
-
-                <tr class="alt">
-                    <td>001</td>
-                    <td>Dave Johnson</td>
-                    <td>Bartender</td>
-                </tr>
-                <tr class="alt">
-                    <td>002</td>
-                    <td>Mark Smith</td>
-                    <td>Server</td>
-                </tr>
-                <tr class="alt">
-                    <td>003</td>
-                    <td>Ronald McDonald</td>
-                    <td>Kitchen</td>
-                </tr>
-                <tr class="alt">
-                    <td>004</td>
-                    <td>John Smith</td>
-                    <td>Kitchen</td>
-                </tr>
-                <tr class="alt">
-                    <td>005</td>
-                    <td>Mark Wahlberg</td>
-                    <td>Bartender</td>
-                </tr>
-                <tr class="alt">
-                    <td>006</td>
-                    <td>Michael Scott</td>
-                    <td>Kitchen</td>
-                </tr>
-
             </table>
         </div>
         <form action="${pageContext.request.contextPath}/ManageEmployees" method="POST" id="myForm">
@@ -120,7 +88,7 @@
                     <div class="btngrp">
                         <input type="submit" name="action" value="Save" onclick="generateString()" class="btns">
                         <input type="button" value="Clear" class="btns" onclick="clearFields()">
-                        <input type="submit" name="action" value="Delete" class="btns">
+                        <input type="submit" name="action" value="Delete" class="btns" onclick="generateString()">
                     </div>
                     ${requestScope.message}
 
@@ -381,8 +349,6 @@
                             </tr>
                         </table>
                     </div>
-
-
                     <br>
 
 
@@ -501,67 +467,6 @@
                                     }
                                 }
                             }
-
-
-                            // for (var i = 0; i < constraints.length; i++) {
-                            //     if(i<24) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_A_0_" + i).checked = true;
-                            //         }
-                            //     } else if (i<48) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_P_0_" + (i - 24)).checked = true;
-                            //         }
-                            //     } else if (i < 73) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_A_1_" + (i - 48)).checked = true;
-                            //         }
-                            //     } else if (i < 98) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_P_1_" + (i - 73)).checked = true;
-                            //         }
-                            //     } else if (i < 123) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_A_2_" + (i - 98)).checked = true;
-                            //         }
-                            //     } else if (i < 148) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_P_2_" + (i - 123)).checked = true;
-                            //         }
-                            //     } else if (i < 173) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_A_3_" + (i - 148)).checked = true;
-                            //         }
-                            //     } else if (i < 198) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_P_3_" + (i - 173)).checked = true;
-                            //         }
-                            //     } else if (i < 223) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_A_4_" + (i - 198)).checked = true;
-                            //         }
-                            //     } else if (i < 248) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_P_4_" + (i - 223)).checked = true;
-                            //         }
-                            //     } else if (i < 273) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_A_5_" + (i - 248)).checked = true;
-                            //         }
-                            //     } else if (i < 298) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_P_5_" + (i - 273)).checked = true;
-                            //         }
-                            //     } else if (i < 323) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_A_6_" + (i - 298)).checked = true;
-                            //         }
-                            //     } else if (i < 348) {
-                            //         if(constraints.charAt(i) === '1') {
-                            //             document.getElementById("box_P_6_" + (i - 323)).checked = true;
-                            //         }
-                            //     }
-                            // }
                         }
 
                         function resetBoxes() {

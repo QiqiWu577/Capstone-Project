@@ -83,8 +83,8 @@ insert into schedule_employee values (6,9);
 
 insert into schedule_employee values (1,12);
 insert into schedule_employee values (2,13);
-insert into schedule_employee values (4,24);
-insert into schedule_employee values (7,25);
+insert into schedule_employee values (4,12);
+insert into schedule_employee values (7,13);
 
 insert into schedule_employee values (2,14);
 insert into schedule_employee values (3,15);

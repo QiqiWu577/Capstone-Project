@@ -58,6 +58,11 @@ public class Day implements Serializable {
         this.startTime = startTime;
     }
 
+    public Day(LocalDateTime startTime, LocalDateTime endTime) {
+        this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
+        this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
     public Day(Integer dayId, LocalDateTime startTime, LocalDateTime endTime) {
         this.dayId = dayId;
         this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());

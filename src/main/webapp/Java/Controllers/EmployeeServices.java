@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "EmployeeServices")
+@WebServlet(name = "EmployeeServices", urlPatterns ="/EmployeeServices")
 public class EmployeeServices extends HttpServlet {
 
 
@@ -19,7 +19,7 @@ public class EmployeeServices extends HttpServlet {
         if(page != null) {
             if(page.equals("shiftOffer")) {
 
-                request.setAttribute("","");
+                request.setAttribute("EmpShifts",);
 
 
 

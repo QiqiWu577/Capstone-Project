@@ -88,12 +88,9 @@ public class ManageEmployee extends HttpServlet {
 
                         if (numID == 0) {
 
-                            //Integer empid, String address, String fname, String lname, String phoneno, String email, Character type, boolean newHire, boolean active
                             try {
-                                System.out.println("Adding a new employee");
                                 dbOps.addEmployee(new Employee(numID, address, fname, lname, phone, email, role, true, true, comments, constraints));
                                 request.setAttribute("message", "Employee Added!");
-                                System.out.println("Employee Added");
                             } catch (InvalidConstraintException e) {
                                 request.setAttribute("message", "Invalid Constraint!");
                                 e.printStackTrace();
@@ -101,15 +98,12 @@ public class ManageEmployee extends HttpServlet {
                                 request.setAttribute("message", "Invalid Constraint!");
                                 e.printStackTrace();
                             } finally {
-                                System.out.println("Finally");
                                 request.setAttribute("employeeList", dbOps.getEmployees());
                                 request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request, response);
                             }
                         } else {
                             try {
-                                System.out.println("Updating an employee");
                                 dbOps.updateEmployee(new Employee(numID, address, fname, lname, phone, email, role, false, true, comments, constraints));
-                                System.out.println("Success");
                                 request.setAttribute("message", "Employee Updated!");
                             } catch (InvalidConstraintException e) {
                                 request.setAttribute("message", "Invalid Constraint!");
@@ -128,9 +122,7 @@ public class ManageEmployee extends HttpServlet {
                         request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request, response);
                     }
                 } else if (action.equals("Delete")) {
-                    System.out.println("DELETE!");
                     try {
-                        System.out.println("DELETE!");
                         dbOps.deleteEmployee(new Employee(numID, address, fname, lname, phone, email, role, false, false, comments, constraints));
                         request.setAttribute("message", "Employee Deleted!");
                         request.setAttribute("employeeList", dbOps.getEmployees());
@@ -144,12 +136,10 @@ public class ManageEmployee extends HttpServlet {
                         request.setAttribute("message", "Invalid Constraint!");
 
                     } finally {
-                        System.out.println("FINALLY");
                         request.setAttribute("employeeList", dbOps.getEmployees());
                         request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request, response);
                     }
                 } else {
-                    System.out.println("INVALID!");
                     request.setAttribute("message", "Invalid Option!");
                     request.setAttribute("employeeList", dbOps.getEmployees());
                     request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request, response);
@@ -157,7 +147,6 @@ public class ManageEmployee extends HttpServlet {
             }
 
         } else {
-            System.out.println("test");
             request.setAttribute("message", "Test");
             request.setAttribute("employeeList", dbOps.getEmployees());
             request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request,response);

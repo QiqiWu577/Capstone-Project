@@ -7,8 +7,36 @@
     <link href="css/webflow.css" rel="stylesheet" type="text/css">
     <link href="css/matthews-cool-project-2c37b7.webflow.css" rel="stylesheet" type="text/css">
     <link href="css/employeemgmt.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <link href="css/datetimepicker/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+    <link href="https://code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css" rel="stylesheet" />
+    <style>
+
+        .widget{
+            margin-left: 25%;
+        }
+
+        .btn {
+            background-color: DodgerBlue;
+            border: none;
+            color: white;
+            padding: 12px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Darker background on mouse-over */
+        .btn:hover {
+            background-color: RoyalBlue;
+        }
+
+    </style>
 </head>
 <body class="body-2">
+
     <!--Left side Menu -->
     <div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
         <div class="container-3 w-container">
@@ -36,98 +64,33 @@
         </div>
 
         <div class="w-row">
+            <form action="#" method="get">
 
-            <table>
+                <button class="btn" ><i class="fas fa-calendar-day"></i>Monday</button>
+                    <div class="control-group">
+                        <label class="control-label">Open:</label>
+                        <div class="controls input-append date form_time" data-date="" data-date-format="hh:ii">
+                            <input name="MonS" size="20" style="height:30px" type="text" readonly>
+                            <span class="add-on" style="height:30px"><i class="icon-remove fas fa-times-circle"></i></span>
+                            <span class="add-on" style="height:30px"><i class="icon-calendar fas fa-calendar-alt"></i></span>
+                        </div>
 
-                <tr><th></th><th>12am-5am</th><th>6am-11am</th><th>12pm-5pm</th><th>6pm-11pm</th></tr>
-                <tr>
-                    <th>
-                        <div  class="heading">Monday</div>
-                    </th>
-                    <td style="border-right: 1px solid black;">
-                        <c:forEach begin="0" end="23" varStatus="loop">
+                        <div class="controls input-append date form_time" data-date="" data-date-format="hh:ii">
+                            <input name="MonE" size="20" style="height:30px" type="text" value="" readonly>
+                            <span class="add-on" style="height:30px"><i class="icon-remove fas fa-times-circle"></i></span>
+                            <span class="add-on" style="height:30px"><i class="icon-calendar fas fa-calendar-alt"></i></span>
+                        </div>
+                    </div>
 
-                        <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
-                    </td>
-                    <td style="border-right: 1px solid black;">
-                    </c:if>
-                    <label class="contain">
-                        <input class="input" id="box_A_0_${loop.index}" type="checkbox" onclick="check(this)">
-                        <span class="checkmark"></span>
-                    </label>
-                    </c:forEach>
-                    </td>
-                </tr>
 
-                <tr>
-                    <th>
-                        <div class="heading">Tuesday</div>
-                    </th>
-                    <td style="border-right: 1px solid black;">
-                        <c:forEach begin="0" end="23" varStatus="loop">
-                        <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
-                    </td><td style="border-right: 1px solid black;">
-                    </c:if>
-                    <label class="contain">
-                        <input id="box_A_1_${loop.index}" type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    </c:forEach>
-                </td>
-                </tr>
-            </table>
 
-            <script type="text/javascript">
 
-                function check(box) {
-                    console.log("check");
-                    console.log(mouseDown);
-                    if (mouseDown) {
-                        box.checked = 1 - box.checked;
-                        if (box.checked) {
-                            box.style.background = "white";
-                        } else {
-                            box.style.background = "#A3FF9F";
 
-                        }
-                    }
-                }
 
-                var mouseDown = 0;
-                document.body.onmousedown = function() {
-                    ++mouseDown;
-                }
-                document.body.onmouseup = function() {
-                    --mouseDown;
-                }
 
-                function generateString() {
-                    var string = "";
-                    console.log(true);
-                    for(var i =0; i < 7; i++) {
-                        for(var x=0; x<24; x++) {
-                            if(document.getElementById("box_A_" + i + "_" + x).checked) {
-                                console.log(true);
-                                string = string + "1";
-                            } else {
-                                console.log(false);
-                                string = string + "0";
-                            }
-                        }
-                        string += ",";
-                        for(var j = 0; j < 24; j++) {
-                            if(document.getElementById("box_P_" + i + "_" + j).checked) {
-                                string = string + "1";
-                            } else {
-                                string = string + "0";
-                            }
-                        }
-                        string += ",";
-                    }
-                    document.getElementById("constraints").value = string;
-                }
-            </script>
-
+                <br/><input class="btns" id="savebtn" type="submit" value="Save">
+                <input type="hidden" id="MonVal" name="MonVal">
+            </form>
         </div>
     </div>
 
@@ -200,5 +163,73 @@
         </div>
     </div>
 
+    <script src='js/calendarCore/jquery.min.js'></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src='js/calendarCore/moment.min.js'></script>
+    <script type="text/javascript" src="js/datetimepicker/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/datetimepicker/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript">
+
+        $('.form_time').datetimepicker({
+            weekStart: 0,
+            todayBtn:  0,
+            autoclose: 1,
+            todayHighlight: 0,
+            startView: 1,
+            minView: 0,
+            maxView: 1,
+            forceParse: 0
+        });
+
+        $( function() {
+            $( "#accordion" ).accordion();
+        } );
+
+        // function check(box) {
+        //     if (mouseDown) {
+        //         box.checked = 1 - box.checked;
+        //         if (box.checked) {
+        //             box.style.background = "white";
+        //         } else {
+        //             box.style.background = "#A3FF9F";
+        //
+        //         }
+        //     }
+        // }
+        //
+        // var mouseDown = 0;
+        // document.body.onmousedown = function() {
+        //     ++mouseDown;
+        // }
+        // document.body.onmouseup = function() {
+        //     --mouseDown;
+        // }
+        //
+        // function generateString() {
+        //     var string = "";
+        //     console.log(true);
+        //     for(var i =0; i < 7; i++) {
+        //         for(var x=0; x<24; x++) {
+        //             if(document.getElementById("box_O_" + i + "_" + x).checked) {
+        //                 console.log(true);
+        //                 string = string + "1";
+        //             } else {
+        //                 console.log(false);
+        //                 string = string + "0";
+        //             }
+        //         }
+        //         string += ";";
+        //     }
+        //     document.getElementById("constraints").value = string;
+        // }
+        //
+        $( "#savebtn" ).click(function () {
+            var s = document.getElementsById("#MonS").value;
+            var e = document.getElementsById("#MonE").value;
+
+            console.log();
+            console.log();
+        });
+    </script>
 </body>
 </html>

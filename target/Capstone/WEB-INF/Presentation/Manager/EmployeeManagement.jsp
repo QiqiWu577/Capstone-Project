@@ -144,13 +144,13 @@
 
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
-                                    </c:if>
+                                </c:if>
                                 <label class="contain">
                                     <input id="box_A_0_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
                                     </c:forEach>
-                                </td>
+                            </td>
                             </tr>
 
 
@@ -446,7 +446,7 @@
                             // Declare all variables
                             var i, tabcontent, tablinks;
 
-                            // Get all elements with class="tabcontent" and hide tables for both availability and preferences
+                            // Get all elements with class="tabcontent" and hide them
                             tabcontent = document.getElementsByClassName("tabcontent");
                             for (i = 0; i < tabcontent.length; i++) {
                                 tabcontent[i].style.visibility = "hidden";
@@ -454,14 +454,12 @@
                             }
 
                             // Get all elements with class="tablinks" and remove the class "active"
-                            // So that to make bothe the color of tabs be original
                             tablinks = document.getElementsByClassName("tablinks");
                             for (i = 0; i < tablinks.length; i++) {
                                 tablinks[i].className = tablinks[i].className.replace(" active", "");
                             }
 
-                            // Make the table of the current tab visible so that the user can edit the table for that tab
-                            // and add an "active" class to the button that opened the tab to make the selected tab be gray,which represent active
+                            // Show the current tab, and add an "active" class to the button that opened the tab
                             document.getElementById(cityName).style.visibility = "visible";
                             document.getElementById(cityName).style.position = "relative";
                             evt.currentTarget.className += " active";

@@ -33,12 +33,19 @@ public class DBOperation {
     public ArrayList<Employee> getEmployees() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true", Employee.class).getResultList());
         session.getTransaction().commit();
         session.close();
         session.close();
         return empList;
 
+    }
+
+    public Employee getEmployee() {
+        Employee emp = new Employee();
+
+
+        return emp;
     }
 
 
@@ -165,4 +172,8 @@ public class DBOperation {
         }
         session.close();
     }
+
+
+
+
 }

@@ -29,7 +29,6 @@ public class ManageEmployee extends HttpServlet {
 
         System.out.println(id);
         char role;
-        System.out.println("Test!");
         if(action != null) {
 
 
@@ -129,7 +128,9 @@ public class ManageEmployee extends HttpServlet {
                         request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request, response);
                     }
                 } else if (action.equals("Delete")) {
+                    System.out.println("DELETE!");
                     try {
+                        System.out.println("DELETE!");
                         dbOps.deleteEmployee(new Employee(numID, address, fname, lname, phone, email, role, false, false, comments, constraints));
                         request.setAttribute("message", "Employee Deleted!");
                         request.setAttribute("employeeList", dbOps.getEmployees());
@@ -143,10 +144,12 @@ public class ManageEmployee extends HttpServlet {
                         request.setAttribute("message", "Invalid Constraint!");
 
                     } finally {
+                        System.out.println("FINALLY");
                         request.setAttribute("employeeList", dbOps.getEmployees());
                         request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request, response);
                     }
                 } else {
+                    System.out.println("INVALID!");
                     request.setAttribute("message", "Invalid Option!");
                     request.setAttribute("employeeList", dbOps.getEmployees());
                     request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request, response);
@@ -154,6 +157,7 @@ public class ManageEmployee extends HttpServlet {
             }
 
         } else {
+            System.out.println("test");
             request.setAttribute("message", "Test");
             request.setAttribute("employeeList", dbOps.getEmployees());
             request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request,response);

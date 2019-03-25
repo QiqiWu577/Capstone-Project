@@ -37,7 +37,7 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Emp_id")
+    @Column(name = "emp_id")
     private Integer empid;
     @Basic(optional = false)
     @Column(name = "Fname")
@@ -66,7 +66,7 @@ public class Employee implements Serializable {
     @Column(name = "Notes")
     private String notes;
     @JoinTable(name = "schedule_employee", joinColumns = {
-            @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "emp_id", referencedColumnName = "emp_id")}, inverseJoinColumns = {
             @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")})
     @ManyToMany
     private List<Shift> shiftList;
@@ -97,7 +97,7 @@ public class Employee implements Serializable {
         this.newHire = newHire;
         this.active = active;
         this.notes = notes;
-        employeeConstraints = new EmployeeConstraints(empid, constraints);
+        employeeConstraints = new EmployeeConstraints(this, constraints, empid);
         shiftList = new ArrayList<Shift>();
         notificationList = new ArrayList<Notification>();
     }

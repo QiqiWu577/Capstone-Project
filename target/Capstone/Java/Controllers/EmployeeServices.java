@@ -1,5 +1,7 @@
 package Controllers;
 
+import Persistance.DBOperation;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,11 +11,34 @@ import java.io.IOException;
 
 @WebServlet(name = "EmployeeServices")
 public class EmployeeServices extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String page = request.getParameter("page");
+        DBOperation dbOps = new DBOperation();
+        if(page != null) {
+            if(page.equals("shiftOffer")) {
+
+                request.setAttribute("","");
+
+
+
+
+
+            }
+        } else {
+            //go home
+        }
+
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
     }
 }

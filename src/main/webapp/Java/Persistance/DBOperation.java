@@ -33,7 +33,7 @@ public class DBOperation {
     public ArrayList<Employee> getEmployees() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true", Employee.class).getResultList());
         session.getTransaction().commit();
         session.close();
         session.close();
@@ -174,6 +174,19 @@ public class DBOperation {
     }
 
 
+    public LocalDateTime getLastScheduleDate() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+
+        Query query = session.createQuery("SELECT d FROM Day d WHERE d.startTime IN (select max(b.startTime) from Day b)");
+        ArrayList<Day> temp = new ArrayList<>(query.list());
+
+        session.getTransaction().commit();
+        session.close();
+        return temp.get(0).getStartTime();
+
+    }
 
 
 }

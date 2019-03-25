@@ -57,12 +57,12 @@ public class Validate extends HttpServlet {
 
 
 
-                if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'M') {
+                if (emp.getType() == 'M') {
 
                     request.getRequestDispatcher("/ManageEmployees").forward(request, response);
 
 
-                } else if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'A') {
+                } else if (emp.getType() == 'A') {
 
                 } else {
                     request.getRequestDispatcher("/EmployeeServices").forward(request, response);

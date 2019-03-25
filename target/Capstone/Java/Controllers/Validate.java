@@ -1,6 +1,7 @@
 package Controllers;
 
 import Model.Day;
+import Model.Employee;
 import Persistance.DBOperation;
 
 import javax.servlet.ServletException;
@@ -47,21 +48,24 @@ public class Validate extends HttpServlet {
         else if (username!=null && password!=null && !username.equals("") && !password.equals("")) {
 
             if (valid) {
+
+                Employee emp = dbops.getEmployee(Integer.parseInt(username));
                 HttpSession session = request.getSession();
-                session.setAttribute("username", username);
+                session.setAttribute("employee", emp);
 
 
 
 
 
-                if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'M') {
+                if (emp.getType() == 'M') {
 
                     request.getRequestDispatcher("/ManageEmployees").forward(request, response);
 
 
-                } else if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'A') {
+                } else if (emp.getType() == 'A') {
 
                 } else {
+                    request.getRequestDispatcher("/EmployeeServices").forward(request, response);
 
                 }
 

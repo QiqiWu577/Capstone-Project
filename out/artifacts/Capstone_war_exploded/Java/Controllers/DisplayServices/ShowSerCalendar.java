@@ -25,7 +25,7 @@ public class ShowSerCalendar extends HttpServlet {
         char empType = 'S';
 
         //get the shift list from the shift table
-        String empList = DBOps.getEmps(empType);
+        String empList = DBOps.getEmpsBT(empType);
 
         if(!empList.equals("")){
 

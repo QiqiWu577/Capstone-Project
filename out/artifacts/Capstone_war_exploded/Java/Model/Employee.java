@@ -86,7 +86,7 @@ public class Employee implements Serializable {
         notificationList = new ArrayList<Notification>();
     }
 
-    public Employee(Integer empid, String address, String fname, String lname, String phoneno, String email, Character type, boolean newHire, boolean active) {
+    public Employee(Integer empid, String address, String fname, String lname, String phoneno, String email, Character type, boolean newHire, boolean active, String notes, String constraints) throws InvalidConstraintException, ConstraintWrongSizeException{
         this.empid = empid;
         this.address = address;
         this.fname = fname;
@@ -96,6 +96,8 @@ public class Employee implements Serializable {
         this.type = type;
         this.newHire = newHire;
         this.active = active;
+        this.notes = notes;
+        employeeConstraints = new EmployeeConstraints(empid, constraints);
         shiftList = new ArrayList<Shift>();
         notificationList = new ArrayList<Notification>();
     }

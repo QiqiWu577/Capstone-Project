@@ -78,7 +78,7 @@ public class Employee implements Serializable {
     @Column(name = "Notes")
     private String notes;
 
-    @ManyToMany(mappedBy = "employeeList")
+    @ManyToMany(mappedBy = "employeeList",cascade = CascadeType.ALL)
     private List<Shift> shiftList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
     private EmployeeConstraints employeeConstraints;

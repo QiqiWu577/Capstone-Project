@@ -36,14 +36,20 @@ public class DBOperation {
         ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
         session.getTransaction().commit();
         session.close();
-        session.close();
         return empList;
 
     }
 
-    public Employee getEmployee() {
-        Employee emp = new Employee();
+    public Employee getEmployee(int empid) {
+        Employee emp = null;
 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT e FROM Employee e where e.empid=:empid", Employee.class);
+        query.setParameter("empid",empid);
+        session.getTransaction().commit();
+        emp = (Employee) query.getSingleResult();
+        session.close();
 
         return emp;
     }

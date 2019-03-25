@@ -59,7 +59,7 @@ public class Notification implements Serializable {
     @Basic(optional = false)
     @Column(name = "Status")
     private Character status;
-    @JoinColumn(name = "Sender", referencedColumnName = "Emp_id")
+    @JoinColumn(name = "Sender", referencedColumnName = "emp_id")
     @ManyToOne(optional = false)
     private Employee sender;
 

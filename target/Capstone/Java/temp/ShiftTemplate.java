@@ -38,7 +38,6 @@ public class ShiftTemplate implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(name = "shift_id")
     private Integer shiftId;
     @Column(name = "type")

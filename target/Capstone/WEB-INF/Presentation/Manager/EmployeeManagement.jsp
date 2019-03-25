@@ -41,7 +41,6 @@
                 </tr>
                 <c:forEach items="${requestScope.employeeList}" var="emp" >
                     <tr class="alt" onclick="populate('${emp.getEmpid()}','${emp.getFname()}','${emp.getLname()}',
-
                             '${emp.getAddress()}','${emp.getPhoneno()}','${emp.getEmail()}','${emp.getType()}','${emp.getNotes()}','${emp.getEmployeeConstraints().getConstraints()}')">
                         <td>${emp.getEmpid()}</td>
                         <td>${emp.getFname()} ${emp.getLname()}</td>
@@ -49,38 +48,6 @@
                     </tr>
 
                 </c:forEach>
-
-                <tr class="alt">
-                    <td>001</td>
-                    <td>Dave Johnson</td>
-                    <td>Bartender</td>
-                </tr>
-                <tr class="alt">
-                    <td>002</td>
-                    <td>Mark Smith</td>
-                    <td>Server</td>
-                </tr>
-                <tr class="alt">
-                    <td>003</td>
-                    <td>Ronald McDonald</td>
-                    <td>Kitchen</td>
-                </tr>
-                <tr class="alt">
-                    <td>004</td>
-                    <td>John Smith</td>
-                    <td>Kitchen</td>
-                </tr>
-                <tr class="alt">
-                    <td>005</td>
-                    <td>Mark Wahlberg</td>
-                    <td>Bartender</td>
-                </tr>
-                <tr class="alt">
-                    <td>006</td>
-                    <td>Michael Scott</td>
-                    <td>Kitchen</td>
-                </tr>
-
             </table>
         </div>
         <form action="${pageContext.request.contextPath}/ManageEmployees" method="POST" id="myForm">
@@ -121,7 +88,7 @@
                     <div class="btngrp">
                         <input type="submit" name="action" value="Save" onclick="generateString()" class="btns">
                         <input type="button" value="Clear" class="btns" onclick="clearFields()">
-                        <input type="submit" name="action" value="Delete" class="btns">
+                        <input type="submit" name="action" value="Delete" class="btns" onclick="generateString()">
                     </div>
                     ${requestScope.message}
 
@@ -145,13 +112,13 @@
 
                                     <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
                                 </td><td style="border-right: 1px solid black;">
-                                    </c:if>
+                                </c:if>
                                 <label class="contain">
                                     <input id="box_A_0_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
                                     </c:forEach>
-                                </td>
+                            </td>
                             </tr>
 
 
@@ -382,8 +349,6 @@
                             </tr>
                         </table>
                     </div>
-
-
                     <br>
 
 
@@ -447,7 +412,7 @@
                             // Declare all variables
                             var i, tabcontent, tablinks;
 
-                            // Get all elements with class="tabcontent" and hide tables for both availability and preferences
+                            // Get all elements with class="tabcontent" and hide them
                             tabcontent = document.getElementsByClassName("tabcontent");
                             for (i = 0; i < tabcontent.length; i++) {
                                 tabcontent[i].style.visibility = "hidden";
@@ -455,14 +420,12 @@
                             }
 
                             // Get all elements with class="tablinks" and remove the class "active"
-                            // So that to make bothe the color of tabs be original
                             tablinks = document.getElementsByClassName("tablinks");
                             for (i = 0; i < tablinks.length; i++) {
                                 tablinks[i].className = tablinks[i].className.replace(" active", "");
                             }
 
-                            // Make the table of the current tab visible so that the user can edit the table for that tab
-                            // and add an "active" class to the button that opened the tab to make the selected tab be gray,which represent active
+                            // Show the current tab, and add an "active" class to the button that opened the tab
                             document.getElementById(cityName).style.visibility = "visible";
                             document.getElementById(cityName).style.position = "relative";
                             evt.currentTarget.className += " active";
@@ -487,64 +450,6 @@
                             } else if (type === 'K') {
                                 selObj.selectedIndex = 2;
                             }
-                            console.log(constraints);
-                            for (var i = 0; i < constraints.length; i++) {
-                                if(i<23) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_0_" + i).checked = true;
-                                    }
-                                } else if (i<48) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_0_" + (i - 23)).checked = true;
-                                    }
-                                } else if (i < 73) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_1_" + (i - 73)).checked = true;
-                                    }
-                                } else if (i < 98) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_1_" + (i - 98)).checked = true;
-                                    }
-                                } else if (i < 123) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_2_" + (i - 123)).checked = true;
-                                    }
-                                } else if (i < 148) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_2_" + (i - 148)).checked = true;
-                                    }
-                                } else if (i < 173) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_3_" + (i - 173)).checked = true;
-                                    }
-                                } else if (i < 198) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_3_" + (i - 198)).checked = true;
-                                    }
-                                } else if (i < 223) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_4_" + (i - 223)).checked = true;
-                                    }
-                                } else if (i < 248) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_4_" + (i - 248)).checked = true;
-                                    }
-                                } else if (i < 273) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_5_" + (i - 273)).checked = true;
-                                    }
-                                } else if (i < 298) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_5_" + (i - 298)).checked = true;
-                                    }
-                                } else if (i < 323) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_A_6_" + (i - 323)).checked = true;
-                                    }
-                                } else if (i < 348) {
-                                    if(constraints.charAt(i) == '1') {
-                                        document.getElementById("box_P_6_" + (i - 348)).checked = true;
-                                    }
                             var cons = constraints.split(",");
 
 
@@ -561,6 +466,66 @@
                                 }
                             }
 
+
+                            // for (var i = 0; i < constraints.length; i++) {
+                            //     if(i<24) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_0_" + i).checked = true;
+                            //         }
+                            //     } else if (i<48) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_0_" + (i - 24)).checked = true;
+                            //         }
+                            //     } else if (i < 73) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_1_" + (i - 48)).checked = true;
+                            //         }
+                            //     } else if (i < 98) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_1_" + (i - 73)).checked = true;
+                            //         }
+                            //     } else if (i < 123) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_2_" + (i - 98)).checked = true;
+                            //         }
+                            //     } else if (i < 148) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_2_" + (i - 123)).checked = true;
+                            //         }
+                            //     } else if (i < 173) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_3_" + (i - 148)).checked = true;
+                            //         }
+                            //     } else if (i < 198) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_3_" + (i - 173)).checked = true;
+                            //         }
+                            //     } else if (i < 223) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_4_" + (i - 198)).checked = true;
+                            //         }
+                            //     } else if (i < 248) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_4_" + (i - 223)).checked = true;
+                            //         }
+                            //     } else if (i < 273) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_5_" + (i - 248)).checked = true;
+                            //         }
+                            //     } else if (i < 298) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_5_" + (i - 273)).checked = true;
+                            //         }
+                            //     } else if (i < 323) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_A_6_" + (i - 298)).checked = true;
+                            //         }
+                            //     } else if (i < 348) {
+                            //         if(constraints.charAt(i) === '1') {
+                            //             document.getElementById("box_P_6_" + (i - 323)).checked = true;
+                            //         }
+                            //     }
+                            // }
                         }
 
                         function resetBoxes() {
@@ -574,30 +539,10 @@
                             }
                         }
 
-                        function hideAndReplace(divid) {
-                            var div = document.getElementById(divid);
+<<<<<<< HEAD
+=======
 
-                            var newDiv = document.createElement("div");
-
-                            newDiv.innerText = divid;
-                            div.after(newDiv);
-                            div.style.visibility = 'hidden';
-
-
-                            newDiv.addEventListener("click", function() {
-                                div.style.visibility = 'visible';
-                                newDiv.remove();
-                            });
-
-                        }
-
-
-
-                        function uploadImage() {
-                            
-                        }
-
-
+>>>>>>> d09902903ffde1327669838c38dad1b31fd12bf8
                     </script>
 
                 </div>

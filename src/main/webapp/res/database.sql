@@ -28,9 +28,8 @@ Create table employees (
 );
 
 CREATE TABLE Employee_constraints (
-                                    emp_id INT(4),
+                                    emp_id INT(4) AUTO_INCREMENT primary key,
                                     constraints VARCHAR(400) NOT NULL,
-                                    PRIMARY KEY (emp_id),
                                     FOREIGN KEY (emp_id) REFERENCES Employees(emp_id)
 );
 
@@ -89,7 +88,6 @@ CREATE TABLE day_template (
 CREATE TABLE shift_template (
                               shift_id    int(6) auto_increment,
                               type        char(1),
-                              name        VARCHAR(10),
                               day_of_week VARCHAR(10),
                               start_time  VARCHAR(8),
                               end_time    VARCHAR(8),

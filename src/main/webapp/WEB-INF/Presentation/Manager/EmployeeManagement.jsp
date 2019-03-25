@@ -88,7 +88,7 @@
                     <div class="btngrp">
                         <input type="submit" name="action" value="Save" onclick="generateString()" class="btns">
                         <input type="button" value="Clear" class="btns" onclick="clearFields()">
-                        <input type="submit" name="action" value="Delete" class="btns">
+                        <input type="submit" name="action" value="Delete" class="btns" onclick="generateString()">
                     </div>
                     ${requestScope.message}
 
@@ -349,8 +349,6 @@
                             </tr>
                         </table>
                     </div>
-                    <input type="file" name="test" >
-
                     <br>
 
 
@@ -452,6 +450,8 @@
                             } else if (type === 'K') {
                                 selObj.selectedIndex = 2;
                             }
+                            console.log(constraints);
+
                             var cons = constraints.split(",");
 
 
@@ -467,7 +467,6 @@
                                     }
                                 }
                             }
-
                         }
 
                         function resetBoxes() {
@@ -480,6 +479,7 @@
                                 }
                             }
                         }
+
 
                     </script>
 

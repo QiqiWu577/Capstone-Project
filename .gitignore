@@ -20,3 +20,5 @@ target/Capstone/Java/Controllers/ScheduleMaker.java
 *.xml
 *.class
 *.class
+*.class
+*.class

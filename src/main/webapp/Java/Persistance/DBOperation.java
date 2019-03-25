@@ -194,4 +194,44 @@ public class DBOperation {
         return temp.get(0).getStartTime();
 
     }
+
+    public ArrayList<ShiftTemplate> getShiftTemplates(char type) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("SELECT s FROM ShiftTemplate s WHERE s.type = :type");
+        query.setParameter("type", type);
+
+        ArrayList<ShiftTemplate> shiftList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return shiftList;
+    }
+
+    public void updateShiftTemplate(temp.ShiftTemplate st) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(st);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void deleteShiftTemplate(temp.ShiftTemplate st) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.delete(st);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void addShiftTemplate(temp.ShiftTemplate st) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(st);
+        session.getTransaction().commit();
+        session.close();
+    }
+
 }

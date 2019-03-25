@@ -62,12 +62,12 @@ public class Validate extends HttpServlet {
 long2 = currentTimeMillis();
                 System.out.println(long2-long1);
 
-                if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'M') {
+                if (emp.getType() == 'M') {
 
                     request.getRequestDispatcher("/ManageEmployees").forward(request, response);
 
 
-                } else if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'A') {
+                } else if (emp.getType() == 'A') {
 
                     request.getRequestDispatcher("/AdminServices").forward(request, response);
 

@@ -67,8 +67,8 @@
             <form action="#" method="get">
 
                 <button class="btn" ><i class="fas fa-calendar-day"></i>Monday</button>
-                    <div class="control-group">
-                        <label class="control-label">Open:</label>
+                    <div>
+                        Open:
                         <div class="controls input-append date form_time" data-date="" data-date-format="hh:ii">
                             <input name="MonS" size="20" style="height:30px" type="text" readonly>
                             <span class="add-on" style="height:30px"><i class="icon-remove fas fa-times-circle"></i></span>

@@ -1,4 +1,18 @@
 #############Testing for FullCalendar##############
+
+#Shifts (3 for each department)
+insert into day_template values ('Monday','00:00:00','23:59:59');
+insert into shift_template values (null,'S','Open', 'Monday','12:00:00','20:00:00',1,2);
+insert into shift_template values (null,'S','Mid', 'Monday','13:00:00','21:00:00',1,2);
+insert into shift_template values (null,'S','Close', 'Monday','14:00:00','22:00:00',1,2);
+insert into shift_template values (null,'K','Open', 'Monday','12:00:00','20:00:00',1,2);
+insert into shift_template values (null,'K','Mid', 'Monday','13:00:00','21:00:00',1,2);
+insert into shift_template values (null,'K','Close', 'Monday','14:00:00','22:00:00',1,2);
+insert into shift_template values (null,'B','Open', 'Monday','12:00:00','20:00:00',1,2);
+insert into shift_template values (null,'B','Mid', 'Monday','13:00:00','21:00:00',1,2);
+insert into shift_template values (null,'B','Close', 'Monday','14:00:00','22:00:00',1,2);
+
+
 #Employee(7 employees)
 insert into employees values (null,'Alec','Gralewski','840 9 Ave SW, Calgary, AB T2P 0L9','587-766-8877','alecgralewski@gmail.com','K',1,1,'Need more training!');
 insert into employees values (null,'Anthony','Doucet','800 6 Ave SW, Calgary, AB T2P 3G3','403-577-966','anthonydoucet@gmail.com','K',1,1,'Need more training!');
@@ -90,4 +104,3 @@ insert into schedule_employee values (2,14);
 insert into schedule_employee values (3,15);
 insert into schedule_employee values (5,14);
 insert into schedule_employee values (7,15);
-

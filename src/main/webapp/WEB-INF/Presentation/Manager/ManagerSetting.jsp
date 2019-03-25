@@ -9,9 +9,6 @@
     <link href="css/employeemgmt.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-    <link href="css/datetimepicker/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="css/datetimepicker/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-
     <link href="https://code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css" rel="stylesheet" />
     <style>
 
@@ -66,21 +63,7 @@
         <div class="w-row">
             <form action="#" method="get">
 
-                <button class="btn" ><i class="fas fa-calendar-day"></i>Monday</button>
-                    <div class="control-group">
-                        <label class="control-label">Open:</label>
-                        <div class="controls input-append date form_time" data-date="" data-date-format="hh:ii">
-                            <input name="MonS" size="20" style="height:30px" type="text" readonly>
-                            <span class="add-on" style="height:30px"><i class="icon-remove fas fa-times-circle"></i></span>
-                            <span class="add-on" style="height:30px"><i class="icon-calendar fas fa-calendar-alt"></i></span>
-                        </div>
 
-                        <div class="controls input-append date form_time" data-date="" data-date-format="hh:ii">
-                            <input name="MonE" size="20" style="height:30px" type="text" value="" readonly>
-                            <span class="add-on" style="height:30px"><i class="icon-remove fas fa-times-circle"></i></span>
-                            <span class="add-on" style="height:30px"><i class="icon-calendar fas fa-calendar-alt"></i></span>
-                        </div>
-                    </div>
 
 
 
@@ -166,20 +149,19 @@
     <script src='js/calendarCore/jquery.min.js'></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src='js/calendarCore/moment.min.js'></script>
-    <script type="text/javascript" src="js/datetimepicker/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/datetimepicker/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+
     <script type="text/javascript">
 
-        $('.form_time').datetimepicker({
-            weekStart: 0,
-            todayBtn:  0,
-            autoclose: 1,
-            todayHighlight: 0,
-            startView: 1,
-            minView: 0,
-            maxView: 1,
-            forceParse: 0
-        });
+        // $('.form_time').datetimepicker({
+        //     weekStart: 0,
+        //     todayBtn:  0,
+        //     autoclose: 1,
+        //     todayHighlight: 0,
+        //     startView: 1,
+        //     minView: 0,
+        //     maxView: 1,
+        //     forceParse: 0
+        // });
 
         $( function() {
             $( "#accordion" ).accordion();

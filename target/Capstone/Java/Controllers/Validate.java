@@ -18,6 +18,7 @@ public class Validate extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        DBOperation dbops = new DBOperation();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         boolean valid=false;
@@ -50,21 +51,30 @@ public class Validate extends HttpServlet {
                 session.setAttribute("username", username);
 
 
-                //if employee
 
-                request.getRequestDispatcher("/.jsp").forward(request, response);
 
-                //if manager
 
-                //if admin
+                if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'M') {
+
+                    request.getRequestDispatcher("/ManageEmployees").forward(request, response);
+
+
+                } else if (dbops.getEmployee(Integer.parseInt(username)).getType() == 'A') {
+
+                } else {
+
+                }
+
+
             }
             else {
-                request.setAttribute("message", "Invalid username or password!");
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+
             }
 
         }
-        else {
+        else if(username == null || password == null) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        } else {
             request.setAttribute("message", "Both username and password are required!");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }

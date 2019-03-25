@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class DBOperation {
     public ArrayList<Employee> getEmployees() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true", Employee.class).getResultList());
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true AND type <> 'A' ", Employee.class).getResultList());
         session.getTransaction().commit();
         session.close();
         return empList;

@@ -1,15 +1,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Employee Management</title>
     <link href="css/managerSetting.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <title>Settings</title>
 </head>
 
 <body>
@@ -139,9 +145,11 @@
                         </c:forEach>
                         <!-- Trigger the modal with a button -->
                         <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>                        </tbody>
+                    </tbody>
                     </table>
                 </div>
             </div>
+
             <div id="kitchen" class="tab-pane fade">
                 <h3>Kitchen</h3>
                 <div class="panel-body">
@@ -197,8 +205,8 @@
         </div>
     </div>
 </div>
-
-
+    </div>
+</div>
 
 
 <!-- Modal -->
@@ -266,8 +274,6 @@
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             </div>
         </div>
-    </div>
 </div>
-
 </body>
 </html>

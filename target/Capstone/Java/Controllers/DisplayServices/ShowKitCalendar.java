@@ -25,7 +25,7 @@ public class ShowKitCalendar extends HttpServlet {
         char empType = 'K';
 
         //get the shift list from the shift table
-        String empList = DBOps.getEmps(empType);
+        String empList = DBOps.getEmpsBT(empType);
 
         if(!empList.equals("")){
 

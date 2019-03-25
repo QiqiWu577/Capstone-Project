@@ -31,11 +31,12 @@ public class DBOperation {
 
 
     public ArrayList<Employee> getEmployees() {
-        ArrayList<Employee> empList = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
-
+        session.beginTransaction();
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
+        session.getTransaction().commit();
         session.close();
-
+        session.close();
         return empList;
 
     }
@@ -55,6 +56,18 @@ public class DBOperation {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.update(e);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+
+    public void deleteEmployee(Employee e) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("UPDATE Employee SET active = false WHERE id = :id");
+        query.setParameter("id",e.getEmpid());
+        query.executeUpdate();
+
         session.getTransaction().commit();
         session.close();
     }

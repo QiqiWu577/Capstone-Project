@@ -1,20 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html data-wf-page="5c0860abe5f863ca38dfd5cd" data-wf-site="5bfd62d9457454d30221aa10">
 <head>
     <meta charset="utf-8">
     <title>Settings</title>
-    <meta content="Settings" property="og:title">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta content="Webflow" name="generator">
-    <link href="css/normalize.css" rel="stylesheet" type="text/css">
     <link href="css/webflow.css" rel="stylesheet" type="text/css">
     <link href="css/matthews-cool-project-2c37b7.webflow.css" rel="stylesheet" type="text/css">
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js" type="text/javascript"></script>
-    <script type="text/javascript">WebFont.load({  google: {    families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic"]  }});</script>
-    <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
-    <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
-    <link href="https://daks2k3a4ib2z.cloudfront.net/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link href="https://daks2k3a4ib2z.cloudfront.net/img/webclip.png" rel="apple-touch-icon">
+    <link href="css/employeemgmt.css" rel="stylesheet" type="text/css">
 </head>
 <body class="body-2">
     <!--Left side Menu -->
@@ -37,221 +29,108 @@
 
     <div class="section-4-copy">
         <div class="w-container">
-            <h1 class="heading">Settings</h1>
+            <h1>Settings</h1>
         </div>
         <div class="w-container">
             <h3>Hours of Operation</h3>
         </div>
+
         <div class="w-row">
-            <div class="column-4 w-col w-col-2">
-                <div class="div-block-7">
-                    <div class="availabilityday">Sun</div>
-                </div>
-                <div class="div-block-7">
-                    <div class="availabilityday">Mon</div>
-                </div>
-                <div class="div-block-7">
-                    <div class="availabilityday">Tues</div>
-                </div>
-                <div class="div-block-7">
-                    <div class="availabilityday">Wed</div>
-                </div>
-                <div class="div-block-7">
-                    <div class="availabilityday">Thurs</div>
-                </div>
-                <div class="div-block-7">
-                    <div class="availabilityday">Fri</div>
-                </div>
-                <div class="div-block-7">
-                    <div class="availabilityday">Sat</div>
-                </div>
-            </div>
-            <div class="column-6 w-col w-col-10">
-                <div class="div-block-9">
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour selected"></div>
-                    <div class="availabiltyhour selected"></div>
-                    <div class="availabiltyhour selected"></div>
-                    <div class="availabiltyhour selected"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour selected"></div>
-                    <div class="availabiltyhour selected"></div>
-                    <div class="availabiltyhour selected"></div>
-                    <div class="availabiltyhour selected"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                </div>
-                <div class="div-block-9">
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                </div>
-                <div class="div-block-9">
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                </div>
-                <div class="div-block-9">
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                </div>
-                <div class="div-block-9">
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                </div>
-                <div class="div-block-9">
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                </div>
-                <div class="div-block-9">
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                    <div class="availabiltyhour"></div>
-                </div>
-            </div>
+
+            <table>
+
+                <tr><th></th><th>12am-5am</th><th>6am-11am</th><th>12pm-5pm</th><th>6pm-11pm</th></tr>
+                <tr>
+                    <th>
+                        <div  class="heading">Monday</div>
+                    </th>
+                    <td style="border-right: 1px solid black;">
+                        <c:forEach begin="0" end="23" varStatus="loop">
+
+                        <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                    </td>
+                    <td style="border-right: 1px solid black;">
+                    </c:if>
+                    <label class="contain">
+                        <input class="input" id="box_A_0_${loop.index}" type="checkbox" onclick="check(this)">
+                        <span class="checkmark"></span>
+                    </label>
+                    </c:forEach>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>
+                        <div class="heading">Tuesday</div>
+                    </th>
+                    <td style="border-right: 1px solid black;">
+                        <c:forEach begin="0" end="23" varStatus="loop">
+                        <c:if test="${loop.index == 6 || loop.index == 12 || loop.index == 18}">
+                    </td><td style="border-right: 1px solid black;">
+                    </c:if>
+                    <label class="contain">
+                        <input id="box_A_1_${loop.index}" type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    </c:forEach>
+                </td>
+                </tr>
+            </table>
+
+            <script type="text/javascript">
+
+                function check(box) {
+                    console.log("check");
+                    console.log(mouseDown);
+                    if (mouseDown) {
+                        box.checked = 1 - box.checked;
+                        if (box.checked) {
+                            box.style.background = "white";
+                        } else {
+                            box.style.background = "#A3FF9F";
+
+                        }
+                    }
+                }
+
+                var mouseDown = 0;
+                document.body.onmousedown = function() {
+                    ++mouseDown;
+                }
+                document.body.onmouseup = function() {
+                    --mouseDown;
+                }
+
+                function generateString() {
+                    var string = "";
+                    console.log(true);
+                    for(var i =0; i < 7; i++) {
+                        for(var x=0; x<24; x++) {
+                            if(document.getElementById("box_A_" + i + "_" + x).checked) {
+                                console.log(true);
+                                string = string + "1";
+                            } else {
+                                console.log(false);
+                                string = string + "0";
+                            }
+                        }
+                        string += ",";
+                        for(var j = 0; j < 24; j++) {
+                            if(document.getElementById("box_P_" + i + "_" + j).checked) {
+                                string = string + "1";
+                            } else {
+                                string = string + "0";
+                            }
+                        }
+                        string += ",";
+                    }
+                    document.getElementById("constraints").value = string;
+                }
+            </script>
+
         </div>
     </div>
+
     <div class="section-7">
         <div class="container-9 w-container">
             <div class="w-form">
@@ -303,11 +182,6 @@
         </div>
 
         <div name="shifts">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#front">Front End</a></li>
-                <li><a data-toggle="tab" href="#bar">Bar</a></li>
-                <li><a data-toggle="tab" href="#kitchen">Kitchen</a></li>
-            </ul>
 
             <div class="tab-content">
                 <div id="front" class="tab-pane fade in active">
@@ -325,5 +199,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>

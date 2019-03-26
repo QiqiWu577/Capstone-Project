@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -33,17 +34,23 @@ public class DBOperation {
     public ArrayList<Employee> getEmployees() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true AND type <> 'A' ", Employee.class).getResultList());
         session.getTransaction().commit();
-        session.close();
         session.close();
         return empList;
 
     }
 
-    public Employee getEmployee() {
-        Employee emp = new Employee();
+    public Employee getEmployee(int empid) {
+        Employee emp = null;
 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT e FROM Employee e where e.empid=:empid", Employee.class);
+        query.setParameter("empid",empid);
+        session.getTransaction().commit();
+        emp = (Employee) query.getSingleResult();
+        session.close();
 
         return emp;
     }
@@ -173,6 +180,21 @@ public class DBOperation {
         session.close();
     }
 
+
+    public LocalDateTime getLastScheduleDate() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+
+        Query query = session.createQuery("SELECT d FROM Day d WHERE d.startTime IN (select max(b.startTime) from Day b)");
+        ArrayList<Day> temp = new ArrayList<>(query.list());
+
+        session.getTransaction().commit();
+        session.close();
+        return temp.get(0).getStartTime();
+
+    }
+
     public ArrayList<ShiftTemplate> getShiftTemplates(char type) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -210,6 +232,86 @@ public class DBOperation {
         session.save(st);
         session.getTransaction().commit();
         session.close();
+    }
+
+    public boolean addDayTemplate(String day,String s,String e,boolean n){
+
+        boolean result = false;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            boolean test = checkDayTempExist(day);
+
+            if(test == true){
+                updateDayTemplate(day,s,e,n);
+            }else{
+                session.save(new DayTemplate(day,s,e,n));
+            }
+
+            session.getTransaction().commit();
+            return result;
+        }catch (Exception ex){
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return result;
+    }
+
+    public boolean checkDayTempExist(String day){
+
+        boolean result = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            Query q = session.createQuery("SELECT count(d) FROM DayTemplate d WHERE d.dayOfWeek = :dayOfWeek");
+            q.setParameter("dayOfWeek", day);
+
+            Long num = (Long) q.uniqueResult();
+            if(num == 1){
+                result = true;
+            }
+
+        }finally{
+            session.close();
+        }
+
+        return result;
+    }
+
+    public boolean updateDayTemplate(String day,String s,String e,boolean n){
+
+        boolean result=false;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            DayTemplate d = session.find(DayTemplate.class,day);
+            d.setOpenTime(s);
+            d.setCloseTime(e);
+            d.setNotTheSameDay(n);
+            session.update(d);
+
+            session.getTransaction().commit();
+            result = true;
+        }catch (Exception ex){
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return result;
     }
 
 }

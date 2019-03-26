@@ -18,6 +18,7 @@ target/Capstone/Java/Controllers/ScheduleMaker.java
 *.class
 *.class
 *.xml
-target/Capstone/Java/Persistance/DBOperation.java
-target/Capstone/Java/Persistance/DBOperation.java
-target/Capstone/WEB-INF/classes/Persistance/DBOperation.class
+*.class
+*.class
+*.class
+*.class

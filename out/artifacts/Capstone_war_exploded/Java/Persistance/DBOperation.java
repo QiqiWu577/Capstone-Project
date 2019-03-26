@@ -31,13 +31,27 @@ public class DBOperation {
 
 
     public ArrayList<Employee> getEmployees() {
-        ArrayList<Employee> empList = new ArrayList<>();
         Session session = HibernateUtil.getSessionFactory().openSession();
-
+        session.beginTransaction();
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true", Employee.class).getResultList());
+        session.getTransaction().commit();
         session.close();
-
         return empList;
 
+    }
+
+    public Employee getEmployee(int empid) {
+        Employee emp = null;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT e FROM Employee e where e.empid=:empid", Employee.class);
+        query.setParameter("empid",empid);
+        session.getTransaction().commit();
+        emp = (Employee) query.getSingleResult();
+        session.close();
+
+        return emp;
     }
 
 
@@ -55,6 +69,18 @@ public class DBOperation {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.update(e);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+
+    public void deleteEmployee(Employee e) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("UPDATE Employee SET active = false WHERE id = :id");
+        query.setParameter("id",e.getEmpid());
+        query.executeUpdate();
+
         session.getTransaction().commit();
         session.close();
     }
@@ -151,6 +177,21 @@ public class DBOperation {
 
         }
         session.close();
+    }
+
+
+    public LocalDateTime getLastScheduleDate() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+
+        Query query = session.createQuery("SELECT d FROM Day d WHERE d.startTime IN (select max(b.startTime) from Day b)");
+        ArrayList<Day> temp = new ArrayList<>(query.list());
+
+        session.getTransaction().commit();
+        session.close();
+        return temp.get(0).getStartTime();
+
     }
 
     public ArrayList<ShiftTemplate> getShiftTemplates(char type) {

@@ -29,7 +29,6 @@ public class ManageEmployee extends HttpServlet {
 
         System.out.println(id);
         char role;
-        System.out.println("Test!");
         if(action != null) {
 
 
@@ -89,12 +88,9 @@ public class ManageEmployee extends HttpServlet {
 
                         if (numID == 0) {
 
-                            //Integer empid, String address, String fname, String lname, String phoneno, String email, Character type, boolean newHire, boolean active
                             try {
-                                System.out.println("Adding a new employee");
                                 dbOps.addEmployee(new Employee(numID, address, fname, lname, phone, email, role, true, true, comments, constraints));
                                 request.setAttribute("message", "Employee Added!");
-                                System.out.println("Employee Added");
                             } catch (InvalidConstraintException e) {
                                 request.setAttribute("message", "Invalid Constraint!");
                                 e.printStackTrace();
@@ -102,15 +98,12 @@ public class ManageEmployee extends HttpServlet {
                                 request.setAttribute("message", "Invalid Constraint!");
                                 e.printStackTrace();
                             } finally {
-                                System.out.println("Finally");
                                 request.setAttribute("employeeList", dbOps.getEmployees());
                                 request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request, response);
                             }
                         } else {
                             try {
-                                System.out.println("Updating an employee");
                                 dbOps.updateEmployee(new Employee(numID, address, fname, lname, phone, email, role, false, true, comments, constraints));
-                                System.out.println("Success");
                                 request.setAttribute("message", "Employee Updated!");
                             } catch (InvalidConstraintException e) {
                                 request.setAttribute("message", "Invalid Constraint!");

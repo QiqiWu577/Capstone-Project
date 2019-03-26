@@ -40,18 +40,23 @@ public class PasswordManager {
             cstmt = conn.prepareCall(SQL);
 
             cstmt.setInt(1, empid);
+            System.out.println(empid);
             ResultSet rs = cstmt.executeQuery();
 
             rs.next();
             hash = rs.getString(1);
             salt = rs.getString(2);
+            System.out.println(hash);
+            System.out.println(salt);
 
 
+            rs.close();
             cstmt.close();
+            conn.close();
 
             //System.out.println(hash + " " + salt);
             valid = checkPassword(hash, verify, salt);
-            //System.out.println(valid);
+            System.out.println("PM: "+valid);
         } catch (SQLException e) {
             e.printStackTrace();
         }

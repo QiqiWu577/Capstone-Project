@@ -186,18 +186,18 @@ public class FullcalendarDBOps {
 
     public int addDay(LocalDateTime s,LocalDateTime e){
 
-        int result= 0;
-
         Session session = HibernateUtil.getSessionFactory().openSession();
+        int result = 0;
 
         try{
+
 
             session.beginTransaction();
 
             result = (int) session.save(new Day(s,e));
 
             session.getTransaction().commit();
-
+            return result;
         }catch (Exception ex){
             session.getTransaction().rollback();
             ex.printStackTrace();

@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -33,17 +34,23 @@ public class DBOperation {
     public ArrayList<Employee> getEmployees() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true AND type <> 'A' ", Employee.class).getResultList());
         session.getTransaction().commit();
-        session.close();
         session.close();
         return empList;
 
     }
 
-    public Employee getEmployee() {
-        Employee emp = new Employee();
+    public Employee getEmployee(int empid) {
+        Employee emp = null;
 
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT e FROM Employee e where e.empid=:empid", Employee.class);
+        query.setParameter("empid",empid);
+        session.getTransaction().commit();
+        emp = (Employee) query.getSingleResult();
+        session.close();
 
         return emp;
     }
@@ -171,6 +178,21 @@ public class DBOperation {
 
         }
         session.close();
+    }
+
+
+    public LocalDateTime getLastScheduleDate() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+
+        Query query = session.createQuery("SELECT d FROM Day d WHERE d.startTime IN (select max(b.startTime) from Day b)");
+        ArrayList<Day> temp = new ArrayList<>(query.list());
+
+        session.getTransaction().commit();
+        session.close();
+        return temp.get(0).getStartTime();
+
     }
 
     public ArrayList<ShiftTemplate> getShiftTemplates(char type) {

@@ -28,9 +28,8 @@ Create table employees (
 );
 
 CREATE TABLE Employee_constraints (
-                                    emp_id INT(4),
+                                    emp_id INT(4) AUTO_INCREMENT primary key,
                                     constraints VARCHAR(400) NOT NULL,
-                                    PRIMARY KEY (emp_id),
                                     FOREIGN KEY (emp_id) REFERENCES Employees(emp_id)
 );
 

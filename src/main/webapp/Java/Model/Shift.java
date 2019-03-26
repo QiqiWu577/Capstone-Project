@@ -84,6 +84,16 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
     }
 
+
+    public Shift(Integer shiftId, Date startTime, Date endTime, Character shiftType, int minNoEmp, int maxNoEmp) {
+        this.shiftId = shiftId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.shiftType = shiftType;
+        this.minNoEmp = minNoEmp;
+        this.maxNoEmp = maxNoEmp;
+    }
+
     public Integer getShiftId() {
         return shiftId;
     }

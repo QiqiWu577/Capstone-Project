@@ -77,7 +77,7 @@ public class EmployeeConstraints implements Serializable {
 
     @Transient
     private boolean isAvailSunday;
-
+    @Transient
     private boolean isPrefMonday;
     @Transient
     private boolean isPrefTuesday;
@@ -92,15 +92,22 @@ public class EmployeeConstraints implements Serializable {
     @Transient
     private boolean isPrefSunday;
 
-
-
-
-
     public EmployeeConstraints() {
-    }
+        availableTimeMonday = new boolean[24];
+        availableTimeTuesday = new boolean[24];
+        availableTimeWednesday = new boolean[24];
+        availableTimeThursday = new boolean[24];
+        availableTimeFriday = new boolean[24];
+        availableTimeSaturday = new boolean[24];
+        availableTimeSunday = new boolean[24];
 
-    public EmployeeConstraints(Integer empId) {
-        this.empId = empId;
+        preferredTimeMonday = new boolean[24];
+        preferredTimeTuesday = new boolean[24];
+        preferredTimeWednesday = new boolean[24];
+        preferredTimeThursday = new boolean[24];
+        preferredTimeFriday = new boolean[24];
+        preferredTimeSaturday = new boolean[24];
+        preferredTimeSunday = new boolean[24];
     }
 
     public EmployeeConstraints(Integer empId, String constraints) throws InvalidConstraintException, ConstraintWrongSizeException{

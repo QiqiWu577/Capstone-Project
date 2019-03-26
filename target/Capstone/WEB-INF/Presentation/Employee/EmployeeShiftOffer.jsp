@@ -7,10 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-    <head>
-        <title>Shift Offer</title>
-        <link href="${pageContext.request.contextPath}/css/employeemgmt.css" rel="stylesheet" type="text/css">
-    </head>
+<head>
+    <title>Shift Offer</title>
+    <link href="${pageContext.request.contextPath}/css/employeemgmt.css" rel="stylesheet" type="text/css">
+</head>
 <body>
 <!--Left side Menu -->
 <div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
@@ -24,6 +24,12 @@
             <a href="#" class="nav-links w-nav-link">Notifications</a>
             <a href="#" class="nav-links w-nav-link">Settings</a>
         </nav>
+    </div>
+</div>
+<div class="main">
+
+    <div class="title">
+        Shift Offer
     </div>
 </div>
 </body>

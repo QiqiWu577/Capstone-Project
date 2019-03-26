@@ -15,16 +15,16 @@ drop table if exists employee_constraints;
 drop table if exists employees;
 
 Create table employees (
-                         Emp_id int(4) AUTO_INCREMENT primary key,
-                         Fname varchar(40) not null,
+                         emp_id int(4) AUTO_INCREMENT primary key,
+                         fname varchar(40) not null,
                          lname varchar(40) not null,
-                         Address varchar(50) not null,
-                         Phone_no varchar(15) not null,
-                         Email varchar(60) not null,
-                         Type char(1) not null,
+                         address varchar(50) not null,
+                         phone_no varchar(15) not null,
+                         email varchar(60) not null,
+                         type char(1) not null,
                          newHire bit not null,
-                         Active bit not null,
-                         Notes varchar(1000)
+                         active bit not null,
+                         notes varchar(1000)
 );
 
 CREATE TABLE Employee_constraints (
@@ -59,15 +59,15 @@ CREATE TABLE Shift(
 );
 
 CREATE TABLE Notifications (
-                             Notif_id INT(5) AUTO_INCREMENT,
-                             Sender INT(4) NOT NULL,
-                             Recipient INT(4) NOT NULL,
-                             Content VARCHAR(1000),
-                             Date DATETIME NOT NULL,
-                             Notif_type CHAR(1) NOT NULL,
+                             notif_id INT(5) AUTO_INCREMENT,
+                             sender INT(4) NOT NULL,
+                             recipient INT(4) NOT NULL,
+                             content VARCHAR(1000),
+                             date DATETIME NOT NULL,
+                             notif_type CHAR(1) NOT NULL,
                              Status CHAR(1) NOT NULL,
-                             PRIMARY KEY(Notif_id),
-                             FOREIGN KEY (Sender) references Employees(emp_id)
+                             PRIMARY KEY(notif_id),
+                             FOREIGN KEY (sender) references Employees(emp_id)
 );
 
 create table schedule_employee (
@@ -82,13 +82,14 @@ CREATE TABLE day_template (
                             day_of_week VARCHAR(10),
                             open_time   VARCHAR(8),
                             close_time  VARCHAR(8),
+                            not_the_same_day bit,
                             PRIMARY KEY(day_of_week)
 );
 
 CREATE TABLE shift_template (
                               shift_id    int(6) auto_increment,
-                              type        char(1),
                               name        VARCHAR(10),
+                              type        char(1),
                               day_of_week VARCHAR(10),
                               start_time  VARCHAR(8),
                               end_time    VARCHAR(8),

@@ -22,3 +22,4 @@ target/Capstone/Java/Controllers/ScheduleMaker.java
 *.class
 *.class
 *.class
+target/Capstone/WEB-INF/classes/Controllers/DisplayServices/ShowBarCalendar.class

@@ -29,8 +29,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries(value = {
         @NamedQuery(name = "ShiftTemplate.findAll", query = "SELECT s FROM ShiftTemplate s")
         , @NamedQuery(name = "ShiftTemplate.findByShiftId", query = "SELECT s FROM ShiftTemplate s WHERE s.shiftId = :shiftId")
-        , @NamedQuery(name = "ShiftTemplate.findByType", query = "SELECT s FROM ShiftTemplate s WHERE s.type = :type")
-        , @NamedQuery(name = "ShiftTemplate.findByName", query = "SELECT s FROM ShiftTemplate s WHERE s.name = :name")
         , @NamedQuery(name = "ShiftTemplate.findByStartTime", query = "SELECT s FROM ShiftTemplate s WHERE s.startTime = :startTime")
         , @NamedQuery(name = "ShiftTemplate.findByEndTime", query = "SELECT s FROM ShiftTemplate s WHERE s.endTime = :endTime")
         , @NamedQuery(name = "ShiftTemplate.findByMinNoEmp", query = "SELECT s FROM ShiftTemplate s WHERE s.minNoEmp = :minNoEmp")
@@ -42,10 +40,10 @@ public class ShiftTemplate implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shift_id")
     private Integer shiftId;
-    @Column(name = "type")
-    private char type;
     @Column(name = "name")
     private String name;
+    @Column(name = "type")
+    private char type;
     @Column(name = "start_time")
     private String startTime;
     @Column(name = "end_time")
@@ -73,20 +71,20 @@ public class ShiftTemplate implements Serializable {
         this.shiftId = shiftId;
     }
 
-    public char getType() {
-        return type;
-    }
-
-    public void setType(char type) {
-        this.type = type;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public char getType() {
+        return type;
+    }
+
+    public void setType(char type) {
+        this.type = type;
     }
 
     public String getStartTime() {
@@ -125,8 +123,8 @@ public class ShiftTemplate implements Serializable {
         return dayOfWeek.getDayOfWeek();
     }
 
-    public void setDayOfWeek(DayTemplate dt) {
-        this.dayOfWeek = dt;
+    public void setDayOfWeek(DayTemplate dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     @Override

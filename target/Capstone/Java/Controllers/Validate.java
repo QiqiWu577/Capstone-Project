@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static java.lang.System.currentTimeMillis;
+
 @WebServlet(name = "Validate", urlPatterns = "/Validate")
 public class Validate extends HttpServlet {
 
@@ -23,6 +25,9 @@ public class Validate extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         boolean valid=false;
+
+        long long1 = currentTimeMillis();
+        long long2;
 
         PasswordManager pm = new PasswordManager();
 
@@ -54,8 +59,8 @@ public class Validate extends HttpServlet {
                 session.setAttribute("employee", emp);
 
 
-
-
+long2 = currentTimeMillis();
+                System.out.println(long2-long1);
 
                 if (emp.getType() == 'M') {
 
@@ -63,6 +68,9 @@ public class Validate extends HttpServlet {
 
 
                 } else if (emp.getType() == 'A') {
+
+                    request.getRequestDispatcher("/AdminServices").forward(request, response);
+
 
                 } else {
                     request.getRequestDispatcher("/EmployeeServices").forward(request, response);

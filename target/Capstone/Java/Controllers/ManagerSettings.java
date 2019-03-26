@@ -1,8 +1,14 @@
 package Controllers;
 
+<<<<<<< HEAD
 import Model.DayTemplate;
 import Model.ShiftTemplate;
 import Persistance.DBOperation;
+=======
+import Persistance.DBOperation;
+import temp.DayTemplate;
+import temp.ShiftTemplate;
+>>>>>>> 7cac93c7bde5b1c2a467d2744795201f876e5ac9
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalTime;
 
 @WebServlet(name = "ManagerSettings", urlPatterns = "/ManagerSettings")
 public class ManagerSettings extends HttpServlet {
@@ -20,6 +27,7 @@ public class ManagerSettings extends HttpServlet {
         String update = request.getParameter("update");
         String delete = request.getParameter("delete");
         String add = request.getParameter("add");
+<<<<<<< HEAD
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
 
@@ -27,6 +35,87 @@ public class ManagerSettings extends HttpServlet {
 
             temp.ShiftTemplate st = new temp.ShiftTemplate();
             temp.DayTemplate dt = new temp.DayTemplate();
+=======
+        String saveOps = request.getParameter("save");
+        DBOperation db = new DBOperation();
+        HttpSession session = request.getSession();
+
+
+        if(saveOps != null){
+
+            boolean notSame = false;
+
+            String monS = request.getParameter("MonS");
+            String monE = request.getParameter("MonE");
+            String tueS = request.getParameter("TueS");
+            String tueE = request.getParameter("TueE");
+            String wedS = request.getParameter("WedS");
+            String wedE = request.getParameter("WedE");
+            String thurS = request.getParameter("ThurS");
+            String thurE = request.getParameter("ThurE");
+            String friS = request.getParameter("FriS");
+            String friE = request.getParameter("FriE");
+            String saturS = request.getParameter("SaturS");
+            String saturE = request.getParameter("SaturE");
+            String sunS = request.getParameter("SunS");
+            String sunE = request.getParameter("SunE");
+
+            if((monS != null && monE != null) || (monS.equals("") && monE.equals(""))){
+
+                LocalTime st = LocalTime.parse(monS);
+                LocalTime et = LocalTime.parse(monE);
+
+                notSame = notTheSameDay(st,et);
+                db.addDayTemplate("Monday",monS,monE,notSame);
+            }else if((tueS != null && tueE != null) || (tueS.equals("") && tueE.equals(""))){
+
+                LocalTime st = LocalTime.parse(tueS);
+                LocalTime et = LocalTime.parse(tueE);
+
+                notSame = notTheSameDay(st,et);
+                db.addDayTemplate("Tuesday",monS,monE,notSame);
+            }else if((wedS != null && wedE != null) || (wedS.equals("") && wedE.equals(""))){
+
+                LocalTime st = LocalTime.parse(wedS);
+                LocalTime et = LocalTime.parse(wedE);
+
+                notSame = notTheSameDay(st,et);
+                db.addDayTemplate("Wednesday",monS,monE,notSame);
+            }else if((thurS != null && thurE != null) || (thurS.equals("") && thurE.equals(""))){
+
+                LocalTime st = LocalTime.parse(thurS);
+                LocalTime et = LocalTime.parse(thurE);
+
+                notSame = notTheSameDay(st,et);
+                db.addDayTemplate("Thursday",monS,monE,notSame);
+            }else if((friS != null && friE != null) || (friS.equals("") && friE.equals(""))){
+
+                LocalTime st = LocalTime.parse(friS);
+                LocalTime et = LocalTime.parse(friE);
+
+                notSame = notTheSameDay(st,et);
+                db.addDayTemplate("Friday",monS,monE,notSame);
+            }else if((saturS != null && saturE != null) || (saturS.equals("") && saturE.equals(""))){
+
+                LocalTime st = LocalTime.parse(saturS);
+                LocalTime et = LocalTime.parse(saturE);
+
+                notSame = notTheSameDay(st,et);
+                db.addDayTemplate("Saturday",monS,monE,notSame);
+            }else if((sunS != null && sunE != null) || (sunS.equals("") && sunE.equals(""))){
+
+                LocalTime st = LocalTime.parse(sunS);
+                LocalTime et = LocalTime.parse(sunE);
+
+                notSame = notTheSameDay(st,et);
+                db.addDayTemplate("Sunday",monS,monE,notSame);
+            }
+
+        }else if(update!=null) {
+
+            ShiftTemplate st = new ShiftTemplate();
+            DayTemplate dt = new DayTemplate();
+>>>>>>> 7cac93c7bde5b1c2a467d2744795201f876e5ac9
 
             dt.setDayOfWeek(request.getParameter("dayOfWeek"));
             st.setType(request.getParameter("shiftType").charAt(0));
@@ -47,9 +136,13 @@ public class ManagerSettings extends HttpServlet {
             update = null;
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
+<<<<<<< HEAD
         }
 
         if(delete!=null) {
+=======
+        }else if(delete!=null) {
+>>>>>>> 7cac93c7bde5b1c2a467d2744795201f876e5ac9
 
             temp.ShiftTemplate st = new temp.ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
             db.deleteShiftTemplate(st);
@@ -61,9 +154,13 @@ public class ManagerSettings extends HttpServlet {
             delete = null;
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
+<<<<<<< HEAD
         }
 
         if(add!=null) {
+=======
+        }else if(add!=null) {
+>>>>>>> 7cac93c7bde5b1c2a467d2744795201f876e5ac9
 
             temp.ShiftTemplate st = new temp.ShiftTemplate();
             temp.DayTemplate dt = new temp.DayTemplate();
@@ -106,10 +203,27 @@ public class ManagerSettings extends HttpServlet {
 
     }
 
+<<<<<<< HEAD
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
+=======
+    public boolean notTheSameDay(LocalTime s, LocalTime e){
+        boolean check = false;
+
+        if(s.compareTo(e)>=0){
+            check = true;
+        }
+
+        return check;
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+>>>>>>> 7cac93c7bde5b1c2a467d2744795201f876e5ac9
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }

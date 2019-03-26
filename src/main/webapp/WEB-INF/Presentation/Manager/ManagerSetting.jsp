@@ -6,6 +6,14 @@
     <title>Employee Management</title>
     <link href="css/managerSetting.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
+    <title>Settings</title>
+    <link href="css/webflow.css" rel="stylesheet" type="text/css">
+    <link href="css/matthews-cool-project-2c37b7.webflow.css" rel="stylesheet" type="text/css">
+    <link href="css/employeemgmt.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <link href="https://code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css" rel="stylesheet" />
+    <style></style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -15,6 +23,7 @@
 
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
     <title>Settings</title>
 </head>
 
@@ -34,7 +43,63 @@
     </div>
 </div>
 
-<div class="main">
+<div style="margin-left: 20%">
+    <div class="container">
+        <h2>Hours of Operation</h2>
+
+        <form action="ManagerSettings" method="GET" style="width: 65%">
+            <p>Note: If the closing hour is on the other day, just set AM and system will know that!</p>
+
+            <a class="dayOfWeek" href="#Mon" data-toggle="collapse">Monday<i class="fas fa-plus-circle" style="padding-left: 75%;"></i></a>
+            <div id="Mon" class="collapse" style="float:right;">
+                Open Hour:  <input id="MonS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
+                Close Hour: <input id="MonE" type="time" name="MonE" style="width: 110px;" required>
+            </div><br/>
+
+            <a class="dayOfWeek" href="#Tue" data-toggle="collapse">Tuesday<i class="fas fa-plus-circle" style="padding-left: 74%;"></i></a>
+            <div id="Tue" class="collapse" style="float:right;">
+                Open Hour:  <input id="TueS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
+                Close Hour: <input id="TueE" type="time" name="MonE" style="width: 110px;" required>
+            </div><br/>
+
+            <a class="dayOfWeek" href="#Wed" data-toggle="collapse">Wednesday<i class="fas fa-plus-circle" style="padding-left: 66%;"></i></a>
+            <div id="Wed" class="collapse" style="float:right;">
+                Open Hour:  <input id="WedS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
+                Close Hour: <input id="WedE" type="time" name="MonE" style="width: 110px;" required>
+            </div><br/>
+
+            <a class="dayOfWeek" href="#Thur" data-toggle="collapse">Thursday<i class="fas fa-plus-circle" style="padding-left: 72%;"></i></a>
+            <div id="Thur" class="collapse" style="float:right;">
+                Open Hour:  <input id="ThurS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
+                Close Hour: <input id="ThurE" type="time" name="MonE" style="width: 110px;" required>
+            </div><br/>
+
+            <a class="dayOfWeek" href="#Fri" data-toggle="collapse">Friday<i class="fas fa-plus-circle" style="padding-left: 79%;"></i></a>
+            <div id="Fri" class="collapse" style="float:right;">
+                Open Hour:  <input id="FriS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
+                Close Hour: <input id="FriE" type="time" name="MonE" style="width: 110px;" required>
+            </div><br/>
+
+            <a class="dayOfWeek" href="#Satur" data-toggle="collapse">Saturday<i class="fas fa-plus-circle" style="padding-left: 73%;"></i></a>
+            <div id="Satur" class="collapse" style="float:right;">
+                Open Hour:  <input id="SaturS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
+                Close Hour: <input id="SaturE" type="time" name="MonE" style="width: 110px;" required>
+            </div><br/>
+
+            <a class="dayOfWeek" href="#Sun" data-toggle="collapse">Sunday<i class="fas fa-plus-circle" style="padding-left: 76%;"></i></a>
+            <div id="Sun" class="collapse" style="float:right;">
+                Open Hour:  <input id="SunS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
+                Close Hour: <input id="SunE" type="time" name="MonE" style="width: 110px;" required>
+            </div><br/>
+
+            <input type="hidden" name="save" value="save">
+            <br/><input class="btns" id="savebtn" type="submit" value="Save" style="width: 300px">
+
+        </form>
+    </div>
+
+    <hr/>
+
     <div class="container-fluid">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#front">Front End</a></li>
@@ -47,6 +112,7 @@
                 <h3>Front End</h3>
                 <div class="panel-body">
 
+
                     <table class="table table-bordered">
                         <thead>
                         <col width='12.5%'>
@@ -58,12 +124,12 @@
                         <col width='12.5%'>
                         <col width='12.5%'>
                         <tr>
-                            <th>Day</th> <!-- -->
-                            <th>Name</th> <!-- -->
-                            <th>Shift Start</th> <!-- -->
-                            <th>Shift End</th> <!-- -->
+                            <th>Day</th>
+                            <th>Name</th>
+                            <th>Shift Start</th>
+                            <th>Shift End</th>
                             <th>Min. # of Staff</th>
-                            <th>Max # of Staff</th><!-- -->
+                            <th>Max # of Staff</th>
                             <th colspan="2" align="center">Options</th>
                         </tr>
                         </thead>
@@ -111,12 +177,12 @@
                         <col width='12.5%'>
                         <col width='12.5%'>
                         <tr>
-                            <th>Day</th> <!-- -->
-                            <th>Name</th> <!-- -->
-                            <th>Shift Start</th> <!-- -->
-                            <th>Shift End</th> <!-- -->
+                            <th>Day</th>
+                            <th>Name</th>
+                            <th>Shift Start</th>
+                            <th>Shift End</th>
                             <th>Min. # of Staff</th>
-                            <th>Max # of Staff</th><!-- -->
+                            <th>Max # of Staff</th>
                             <th colspan="2" align="center">Options</th>
                         </tr>
                         </thead>
@@ -145,7 +211,7 @@
                         </c:forEach>
                         <!-- Trigger the modal with a button -->
                         <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>                        </tbody>
-                    </tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -164,12 +230,12 @@
                         <col width='12.5%'>
                         <col width='12.5%'>
                         <tr>
-                            <th>Day</th> <!-- -->
-                            <th>Name</th> <!-- -->
-                            <th>Shift Start</th> <!-- -->
-                            <th>Shift End</th> <!-- -->
+                            <th>Day</th>
+                            <th>Name</th>
+                            <th>Shift Start</th>
+                            <th>Shift End</th>
                             <th>Min. # of Staff</th>
-                            <th>Max # of Staff</th><!-- -->
+                            <th>Max # of Staff</th>
                             <th colspan="2" align="center">Options</th>
                         </tr>
                         </thead>
@@ -204,10 +270,8 @@
             </div>
         </div>
     </div>
-</div>
-    </div>
-</div>
 
+</div>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -270,10 +334,24 @@
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-info">Add Shift</button>
-            </form>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
             </div>
+            </form>
         </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $( "#savebtn" ).click(function () {
+            var s = document.getElementsById("#MonS").value;
+            var e = document.getElementsById("#MonE").value;
+
+            console.log();
+            console.log();
+        });
+    </script>
+
 </div>
+
 </body>
 </html>

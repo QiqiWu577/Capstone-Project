@@ -194,4 +194,124 @@ public class DBOperation {
         return temp.get(0).getStartTime();
 
     }
+
+    public ArrayList<ShiftTemplate> getShiftTemplates(char type) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("SELECT s FROM ShiftTemplate s WHERE s.type = :type");
+        query.setParameter("type", type);
+
+        ArrayList<ShiftTemplate> shiftList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return shiftList;
+    }
+
+    public void updateShiftTemplate(temp.ShiftTemplate st) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(st);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void deleteShiftTemplate(temp.ShiftTemplate st) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.delete(st);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void addShiftTemplate(temp.ShiftTemplate st) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(st);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public boolean addDayTemplate(String day,String s,String e,boolean n){
+
+        boolean result = false;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            boolean test = checkDayTempExist(day);
+
+            if(test == true){
+                updateDayTemplate(day,s,e,n);
+            }else{
+                session.save(new DayTemplate(day,s,e,n));
+            }
+
+            session.getTransaction().commit();
+            return result;
+        }catch (Exception ex){
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return result;
+    }
+
+    public boolean checkDayTempExist(String day){
+
+        boolean result = false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            Query q = session.createQuery("SELECT count(d) FROM DayTemplate d WHERE d.dayOfWeek = :dayOfWeek");
+            q.setParameter("dayOfWeek", day);
+
+            Long num = (Long) q.uniqueResult();
+            if(num == 1){
+                result = true;
+            }
+
+        }finally{
+            session.close();
+        }
+
+        return result;
+    }
+
+    public boolean updateDayTemplate(String day,String s,String e,boolean n){
+
+        boolean result=false;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            DayTemplate d = session.find(DayTemplate.class,day);
+            d.setOpenTime(s);
+            d.setCloseTime(e);
+            d.setNotTheSameDay(n);
+            session.update(d);
+
+            session.getTransaction().commit();
+            result = true;
+        }catch (Exception ex){
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return result;
+    }
+
 }

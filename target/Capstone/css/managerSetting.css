@@ -30,7 +30,7 @@ a:hover {
 }
 
 .main {
-    margin-left:13%;
+    margin-left:20%;
 }
 
 .logo {
@@ -389,16 +389,4 @@ input,textarea {
 
 .goodName {
     text-align: center;
-}
-
-.dayOfWeek {
-    display:inline-block;
-    margin-bottom:3px;
-    width:300px;
-    background:#323232;
-    color:#FFF;
-    border-radius:10px;
-    padding: 10px;
-    padding-left: 10px;
-    font-size: 15px;
 }

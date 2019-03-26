@@ -35,11 +35,20 @@ public class DayTemplate implements Serializable {
     private String openTime;
     @Column(name = "close_time")
     private String closeTime;
+    @Column(name = "not_the_same_day")
+    private boolean notTheSameDay;
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dayOfWeek")
     private List<ShiftTemplate> shiftTemplateList;
 
     public DayTemplate() {
         shiftTemplateList = new ArrayList<ShiftTemplate>();
+    }
+
+    public DayTemplate(String dayOfWeek,String openTime,String closeTime,boolean notTheSameDay){
+        this.dayOfWeek = dayOfWeek;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
+        this.notTheSameDay = notTheSameDay;
     }
 
     public DayTemplate(String dayOfWeek) {
@@ -68,6 +77,14 @@ public class DayTemplate implements Serializable {
 
     public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
+    }
+
+    public boolean isNotTheSameDay() {
+        return notTheSameDay;
+    }
+
+    public void setNotTheSameDay(boolean notTheSameDay) {
+        this.notTheSameDay = notTheSameDay;
     }
 
     @XmlTransient

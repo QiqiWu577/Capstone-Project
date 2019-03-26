@@ -91,3 +91,22 @@ insert into schedule_employee values (3,15);
 insert into schedule_employee values (5,14);
 insert into schedule_employee values (7,15);
 
+DELIMITER //
+CREATE PROCEDURE get_login(IN empid int)
+BEGIN
+   SELECT hash, salt from salt where emp_id = empid;
+END //
+DELIMITER ;
+
+
+insert into employees values (6666, "Admin", "Admin", "123 Admin", "123-456-7890", "admin@admin.com", 'A', 0, 1, "This is a temporary admin account");
+
+insert into salt values (6666, "fbbd9d8e1575ddf9915c2f14f456ecd60848e69621ae1a956540164e49716e4932fb16b18fa0fc990a88cb778861a677de777e34dbeeacdf87fd7efafd1500d1", "taWgQ7LFW+DqiXhE5R195g==");
+
+insert into employees values (7777, "Manager", "Manager", "123 Manager", "123-456-7890", "manager@manager.com", 'M', 0, 1, "This is a temporary manager account");
+
+insert into salt values (7777, "b86b8cf5c720849c1f2158e5eaea8ee93d4959439b44d3bf52dc59b9f300896955d45d2d71f60dcba53c5c4a3b5bb702bff6457bc9c0c66bfb836f711c380dd7", "8t9fhkubdDfrbmQo9CnnJg==");
+
+insert into employees values (8888, "Employee", "Employee", "123 Edmployee", "123-456-7890", "employee@employee.com", 'S', 0, 1, "This is a temporary employee account");
+
+insert into salt values (8888, "e6953dd39f3537ca2331130af04550442746895747e6c2405cac1af7f3001b1a7e25ba93f56f532122eb979f246f0d57841ca0189a67602f6852291e09234eda", "TkWVVu0T42sJnw0RkBIDVw==");

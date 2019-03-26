@@ -35,6 +35,8 @@ public class EmployeeServices extends HttpServlet {
 
             }
         } else {
+            Employee emp = (Employee) session.getAttribute("employee");
+            request.setAttribute("EmpShifts", emp.getShiftList());
             request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request,response);
         }
 

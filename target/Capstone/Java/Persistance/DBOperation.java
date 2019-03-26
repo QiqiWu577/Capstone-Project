@@ -210,7 +210,7 @@ public class DBOperation {
         return shiftList;
     }
 
-    public void updateShiftTemplate(temp.ShiftTemplate st) {
+    public void updateShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.update(st);
@@ -218,7 +218,7 @@ public class DBOperation {
         session.close();
     }
 
-    public void deleteShiftTemplate(temp.ShiftTemplate st) {
+    public void deleteShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.delete(st);
@@ -226,7 +226,7 @@ public class DBOperation {
         session.close();
     }
 
-    public void addShiftTemplate(temp.ShiftTemplate st) {
+    public void addShiftTemplate1(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(st);

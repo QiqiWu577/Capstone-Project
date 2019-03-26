@@ -1,14 +1,8 @@
 package Controllers;
 
-<<<<<<< HEAD
 import Model.DayTemplate;
 import Model.ShiftTemplate;
 import Persistance.DBOperation;
-=======
-import Persistance.DBOperation;
-import temp.DayTemplate;
-import temp.ShiftTemplate;
->>>>>>> 7cac93c7bde5b1c2a467d2744795201f876e5ac9
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,15 +21,6 @@ public class ManagerSettings extends HttpServlet {
         String update = request.getParameter("update");
         String delete = request.getParameter("delete");
         String add = request.getParameter("add");
-<<<<<<< HEAD
-        DBOperation db = new DBOperation();
-        HttpSession session = request.getSession();
-
-        if(update!=null) {
-
-            temp.ShiftTemplate st = new temp.ShiftTemplate();
-            temp.DayTemplate dt = new temp.DayTemplate();
-=======
         String saveOps = request.getParameter("save");
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
@@ -115,7 +100,6 @@ public class ManagerSettings extends HttpServlet {
 
             ShiftTemplate st = new ShiftTemplate();
             DayTemplate dt = new DayTemplate();
->>>>>>> 7cac93c7bde5b1c2a467d2744795201f876e5ac9
 
             dt.setDayOfWeek(request.getParameter("dayOfWeek"));
             st.setType(request.getParameter("shiftType").charAt(0));
@@ -136,15 +120,9 @@ public class ManagerSettings extends HttpServlet {
             update = null;
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
-<<<<<<< HEAD
-        }
-
-        if(delete!=null) {
-=======
         }else if(delete!=null) {
->>>>>>> 7cac93c7bde5b1c2a467d2744795201f876e5ac9
 
-            temp.ShiftTemplate st = new temp.ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
+            ShiftTemplate st = new ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
             db.deleteShiftTemplate(st);
 
             session.setAttribute("frontList", db.getShiftTemplates('S'));
@@ -154,16 +132,10 @@ public class ManagerSettings extends HttpServlet {
             delete = null;
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
-<<<<<<< HEAD
-        }
-
-        if(add!=null) {
-=======
         }else if(add!=null) {
->>>>>>> 7cac93c7bde5b1c2a467d2744795201f876e5ac9
 
-            temp.ShiftTemplate st = new temp.ShiftTemplate();
-            temp.DayTemplate dt = new temp.DayTemplate();
+            ShiftTemplate st = new ShiftTemplate();
+            DayTemplate dt = new DayTemplate();
 
             char type='X';
             String inType = request.getParameter("type");
@@ -203,12 +175,6 @@ public class ManagerSettings extends HttpServlet {
 
     }
 
-<<<<<<< HEAD
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-=======
     public boolean notTheSameDay(LocalTime s, LocalTime e){
         boolean check = false;
 
@@ -223,7 +189,6 @@ public class ManagerSettings extends HttpServlet {
         processRequest(request, response);
     }
 
->>>>>>> 7cac93c7bde5b1c2a467d2744795201f876e5ac9
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }

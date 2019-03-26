@@ -5,13 +5,11 @@
  */
 package Model;
 
+import java.io.Serializable;
+import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  *
@@ -20,9 +18,9 @@ import java.util.List;
 @Entity
 @Table(name = "day_template")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "DayTemplate.findAll", query = "SELECT d FROM DayTemplate d")
-    , @NamedQuery(name = "DayTemplate.findByDayOfWeek", query = "SELECT d FROM DayTemplate d WHERE d.dayOfWeek = :dayOfWeek")
+@NamedQueries(value = {
+        @NamedQuery(name = "DayTemplate.findAll", query = "SELECT d FROM DayTemplate d")
+        , @NamedQuery(name = "DayTemplate.findByDayOfWeek", query = "SELECT d FROM DayTemplate d WHERE d.dayOfWeek = :dayOfWeek")
         , @NamedQuery(name = "DayTemplate.findByOpenTime", query = "SELECT d FROM DayTemplate d WHERE d.openTime = :openTime")
         , @NamedQuery(name = "DayTemplate.findByCloseTime", query = "SELECT d FROM DayTemplate d WHERE d.closeTime = :closeTime")})
 public class DayTemplate implements Serializable {
@@ -37,22 +35,21 @@ public class DayTemplate implements Serializable {
     private String closeTime;
     @Column(name = "not_the_same_day")
     private boolean notTheSameDay;
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dayOfWeek")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "dayOfWeek")
     private List<ShiftTemplate> shiftTemplateList;
 
     public DayTemplate() {
-        shiftTemplateList = new ArrayList<ShiftTemplate>();
-    }
-
-    public DayTemplate(String dayOfWeek,String openTime,String closeTime,boolean notTheSameDay){
-        this.dayOfWeek = dayOfWeek;
-        this.openTime = openTime;
-        this.closeTime = closeTime;
-        this.notTheSameDay = notTheSameDay;
     }
 
     public DayTemplate(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
+    }
+
+    public DayTemplate(String day, String s, String e, boolean n) {
+        this.dayOfWeek = day;
+        this.closeTime = e;
+        this.openTime = s;
+        this.notTheSameDay = n;
     }
 
     public String getDayOfWeek() {
@@ -88,7 +85,7 @@ public class DayTemplate implements Serializable {
     }
 
     @XmlTransient
-    public Collection<ShiftTemplate> getShiftTemplateList() {
+    public List<ShiftTemplate> getShiftTemplateList() {
         return shiftTemplateList;
     }
 

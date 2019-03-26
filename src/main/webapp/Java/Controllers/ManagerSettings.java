@@ -1,8 +1,8 @@
 package Controllers;
 
+import Model.DayTemplate;
+import Model.ShiftTemplate;
 import Persistance.DBOperation;
-import temp.DayTemplate;
-import temp.ShiftTemplate;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -122,7 +122,7 @@ public class ManagerSettings extends HttpServlet {
 
         }else if(delete!=null) {
 
-            temp.ShiftTemplate st = new temp.ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
+            ShiftTemplate st = new ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
             db.deleteShiftTemplate(st);
 
             session.setAttribute("frontList", db.getShiftTemplates('S'));
@@ -134,8 +134,8 @@ public class ManagerSettings extends HttpServlet {
 
         }else if(add!=null) {
 
-            temp.ShiftTemplate st = new temp.ShiftTemplate();
-            temp.DayTemplate dt = new temp.DayTemplate();
+            ShiftTemplate st = new ShiftTemplate();
+            DayTemplate dt = new DayTemplate();
 
             char type='X';
             String inType = request.getParameter("type");

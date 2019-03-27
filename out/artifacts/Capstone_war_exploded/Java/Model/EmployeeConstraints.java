@@ -29,7 +29,7 @@ public class EmployeeConstraints implements Serializable {
     @Basic(optional = false)
     @Column(name = "constraints")
     private String constraints;
-    @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id", insertable = false, updatable = false)
+    @JoinColumn(name = "emp_id", referencedColumnName = "emp_id", insertable = false, updatable = false)
     @OneToOne(optional = false)
     private Employee employee;
 
@@ -110,7 +110,8 @@ public class EmployeeConstraints implements Serializable {
         preferredTimeSunday = new boolean[24];
     }
 
-    public EmployeeConstraints(Integer empId, String constraints) throws InvalidConstraintException, ConstraintWrongSizeException{
+    public EmployeeConstraints(Employee e, String constraints, Integer empId) throws InvalidConstraintException, ConstraintWrongSizeException{
+        this.employee = e;
         this.empId = empId;
         this.constraints = constraints;
         availableTimeMonday = new boolean[24];

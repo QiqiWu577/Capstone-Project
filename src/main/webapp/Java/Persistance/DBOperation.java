@@ -226,13 +226,13 @@ public class DBOperation {
         session.close();
     }
 
-//    public void addShiftTemplate(ShiftTemplate st) {
-//        Session session = HibernateUtil.getSessionFactory().openSession();
-//        session.beginTransaction();
-//        session.save(st);
-//        session.getTransaction().commit();
-//        session.close();
-//    }
+    public void addShiftTemplate1(ShiftTemplate st) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.save(st);
+        session.getTransaction().commit();
+        session.close();
+    }
 
     public boolean addDayTemplate(String day,String s,String e){
 

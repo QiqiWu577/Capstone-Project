@@ -1,7 +1,6 @@
 package Controllers;
 
-import Model.DayTemplate;
-import Model.ShiftTemplate;
+import Model.*;
 import Persistance.DBOperation;
 
 import javax.servlet.ServletException;
@@ -98,78 +97,151 @@ public class ManagerSettings extends HttpServlet {
 
         }else if(update!=null) {
 
-//            ShiftTemplate st = new ShiftTemplate();
-//            DayTemplate dt = new DayTemplate();
-//
-//            dt.setDayOfWeek(request.getParameter("dayOfWeek"));
-////            st.setType(request.getParameter("shiftType").charAt(0));
-////            st.setShiftId(Integer.parseInt(request.getParameter("shiftId")));
-////            st.setName(request.getParameter("newName"));
-//            st.setStartTime(request.getParameter("newStart"));
-//            st.setEndTime(request.getParameter("newEnd"));
-//            st.setMinNoEmp(Integer.parseInt(request.getParameter("newMinEmp")));
-//            st.setMaxNoEmp(Integer.parseInt(request.getParameter("newMaxEmp")));
-//            st.setDayOfWeek(dt);
-//
-//            db.updateShiftTemplate(st);
-//
-//            session.setAttribute("frontList", db.getShiftTemplates('S'));
-//            session.setAttribute("barList", db.getShiftTemplates('B'));
-//            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
-//            request.setAttribute("shiftMessage", "Shift has been updated");
-//            update = null;
-//            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
-//
-//        }else if(delete!=null) {
-//
-//            temp.ShiftTemplate st = new temp.ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
-//            //db.deleteShiftTemplate(st);
-//
-//            session.setAttribute("frontList", db.getShiftTemplates('S'));
-//            session.setAttribute("barList", db.getShiftTemplates('B'));
-//            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
-//            request.setAttribute("shiftMessage", "Shift has been deleted");
-//            delete = null;
-//            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
-//
-//        }else if(add!=null) {
-//
-//            temp.ShiftTemplate st = new temp.ShiftTemplate();
-//            temp.DayTemplate dt = new temp.DayTemplate();
-//
-//            char type='X';
-//            String inType = request.getParameter("type");
-//            if(inType.matches("Front End")) {
-//                type='S';
-//            }
-//            else if(inType.matches("Bar")) {
-//                type='B';
-//            }
-//            else if(inType.matches("Kitchen")) {
-//                type='K';
-//            }
-//
-//            int min = Integer.parseInt(request.getParameter("min"));
-//            int max = Integer.parseInt(request.getParameter("max"));
-//
-//            dt.setDayOfWeek(request.getParameter("dayOfWeek"));
-//            st.setType(type);
-////            st.setShiftId(Integer.parseInt(request.getParameter("shiftId")));
-//            st.setName(request.getParameter("name"));
-//            st.setStartTime(request.getParameter("start"));
-//            st.setEndTime(request.getParameter("end"));
-//            st.setMinNoEmp(min);
-//            st.setMaxNoEmp(max);
-//            st.setDayOfWeek(dt);
-//
-//            //db.addShiftTemplate(st);
-//
-//            session.setAttribute("frontList", db.getShiftTemplates('S'));
-//            session.setAttribute("barList", db.getShiftTemplates('B'));
-//            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
-//            request.setAttribute("shiftMessage", "Shift has been added");
-//            add = null;
-//            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
+            ShiftTemplate st = new ShiftTemplate();
+            DayTemplate dt = new DayTemplate();
+
+            dt.setDayOfWeek(request.getParameter("dayOfWeek"));
+            st.setType(request.getParameter("shiftType").charAt(0));
+            st.setShiftId(Integer.parseInt(request.getParameter("shiftId")));
+            st.setName(request.getParameter("newName"));
+            st.setStartTime(request.getParameter("newStart"));
+            st.setEndTime(request.getParameter("newEnd"));
+            st.setMinNoEmp(Integer.parseInt(request.getParameter("newMinEmp")));
+            st.setMaxNoEmp(Integer.parseInt(request.getParameter("newMaxEmp")));
+            st.setDayOfWeek(dt);
+
+            db.updateShiftTemplate(st);
+
+            session.setAttribute("frontList", db.getShiftTemplates('S'));
+            session.setAttribute("barList", db.getShiftTemplates('B'));
+            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
+            request.setAttribute("shiftMessage", "Shift has been updated");
+            update = null;
+            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
+
+        }else if(delete!=null) {
+
+            ShiftTemplate st = new ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
+            //db.deleteShiftTemplate(st);
+
+            session.setAttribute("frontList", db.getShiftTemplates('S'));
+            session.setAttribute("barList", db.getShiftTemplates('B'));
+            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
+            request.setAttribute("shiftMessage", "Shift has been deleted");
+            delete = null;
+            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
+
+        }else if(add!=null) {
+
+            ShiftTemplate st = new ShiftTemplate();
+            DayTemplate dt = new DayTemplate();
+
+            char type='X';
+            String inType = request.getParameter("type");
+            if(inType.matches("Front End")) {
+                type='S';
+            }
+            else if(inType.matches("Bar")) {
+                type='B';
+            }
+            else if(inType.matches("Kitchen")) {
+                type='K';
+            }
+
+            int min = Integer.parseInt(request.getParameter("min"));
+            int max = Integer.parseInt(request.getParameter("max"));
+
+            dt.setDayOfWeek(request.getParameter("dayOfWeek"));
+            st.setType(type);
+            st.setShiftId(Integer.parseInt(request.getParameter("shiftId")));
+            st.setName(request.getParameter("name"));
+            st.setStartTime(request.getParameter("start"));
+            st.setEndTime(request.getParameter("end"));
+            st.setMinNoEmp(min);
+            st.setMaxNoEmp(max);
+            st.setDayOfWeek(dt);
+
+            db.addShiftTemplate(st);
+
+            session.setAttribute("frontList", db.getShiftTemplates('S'));
+            session.setAttribute("barList", db.getShiftTemplates('B'));
+            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
+            request.setAttribute("shiftMessage", "Shift has been added");
+            add = null;
+            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
+
+            ShiftTemplate st1 = new ShiftTemplate();
+            DayTemplate dt1 = new DayTemplate();
+
+            dt1.setDayOfWeek(request.getParameter("dayOfWeek"));
+            st1.setType(request.getParameter("shiftType").charAt(0));
+            st1.setShiftId(Integer.parseInt(request.getParameter("shiftId")));
+            st1.setName(request.getParameter("newName"));
+            st1.setStartTime(request.getParameter("newStart"));
+            st1.setEndTime(request.getParameter("newEnd"));
+            st1.setMinNoEmp(Integer.parseInt(request.getParameter("newMinEmp")));
+            st1.setMaxNoEmp(Integer.parseInt(request.getParameter("newMaxEmp")));
+            st1.setDayOfWeek(dt1);
+
+            db.updateShiftTemplate(st1);
+
+            session.setAttribute("frontList", db.getShiftTemplates('S'));
+            session.setAttribute("barList", db.getShiftTemplates('B'));
+            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
+            request.setAttribute("shiftMessage", "Shift has been updated");
+            update = null;
+            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
+
+        }else if(delete!=null) {
+
+            ShiftTemplate st = new ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
+            db.deleteShiftTemplate(st);
+
+            session.setAttribute("frontList", db.getShiftTemplates('S'));
+            session.setAttribute("barList", db.getShiftTemplates('B'));
+            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
+            request.setAttribute("shiftMessage", "Shift has been deleted");
+            delete = null;
+            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
+
+        }else if(add!=null) {
+
+            ShiftTemplate st = new ShiftTemplate();
+            DayTemplate dt = new DayTemplate();
+
+            char type='X';
+            String inType = request.getParameter("type");
+            if(inType.matches("Front End")) {
+                type='S';
+            }
+            else if(inType.matches("Bar")) {
+                type='B';
+            }
+            else if(inType.matches("Kitchen")) {
+                type='K';
+            }
+
+            int min = Integer.parseInt(request.getParameter("min"));
+            int max = Integer.parseInt(request.getParameter("max"));
+
+            dt.setDayOfWeek(request.getParameter("dayOfWeek"));
+            st.setType(type);
+//            st.setShiftId(Integer.parseInt(request.getParameter("shiftId")));
+            st.setName(request.getParameter("name"));
+            st.setStartTime(request.getParameter("start"));
+            st.setEndTime(request.getParameter("end"));
+            st.setMinNoEmp(min);
+            st.setMaxNoEmp(max);
+            st.setDayOfWeek(dt);
+
+            db.addShiftTemplate(st);
+
+            session.setAttribute("frontList", db.getShiftTemplates('S'));
+            session.setAttribute("barList", db.getShiftTemplates('B'));
+            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
+            request.setAttribute("shiftMessage", "Shift has been added");
+            add = null;
+            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
         }
 

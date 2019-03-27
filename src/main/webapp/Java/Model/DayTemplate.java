@@ -33,34 +33,16 @@ public class DayTemplate implements Serializable {
     private String openTime;
     @Column(name = "close_time")
     private String closeTime;
-<<<<<<< HEAD
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dayOfWeek")
-=======
-    @Column(name = "not_the_same_day")
-    private boolean notTheSameDay;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "dayOfWeek")
->>>>>>> ec43090ee58b7d1ccb79865124208db37982c5ae
     private List<ShiftTemplate> shiftTemplateList;
 
     public DayTemplate() {
     }
 
-<<<<<<< HEAD
-    public DayTemplate(String dayOfWeek,String openTime,String closeTime){
+    public DayTemplate(String dayOfWeek,String openTime,String closeTime) {
         this.dayOfWeek = dayOfWeek;
         this.openTime = openTime;
         this.closeTime = closeTime;
-=======
-    public DayTemplate(String dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
->>>>>>> ec43090ee58b7d1ccb79865124208db37982c5ae
-    }
-
-    public DayTemplate(String day, String s, String e, boolean n) {
-        this.dayOfWeek = day;
-        this.closeTime = e;
-        this.openTime = s;
-        this.notTheSameDay = n;
     }
 
     public String getDayOfWeek() {

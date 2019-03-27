@@ -67,13 +67,10 @@ public class ShiftTemplate implements Serializable {
         return shiftId;
     }
 
-<<<<<<< HEAD
-=======
     public void setShiftId(Integer shiftId) {
         this.shiftId = shiftId;
     }
 
->>>>>>> ec43090ee58b7d1ccb79865124208db37982c5ae
     public String getName() {
         return name;
     }

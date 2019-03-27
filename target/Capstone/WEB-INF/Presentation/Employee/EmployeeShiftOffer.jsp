@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -31,6 +32,15 @@
     <div class="title">
         Shift Offer
     </div>
+
+
+    <c:forEach var="shifts" items="${requestScope.EmpShifts}" varStatus="i">
+        
+
+    </c:forEach>
+
+
+
 </div>
 </body>
 </html>

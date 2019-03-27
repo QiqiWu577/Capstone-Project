@@ -59,9 +59,9 @@ public class Validate extends HttpServlet {
                 session.setAttribute("employee", emp);
 
 
-long2 = currentTimeMillis();
+                long2 = currentTimeMillis();
                 System.out.println(long2-long1);
-
+                System.out.println(emp.getType());
                 if (emp.getType() == 'M') {
 
                     request.getRequestDispatcher("/ManageEmployees").forward(request, response);

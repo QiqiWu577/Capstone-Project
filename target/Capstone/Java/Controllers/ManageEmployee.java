@@ -1,8 +1,6 @@
 package Controllers;
 
-import Model.ConstraintWrongSizeException;
 import Model.Employee;
-import Model.InvalidConstraintException;
 import Persistance.DBOperation;
 
 import javax.servlet.ServletException;

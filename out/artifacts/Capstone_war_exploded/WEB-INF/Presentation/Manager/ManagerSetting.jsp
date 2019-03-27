@@ -4,11 +4,8 @@
 <html>
 <head>
     <title>Employee Management</title>
-    <link href="css/managerSetting.css" rel="stylesheet" type="text/css">
     <meta charset="utf-8">
     <title>Settings</title>
-    <link href="css/webflow.css" rel="stylesheet" type="text/css">
-    <link href="css/matthews-cool-project-2c37b7.webflow.css" rel="stylesheet" type="text/css">
     <link href="css/employeemgmt.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
@@ -47,55 +44,27 @@
     <div class="container">
         <h2>Hours of Operation</h2>
 
-        <form action="ManagerSettings" method="GET" style="width: 65%">
-            <p>Note: If the closing hour is on the other day, just set AM and system will know that!</p>
+        <p>Note: If the closing hour is on the second day, just set AM and system will know that!</p>
 
-            <a class="dayOfWeek" href="#Mon" data-toggle="collapse">Monday<i class="fas fa-plus-circle" style="padding-left: 75%;"></i></a>
-            <div id="Mon" class="collapse" style="float:right;">
-                Open Hour:  <input id="MonS" type="time" name="MonS" value="" style="width: 110px;margin-right: 30px;" required>
-                Close Hour: <input id="MonE" type="time" name="MonE" style="width: 110px;" required>
-            </div><br/>
+        <table class="table table-sm table-striped" style="width: 90%">
+            <th>Day</th>
+            <th>Open Hours</th>
+            <th>Close Hours</th>
+            <th>Option</th>
 
-            <a class="dayOfWeek" href="#Tue" data-toggle="collapse">Tuesday<i class="fas fa-plus-circle" style="padding-left: 74%;"></i></a>
-            <div id="Tue" class="collapse" style="float:right;">
-                Open Hour:  <input id="TueS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
-                Close Hour: <input id="TueE" type="time" name="MonE" style="width: 110px;" required>
-            </div><br/>
+            <c:forEach var="day" items="${dayList}">
+                <form action="ManagerSettings" method="POST">
+                    <tr>
+                        <td>${day.dayOfWeek}</td>
+                        <td><input type="time" name="openH" value="${day.openTime}"></td>
+                        <td><input type="time" name="closeH" value="${day.closeTime}"></td>
+                        <td><input class="dayOfWeek" type="submit" name="updateDayTemp" value="Update"></td>
+                        <input type="hidden" name='dayOfWeek' value="${day.dayOfWeek}">
+                    </tr>
+                </form>
+            </c:forEach>
+        </table>
 
-            <a class="dayOfWeek" href="#Wed" data-toggle="collapse">Wednesday<i class="fas fa-plus-circle" style="padding-left: 66%;"></i></a>
-            <div id="Wed" class="collapse" style="float:right;">
-                Open Hour:  <input id="WedS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
-                Close Hour: <input id="WedE" type="time" name="MonE" style="width: 110px;" required>
-            </div><br/>
-
-            <a class="dayOfWeek" href="#Thur" data-toggle="collapse">Thursday<i class="fas fa-plus-circle" style="padding-left: 72%;"></i></a>
-            <div id="Thur" class="collapse" style="float:right;">
-                Open Hour:  <input id="ThurS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
-                Close Hour: <input id="ThurE" type="time" name="MonE" style="width: 110px;" required>
-            </div><br/>
-
-            <a class="dayOfWeek" href="#Fri" data-toggle="collapse">Friday<i class="fas fa-plus-circle" style="padding-left: 79%;"></i></a>
-            <div id="Fri" class="collapse" style="float:right;">
-                Open Hour:  <input id="FriS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
-                Close Hour: <input id="FriE" type="time" name="MonE" style="width: 110px;" required>
-            </div><br/>
-
-            <a class="dayOfWeek" href="#Satur" data-toggle="collapse">Saturday<i class="fas fa-plus-circle" style="padding-left: 73%;"></i></a>
-            <div id="Satur" class="collapse" style="float:right;">
-                Open Hour:  <input id="SaturS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
-                Close Hour: <input id="SaturE" type="time" name="MonE" style="width: 110px;" required>
-            </div><br/>
-
-            <a class="dayOfWeek" href="#Sun" data-toggle="collapse">Sunday<i class="fas fa-plus-circle" style="padding-left: 76%;"></i></a>
-            <div id="Sun" class="collapse" style="float:right;">
-                Open Hour:  <input id="SunS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
-                Close Hour: <input id="SunE" type="time" name="MonE" style="width: 110px;" required>
-            </div><br/>
-
-            <input type="hidden" name="save" value="save">
-            <br/><input class="btns" id="savebtn" type="submit" value="Save" style="width: 300px">
-
-        </form>
     </div>
 
     <hr/>
@@ -341,14 +310,10 @@
     </div>
 
     <script type="text/javascript">
-
-        $( "#savebtn" ).click(function () {
-            var s = document.getElementsById("#MonS").value;
-            var e = document.getElementsById("#MonE").value;
-
-            console.log();
-            console.log();
-        });
+        var message = "${message}";
+        if(message==="success"){
+            alert("Update successful!");
+        }
     </script>
 
 </div>

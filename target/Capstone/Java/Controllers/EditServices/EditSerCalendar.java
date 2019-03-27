@@ -3,7 +3,7 @@ package Controllers.EditServices;
 import Persistance.FullcalendarDBOps;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import temp.CalendarDAO;
+import Model.CalendarDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -98,8 +98,9 @@ public class EditSerCalendar extends HttpServlet {
                        //check if there are same emp on the same new shift
                        //if it is, display the error and do nothing. or else continue the operation on shift table
                        if(DBOps.checkSameEmpShift(empId,newShiftId)){
-                           session.setAttribute("message","sameEmp");
-                           request.getRequestDispatcher("ManageScheduleViews").forward(request,response);
+                           response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
+                           response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+                           response.getWriter().write("sameEmp");
                        }else{
                            //delete the old one and add the new one to the join table for the new shift
                            boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);

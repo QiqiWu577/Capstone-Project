@@ -210,7 +210,7 @@ public class DBOperation {
         return shiftList;
     }
 
-    public void updateShiftTemplate(temp.ShiftTemplate st) {
+    public void updateShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.update(st);
@@ -218,7 +218,7 @@ public class DBOperation {
         session.close();
     }
 
-    public void deleteShiftTemplate(temp.ShiftTemplate st) {
+    public void deleteShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.delete(st);
@@ -226,15 +226,15 @@ public class DBOperation {
         session.close();
     }
 
-    public void addShiftTemplate(temp.ShiftTemplate st) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(st);
-        session.getTransaction().commit();
-        session.close();
-    }
+//    public void addShiftTemplate(ShiftTemplate st) {
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//        session.beginTransaction();
+//        session.save(st);
+//        session.getTransaction().commit();
+//        session.close();
+//    }
 
-    public boolean addDayTemplate(String day,String s,String e,boolean n){
+    public boolean addDayTemplate(String day,String s,String e){
 
         boolean result = false;
 
@@ -247,9 +247,9 @@ public class DBOperation {
             boolean test = checkDayTempExist(day);
 
             if(test == true){
-                updateDayTemplate(day,s,e,n);
+                updateDayTemplate(day,s,e);
             }else{
-                session.save(new DayTemplate(day,s,e,n));
+                session.save(new DayTemplate(day,s,e));
             }
 
             session.getTransaction().commit();
@@ -286,7 +286,7 @@ public class DBOperation {
         return result;
     }
 
-    public boolean updateDayTemplate(String day,String s,String e,boolean n){
+    public boolean updateDayTemplate(String day,String s,String e){
 
         boolean result=false;
 
@@ -299,7 +299,6 @@ public class DBOperation {
             DayTemplate d = session.find(DayTemplate.class,day);
             d.setOpenTime(s);
             d.setCloseTime(e);
-            d.setNotTheSameDay(n);
             session.update(d);
 
             session.getTransaction().commit();

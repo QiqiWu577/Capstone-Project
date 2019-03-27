@@ -32,6 +32,10 @@ public class ShiftTemplate implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shift_id")
     private Integer shiftId;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "type")
+    private char type;
     @Column(name = "start_time")
     private String startTime;
     @Column(name = "end_time")
@@ -53,6 +57,22 @@ public class ShiftTemplate implements Serializable {
 
     public Integer getShiftId() {
         return shiftId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public char getType() {
+        return type;
+    }
+
+    public void setType(char type) {
+        this.type = type;
     }
 
     public String getStartTime() {
@@ -87,8 +107,8 @@ public class ShiftTemplate implements Serializable {
         this.maxNoEmp = maxNoEmp;
     }
 
-    public DayTemplate getDayOfWeek() {
-        return dayOfWeek;
+    public String getDayOfWeek() {
+        return dayOfWeek.getDayOfWeek();
     }
 
     public void setDayOfWeek(DayTemplate dayOfWeek) {

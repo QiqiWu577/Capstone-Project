@@ -116,7 +116,12 @@ $(document).ready(function() {
             type: "POST",
             url: 'EditSerCalendar',
             contentType: "application/json",
-            data: JSON.stringify(data)
+            data: JSON.stringify(data), //pass data to the servlet
+            success: function(data){    //get data from the servlet
+                if(data === 'sameEmp'){
+                    alert("test!");
+                }
+            }
         });
 
     }

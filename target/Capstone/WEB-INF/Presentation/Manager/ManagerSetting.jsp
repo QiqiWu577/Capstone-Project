@@ -52,7 +52,7 @@
 
             <a class="dayOfWeek" href="#Mon" data-toggle="collapse">Monday<i class="fas fa-plus-circle" style="padding-left: 75%;"></i></a>
             <div id="Mon" class="collapse" style="float:right;">
-                Open Hour:  <input id="MonS" type="time" name="MonS" style="width: 110px;margin-right: 30px;" required>
+                Open Hour:  <input id="MonS" type="time" name="MonS" value="" style="width: 110px;margin-right: 30px;" required>
                 Close Hour: <input id="MonE" type="time" name="MonE" style="width: 110px;" required>
             </div><br/>
 

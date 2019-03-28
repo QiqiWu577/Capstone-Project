@@ -33,12 +33,54 @@
         Shift Offer
     </div>
 
+    <table>
+        <tr>
+            <th>
+                Start Time
+            </th>
+            <th>
+                End Time
+            </th>
+        </tr>
 
-    <c:forEach var="shifts" items="${requestScope.EmpShifts}" varStatus="i">
-        
+        <c:forEach var="shifts" items="${requestScope.EmpShifts}" varStatus="i">
+            <tr onclick="selectShift()">
+                <td>
+                        ${shift.getStartTime().toString()}
+                </td>
+                <td>
+                        ${shift.getEndTime().toString()}
+                </td>
+            </tr>
+        </c:forEach>
 
-    </c:forEach>
+    </table>
 
+
+
+    <table>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Position
+            </th>
+        </tr>
+        <c:forEach var="emp" items="${requestScope.empList}" varStatus="i">
+            <tr onclick="selectEmp()">
+                <td>
+                    
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </c:forEach>
+
+
+
+    </table>
 
 
 </div>

@@ -34,7 +34,13 @@ public class EditSerCalendar extends HttpServlet {
         int newShiftId = 0;
         String compareCheck;
 
-        if(!id.equals("add")) {
+        if(id.equals("add")){
+
+            System.out.println("successful!");
+
+        }else if(id.equals("delete")){
+
+        }else{
             CalendarDAO change = list.get(Integer.parseInt(id));
             int oldShiftId = change.getShiftId();
             int oldDayId = change.getDayId();      //used to get the operation hours and save change into day table
@@ -111,8 +117,6 @@ public class EditSerCalendar extends HttpServlet {
 
             }
 
-        }else{
-            System.out.println("New Shift!");
         }
     }
 

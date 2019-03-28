@@ -16,18 +16,18 @@ public class ManageScheduleViews extends HttpServlet {
 
         if(change == null || change.equals("")){
 
-            request.getRequestDispatcher("/test/ManageSerSched.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManageSerSched.jsp").forward(request,response);
         }else if(change.equals("server")){
 
-            request.getRequestDispatcher("/test/ManageSerSched.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManageSerSched.jsp").forward(request,response);
 
         }else if(change.equals("bartender")){
 
-            request.getRequestDispatcher("/test/ManageBarSched.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManageBarSched.jsp").forward(request,response);
 
         }else if(change.equals("kitchen")){
 
-            request.getRequestDispatcher("/test/ManageKitSched.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManageKitSched.jsp").forward(request,response);
 
         }
 

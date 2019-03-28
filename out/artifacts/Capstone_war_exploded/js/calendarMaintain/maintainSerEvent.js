@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     //------ start to perform adding shift function
     var dialog,form,startDate,endDate,
         tips = $(".validateTips"),
@@ -82,7 +83,6 @@ $(document).ready(function() {
         height: 400,
         width: 350,
         modal: true,
-        position: ["middle",30],
         buttons: {
             "Create": addShift,
             Cancel: function(){
@@ -118,7 +118,7 @@ $(document).ready(function() {
             contentType: "application/json",
             data: JSON.stringify(data), //pass data to the servlet
             success: function(data){    //get data from the servlet
-                if(data === 'sameEmp'){
+                if(data === 'sameEmp') {
                     alert("test!");
                 }
             }

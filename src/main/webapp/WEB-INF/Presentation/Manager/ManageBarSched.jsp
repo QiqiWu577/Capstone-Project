@@ -16,7 +16,7 @@
     <script src='js/calendarCore/moment.min.js'></script>
     <script src='js/calendarCore/jquery.min.js'></script>
     <script src='js/calendarCore/fullcalendar.min.js'></script>
-    <script src='js/calendarMaintain/maintainSerEvent.js'></script>
+    <script src='js/calendarMaintain/maintainBarEvent.js'></script>
 
     <!-- fullcalendar' jquery theme -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>

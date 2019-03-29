@@ -46,7 +46,7 @@
         </a>
         <nav role="navigation" class="w-nav-menu">
             <a href="#" class="nav-links selected w-nav-link">Home</a>
-            <a href="<%=application.getContextPath() %>/TestServlet" class="nav-links w-nav-link">Employee Management</a>
+            <a href="TestServlet" class="nav-links w-nav-link">Employee Management</a>
             <a href="#" class="nav-links w-nav-link">Notifications</a>
             <a href="#" class="nav-links w-nav-link">Settings</a>
         </nav>

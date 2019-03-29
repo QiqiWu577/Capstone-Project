@@ -54,6 +54,7 @@ CREATE TABLE Shift(
                     startTime DATETIME not null,
                     endTime DATETIME not null,
                     shift_type char(1) not null,
+                    shift_id int(4),
                     primary key(shift_id),
                     FOREIGN KEY (day_id) REFERENCES days(day_id)
 );
@@ -82,14 +83,13 @@ CREATE TABLE day_template (
                             day_of_week VARCHAR(10),
                             open_time   VARCHAR(8),
                             close_time  VARCHAR(8),
-                            not_the_same_day bit,
                             PRIMARY KEY(day_of_week)
 );
 
 CREATE TABLE shift_template (
                               shift_id    int(6) auto_increment,
-                              name        VARCHAR(10),
                               type        char(1),
+                              name        VARCHAR(10),
                               day_of_week VARCHAR(10),
                               start_time  VARCHAR(8),
                               end_time    VARCHAR(8),

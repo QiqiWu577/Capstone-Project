@@ -13,7 +13,7 @@
     <title>Shift Offer</title>
     <link href="${pageContext.request.contextPath}/css/employeemgmt.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body style="background-color:#d8d8d8;">
 <!--Left side Menu -->
 <div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
     <div class="container-3 w-container">
@@ -49,10 +49,10 @@
             <c:forEach var="shift" items="${requestScope.empShifts}" varStatus="i">
                 <tr onclick="selectShift(${shift.getShiftId()}, this)" class="alt">
                     <td>
-                        <fmt:formatDate value="${shift.getStartTime()}" pattern="dd-MMM-yyyy"/>
+                        <fmt:formatDate value="${shift.getStartTimeDate()}" type="both" timeStyle="short"/>
                     </td>
                     <td>
-                        <fmt:formatDate value="${shift.getEndTime()}" pattern="dd-MMM-yyyy"/>
+                        <fmt:formatDate value="${shift.getEndTimeDate()}" type="both" timeStyle="short"/>
                     </td>
                 </tr>
             </c:forEach>
@@ -83,11 +83,14 @@
             </c:forEach>
         </table>
     </div>
+    <div class="center">
+        ${requestScope.message}
     <form action="/EmployeeServices" method="get">
         <input type="hidden" name="shiftId" id="shiftId">
         <input type="hidden" name="empId" id="empId">
         <input type="submit" value="Submit" class="btns">
     </form>
+    </div>
 
 
     <script type="text/javascript">
@@ -102,7 +105,7 @@
 
 
 
-        function selectShift(shiftid, tr) {
+        function selectShift(shiftId, tr) {
             var active = document.getElementsByClassName("activeS")[0];
             if(active != null) {
                 active.className = active.className.replace(" activeS", "");

@@ -81,6 +81,12 @@ a:hover {
     padding:10px;
 }
 
+
+.center {
+    text-align: center;
+    align-content: center;
+}
+
 .columnleft {
     margin-left: 100px;
     float:left;

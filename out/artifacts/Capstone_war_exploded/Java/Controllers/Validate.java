@@ -1,6 +1,7 @@
 package Controllers;
 
 import Model.Day;
+import Model.Employee;
 import Persistance.DBOperation;
 
 import javax.servlet.ServletException;
@@ -13,14 +14,20 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import static java.lang.System.currentTimeMillis;
+
 @WebServlet(name = "Validate", urlPatterns = "/Validate")
 public class Validate extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        DBOperation dbops = new DBOperation();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         boolean valid=false;
+
+        long long1 = currentTimeMillis();
+        long long2;
 
         PasswordManager pm = new PasswordManager();
 
@@ -46,25 +53,40 @@ public class Validate extends HttpServlet {
         else if (username!=null && password!=null && !username.equals("") && !password.equals("")) {
 
             if (valid) {
+
+                Employee emp = dbops.getEmployee(Integer.parseInt(username));
                 HttpSession session = request.getSession();
-                session.setAttribute("username", username);
+                session.setAttribute("employee", emp);
 
 
-                //if employee
+                long2 = currentTimeMillis();
+                System.out.println(long2-long1);
+                System.out.println(emp.getType());
+                if (emp.getType() == 'M') {
 
-                request.getRequestDispatcher("/.jsp").forward(request, response);
+                    request.getRequestDispatcher("/ManageEmployees").forward(request, response);
 
-                //if manager
 
-                //if admin
+                } else if (emp.getType() == 'A') {
+
+                    request.getRequestDispatcher("/AdminServices").forward(request, response);
+
+
+                } else {
+                    request.getRequestDispatcher("/EmployeeServices").forward(request, response);
+
+                }
+
+
             }
             else {
-                request.setAttribute("message", "Invalid username or password!");
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+
             }
 
         }
-        else {
+        else if(username == null || password == null) {
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        } else {
             request.setAttribute("message", "Both username and password are required!");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }

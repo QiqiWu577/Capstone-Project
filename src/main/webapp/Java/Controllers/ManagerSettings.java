@@ -51,49 +51,49 @@ public class ManagerSettings extends HttpServlet {
                 LocalTime et = LocalTime.parse(monE);
 
                 notSame = notTheSameDay(st,et);
-                db.addDayTemplate("Monday",monS,monE,notSame);
+               // db.addDayTemplate("Monday",monS,monE,notSame);
             }else if((tueS != null && tueE != null) || (tueS.equals("") && tueE.equals(""))){
 
                 LocalTime st = LocalTime.parse(tueS);
                 LocalTime et = LocalTime.parse(tueE);
 
                 notSame = notTheSameDay(st,et);
-                db.addDayTemplate("Tuesday",monS,monE,notSame);
+               // db.addDayTemplate("Tuesday",monS,monE,notSame);
             }else if((wedS != null && wedE != null) || (wedS.equals("") && wedE.equals(""))){
 
                 LocalTime st = LocalTime.parse(wedS);
                 LocalTime et = LocalTime.parse(wedE);
 
                 notSame = notTheSameDay(st,et);
-                db.addDayTemplate("Wednesday",monS,monE,notSame);
+               // db.addDayTemplate("Wednesday",monS,monE,notSame);
             }else if((thurS != null && thurE != null) || (thurS.equals("") && thurE.equals(""))){
 
                 LocalTime st = LocalTime.parse(thurS);
                 LocalTime et = LocalTime.parse(thurE);
 
                 notSame = notTheSameDay(st,et);
-                db.addDayTemplate("Thursday",monS,monE,notSame);
+                //db.addDayTemplate("Thursday",monS,monE,notSame);
             }else if((friS != null && friE != null) || (friS.equals("") && friE.equals(""))){
 
                 LocalTime st = LocalTime.parse(friS);
                 LocalTime et = LocalTime.parse(friE);
 
                 notSame = notTheSameDay(st,et);
-                db.addDayTemplate("Friday",monS,monE,notSame);
+               // db.addDayTemplate("Friday",monS,monE,notSame);
             }else if((saturS != null && saturE != null) || (saturS.equals("") && saturE.equals(""))){
 
                 LocalTime st = LocalTime.parse(saturS);
                 LocalTime et = LocalTime.parse(saturE);
 
                 notSame = notTheSameDay(st,et);
-                db.addDayTemplate("Saturday",monS,monE,notSame);
+               // db.addDayTemplate("Saturday",monS,monE,notSame);
             }else if((sunS != null && sunE != null) || (sunS.equals("") && sunE.equals(""))){
 
                 LocalTime st = LocalTime.parse(sunS);
                 LocalTime et = LocalTime.parse(sunE);
 
                 notSame = notTheSameDay(st,et);
-                db.addDayTemplate("Sunday",monS,monE,notSame);
+               // db.addDayTemplate("Sunday",monS,monE,notSame);
             }
 
         }else if(update!=null) {

@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class DBOperation {
     public ArrayList<Employee> getEmployees() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true", Employee.class).getResultList());
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true AND type <> 'A' ", Employee.class).getResultList());
         session.getTransaction().commit();
         session.close();
         return empList;
@@ -209,7 +210,7 @@ public class DBOperation {
         return shiftList;
     }
 
-    public void updateShiftTemplate(temp.ShiftTemplate st) {
+    public void updateShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.update(st);
@@ -217,7 +218,7 @@ public class DBOperation {
         session.close();
     }
 
-    public void deleteShiftTemplate(temp.ShiftTemplate st) {
+    public void deleteShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.delete(st);
@@ -225,12 +226,169 @@ public class DBOperation {
         session.close();
     }
 
-    public void addShiftTemplate(temp.ShiftTemplate st) {
+    public void addShiftTemplate1(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(st);
         session.getTransaction().commit();
         session.close();
+    }
+
+//    public boolean addDayTemplate(String day,String s,String e,boolean n){
+//
+//        boolean result = false;
+//
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//
+//        try{
+//
+//            session.beginTransaction();
+//
+//            boolean test = checkDayTempExist(day);
+//
+//            if(test == true){
+//                updateDayTemplate(day,s,e,n);
+//            }else{
+//                session.save(new DayTemplate(day,s,e,n));
+//            }
+//
+//            session.getTransaction().commit();
+//            return result;
+//        }catch (Exception ex){
+//            session.getTransaction().rollback();
+//            ex.printStackTrace();
+//        }finally {
+//            session.close();
+//        }
+//
+//        return result;
+//    }
+//
+//    public boolean checkDayTempExist(String day){
+//
+//        boolean result = false;
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//
+//        try{
+//
+//            Query q = session.createQuery("SELECT count(d) FROM DayTemplate d WHERE d.dayOfWeek = :dayOfWeek");
+//            q.setParameter("dayOfWeek", day);
+//
+//            Long num = (Long) q.uniqueResult();
+//            if(num == 1){
+//                result = true;
+//            }
+//
+//        }finally{
+//            session.close();
+//        }
+//
+//        return result;
+//    }
+//
+//    public boolean updateDayTemplate(String day,String s,String e,boolean n){
+//
+//        boolean result=false;
+//
+//        Session session = HibernateUtil.getSessionFactory().openSession();
+//
+//        try{
+//
+//            session.beginTransaction();
+//
+//            DayTemplate d = session.find(DayTemplate.class,day);
+//            d.setOpenTime(s);
+//            d.setCloseTime(e);
+//            d.setNotTheSameDay(n);
+//            session.update(d);
+//
+//            session.getTransaction().commit();
+//            result = true;
+//        }catch (Exception ex){
+//            session.getTransaction().rollback();
+//            ex.printStackTrace();
+//        }finally {
+//            session.close();
+//        }
+//
+//        return result;
+//    }
+
+    public ArrayList<Notification> getSentNotifications(Employee e) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("SELECT n FROM Notification n WHERE n.sender = :id ORDER BY date desc");
+        query.setParameter("id", e);
+
+        ArrayList<Notification> sentList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return sentList;
+    }
+
+    public ArrayList<Notification> getReceivedNotifications(Employee e) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("SELECT n FROM Notification n WHERE n.recipient = :id ORDER BY date desc");
+        query.setParameter("id", e.getEmpid());
+
+        ArrayList<Notification> receiveList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return receiveList;
+    }
+
+    public void deleteNotification(Notification n) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.delete(n);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updateNotification(Notification n) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(n);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public Notification getNotification(int id) {
+        Notification n = null;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT n FROM Notification n where n.notifid=:id", Notification.class);
+        query.setParameter("id",id);
+        session.getTransaction().commit();
+        n = (Notification) query.getSingleResult();
+        session.close();
+
+        return n;
+    }
+
+    public ArrayList<Notification> getManagerNotifications() {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        char p ='P';
+
+        Query query = session.createQuery("SELECT n FROM Notification n WHERE NOT (n.notiftype = :type) ORDER BY date desc");
+        query.setParameter("type", p);
+
+        ArrayList<Notification> manList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return manList;
     }
 
 }

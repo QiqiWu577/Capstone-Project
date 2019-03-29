@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.time.LocalTime;
 
 @WebServlet(name = "ManagerSettings", urlPatterns = "/ManagerSettings")
 public class ManagerSettings extends HttpServlet {
@@ -20,13 +21,85 @@ public class ManagerSettings extends HttpServlet {
         String update = request.getParameter("update");
         String delete = request.getParameter("delete");
         String add = request.getParameter("add");
+        String saveOps = request.getParameter("save");
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
 
-        if(update!=null) {
 
-            temp.ShiftTemplate st = new temp.ShiftTemplate();
-            temp.DayTemplate dt = new temp.DayTemplate();
+        if(saveOps != null){
+
+            boolean notSame = false;
+
+            String monS = request.getParameter("MonS");
+            String monE = request.getParameter("MonE");
+            String tueS = request.getParameter("TueS");
+            String tueE = request.getParameter("TueE");
+            String wedS = request.getParameter("WedS");
+            String wedE = request.getParameter("WedE");
+            String thurS = request.getParameter("ThurS");
+            String thurE = request.getParameter("ThurE");
+            String friS = request.getParameter("FriS");
+            String friE = request.getParameter("FriE");
+            String saturS = request.getParameter("SaturS");
+            String saturE = request.getParameter("SaturE");
+            String sunS = request.getParameter("SunS");
+            String sunE = request.getParameter("SunE");
+
+            if((monS != null && monE != null) || (monS.equals("") && monE.equals(""))){
+
+                LocalTime st = LocalTime.parse(monS);
+                LocalTime et = LocalTime.parse(monE);
+
+                notSame = notTheSameDay(st,et);
+               // db.addDayTemplate("Monday",monS,monE,notSame);
+            }else if((tueS != null && tueE != null) || (tueS.equals("") && tueE.equals(""))){
+
+                LocalTime st = LocalTime.parse(tueS);
+                LocalTime et = LocalTime.parse(tueE);
+
+                notSame = notTheSameDay(st,et);
+               // db.addDayTemplate("Tuesday",monS,monE,notSame);
+            }else if((wedS != null && wedE != null) || (wedS.equals("") && wedE.equals(""))){
+
+                LocalTime st = LocalTime.parse(wedS);
+                LocalTime et = LocalTime.parse(wedE);
+
+                notSame = notTheSameDay(st,et);
+               // db.addDayTemplate("Wednesday",monS,monE,notSame);
+            }else if((thurS != null && thurE != null) || (thurS.equals("") && thurE.equals(""))){
+
+                LocalTime st = LocalTime.parse(thurS);
+                LocalTime et = LocalTime.parse(thurE);
+
+                notSame = notTheSameDay(st,et);
+                //db.addDayTemplate("Thursday",monS,monE,notSame);
+            }else if((friS != null && friE != null) || (friS.equals("") && friE.equals(""))){
+
+                LocalTime st = LocalTime.parse(friS);
+                LocalTime et = LocalTime.parse(friE);
+
+                notSame = notTheSameDay(st,et);
+               // db.addDayTemplate("Friday",monS,monE,notSame);
+            }else if((saturS != null && saturE != null) || (saturS.equals("") && saturE.equals(""))){
+
+                LocalTime st = LocalTime.parse(saturS);
+                LocalTime et = LocalTime.parse(saturE);
+
+                notSame = notTheSameDay(st,et);
+               // db.addDayTemplate("Saturday",monS,monE,notSame);
+            }else if((sunS != null && sunE != null) || (sunS.equals("") && sunE.equals(""))){
+
+                LocalTime st = LocalTime.parse(sunS);
+                LocalTime et = LocalTime.parse(sunE);
+
+                notSame = notTheSameDay(st,et);
+               // db.addDayTemplate("Sunday",monS,monE,notSame);
+            }
+
+        }else if(update!=null) {
+
+            ShiftTemplate st = new ShiftTemplate();
+            DayTemplate dt = new DayTemplate();
 
             dt.setDayOfWeek(request.getParameter("dayOfWeek"));
             st.setType(request.getParameter("shiftType").charAt(0));
@@ -47,11 +120,9 @@ public class ManagerSettings extends HttpServlet {
             update = null;
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
-        }
+        }else if(delete!=null) {
 
-        if(delete!=null) {
-
-            temp.ShiftTemplate st = new temp.ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
+            ShiftTemplate st = new ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
             db.deleteShiftTemplate(st);
 
             session.setAttribute("frontList", db.getShiftTemplates('S'));
@@ -61,12 +132,10 @@ public class ManagerSettings extends HttpServlet {
             delete = null;
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
-        }
+        }else if(add!=null) {
 
-        if(add!=null) {
-
-            temp.ShiftTemplate st = new temp.ShiftTemplate();
-            temp.DayTemplate dt = new temp.DayTemplate();
+            ShiftTemplate st = new ShiftTemplate();
+            DayTemplate dt = new DayTemplate();
 
             char type='X';
             String inType = request.getParameter("type");
@@ -104,6 +173,16 @@ public class ManagerSettings extends HttpServlet {
 
         }
 
+    }
+
+    public boolean notTheSameDay(LocalTime s, LocalTime e){
+        boolean check = false;
+
+        if(s.compareTo(e)>=0){
+            check = true;
+        }
+
+        return check;
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -14,8 +14,8 @@ public class ManageScheduleViews extends HttpServlet {
 
         String change = request.getParameter("message");
 
-        if(change == null || change.equals("")){
-
+        if(change == null || change.equals("")) {
+            System.out.println("Test");
             request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManageSerSched.jsp").forward(request,response);
         }else if(change.equals("server")){
 

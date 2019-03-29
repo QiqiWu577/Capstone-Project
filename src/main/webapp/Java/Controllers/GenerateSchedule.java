@@ -23,18 +23,18 @@ public class GenerateSchedule extends HttpServlet {
             if(type.equals("S")) {
                 schedule = scheduleMaker.generateSchedule('S');
                 dbOps.addSchedule(schedule);
-                request.getRequestDispatcher("/ManageScheduleViews").forward(request, response);
+                request.getRequestDispatcher("/ManageScheduleViews?message=server").forward(request, response);
 
             } else if (type.equals("K")) {
                 schedule = scheduleMaker.generateSchedule('K');
                 dbOps.addSchedule(schedule);
-                request.getRequestDispatcher("/ManageScheduleViews").forward(request, response);
+                request.getRequestDispatcher("/ManageScheduleViews?message=kitchen").forward(request, response);
 
 
             } else if (type.equals("B")) {
                 schedule = scheduleMaker.generateSchedule('B');
                 dbOps.addSchedule(schedule);
-                request.getRequestDispatcher("/ManageScheduleViews").forward(request, response);
+                request.getRequestDispatcher("/ManageScheduleViews?message=bartender").forward(request, response);
 
 
             } else {

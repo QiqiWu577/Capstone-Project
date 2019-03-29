@@ -1,16 +1,12 @@
 $(document).ready(function() {
 
     //------ start to perform adding shift function
-    var dialog,form,startDate,
+    var dialog,form,startDate,color,
         tips = $(".validateTips"),
         employee = $("#employee"),
         startTime = $("#start"),
         endTime = $("#end"),
         allFields = $([]).add(employee).add(startTime).add(endTime);
-    var eventList = [];
-
-    //evenList.push(value);
-    //evenList.pop();
 
     function updateTips(t) {
         tips
@@ -33,7 +29,7 @@ $(document).ready(function() {
         }
     }
 
-    function checkTime(o,n){
+    function checkNotEmpty(o,n){
 
         var time = o.val();
         if(n==0){
@@ -56,13 +52,25 @@ $(document).ready(function() {
 
     }
 
+    function checkTime(s,e){
+        var check = moment(s.val()).isBefore(e.val());
+        if(!check){
+            updateTips("Opening hour must be earlier than the closing hour!");
+        }
+    }
+
+    function setColor(s,e){
+
+    }
+
     function addShift(){
         var valid = true;
         allFields.removeClass( "ui-state-error" );
 
         valid = valid && checkEmp(employee);
-        valid = valid && checkTime(startTime,0);
-        valid = valid && checkTime(endTime,1);
+        valid = valid && checkNotEmpty(startTime,0);
+        valid = valid && checkNotEmpty(endTime,1);
+        valid = valid && checkTime(startTime,endTime);
 
         if(valid){
 
@@ -77,11 +85,11 @@ $(document).ready(function() {
             });
 
             var shift = {
-                id: 0,
+                id: "add",
                 title: employee.val(),
                 start: start,
                 end: end,
-                color: ""
+                color: "D"
             };
 
             //save to the database

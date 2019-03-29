@@ -78,9 +78,10 @@ public class Validate extends HttpServlet {
                 }
 
 
-            }
-            else {
+            } else {
+                request.setAttribute("message", "Username or password is incorrect!");
 
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
 
         }

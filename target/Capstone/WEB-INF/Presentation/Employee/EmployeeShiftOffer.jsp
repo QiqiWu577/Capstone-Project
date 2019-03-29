@@ -22,7 +22,7 @@
         </a>
         <nav role="navigation" class="w-nav-menu">
             <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
-            <a href="<%=application.getContextPath() %>/TestServlet?page=1" class="nav-links selected w-nav-link">Employee Management</a>
+            <a href="<%=application.getContextPath() %>/EmployeeServices?page=shiftOffer" class="nav-links w-nav-link">Shift Changes</a>
             <a href="#" class="nav-links w-nav-link">Notifications</a>
             <a href="#" class="nav-links w-nav-link">Settings</a>
         </nav>
@@ -82,15 +82,12 @@
                 </tr>
             </c:forEach>
         </table>
-
-        <form action="/EmployeeServices" method="get">
-            <input type="hidden" name="shiftId" id="shiftId">
-            <input type="hidden" name="empId" id="empId">
-            <input type="submit" value="Submit" class="btns">
-        </form>
-
-
     </div>
+    <form action="/EmployeeServices" method="get">
+        <input type="hidden" name="shiftId" id="shiftId">
+        <input type="hidden" name="empId" id="empId">
+        <input type="submit" value="Submit" class="btns">
+    </form>
 
 
     <script type="text/javascript">
@@ -100,6 +97,7 @@
                 active.className = active.className.replace(" activeE", "");
             }
             tr.className += " activeE";
+            document.getElementById("empId").value = empid;
         }
 
 
@@ -110,6 +108,7 @@
                 active.className = active.className.replace(" activeS", "");
             }
             tr.className += " activeS";
+            document.getElementById("shiftId").value = shiftId;
 
         }
     </script>

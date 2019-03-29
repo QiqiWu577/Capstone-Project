@@ -54,6 +54,7 @@ CREATE TABLE Shift(
                     startTime DATETIME not null,
                     endTime DATETIME not null,
                     shift_type char(1) not null,
+                    shift_id int(4),
                     primary key(shift_id),
                     FOREIGN KEY (day_id) REFERENCES days(day_id)
 );

@@ -17,6 +17,15 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
+<body>
+<div class="sidebar">
+    <div class="logo">
+        <img src="res/2030%20logo.png" alt="2030" height="100" width="100">
+    </div>
+    <a href="home.html">Home</a>
+    <a href="employeemgmt.html">Employee Management</a>
+    <a href="settings.html">Settings</a>
+</div>
 
 <body>
 <!--Left side Menu needs to be updated-->

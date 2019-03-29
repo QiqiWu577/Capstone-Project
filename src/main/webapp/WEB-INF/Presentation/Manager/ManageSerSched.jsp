@@ -59,6 +59,7 @@
         <a href="ManageScheduleViews?message=server">Server</a>
         <a href="ManageScheduleViews?message=bartender">Bartender</a>
         <a href="ManageScheduleViews?message=kitchen">Kitchen</a>
+        <a href="generateSchedule?type=S">Generate Schedule</a>
     </div>
     <br/>
 

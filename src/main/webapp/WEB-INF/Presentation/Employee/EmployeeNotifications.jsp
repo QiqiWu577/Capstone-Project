@@ -11,7 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<<<<<<< HEAD
 <div class="sidebar">
     <div class="logo">
         <img src="res/2030%20logo.png" alt="2030" height="100" width="100">
@@ -50,8 +49,6 @@
     </div>
 
 </div>
-=======
->>>>>>> bc0ee6d35042de5e48b2937a844e9c87ddc20214
 
 </body>
 </html>

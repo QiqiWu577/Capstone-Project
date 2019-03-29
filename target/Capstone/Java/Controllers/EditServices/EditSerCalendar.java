@@ -3,7 +3,7 @@ package Controllers.EditServices;
 import Persistance.FullcalendarDBOps;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import temp.CalendarDAO;
+import Model.CalendarDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,6 +19,8 @@ public class EditSerCalendar extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list;
 
@@ -27,25 +29,109 @@ public class EditSerCalendar extends HttpServlet {
         list = (ArrayList<CalendarDAO>)session.getAttribute("serverShifts");
         JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
         String id= data.get("id").getAsString();
-        String title = data.get("title").getAsString();
+        String employee = data.get("title").getAsString();
         String currentStart = data.get("start").getAsString();
         String currentEend = data.get("end").getAsString();
+        String note = data.get("className").getAsString();
+
+        LocalDateTime cs = LocalDateTime.parse(currentStart);
+        LocalDateTime ce = LocalDateTime.parse(currentEend);
         int newDayId = 0;
         int newShiftId = 0;
+        int newEmpId = 0;
         String compareCheck;
 
-        if(!id.equals("add")) {
+        if(id.equals("add")){
+
+            //check if the employee exists
+            newEmpId = DBOps.empExist(employee);
+            if(newEmpId == 0){
+                response.getWriter().write("noEmp");
+            }else{
+
+                //check if the day exists
+                newDayId = DBOps.dayExist(cs);
+                if(newDayId == 0){
+                    //add a new day in days table
+                    newDayId = DBOps.addDay(cs,ce);
+
+                    //add a new shift in the shift table
+                    newShiftId = DBOps.addShift(newEmpId,newDayId,cs,ce);
+                }else{
+
+                    //get the ops hours of the newDayId
+                    String opsHours =  DBOps.getOpsHours(newDayId);
+                    String [] hours = opsHours.split(",");
+                    LocalDateTime sO = LocalDateTime.parse(hours[0].replace(" ","T"));
+                    LocalDateTime eO = LocalDateTime.parse(hours[1].replace(" ","T"));
+
+                    //compare the new shift and the new day in the days table
+                    //return the condition that which data needed to be updated
+                    compareCheck = compareDayOps(cs,ce,sO,eO);
+                    if(compareCheck.equals("s")){
+
+                        boolean test = DBOps.updateDayOps(newDayId,cs,ce,1);
+                    }else if(compareCheck.equals("e")){
+
+                        boolean test = DBOps.updateDayOps(newDayId,cs,ce,2);
+                    }else if(compareCheck.equals("both")){
+
+                        boolean test = DBOps.updateDayOps(newDayId,cs,ce,3);
+                    }
+
+                    //check if the newShift exists in the shift table
+                    //if it doesn't, add a new shift.update the join table
+                    newShiftId = DBOps.shiftExist(cs,ce);
+
+                    if(newShiftId == 0){
+
+                        newShiftId = DBOps.addShift(newEmpId,newDayId,cs,ce);
+
+                    }else{
+
+                        //check the same employee situations
+                        //they cannot be the same time range or cross over
+                        //if it is, display the error and do nothing. or else continue the operation on shift table
+                        String result = DBOps.checkSameEmp(newEmpId,newShiftId,cs,ce);
+                        if(result.equals("sameEmpShift")){
+                            response.getWriter().write("sameEmpShift");
+                        }else if(result.equals("crossover")){
+                            response.getWriter().write("crossover");
+                        }
+                    }
+                }
+                //delete the old one and add the new one to the join table for the new shift
+                boolean test = DBOps.updateEmpShift(-1,newShiftId,newEmpId);
+            }
+
+        }else if(note.equals("delete")){
+
+            CalendarDAO change = list.get(Integer.parseInt(id));
+            int oldShiftId = change.getShiftId();
+            int empId = change.getEmpId();         //used to update the schedule_employee table for the shift
+
+            //check if the employee exists
+            newEmpId = DBOps.empExist(employee);
+            if(newEmpId == 0){
+                response.getWriter().write("noEmp");
+            }else{
+
+                DBOps.deleteShift(empId,oldShiftId);
+
+            }
+
+        }else{
+
             CalendarDAO change = list.get(Integer.parseInt(id));
             int oldShiftId = change.getShiftId();
             int oldDayId = change.getDayId();      //used to get the operation hours and save change into day table
             int empId = change.getEmpId();         //used to update the schedule_employee table for the shift
 
-            LocalDateTime cs = LocalDateTime.parse(currentStart);
-            LocalDateTime ce = LocalDateTime.parse(currentEend);
-
             //check if they are the same shift
             //if they are, do nothing. or else continue to check
-            if(!DBOps.checkSameShift(oldShiftId, cs, ce)){
+            if(DBOps.checkSameShift(oldShiftId, cs, ce)){
+
+            }else{
 
                 //check if the day exists
                 //if it doesn't, add a new day. or else compare the shift and the day to
@@ -58,9 +144,6 @@ public class EditSerCalendar extends HttpServlet {
 
                     //add a new shift in the shift table
                     newShiftId = DBOps.addShift(empId,newDayId,cs,ce);
-
-                    //delete the old one and add the new one to the join table for the new shift
-                    boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
 
                 }else{
 
@@ -88,30 +171,27 @@ public class EditSerCalendar extends HttpServlet {
                     //if it doesn't, add a new shift.update the join table
                     newShiftId = DBOps.shiftExist(cs,ce);
 
-
-                   if(newShiftId == 0){
+                    if(newShiftId == 0){
 
                        newShiftId = DBOps.addShift(empId,newDayId,cs,ce);
-                       //delete the old one and add the new one to the join table for the new shift
-                       boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
-                   }else{
-                       //check if there are same emp on the same new shift
+
+                    }else{
+
+                       //check the same employee situations
+                       //they cannot be the same time range or cross over
                        //if it is, display the error and do nothing. or else continue the operation on shift table
-                       if(DBOps.checkSameEmpShift(empId,newShiftId)){
-                           session.setAttribute("message","sameEmp");
-                           request.getRequestDispatcher("ManageScheduleViews").forward(request,response);
-                       }else{
-                           //delete the old one and add the new one to the join table for the new shift
-                           boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
+                       String result = DBOps.checkSameEmp(empId,newShiftId,cs,ce);
+                       if(result.equals("sameEmpShift")){
+                           response.getWriter().write("sameEmpShift");
+                       }else if(result.equals("crossover")){
+                           response.getWriter().write("crossover");
                        }
-                   }
-
+                    }
                 }
-
+                //delete the old one and add the new one to the join table for the new shift
+                boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
             }
 
-        }else{
-            System.out.println("New Shift!");
         }
     }
 

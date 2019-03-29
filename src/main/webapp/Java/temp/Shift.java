@@ -45,10 +45,8 @@ public class Shift implements Serializable {
     @Basic(optional = false)
     @Column(name = "shift_type")
     private Character shiftType;
-    @JoinTable(name = "schedule_employee", joinColumns = {
-            @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")}, inverseJoinColumns = {
-            @JoinColumn(name = "emp_id", referencedColumnName = "Emp_id")})
-    @ManyToMany
+
+    @ManyToMany(mappedBy = "shiftList",cascade = CascadeType.ALL)
     private List<Employee> employeeList;
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
     @ManyToOne
@@ -67,7 +65,6 @@ public class Shift implements Serializable {
         this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
         this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
         this.shiftType = shiftType;
-
     }
 
     public void setShiftId(Integer shiftId) {
@@ -78,16 +75,20 @@ public class Shift implements Serializable {
         return shiftId;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public LocalDateTime getStartTime() {
+        return startTime.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public LocalDateTime getEndTime() {
+        return endTime.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 
     public void setEndTime(LocalDateTime endTime) {

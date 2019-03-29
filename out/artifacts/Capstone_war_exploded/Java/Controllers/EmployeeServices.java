@@ -28,6 +28,9 @@ public class EmployeeServices extends HttpServlet {
         if(page != null) {
             if(page.equals("shiftOffer")) {
 
+
+
+
                 Employee emp = (Employee) session.getAttribute("employee");
                 request.setAttribute("EmpShifts", emp.getShiftList());
                 request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request,response);

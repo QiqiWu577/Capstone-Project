@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class DBOperation {
@@ -234,59 +235,7 @@ public class DBOperation {
         session.close();
     }
 
-    public boolean addDayTemplate(String day,String s,String e,boolean n){
-
-        boolean result = false;
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        try{
-
-            session.beginTransaction();
-
-            boolean test = checkDayTempExist(day);
-
-            if(test == true){
-                updateDayTemplate(day,s,e,n);
-            }else{
-                session.save(new DayTemplate(day,s,e,n));
-            }
-
-            session.getTransaction().commit();
-            return result;
-        }catch (Exception ex){
-            session.getTransaction().rollback();
-            ex.printStackTrace();
-        }finally {
-            session.close();
-        }
-
-        return result;
-    }
-
-    public boolean checkDayTempExist(String day){
-
-        boolean result = false;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        try{
-
-            Query q = session.createQuery("SELECT count(d) FROM DayTemplate d WHERE d.dayOfWeek = :dayOfWeek");
-            q.setParameter("dayOfWeek", day);
-
-            Long num = (Long) q.uniqueResult();
-            if(num == 1){
-                result = true;
-            }
-
-        }finally{
-            session.close();
-        }
-
-        return result;
-    }
-
-    public boolean updateDayTemplate(String day,String s,String e,boolean n){
+    public boolean updateDayTemplate(String day,String s,String e){
 
         boolean result=false;
 
@@ -299,7 +248,6 @@ public class DBOperation {
             DayTemplate d = session.find(DayTemplate.class,day);
             d.setOpenTime(s);
             d.setCloseTime(e);
-            d.setNotTheSameDay(n);
             session.update(d);
 
             session.getTransaction().commit();
@@ -312,6 +260,32 @@ public class DBOperation {
         }
 
         return result;
+    }
+
+    public ArrayList<Shift> getShifts(int empid) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        //select a.firstName, a.lastName from Book b join b.authors a where b.id = :id
+        Query query = session.createQuery("SELECT s FROM Employee e join e.shiftList s where e.empid = :id ");
+        query.setParameter("id", empid);
+        ArrayList<Shift> shiftList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+        return shiftList;
+
+    }
+
+    public Shift getShift(int shiftId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        //select a.firstName, a.lastName from Book b join b.authors a where b.id = :id
+        Query query = session.createQuery("SELECT s FROM Shift s where s.shiftId = :id ");
+        query.setParameter("id", shiftId);
+        Shift shift = (Shift) query.getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return shift;
+
     }
 
 }

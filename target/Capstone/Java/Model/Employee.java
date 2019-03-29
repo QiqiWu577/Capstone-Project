@@ -68,7 +68,7 @@ public class Employee implements Serializable {
     @JoinTable(name = "schedule_employee", joinColumns = {
             @JoinColumn(name = "emp_id", referencedColumnName = "emp_id")}, inverseJoinColumns = {
             @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Shift> shiftList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
     private EmployeeConstraints employeeConstraints;
@@ -101,6 +101,19 @@ public class Employee implements Serializable {
 
         shiftList = new ArrayList<Shift>();
         notificationList = new ArrayList<Notification>();
+    }
+
+    public Employee(Integer empid, String fname, String lname, String address, String phoneno, String email, Character type, boolean newHire, boolean active,String notes) {
+        this.empid = empid;
+        this.fname = fname;
+        this.lname = lname;
+        this.address = address;
+        this.phoneno = phoneno;
+        this.email = email;
+        this.type = type;
+        this.newHire = newHire;
+        this.active = active;
+        this.notes = notes;
     }
 
     public Integer getEmpid() {

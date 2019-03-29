@@ -6,6 +6,8 @@
 package Model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -84,6 +86,12 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
     }
 
+    public Shift(Day dayId, LocalDateTime startTime, LocalDateTime endTime, Character shiftType) {
+        this.dayId = dayId;
+        this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
+        this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
+        this.shiftType = shiftType;
+    }
 
     public Shift(Integer shiftId, Date startTime, Date endTime, Character shiftType, int minNoEmp, int maxNoEmp) {
         this.shiftId = shiftId;
@@ -167,5 +175,5 @@ public class Shift implements Serializable {
     public String toString() {
         return "data.Shift[ shiftId=" + shiftId + " ]";
     }
-    
+
 }

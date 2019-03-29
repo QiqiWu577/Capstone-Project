@@ -1,4 +1,4 @@
-package temp;
+package Model;
 
 import java.io.Serializable;
 

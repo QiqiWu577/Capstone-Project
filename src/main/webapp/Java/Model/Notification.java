@@ -49,6 +49,8 @@ public class Notification implements Serializable {
     @Basic(optional = false)
     @Column(name = "Recipient")
     private int recipient;
+    @Column(name = "shift_id")
+    private int shift_id;
     @Column(name = "Content")
     private String content;
     @Basic(optional = false)
@@ -80,6 +82,16 @@ public class Notification implements Serializable {
         this.status = status;
     }
 
+    public Notification(Employee sender, int recipient, int shift_id, String content, Character notiftype, Character status) {
+        this.sender = sender;
+        this.recipient = recipient;
+        this.shift_id = shift_id;
+        this.content = content;
+        this.date = new Date();
+        this.notiftype = notiftype;
+        this.status = status;
+    }
+
     public Notification(Employee sender, int recipient, String content, Character notiftype, Character status) {
         this.sender = sender;
         this.recipient = recipient;
@@ -87,6 +99,15 @@ public class Notification implements Serializable {
         this.date = new Date();
         this.notiftype = notiftype;
         this.status = status;
+    }
+
+
+    public int getShift_id() {
+        return shift_id;
+    }
+
+    public void setShift_id(int shift_id) {
+        this.shift_id = shift_id;
     }
 
     public Integer getNotifid() {

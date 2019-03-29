@@ -72,7 +72,7 @@ public class Notification implements Serializable {
         this.notifid = notifid;
     }
 
-    public Notification(Integer notifid, int recipient,Date date, Character notiftype, Character status) {
+    public Notification(Integer notifid, int recipient, Date date, Character notiftype, Character status) {
         this.notifid = notifid;
         this.recipient = recipient;
         this.date = date;

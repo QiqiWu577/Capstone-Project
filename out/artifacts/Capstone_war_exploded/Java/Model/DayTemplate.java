@@ -33,20 +33,16 @@ public class DayTemplate implements Serializable {
     private String openTime;
     @Column(name = "close_time")
     private String closeTime;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "dayOfWeek")
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dayOfWeek")
     private List<ShiftTemplate> shiftTemplateList;
 
     public DayTemplate() {
     }
 
-    public DayTemplate(String dayOfWeek) {
+    public DayTemplate(String dayOfWeek,String openTime,String closeTime) {
         this.dayOfWeek = dayOfWeek;
-    }
-
-    public DayTemplate(String day, String s, String e) {
-        this.dayOfWeek = day;
-        this.closeTime = e;
-        this.openTime = s;
+        this.openTime = openTime;
+        this.closeTime = closeTime;
     }
 
     public String getDayOfWeek() {

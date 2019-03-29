@@ -1,13 +1,13 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Employee Management</title>
     <link href="${pageContext.request.contextPath}/css/employeemgmt.css" rel="stylesheet" type="text/css">
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 
-<body>
+<body style="background-color:#d8d8d8;">
 <!--Left side Menu -->
 <div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
     <div class="container-3 w-container">
@@ -16,7 +16,7 @@
         </a>
         <nav role="navigation" class="w-nav-menu">
             <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
-            <a href="<%=application.getContextPath() %>/TestServlet?page=1" class="nav-links selected w-nav-link">Employee Management</a>
+            <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links selected w-nav-link">Employee Management</a>
             <a href="#" class="nav-links w-nav-link">Notifications</a>
             <a href="#" class="nav-links w-nav-link">Settings</a>
         </nav>
@@ -41,7 +41,7 @@
                 </tr>
                 <c:forEach items="${requestScope.employeeList}" var="emp" >
                     <tr class="alt" onclick="populate('${emp.getEmpid()}','${emp.getFname()}','${emp.getLname()}',
-                            '${emp.getAddress()}','${emp.getPhoneno()}','${emp.getEmail()}','${emp.getType()}','${emp.getNotes()}','${emp.getEmployeeConstraints().getConstraints()}')">
+                            '${emp.getAddress()}','${emp.getPhoneno()}','${emp.getEmail()}','${emp.getType()}','${emp.getNotes()}','${emp.getEmployeeConstraints().getConstraints()}');selectEmp(this)">
                         <td>${emp.getEmpid()}</td>
                         <td>${emp.getFname()} ${emp.getLname()}</td>
                         <td>${emp.getType()}</td>
@@ -429,6 +429,14 @@
                             document.getElementById(cityName).style.visibility = "visible";
                             document.getElementById(cityName).style.position = "relative";
                             evt.currentTarget.className += " active";
+                        }
+
+                        function selectEmp(tr) {
+                            var active = document.getElementsByClassName("activeE")[0];
+                            if(active != null) {
+                                active.className = active.className.replace(" activeE", "");
+                            }
+                            tr.className += " activeE";
                         }
 
 

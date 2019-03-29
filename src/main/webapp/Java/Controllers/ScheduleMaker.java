@@ -32,16 +32,14 @@ public class ScheduleMaker {
     private ArrayList<DayTemplate> dayList;
 
 
-    public ScheduleMaker(int weeks) {
-        empList = new ArrayList<Employee>();
-        availList = new ArrayList<Employee>();
-        prefList = new ArrayList<Employee>();
-        availability = new ArrayList<boolean[]>();
-        preferences = new ArrayList<boolean[]>();
+    public ScheduleMaker() {
+        empList = new ArrayList<>();
+        availList = new ArrayList<>();
+        prefList = new ArrayList<>();
+        availability = new ArrayList<>();
+        preferences = new ArrayList<>();
         dayList = new ArrayList<>();
         getEmployees();
-
-
     }
 
     /**

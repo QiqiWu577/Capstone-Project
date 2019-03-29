@@ -103,6 +103,19 @@ public class Employee implements Serializable {
         notificationList = new ArrayList<Notification>();
     }
 
+    public Employee(Integer empid, String fname, String lname, String address, String phoneno, String email, Character type, boolean newHire, boolean active,String notes) {
+        this.empid = empid;
+        this.fname = fname;
+        this.lname = lname;
+        this.address = address;
+        this.phoneno = phoneno;
+        this.email = email;
+        this.type = type;
+        this.newHire = newHire;
+        this.active = active;
+        this.notes = notes;
+    }
+
     public Integer getEmpid() {
         return empid;
     }

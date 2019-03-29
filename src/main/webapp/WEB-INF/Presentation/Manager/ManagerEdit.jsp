@@ -20,7 +20,7 @@
 <<<<<<< HEAD
     <a href="home.html">Home</a>
     <a href="employeemgmt.html">Employee Management</a>
-    <a href="WEB-INF/Presentation/Manager/ManagerSetting.jsp">Settings</a>
+    <a href="<%=application.getContextPath() %>/ManagerServices">Settings</a>
 =======
     <a href="#">Home</a>
     <a href="#">Employees</a>

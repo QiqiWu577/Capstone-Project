@@ -138,6 +138,14 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
     }
 
+
+    public Date getStartTimeDate() {
+        return startTime;
+    }
+    public Date getEndTimeDate() {
+        return endTime;
+    }
+
     @XmlTransient
     public List<Model.Employee> getEmployeeList() {
         return employeeList;

@@ -13,7 +13,7 @@
     <title>Shift Offer</title>
     <link href="${pageContext.request.contextPath}/css/employeemgmt.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body style="background-color:#d8d8d8;">
 <!--Left side Menu -->
 <div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
     <div class="container-3 w-container">
@@ -22,7 +22,7 @@
         </a>
         <nav role="navigation" class="w-nav-menu">
             <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
-            <a href="<%=application.getContextPath() %>/TestServlet?page=1" class="nav-links selected w-nav-link">Employee Management</a>
+            <a href="<%=application.getContextPath() %>/EmployeeServices?page=shiftOffer" class="nav-links w-nav-link">Shift Changes</a>
             <a href="#" class="nav-links w-nav-link">Notifications</a>
             <a href="#" class="nav-links w-nav-link">Settings</a>
         </nav>
@@ -49,10 +49,10 @@
             <c:forEach var="shift" items="${requestScope.empShifts}" varStatus="i">
                 <tr onclick="selectShift(${shift.getShiftId()}, this)" class="alt">
                     <td>
-                        <fmt:formatDate value="${shift.getStartTime()}" pattern="dd-MMM-yyyy"/>
+                        <fmt:formatDate value="${shift.getStartTimeDate()}" type="both" timeStyle="short"/>
                     </td>
                     <td>
-                        <fmt:formatDate value="${shift.getEndTime()}" pattern="dd-MMM-yyyy"/>
+                        <fmt:formatDate value="${shift.getEndTimeDate()}" type="both" timeStyle="short"/>
                     </td>
                 </tr>
             </c:forEach>
@@ -82,14 +82,14 @@
                 </tr>
             </c:forEach>
         </table>
-
-        <form action="/EmployeeServices" method="get">
-            <input type="hidden" name="shiftId" id="shiftId">
-            <input type="hidden" name="empId" id="empId">
-            <input type="submit" value="Submit" class="btns">
-        </form>
-
-
+    </div>
+    <div class="center">
+        ${requestScope.message}
+    <form action="/EmployeeServices" method="get">
+        <input type="hidden" name="shiftId" id="shiftId">
+        <input type="hidden" name="empId" id="empId">
+        <input type="submit" value="Submit" class="btns">
+    </form>
     </div>
 
 
@@ -100,16 +100,18 @@
                 active.className = active.className.replace(" activeE", "");
             }
             tr.className += " activeE";
+            document.getElementById("empId").value = empid;
         }
 
 
 
-        function selectShift(shiftid, tr) {
+        function selectShift(shiftId, tr) {
             var active = document.getElementsByClassName("activeS")[0];
             if(active != null) {
                 active.className = active.className.replace(" activeS", "");
             }
             tr.className += " activeS";
+            document.getElementById("shiftId").value = shiftId;
 
         }
     </script>

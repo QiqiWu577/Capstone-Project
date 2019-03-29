@@ -1,13 +1,13 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
 <head>
     <title>Employee Management</title>
     <link href="${pageContext.request.contextPath}/css/employeemgmt.css" rel="stylesheet" type="text/css">
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
 
-<body>
+<body style="background-color:#d8d8d8;">
 <!--Left side Menu -->
 <div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
     <div class="container-3 w-container">

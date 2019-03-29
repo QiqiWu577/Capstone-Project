@@ -390,6 +390,64 @@ public class FullcalendarDBOps {
         return result;
     }
 
+    public int empExist(String employee){
+
+        int check = 0;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+
+            Query q = session.createQuery("SELECT e FROM Employee e WHERE e.fname = :fname");
+            q.setParameter("fname",employee);
+
+            Employee emp = (Employee) q.uniqueResult();
+
+            if(emp != null){
+                check = emp.getEmpid();
+            }
+
+        }finally {
+            session.close();
+        }
+
+        return check;
+
+    }
+
+    public boolean deleteShift(int empId,int oldShiftId){
+
+        boolean result=false;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            Employee emp = session.find(Employee.class,empId);
+            List<Shift> shiftList = (List<Shift>) emp.getShiftList();
+            for(int i=0;i<shiftList.size();i++){
+                if(shiftList.get(i).getShiftId()==oldShiftId){
+                    shiftList.remove(i);
+                }
+            }
+
+            session.update(emp);
+
+            session.getTransaction().commit();
+            result = true;
+        }catch (Exception ex){
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return result;
+
+    }
+
     public boolean updateShift(int shiftId, int dayId,LocalDateTime s, LocalDateTime e){
 
         boolean result=false;

@@ -272,5 +272,20 @@ public class DBOperation {
         session.getTransaction().commit();
         session.close();
         return shiftList;
+
     }
+
+    public Shift getShift(int shiftId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        //select a.firstName, a.lastName from Book b join b.authors a where b.id = :id
+        Query query = session.createQuery("SELECT s FROM Shift s where s.shiftId = :id ");
+        query.setParameter("id", shiftId);
+        Shift shift = (Shift) query.getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return shift;
+
+    }
+
 }

@@ -6,10 +6,12 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class DBOperation {
@@ -33,7 +35,7 @@ public class DBOperation {
     public ArrayList<Employee> getEmployees() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true", Employee.class).getResultList());
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true AND type <> 'A' ", Employee.class).getResultList());
         session.getTransaction().commit();
         session.close();
         return empList;
@@ -209,7 +211,7 @@ public class DBOperation {
         return shiftList;
     }
 
-    public void updateShiftTemplate(temp.ShiftTemplate st) {
+    public void updateShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.update(st);
@@ -217,7 +219,7 @@ public class DBOperation {
         session.close();
     }
 
-    public void deleteShiftTemplate(temp.ShiftTemplate st) {
+    public void deleteShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.delete(st);
@@ -225,12 +227,39 @@ public class DBOperation {
         session.close();
     }
 
-    public void addShiftTemplate(temp.ShiftTemplate st) {
+    public void addShiftTemplate1(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(st);
         session.getTransaction().commit();
         session.close();
+    }
+
+    public boolean updateDayTemplate(String day,String s,String e){
+
+        boolean result=false;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            DayTemplate d = session.find(DayTemplate.class,day);
+            d.setOpenTime(s);
+            d.setCloseTime(e);
+            session.update(d);
+
+            session.getTransaction().commit();
+            result = true;
+        }catch (Exception ex){
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return result;
     }
 
 }

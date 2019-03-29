@@ -49,7 +49,7 @@ public class Employee implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Emp_id")
+    @Column(name = "emp_id")
     private Integer empid;
     @Basic(optional = false)
     @Column(name = "Fname")
@@ -77,8 +77,10 @@ public class Employee implements Serializable {
     private boolean active;
     @Column(name = "Notes")
     private String notes;
-
-    @ManyToMany(mappedBy = "employeeList",cascade = CascadeType.ALL)
+    @JoinTable(name = "schedule_employee", joinColumns = {
+            @JoinColumn(name = "emp_id", referencedColumnName = "emp_id")}, inverseJoinColumns = {
+            @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")})
+    @ManyToMany
     private List<Shift> shiftList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
     private EmployeeConstraints employeeConstraints;

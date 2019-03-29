@@ -2,15 +2,11 @@ package Persistance;
 
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import temp.Day;
-import temp.Employee;
-import temp.Shift;
+import Model.*;
 
-import javax.security.sasl.SaslServer;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -140,8 +136,7 @@ public class FullcalendarDBOps {
 
             for(Day day:dayList){
 
-                startTime = day.getStartTime().replace(" ","T");
-                LocalDateTime st = LocalDateTime.parse(startTime);
+                LocalDateTime st = day.getStartTime();
 
                 //if there is a date in the table, then we do not need to add a date
                 if(s.toLocalDate().compareTo(st.toLocalDate())==0){
@@ -186,18 +181,18 @@ public class FullcalendarDBOps {
 
     public int addDay(LocalDateTime s,LocalDateTime e){
 
-        int result= 0;
-
         Session session = HibernateUtil.getSessionFactory().openSession();
+        int result = 0;
 
         try{
+
 
             session.beginTransaction();
 
             result = (int) session.save(new Day(s,e));
 
             session.getTransaction().commit();
-
+            return result;
         }catch (Exception ex){
             session.getTransaction().rollback();
             ex.printStackTrace();
@@ -248,20 +243,16 @@ public class FullcalendarDBOps {
 
             session.beginTransaction();
 
-            Shift oldShift = session.get(Shift.class,oldShiftId);
-            List<Employee> empList = oldShift.getEmployeeList();
-            for(int i=0;i<empList.size();i++){
-                if(empList.get(i).getEmpid() == empId){
-                    empList.remove(i);
+            Employee emp = session.find(Employee.class,empId);
+            List<Shift> shiftList = (List<Shift>) emp.getShiftList();
+            for(int i=0;i<shiftList.size();i++){
+                if(shiftList.get(i).getShiftId()==oldShiftId){
+                    shiftList.remove(i);
                 }
             }
 
-            Shift newShift = session.get(Shift.class,newShiftId);
-            Employee emp = session.get(Employee.class,empId);
-            newShift.getEmployeeList().add(emp);
-
-            session.update(oldShift);
-            session.update(newShift);
+            shiftList.add(new Shift(newShiftId));
+            session.update(emp);
 
             session.getTransaction().commit();
             result = true;
@@ -404,6 +395,8 @@ public class FullcalendarDBOps {
         boolean result=false;
 
         Session session = HibernateUtil.getSessionFactory().openSession();
+        Date startTime = Date.from(s.atZone(ZoneId.systemDefault()).toInstant());
+        Date endTime = Date.from(e.atZone(ZoneId.systemDefault()).toInstant());
 
         try{
 
@@ -415,8 +408,8 @@ public class FullcalendarDBOps {
             Day day = new Day();
             day.setDayId(dayId);
             shift.setDayId(day);
-            shift.setStartTime(s);
-            shift.setEndTime(e);
+            shift.setStartTime(startTime);
+            shift.setEndTime(endTime);
             shift.setShiftType(type);
             session.update(shift);
 

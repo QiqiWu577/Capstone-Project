@@ -91,6 +91,18 @@ insert into schedule_employee values (3,15);
 insert into schedule_employee values (5,14);
 insert into schedule_employee values (7,15);
 
+#day_template
+insert into day_template values ("Monday","00:00:00","00:00:00");
+insert into day_template values ("Tuesday","00:00:00","00:00:00");
+insert into day_template values ("Wednesday","00:00:00","00:00:00");
+insert into day_template values ("Thursday","00:00:00","00:00:00");
+insert into day_template values ("Friday","00:00:00","00:00:00");
+insert into day_template values ("Saturday","00:00:00","00:00:00");
+insert into day_template values ("Sunday","00:00:00","00:00:00");
+
+#shift_template
+
+
 DELIMITER //
 CREATE PROCEDURE get_login(IN empid int)
 BEGIN

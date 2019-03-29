@@ -110,3 +110,8 @@ insert into salt values (7777, "b86b8cf5c720849c1f2158e5eaea8ee93d4959439b44d3bf
 insert into employees values (8888, "Employee", "Employee", "123 Edmployee", "123-456-7890", "employee@employee.com", 'S', 0, 1, "This is a temporary employee account");
 
 insert into salt values (8888, "e6953dd39f3537ca2331130af04550442746895747e6c2405cac1af7f3001b1a7e25ba93f56f532122eb979f246f0d57841ca0189a67602f6852291e09234eda", "TkWVVu0T42sJnw0RkBIDVw==");
+
+insert into schedule_employee values (8888,1);
+insert into schedule_employee values (8888,2);
+
+

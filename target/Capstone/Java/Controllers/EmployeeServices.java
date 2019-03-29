@@ -1,6 +1,7 @@
 package Controllers;
 
 import Model.Employee;
+import Model.Shift;
 import Persistance.DBOperation;
 
 import javax.servlet.ServletException;
@@ -35,8 +36,14 @@ public class EmployeeServices extends HttpServlet {
 
             }
         } else {
+            request.setAttribute("empList", dbOps.getEmployees());
             Employee emp = (Employee) session.getAttribute("employee");
-            request.setAttribute("EmpShifts", emp.getShiftList());
+
+            request.setAttribute("empShifts", emp.getShiftList());
+            for(Shift s: emp.getShiftList()) {
+                System.out.println(s.getEndTime());
+                System.out.println(s.getStartTime());
+            }
             request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request,response);
         }
 

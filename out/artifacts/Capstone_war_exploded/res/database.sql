@@ -66,6 +66,7 @@ CREATE TABLE Notifications (
                              date DATETIME NOT NULL,
                              notif_type CHAR(1) NOT NULL,
                              Status CHAR(1) NOT NULL,
+                             shift_id int(4),
                              PRIMARY KEY(notif_id),
                              FOREIGN KEY (sender) references Employees(emp_id)
 );

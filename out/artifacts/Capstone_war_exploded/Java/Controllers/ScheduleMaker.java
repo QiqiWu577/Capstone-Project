@@ -32,31 +32,28 @@ public class ScheduleMaker {
     private ArrayList<DayTemplate> dayList;
 
 
-    public ScheduleMaker(int weeks) {
-        empList = new ArrayList<Employee>();
-        availList = new ArrayList<Employee>();
-        prefList = new ArrayList<Employee>();
-        availability = new ArrayList<boolean[]>();
-        preferences = new ArrayList<boolean[]>();
+    public ScheduleMaker() {
+        empList = new ArrayList<>();
+        availList = new ArrayList<>();
+        prefList = new ArrayList<>();
+        availability = new ArrayList<>();
+        preferences = new ArrayList<>();
         dayList = new ArrayList<>();
-        getEmployees();
-
-
     }
 
     /**
      * This method will get the avail and prefer time for each employee from
      * the file and add to the empList ArrayList.
      */
-    private void getEmployees() {
+    private void getEmployees(char empType) {
 
         empList.clear();
         DBOperation dbOps = new DBOperation();
-        empList = dbOps.getEmployees();
+        empList = dbOps.getEmployeesType(empType);
     }
 
     public ArrayList<Day> generateSchedule(char scheduleType) {
-
+        getEmployees(scheduleType);
         //for every day of the week starting with monday (runs 7 times)
         boolean retryWeek = true;
         ArrayList<Day> schedule = new ArrayList<>();

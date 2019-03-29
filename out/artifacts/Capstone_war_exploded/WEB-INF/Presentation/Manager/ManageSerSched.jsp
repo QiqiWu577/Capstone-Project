@@ -45,10 +45,11 @@
             <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
         </a>
         <nav role="navigation" class="w-nav-menu">
-            <a href="#" class="nav-links selected w-nav-link">Home</a>
-            <a href="<%=application.getContextPath() %>/TestServlet" class="nav-links w-nav-link">Employee Management</a>
+            <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
+            <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
             <a href="#" class="nav-links w-nav-link">Notifications</a>
-            <a href="#" class="nav-links w-nav-link">Settings</a>
+            <a href="<%=application.getContextPath() %>/ManagerServices" class="nav-links w-nav-link">Settings</a>
+            <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
     </div>
 </div>
@@ -59,6 +60,7 @@
         <a href="ManageScheduleViews?message=server">Server</a>
         <a href="ManageScheduleViews?message=bartender">Bartender</a>
         <a href="ManageScheduleViews?message=kitchen">Kitchen</a>
+        <a href="generateSchedule?type=S">Generate Schedule</a>
     </div>
     <br/>
 
@@ -74,9 +76,9 @@
             <label for="employee">Employee</label>
             <input type="text" name="employee" id="employee" class="text ui-widget-content ui-corner-all">
             <label for="start">Event Start Time</label>
-            <input type="text" name="start" id="start" class="text ui-widget-content ui-corner-all">
+            <input type="time" name="start" id="start" class="text ui-widget-content ui-corner-all">
             <label for="end">Event Start Time</label>
-            <input type="text" name="end" id="end" class="text ui-widget-content ui-corner-all">
+            <input type="time" name="end" id="end" class="text ui-widget-content ui-corner-all">
 
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </fieldset>
@@ -89,44 +91,7 @@
 
 <script>
     //style the button in the page
-
-
-
-
-        $( ".widget a" ).button();
-
-        // dialog = $( "#error" ).dialog({
-        //     autoOpen: false,
-        //     modal: true,
-        //     buttons: {
-        //         text: "Ok",
-        //         icon: "ui-icon-heart",
-        //         click: function() {
-        //             $( this ).dialog( "close" );
-        //         }
-        //     }
-        // });
-
-        // $("#dialog").dialog({
-        //     autoOpen: false,
-        //     height: 400,
-        //     width: 350,
-        //     modal: true,
-        //     buttons: {
-        //         "Confirm": addShift,
-        //         Cancel: function(){
-        //             dialog.dialog("close");
-        //         }
-        //     },
-        //     close: function () {
-        //         form[0].reset();
-        //         allFields.removeClass("ui-state-error");
-        //     }
-        // });
-
-
-
-
+    $( ".widget a" ).button();
 </script>
 </body>
 </html>

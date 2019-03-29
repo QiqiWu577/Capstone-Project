@@ -24,6 +24,7 @@ public class Validate extends HttpServlet {
         DBOperation dbops = new DBOperation();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String logout = request.getParameter("logout");
         boolean valid=false;
 
         long long1 = currentTimeMillis();
@@ -38,7 +39,6 @@ public class Validate extends HttpServlet {
         }
 
 
-        String logout=request.getParameter("logout");
 
 
 
@@ -64,7 +64,7 @@ public class Validate extends HttpServlet {
                 System.out.println(emp.getType());
                 if (emp.getType() == 'M') {
 
-                    request.getRequestDispatcher("/ManageEmployees").forward(request, response);
+                    request.getRequestDispatcher("/ManageScheduleViews").forward(request, response);
 
 
                 } else if (emp.getType() == 'A') {
@@ -73,14 +73,15 @@ public class Validate extends HttpServlet {
 
 
                 } else {
-                    request.getRequestDispatcher("/EmployeeServices").forward(request, response);
+                    request.getRequestDispatcher("/WEB-INF/Presentation/Employee/ManageEmpSched.jsp").forward(request, response);
 
                 }
 
 
-            }
-            else {
+            } else {
+                request.setAttribute("message", "Username or password is incorrect!");
 
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
 
         }
@@ -90,11 +91,6 @@ public class Validate extends HttpServlet {
             request.setAttribute("message", "Both username and password are required!");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
-
-
-
-
-
 
     }
 

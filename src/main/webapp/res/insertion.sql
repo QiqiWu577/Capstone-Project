@@ -10,13 +10,13 @@
 #D - declined
 #N - normal
 #I - important
-insert into notifications values (null, 1,2,'random message',curdate(),'A','N');
-insert into notifications values (null, 1,2,'random message',curdate(),'P','N');
-insert into notifications values (null, 1,2,'random message',curdate(),'S','W');
-insert into notifications values (null, 1,2,'random message',curdate(),'S','A');
-insert into notifications values (null, 1,2,'random message',curdate(),'S','D');
-insert into notifications values (null, 1,2,'random message',curdate(),'D','N');
-insert into notifications values (null, 1,2,'random message',curdate(),'A','I');
+insert into notifications values (null, 1,2,'random message',curdate(),'A','N',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'P','N',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','W',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','A',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','D',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'D','N',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'A','I',null);
 
 #Day and shift templates
 insert into day_template values ('Monday','00:00:00','23:59:59');

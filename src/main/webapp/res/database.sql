@@ -54,7 +54,6 @@ CREATE TABLE Shift(
                     startTime DATETIME not null,
                     endTime DATETIME not null,
                     shift_type char(1) not null,
-                    shift_id int(4),
                     primary key(shift_id),
                     FOREIGN KEY (day_id) REFERENCES days(day_id)
 );
@@ -67,6 +66,7 @@ CREATE TABLE Notifications (
                              date DATETIME NOT NULL,
                              notif_type CHAR(1) NOT NULL,
                              Status CHAR(1) NOT NULL,
+                             shift_id int(4),
                              PRIMARY KEY(notif_id),
                              FOREIGN KEY (sender) references Employees(emp_id)
 );

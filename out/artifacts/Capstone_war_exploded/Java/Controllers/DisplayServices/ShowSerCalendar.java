@@ -36,27 +36,30 @@ public class ShowSerCalendar extends HttpServlet {
                 String[] detail = row.split(",");
 
                 String shiftList = DBOps.getShifts(detail[0]);
-                String[] shifts = shiftList.split(";");
-                for(String shift:shifts){
-                    String[] shiftDetail = shift.split(",");
+                if(!shiftList.equals("")){
 
-                    //set the event color
-                    String color = "";
-                    if(shiftDetail[4].equals("D")){
+                    String[] shifts = shiftList.split(";");
+                    for(String shift:shifts){
+                        String[] shiftDetail = shift.split(",");
 
-                        color = "green";
-                    }else if(shiftDetail[4].equals("M")){
+                        //set the event color
+                        String color = "";
+                        if(shiftDetail[4].equals("D")){
 
-                        color = "yellow";
-                    }else {
+                            color = "green";
+                        }else if(shiftDetail[4].equals("M")){
 
-                        color = "purple";
+                            color = "yellow";
+                        }else {
+
+                            color = "purple";
+                        }
+
+                        //store id,title,start,end,shiftID,dayId and empId as CalendarDAO object into the ArrayList if one on the shift or
+                        // more than one employees on the same shift
+                        list.add(new CalendarDAO(i,detail[1],shiftDetail[2],shiftDetail[3],color,Integer.parseInt(shiftDetail[0]),Integer.parseInt(shiftDetail[1]),Integer.parseInt(detail[0])));
+                        i++;
                     }
-
-                    //store id,title,start,end,shiftID,dayId and empId as CalendarDAO object into the ArrayList if one on the shift or
-                    // more than one employees on the same shift
-                    list.add(new CalendarDAO(i,detail[1],shiftDetail[2],shiftDetail[3],color,Integer.parseInt(shiftDetail[0]),Integer.parseInt(shiftDetail[1]),Integer.parseInt(detail[0])));
-                    i++;
                 }
 
             }

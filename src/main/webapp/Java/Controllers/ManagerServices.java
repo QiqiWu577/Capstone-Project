@@ -57,6 +57,7 @@ public class ManagerServices extends HttpServlet {
             session.setAttribute("barList", db.getShiftTemplates('B'));
             session.setAttribute("kitchenList", db.getShiftTemplates('K'));
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
+
         } else if (notifications!=null){
             //Employee emp = (Employee) session.getAttribute("employee");
             //delete after testing

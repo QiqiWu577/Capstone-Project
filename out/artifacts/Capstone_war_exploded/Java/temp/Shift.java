@@ -75,16 +75,20 @@ public class Shift implements Serializable {
         return shiftId;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public LocalDateTime getStartTime() {
+        return startTime.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public Date getEndTime() {
-        return endTime;
+    public LocalDateTime getEndTime() {
+        return endTime.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 
     public void setEndTime(LocalDateTime endTime) {

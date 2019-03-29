@@ -110,7 +110,12 @@ public class EditSerCalendar extends HttpServlet {
             int oldShiftId = change.getShiftId();
             int empId = change.getEmpId();         //used to update the schedule_employee table for the shift
 
-            DBOps.deleteShift(empId,oldShiftId);
+            boolean test = DBOps.deleteShift(empId,oldShiftId);
+            if(test){
+                response.getWriter().write("Delete successful!");
+            }else{
+                response.getWriter().write("Fail to delete the shift.");
+            }
 
         }else{
 

@@ -42,6 +42,18 @@ public class DBOperation {
 
     }
 
+    public ArrayList<Employee> getEmployeesType(char type) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT e FROM Employee e where active = true AND type = :type ", Employee.class);
+        query.setParameter("type", type);
+        ArrayList<Employee> empList = new ArrayList<>(query.getResultList());
+        session.getTransaction().commit();
+        session.close();
+        return empList;
+
+    }
+
     public Employee getEmployee(int empid) {
         Employee emp = null;
 

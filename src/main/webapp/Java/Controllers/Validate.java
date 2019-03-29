@@ -24,6 +24,7 @@ public class Validate extends HttpServlet {
         DBOperation dbops = new DBOperation();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String logout = request.getParameter("logout");
         boolean valid=false;
 
         long long1 = currentTimeMillis();
@@ -38,7 +39,6 @@ public class Validate extends HttpServlet {
         }
 
 
-        String logout=request.getParameter("logout");
 
 
 

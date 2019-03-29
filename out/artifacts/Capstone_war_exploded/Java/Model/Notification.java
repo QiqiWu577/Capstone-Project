@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Persistance.DBOperation;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -78,6 +80,15 @@ public class Notification implements Serializable {
         this.status = status;
     }
 
+    public Notification(Employee sender, int recipient, String content, Character notiftype, Character status) {
+        this.sender = sender;
+        this.recipient = recipient;
+        this.content = content;
+        this.date = new Date();
+        this.notiftype = notiftype;
+        this.status = status;
+    }
+
     public Integer getNotifid() {
         return notifid;
     }
@@ -88,6 +99,13 @@ public class Notification implements Serializable {
 
     public int getRecipient() {
         return recipient;
+    }
+
+    public String getRecipientName(int id) {
+        Employee e = new Employee();
+        DBOperation db = new DBOperation();
+        e = db.getEmployee(id);
+        return e.getFname();
     }
 
     public void setRecipient(int recipient) {
@@ -126,8 +144,8 @@ public class Notification implements Serializable {
         this.status = status;
     }
 
-    public Employee getSender() {
-        return sender;
+    public String getSender() {
+        return sender.getFname();
     }
 
     public void setSender(Employee sender) {

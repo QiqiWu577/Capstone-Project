@@ -20,7 +20,9 @@ public class ManagerSettings extends HttpServlet {
         String update = request.getParameter("update");
         String delete = request.getParameter("delete");
         String add = request.getParameter("add");
+        String saveOps = request.getParameter("save");
         String updateDayTemp = request.getParameter("updateDayTemp");
+
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
 
@@ -185,6 +187,16 @@ public class ManagerSettings extends HttpServlet {
 
         }
 
+    }
+
+    public boolean notTheSameDay(LocalTime s, LocalTime e){
+        boolean check = false;
+
+        if(s.compareTo(e)>=0){
+            check = true;
+        }
+
+        return check;
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

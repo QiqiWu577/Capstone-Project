@@ -1,6 +1,6 @@
 package Controllers;
 
-import Model.*;
+import Model.Employee;
 import Persistance.DBOperation;
 
 import javax.servlet.ServletException;
@@ -19,12 +19,6 @@ public class ManagerServices extends HttpServlet {
 
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
-
-        session.setAttribute("frontList", db.getShiftTemplates('S'));
-        session.setAttribute("barList", db.getShiftTemplates('B'));
-        session.setAttribute("kitchenList", db.getShiftTemplates('K'));
-        //session.setAttribute("operationHrsList", db.getHoursOperation());
-        //session.setAttribute("username", username);
 
         //display operational hours from the database to the jsp table
         ArrayList<DayTemplate> list = db.getDayTemplates();
@@ -47,6 +41,26 @@ public class ManagerServices extends HttpServlet {
             }else if(list.get(i).getDayOfWeek().equals("Sunday")){
                 dayList.set(6,list.get(i));
             }
+        }
+
+        if(settings!=null) {
+
+            session.setAttribute("frontList", db.getShiftTemplates('S'));
+            session.setAttribute("barList", db.getShiftTemplates('B'));
+            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
+            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
+
+        } else if (notifications!=null){
+            //Employee emp = (Employee) session.getAttribute("employee");
+            //delete after testing
+            Employee e1 = db.getEmployee(1);
+            Employee e2 = db.getEmployee(2);
+            //
+            session.setAttribute("manList", db.getManagerNotifications());
+            session.setAttribute("receiveList", db.getReceivedNotifications(e2));//change to emp
+            session.setAttribute("sentList", db.getSentNotifications(e1));//change to emp
+            session.setAttribute("empList", db.getEmployees());
+            request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request,response);
         }
 
         session.setAttribute("dayList",dayList);

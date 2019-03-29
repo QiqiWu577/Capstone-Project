@@ -110,15 +110,7 @@ public class EditSerCalendar extends HttpServlet {
             int oldShiftId = change.getShiftId();
             int empId = change.getEmpId();         //used to update the schedule_employee table for the shift
 
-            //check if the employee exists
-            newEmpId = DBOps.empExist(employee);
-            if(newEmpId == 0){
-                response.getWriter().write("noEmp");
-            }else{
-
-                DBOps.deleteShift(empId,oldShiftId);
-
-            }
+            DBOps.deleteShift(empId,oldShiftId);
 
         }else{
 

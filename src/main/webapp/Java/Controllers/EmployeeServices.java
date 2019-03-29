@@ -29,56 +29,56 @@ public class EmployeeServices extends HttpServlet {
         page = "notification";
 
 
+        if (page != null) {
+            if (page.equals("shiftOffer")) {
 
-        if(page != null) {
-          if(page.equals("shiftOffer")) {
+                if (shiftId == null) {
+                    request.setAttribute("message", "You must select a shift!");
+                    request.setAttribute("empList", dbOps.getEmployees());
+                    request.setAttribute("empShifts", emp.getShiftList());
+                    request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
+                } else if (empId == null) {
+                    request.setAttribute("message", "You must select an employee to trade with!");
+                    request.setAttribute("empList", dbOps.getEmployees());
+                    request.setAttribute("empShifts", emp.getShiftList());
+                    request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
+                } else {
+                    int recipient = Integer.parseInt(empId);
+                    int shift_id = Integer.parseInt(shiftId);
+                    Shift s = dbOps.getShift(shift_id);
+                    String content = emp.getFname() + " want you to take their shift on " + s.getStartTime();
+                    Notification notif = new Notification(emp, recipient, shift_id, content, 'S', 'A');
+                    dbOps.addNotification(notif);
+                    request.setAttribute("message", "Request Sent!");
+                    request.setAttribute("empList", dbOps.getEmployees());
+                    request.setAttribute("empShifts", emp.getShiftList());
+                    request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
 
-              if(shiftId == null) {
-                  request.setAttribute("message", "You must select a shift!");
-                  request.setAttribute("empList", dbOps.getEmployees());
-                  request.setAttribute("empShifts", emp.getShiftList());
-                  request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
-              } else if (empId == null) {
-                  request.setAttribute("message", "You must select an employee to trade with!");
-                  request.setAttribute("empList", dbOps.getEmployees());
-                  request.setAttribute("empShifts", emp.getShiftList());
-                  request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
-              } else {
-                  int recipient = Integer.parseInt(empId);
-                  int shift_id = Integer.parseInt(shiftId);
-                  Shift s = dbOps.getShift(shift_id);
-                  String content = emp.getFname() + " want you to take their shift on " + s.getStartTime();
-                  Notification notif = new Notification(0 ,emp, recipient, shift_id, new Date(), content,'S','A');
-                  dbOps.addNotification(notif);
-                  request.setAttribute("message", "Request Sent!");
-                  request.setAttribute("empList", dbOps.getEmployees());
-                  request.setAttribute("empShifts", emp.getShiftList());
-                  request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
+                }
+                if (page.equals("notification")) {
 
-              }
-            if(page.equals("notification")) {
-
-                //Employee emp = (Employee) session.getAttribute("employee");
-                //delete after testing
-                Employee e1 = dbOps.getEmployee(1);
-                Employee e2 = dbOps.getEmployee(2);
-                //
-                session.setAttribute("receiveList", dbOps.getReceivedNotifications(e2));//change to emp
-                session.setAttribute("sentList", dbOps.getSentNotifications(e1));//change to emp
-                session.setAttribute("empList", dbOps.getEmployees());
-                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeNotifications.jsp").forward(request,response);
+                    //Employee emp = (Employee) session.getAttribute("employee");
+                    //delete after testing
+                    Employee e1 = dbOps.getEmployee(1);
+                    Employee e2 = dbOps.getEmployee(2);
+                    //
+                    session.setAttribute("receiveList", dbOps.getReceivedNotifications(e2));//change to emp
+                    session.setAttribute("sentList", dbOps.getSentNotifications(e1));//change to emp
+                    session.setAttribute("empList", dbOps.getEmployees());
+                    request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeNotifications.jsp").forward(request, response);
 
 
+                }
+            } else {
+                //this needs to be changed
+                System.out.println("Test!");
+                request.setAttribute("empList", dbOps.getEmployees());
+                request.setAttribute("empShifts", emp.getShiftList());
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
             }
-        } else {
-            //this needs to be changed
-            System.out.println("Test!");
-            request.setAttribute("empList", dbOps.getEmployees());
-            request.setAttribute("empShifts", emp.getShiftList());
-            request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request,response);
+
+
         }
-
-
     }
 
 
@@ -90,3 +90,4 @@ public class EmployeeServices extends HttpServlet {
         processRequest(request, response);
     }
 }
+

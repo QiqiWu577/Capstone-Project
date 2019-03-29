@@ -271,18 +271,19 @@ public class DBOperation {
             session.close();
         }
         return result;
-      }
+    }
 
-      public ArrayList<Notification> getSentNotifications(Employee e) {
-          Session session = HibernateUtil.getSessionFactory().openSession();
-          session.beginTransaction();
-          Query query = session.createQuery("SELECT n FROM Notification n WHERE n.sender = :id ORDER BY date desc");
-          query.setParameter("id", e);
+    public ArrayList<Notification> getSentNotifications(Employee e) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
 
-          ArrayList<Notification> sentList = new ArrayList<>(query.list());
-          session.getTransaction().commit();
-          session.close();
-          return sentList;
+        Query query = session.createQuery("SELECT n FROM Notification n WHERE n.sender = :id ORDER BY date desc");
+        query.setParameter("id", e);
+
+        ArrayList<Notification> sentList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+        return sentList;
     }
 
     public ArrayList<Notification> getReceivedNotifications(Employee e) {

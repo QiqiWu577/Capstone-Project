@@ -270,9 +270,13 @@ public class DBOperation {
         }finally {
             session.close();
         }
-      }
+        return result;
+    }
 
-      public ArrayList<Notification> getSentNotifications(Employee e) {
+    public ArrayList<Notification> getSentNotifications(Employee e) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
         Query query = session.createQuery("SELECT n FROM Notification n WHERE n.sender = :id ORDER BY date desc");
         query.setParameter("id", e);
 

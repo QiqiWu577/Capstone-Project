@@ -17,24 +17,22 @@ public class ManagerServices extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String settings = request.getParameter("settings");
+        String notifications = "notifications";
+
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
 
-        session.setAttribute("frontList", db.getShiftTemplates('S'));
-        session.setAttribute("barList", db.getShiftTemplates('B'));
-        session.setAttribute("kitchenList", db.getShiftTemplates('K'));
+        if(settings!=null) {
 
-        String action = request.getParameter("action");
+            session.setAttribute("frontList", db.getShiftTemplates('S'));
+            session.setAttribute("barList", db.getShiftTemplates('B'));
+            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
 
-        //session.setAttribute("operationHrsList", db.getHoursOperation());
-        //session.setAttribute("username", username);
-
-        //display operational hours from the database to the jsp table
-        ArrayList<DayTemplate> list = db.getDayTemplates();
-        ArrayList<DayTemplate> dayList = db.getDayTemplates();
-
-        if (action!=null) {
-
+            String action = request.getParameter("action");
+            //display operational hours from the database to the jsp table
+            ArrayList<DayTemplate> list = db.getDayTemplates();
+            ArrayList<DayTemplate> dayList = db.getDayTemplates();
             //order days from Monday to Sunday
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getDayOfWeek().equals("Monday")) {
@@ -54,13 +52,25 @@ public class ManagerServices extends HttpServlet {
                 }
             }
 
-        } else {
-
             session.setAttribute("dayList", dayList);
-
+            session.setAttribute("frontList", db.getShiftTemplates('S'));
+            session.setAttribute("barList", db.getShiftTemplates('B'));
+            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
+        } else if (notifications!=null){
+            //Employee emp = (Employee) session.getAttribute("employee");
+            //delete after testing
+            Employee e1 = db.getEmployee(1);
+            Employee e2 = db.getEmployee(2);
+            //
+            session.setAttribute("manList", db.getManagerNotifications());
+            session.setAttribute("receiveList", db.getReceivedNotifications(e2));//change to emp
+            session.setAttribute("sentList", db.getSentNotifications(e1));//change to emp
+            session.setAttribute("empList", db.getEmployees());
+            request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request,response);
         }
     }
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);

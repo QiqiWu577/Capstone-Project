@@ -132,8 +132,10 @@ $(document).ready(function() {
             contentType: "application/json",
             data: JSON.stringify(data), //pass data to the servlet
             success: function(data){    //get data from the servlet
-                if(data === 'sameEmp') {
-                    alert("test!");
+                if(data === 'sameEmpShift') {
+                    alert("Cannot be the same shift! Please select the different shift time for the employee!");
+                }else if(data === 'crossover'){
+                    alert("The shifts of the same employee cross over! Please select the different shift time for the employee!");
                 }
             }
         });

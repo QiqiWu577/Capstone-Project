@@ -364,22 +364,22 @@ public class FullcalendarDBOps {
         return check;
     }
 
-    public boolean checkSameEmpShift(int oldEmp,int newShiftId){
+    public String checkSameEmp(int empId,int newShiftId,LocalDateTime cs,LocalDateTime ce){
 
-        boolean check = false;
+        String result = "";
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         try{
 
-            Shift shift = session.get(Shift.class,newShiftId);
+            Employee emp = session.find(Employee.class,empId);
+            List<Shift> shiftlist = (List<Shift>) emp.getShiftList();
+            for(int i=0;i<shiftlist.size();i++){
 
-            List<Employee> list = shift.getEmployeeList();
-
-            for(int i=0;i<list.size();i++){
-
-                if(oldEmp == list.get(i).getEmpid()){
-                    check = true;
+                if(shiftlist.get(i).getShiftId() == newShiftId){
+                    result = "sameEmpShift";
+                }else if(!(cs.compareTo(shiftlist.get(i).getEndTime())>=0) || !(ce.compareTo(shiftlist.get(i).getStartTime())<=0)){
+                    result = "crossover";
                 }
             }
 
@@ -387,7 +387,7 @@ public class FullcalendarDBOps {
             session.close();
         }
 
-        return check;
+        return result;
     }
 
     public boolean updateShift(int shiftId, int dayId,LocalDateTime s, LocalDateTime e){

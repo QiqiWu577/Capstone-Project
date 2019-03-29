@@ -19,6 +19,8 @@ public class EditSerCalendar extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
+        response.setContentType("text/plain");
+        response.setCharacterEncoding("UTF-8");
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list;
 
@@ -36,7 +38,7 @@ public class EditSerCalendar extends HttpServlet {
 
         if(id.equals("add")){
 
-            System.out.println("successful!");
+
 
         }else if(id.equals("delete")){
 
@@ -51,7 +53,9 @@ public class EditSerCalendar extends HttpServlet {
 
             //check if they are the same shift
             //if they are, do nothing. or else continue to check
-            if(!DBOps.checkSameShift(oldShiftId, cs, ce)){
+            if(DBOps.checkSameShift(oldShiftId, cs, ce)){
+
+            }else{
 
                 //check if the day exists
                 //if it doesn't, add a new day. or else compare the shift and the day to
@@ -94,24 +98,26 @@ public class EditSerCalendar extends HttpServlet {
                     //if it doesn't, add a new shift.update the join table
                     newShiftId = DBOps.shiftExist(cs,ce);
 
-
-                   if(newShiftId == 0){
+                    if(newShiftId == 0){
 
                        newShiftId = DBOps.addShift(empId,newDayId,cs,ce);
-                       //delete the old one and add the new one to the join table for the new shift
-                       boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
-                   }else{
-                       //check if there are same emp on the same new shift
+
+                    }else{
+
+                       //check the same employee situations
+                       //they cannot be the same time range or cross over
                        //if it is, display the error and do nothing. or else continue the operation on shift table
-                       if(DBOps.checkSameEmpShift(empId,newShiftId)){
-                           response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-                           response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
-                           response.getWriter().write("sameEmp");
-                       }else{
-                           //delete the old one and add the new one to the join table for the new shift
-                           boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
+                       String result = DBOps.checkSameEmp(empId,newShiftId,cs,ce);
+                       if(result.equals("sameEmpShift")){
+                           response.getWriter().write("sameEmpShift");
+                       }else if(result.equals("crossover")){
+                           response.getWriter().write("crossover");
                        }
-                   }
+
+                    }
+
+                    //delete the old one and add the new one to the join table for the new shift
+                    boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
 
                 }
 

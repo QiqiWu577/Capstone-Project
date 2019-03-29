@@ -262,4 +262,83 @@ public class DBOperation {
         return result;
     }
 
+    public ArrayList<Notification> getSentNotifications(Employee e) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("SELECT n FROM Notification n WHERE n.sender = :id ORDER BY date desc");
+        query.setParameter("id", e);
+
+        ArrayList<Notification> sentList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return sentList;
+    }
+
+    public ArrayList<Notification> getReceivedNotifications(Employee e) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("SELECT n FROM Notification n WHERE n.recipient = :id ORDER BY date desc");
+        query.setParameter("id", e.getEmpid());
+
+        ArrayList<Notification> receiveList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return receiveList;
+    }
+
+    public void deleteNotification(Notification n) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.delete(n);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updateNotification(Notification n) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(n);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public Notification getNotification(int id) {
+        Notification n = null;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT n FROM Notification n where n.notifid=:id", Notification.class);
+        query.setParameter("id",id);
+        session.getTransaction().commit();
+        n = (Notification) query.getSingleResult();
+        session.close();
+
+        return n;
+    }
+
+    public ArrayList<Notification> getManagerNotifications() {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        char p ='P';
+
+        Query query = session.createQuery("SELECT n FROM Notification n WHERE NOT (n.notiftype = :type) ORDER BY date desc");
+        query.setParameter("type", p);
+
+        ArrayList<Notification> manList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return manList;
+      }
+
+
+
 }

@@ -17,15 +17,6 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
-<div class="sidebar">
-    <div class="logo">
-        <img src="res/2030%20logo.png" alt="2030" height="100" width="100">
-    </div>
-    <a href="home.html">Home</a>
-    <a href="employeemgmt.html">Employee Management</a>
-    <a href="settings.html">Settings</a>
-</div>
 
 <body>
 <!--Left side Menu needs to be updated-->
@@ -35,7 +26,7 @@
             <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
         </a>
         <nav role="navigation" class="w-nav-menu">
-            <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
+            <a href="<%=application.getContextPath() %>/EmployeeServices?page=home" class="nav-links w-nav-link">Home</a>
             <a href="<%=application.getContextPath() %>/EmployeeServices?page=shiftOffer" class="nav-links w-nav-link">Shift Changes</a>
             <a href="<%=application.getContextPath() %>/EmployeeServices?page=notification" class="nav-links w-nav-link">Notifications</a>
         </nav>

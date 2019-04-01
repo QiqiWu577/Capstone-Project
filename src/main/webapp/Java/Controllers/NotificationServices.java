@@ -36,7 +36,7 @@ public class NotificationServices extends HttpServlet {
 
             session.setAttribute("receiveList", db.getReceivedNotifications(emp));
             session.setAttribute("sentList", db.getSentNotifications(emp)); //change to emp after
-            
+
             if(emp.getType().equals('M')) {
                 session.setAttribute("manList", db.getManagerNotifications());
                 request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request,response);

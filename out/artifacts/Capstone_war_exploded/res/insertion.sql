@@ -1,4 +1,19 @@
 #############Testing for FullCalendar##############
+<<<<<<< HEAD
+#Notification type
+#A - all
+#P - personal
+#S - shift available
+#D - department
+#Status
+#A - approved
+#W - waiting
+#D - declined
+#N - normal
+#I - important
+
+=======
+>>>>>>> f8ff077fa285c12f24cdbd1c101ed2b2286e3a94
 
 #Day and shift templates
 insert into day_template values ('Monday','00:00:00','23:59:59');
@@ -111,14 +126,6 @@ insert into schedule_employee values (3,15);
 insert into schedule_employee values (5,14);
 insert into schedule_employee values (7,15);
 
-#day_template
-insert into day_template values ("Monday","00:00:00","00:00:00");
-insert into day_template values ("Tuesday","00:00:00","00:00:00");
-insert into day_template values ("Wednesday","00:00:00","00:00:00");
-insert into day_template values ("Thursday","00:00:00","00:00:00");
-insert into day_template values ("Friday","00:00:00","00:00:00");
-insert into day_template values ("Saturday","00:00:00","00:00:00");
-insert into day_template values ("Sunday","00:00:00","00:00:00");
 
 #shift_template
 

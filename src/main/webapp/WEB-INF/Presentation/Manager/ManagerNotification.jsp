@@ -46,6 +46,7 @@
             <div id="all" class="tab-pane fade in active">
                 <h3>All Notifications</h3>
                 <div class="panel-body">
+                    <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
                         <col width='10%'><%--Date--%>
@@ -125,13 +126,14 @@
                                 <form action="NotificationServices">
                                     <input type="hidden" name="noteId" value="${msg.getNotifid()}">
                                     <input type="hidden" name="delete" value="true">
-                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                    <input type="submit" class="btn btn-danger btn-block" value="Delete">
                                 </form>
                             </td>
                             </tr>
                         </c:forEach>
                         </tbody>
                     </table>
+                    </div>
                 </div>
             </div>
 
@@ -215,16 +217,16 @@
                                     <c:when test="${msg.getStatus() eq 'W'.charAt(0)}">
                                         <form action="NotificationServices">
                                             <input type="hidden" name="noteId" value="${msg.getNotifid()}">
-                                            <input type="submit" class="btn btn-success" name="accept" value="Accept">
-                                            <br/>
-                                            <input type="submit" class="btn btn-warning" name="decline" value="Decline">
+                                            <input type="submit" class="btn btn-success btn-block" name="accept" value="Accept">
+
+                                            <input type="submit" class="btn btn-warning btn-block" name="decline" value="Decline">
                                         </form>
                                     </c:when>
                                     <c:otherwise>
                                         <form action="NotificationServices">
                                             <input type="hidden" name="noteId" value="${msg.getNotifid()}">
                                             <input type="hidden" name="delete" value="true">
-                                            <input type="submit" class="btn btn-danger" value="Delete">
+                                            <input type="submit" class="btn btn-danger btn-block" value="Delete">
                                         </form>
                                     </c:otherwise>
                                 </c:choose>
@@ -297,22 +299,26 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="to">Select Employee:</label>
-                            <select class="form-control" id="to" name="to" disabled="true">
+                            <label for="dept">Select Department:</label>
+                            <select class="form-control" id="dept" name="dept">
+                                <option></option>
+                                <option value="front">Front</option>
+                                <option value="bar">Bar</option>
+                                <option value="kitchen">Kitchen</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="to">If Personal Notification, Select Employee:</label>
+                            <select class="form-control" id="to" name="to">
                                 <option></option>
                                 <c:forEach items="${sessionScope.empList}" var="emp">
                                     <option value="${emp.getEmpid()}">${emp.getFname()}</option>
                                 </c:forEach>
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label for="dept">Select Department:</label>
-                            <select class="form-control" id="dept" name="dept" disabled="true">
-                                <option></option>
-                                <option value="front">Front</option>
-                                <option value="bar">Bar</option>
-                                <option value="kitchen">Kitchen</option>
-                            </select>
+                        <div class="form-inline">
+                            <label>Mark Important: <input type="checkbox" name="important" value="true"></label>
                         </div>
                         <div class="form-group">
                             <label for="comment">Comment:</label>
@@ -323,22 +329,20 @@
                         <div style="width:100px;height:30px;">
                             <input type="submit" class="btn btn-info" size="5" value="Submit">
                         </div>
-
-                        <script>
-                            function enableMenu(type) {
-                                if(type.equals("D")) {
-                                    document.getElementById("dept").disabled = false;
-                                }
-                                else if (type.equals("P")) {
-                                    document.getElementById("to").disabled = false;
-                                }
-                                else {
-                                    return;
-                                }
-                            }
-                        </script>
-
                     </form>
+                    <script>
+                        function enableMenu(type) {
+                            if(type.equals("D")) {
+                                document.getElementById("dept").disabled = false;
+                            }
+                            else if (type.equals("P")) {
+                                document.getElementById("to").disabled = false;
+                            }
+                            else {
+                                return;
+                            }
+                        }
+                    </script>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 #############Testing for FullCalendar##############
+<<<<<<< HEAD
 #Notification type
 #A - all
 #P - personal
@@ -11,6 +12,8 @@
 #N - normal
 #I - important
 
+=======
+>>>>>>> f8ff077fa285c12f24cdbd1c101ed2b2286e3a94
 
 #Day and shift templates
 insert into day_template values ('Monday','00:00:00','23:59:59');
@@ -155,11 +158,33 @@ insert into schedule_employee values (8888,1);
 insert into schedule_employee values (8888,2);
 insert into schedule_employee values (8888,3);
 
+insert into employees values (9,'Mr','Manager','Addy','Number','Man@gmail.com','M',1,1,'Im The BOSS');
 
-insert into notifications values (null, 1,2,'random message',curdate(),'A','N', null);
-insert into notifications values (null, 1,2,'random message',curdate(),'P','N', null);
-insert into notifications values (null, 1,2,'random message',curdate(),'S','W', null);
-insert into notifications values (null, 1,2,'random message',curdate(),'S','A', null);
-insert into notifications values (null, 1,2,'random message',curdate(),'S','D', null);
-insert into notifications values (null, 1,2,'random message',curdate(),'D','N', null);
-insert into notifications values (null, 1,2,'random message',curdate(),'A','I', null);
+#Notification type
+#A - all
+#P - personal
+#S - shift available
+#D - department
+#Status
+#A - approved
+#W - waiting
+#D - declined
+#N - normal
+#I - important
+insert into notifications values (null, 1,2,'random message',curdate(),'A','N',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'P','N',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','W',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','A',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','D',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'D','N',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'A','I',null);
+insert into notifications values (null, 1,2,'Test Shift 1',curdate(),'S','W',null);
+insert into notifications values (null, 1,2,'Test Shift 2',curdate(),'S','W',null);
+insert into notifications values (null, 1,2,'Test Shift 3',curdate(),'S','W',null);
+insert into notifications values (null, 1,2,'Test Shift 4',curdate(),'S','W',null);
+insert into notifications values (null, 9,9,'random message 1',curdate(),'P','N',null);
+insert into notifications values (null, 9,9,'random message 2',curdate(),'P','N',null);
+insert into notifications values (null, 9,9,'random message 3',curdate(),'P','N',null);
+insert into notifications values (null, 9,9,'random message 4',curdate(),'P','N',null);
+insert into notifications values (null, 9,9,'random message 5',curdate(),'P','N',null);
+insert into notifications values (null, 9,9,'random message',curdate(),'S','W',null);

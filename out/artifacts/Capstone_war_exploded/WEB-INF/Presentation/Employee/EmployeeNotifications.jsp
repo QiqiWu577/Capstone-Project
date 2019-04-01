@@ -17,6 +17,15 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
+<body>
+<div class="sidebar">
+    <div class="logo">
+        <img src="res/2030%20logo.png" alt="2030" height="100" width="100">
+    </div>
+    <a href="home.html">Home</a>
+    <a href="employeemgmt.html">Employee Management</a>
+    <a href="settings.html">Settings</a>
+</div>
 
 <body>
 <!--Left side Menu needs to be updated-->
@@ -27,9 +36,8 @@
         </a>
         <nav role="navigation" class="w-nav-menu">
             <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
-            <a href="<%=application.getContextPath() %>/TestServlet?page=1" class="nav-links selected w-nav-link">Employee Management</a>
-            <a href="#" class="nav-links w-nav-link">Notifications</a>
-            <a href="#" class="nav-links w-nav-link">Settings</a>
+            <a href="<%=application.getContextPath() %>/EmployeeServices?page=shiftOffer" class="nav-links w-nav-link">Shift Changes</a>
+            <a href="<%=application.getContextPath() %>/EmployeeServices?page=notification" class="nav-links w-nav-link">Notifications</a>
         </nav>
     </div>
 </div>
@@ -122,16 +130,16 @@
                                     <c:when test="${msg.getStatus() eq 'W'.charAt(0)}">
                                         <form action="NotificationServices">
                                             <input type="hidden" name="noteId" value="${msg.getNotifid()}">
-                                            <input type="submit" class="btn btn-success" name="accept" value="Accept">
+                                            <input type="submit" class="btn btn-success btn-block" name="accept" value="Accept">
                                             <br/>
-                                            <input type="submit" class="btn btn-warning" name="decline" value="Decline">
+                                            <input type="submit" class="btn btn-warning btn-block" name="decline" value="Decline">
                                         </form>
                                     </c:when>
                                     <c:otherwise>
                                         <form action="NotificationServices">
                                             <input type="hidden" name="noteId" value="${msg.getNotifid()}">
                                             <input type="hidden" name="delete" value="true">
-                                            <input type="submit" class="btn btn-danger" value="Delete">
+                                            <input type="submit" class="btn btn-danger btn-block" value="Delete">
                                         </form>
                                     </c:otherwise>
                                 </c:choose>
@@ -218,6 +226,7 @@
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

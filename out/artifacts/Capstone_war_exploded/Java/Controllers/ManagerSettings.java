@@ -20,9 +20,7 @@ public class ManagerSettings extends HttpServlet {
         String update = request.getParameter("update");
         String delete = request.getParameter("delete");
         String add = request.getParameter("add");
-        String saveOps = request.getParameter("save");
         String updateDayTemp = request.getParameter("updateDayTemp");
-
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
 
@@ -112,28 +110,6 @@ public class ManagerSettings extends HttpServlet {
             add = null;
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
-            ShiftTemplate st1 = new ShiftTemplate();
-            DayTemplate dt1 = new DayTemplate();
-
-            dt1.setDayOfWeek(request.getParameter("dayOfWeek"));
-            st1.setType(request.getParameter("shiftType").charAt(0));
-            st1.setShiftId(Integer.parseInt(request.getParameter("shiftId")));
-            st1.setName(request.getParameter("newName"));
-            st1.setStartTime(request.getParameter("newStart"));
-            st1.setEndTime(request.getParameter("newEnd"));
-            st1.setMinNoEmp(Integer.parseInt(request.getParameter("newMinEmp")));
-            st1.setMaxNoEmp(Integer.parseInt(request.getParameter("newMaxEmp")));
-            st1.setDayOfWeek(dt1);
-
-            db.updateShiftTemplate(st1);
-
-            session.setAttribute("frontList", db.getShiftTemplates('S'));
-            session.setAttribute("barList", db.getShiftTemplates('B'));
-            session.setAttribute("kitchenList", db.getShiftTemplates('K'));
-            request.setAttribute("shiftMessage", "Shift has been updated");
-            update = null;
-            getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
-
         }else if(delete!=null) {
 
             ShiftTemplate st = new ShiftTemplate(Integer.parseInt(request.getParameter("shiftId")));
@@ -187,16 +163,6 @@ public class ManagerSettings extends HttpServlet {
 
         }
 
-    }
-
-    public boolean notTheSameDay(LocalTime s, LocalTime e){
-        boolean check = false;
-
-        if(s.compareTo(e)>=0){
-            check = true;
-        }
-
-        return check;
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

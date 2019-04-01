@@ -42,6 +42,18 @@ public class DBOperation {
 
     }
 
+    public ArrayList<Employee> getEmployeesType(char type) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT e FROM Employee e where active = true AND type = :type ", Employee.class);
+        query.setParameter("type", type);
+        ArrayList<Employee> empList = new ArrayList<>(query.getResultList());
+        session.getTransaction().commit();
+        session.close();
+        return empList;
+
+    }
+
     public Employee getEmployee(int empid) {
         Employee emp = null;
 
@@ -235,12 +247,12 @@ public class DBOperation {
         session.close();
     }
 
+
     public boolean updateDayTemplate(String day,String s,String e){
 
         boolean result=false;
-
         Session session = HibernateUtil.getSessionFactory().openSession();
-
+        session.beginTransaction();
         try{
 
             session.beginTransaction();
@@ -258,12 +270,10 @@ public class DBOperation {
         }finally {
             session.close();
         }
-
         return result;
     }
 
     public ArrayList<Notification> getSentNotifications(Employee e) {
-
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
 
@@ -273,7 +283,6 @@ public class DBOperation {
         ArrayList<Notification> sentList = new ArrayList<>(query.list());
         session.getTransaction().commit();
         session.close();
-
         return sentList;
     }
 
@@ -339,6 +348,29 @@ public class DBOperation {
         return manList;
       }
 
+    public ArrayList<Shift> getShifts(int empid) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        //select a.firstName, a.lastName from Book b join b.authors a where b.id = :id
+        Query query = session.createQuery("SELECT s FROM Employee e join e.shiftList s where e.empid = :id ");
+        query.setParameter("id", empid);
+        ArrayList<Shift> shiftList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+        return shiftList;
 
+    }
+
+    public Shift getShift(int shiftId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        //select a.firstName, a.lastName from Book b join b.authors a where b.id = :id
+        Query query = session.createQuery("SELECT s FROM Shift s where s.shiftId = :id ");
+        query.setParameter("id", shiftId);
+        Shift shift = (Shift) query.getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return shift;
+    }
 
 }

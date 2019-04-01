@@ -130,16 +130,16 @@
                                     <c:when test="${msg.getStatus() eq 'W'.charAt(0)}">
                                         <form action="NotificationServices">
                                             <input type="hidden" name="noteId" value="${msg.getNotifid()}">
-                                            <input type="submit" class="btn btn-success" name="accept" value="Accept">
+                                            <input type="submit" class="btn btn-success btn-block" name="accept" value="Accept">
                                             <br/>
-                                            <input type="submit" class="btn btn-warning" name="decline" value="Decline">
+                                            <input type="submit" class="btn btn-warning btn-block" name="decline" value="Decline">
                                         </form>
                                     </c:when>
                                     <c:otherwise>
                                         <form action="NotificationServices">
                                             <input type="hidden" name="noteId" value="${msg.getNotifid()}">
                                             <input type="hidden" name="delete" value="true">
-                                            <input type="submit" class="btn btn-danger" value="Delete">
+                                            <input type="submit" class="btn btn-danger btn-block" value="Delete">
                                         </form>
                                     </c:otherwise>
                                 </c:choose>

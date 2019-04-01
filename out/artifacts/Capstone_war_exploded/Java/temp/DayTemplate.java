@@ -100,5 +100,5 @@ public class DayTemplate implements Serializable {
     public String toString() {
         return "data.DayTemplate[ dayOfWeek=" + dayOfWeek + " ]";
     }
-
+    
 }

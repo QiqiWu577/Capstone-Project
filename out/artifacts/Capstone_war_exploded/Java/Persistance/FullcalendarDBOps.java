@@ -364,22 +364,22 @@ public class FullcalendarDBOps {
         return check;
     }
 
-    public boolean checkSameEmpShift(int oldEmp,int newShiftId){
+    public String checkSameEmp(int empId,int newShiftId,LocalDateTime cs,LocalDateTime ce){
 
-        boolean check = false;
+        String result = "";
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         try{
 
-            Shift shift = session.get(Shift.class,newShiftId);
+            Employee emp = session.find(Employee.class,empId);
+            List<Shift> shiftlist = (List<Shift>) emp.getShiftList();
+            for(int i=0;i<shiftlist.size();i++){
 
-            List<Employee> list = shift.getEmployeeList();
-
-            for(int i=0;i<list.size();i++){
-
-                if(oldEmp == list.get(i).getEmpid()){
-                    check = true;
+                if(shiftlist.get(i).getShiftId() == newShiftId){
+                    result = "sameEmpShift";
+                }else if(!(cs.compareTo(shiftlist.get(i).getEndTime())>=0) || !(ce.compareTo(shiftlist.get(i).getStartTime())<=0)){
+                    result = "crossover";
                 }
             }
 
@@ -387,7 +387,65 @@ public class FullcalendarDBOps {
             session.close();
         }
 
+        return result;
+    }
+
+    public int empExist(String employee){
+
+        int check = 0;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try {
+
+            Query q = session.createQuery("SELECT e FROM Employee e WHERE e.fname = :fname");
+            q.setParameter("fname",employee);
+
+            Employee emp = (Employee) q.uniqueResult();
+
+            if(emp != null){
+                check = emp.getEmpid();
+            }
+
+        }finally {
+            session.close();
+        }
+
         return check;
+
+    }
+
+    public boolean deleteShift(int empId,int oldShiftId){
+
+        boolean result=false;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            Employee emp = session.find(Employee.class,empId);
+            List<Shift> shiftList = (List<Shift>) emp.getShiftList();
+            for(int i=0;i<shiftList.size();i++){
+                if(shiftList.get(i).getShiftId()==oldShiftId){
+                    shiftList.remove(i);
+                }
+            }
+
+            session.update(emp);
+
+            session.getTransaction().commit();
+            result = true;
+        }catch (Exception ex){
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
+
+        return result;
+
     }
 
     public boolean updateShift(int shiftId, int dayId,LocalDateTime s, LocalDateTime e){

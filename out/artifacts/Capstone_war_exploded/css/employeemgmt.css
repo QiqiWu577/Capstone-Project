@@ -1,7 +1,5 @@
 body {
     font-family:Arial, sans-serif;
-    background-color:#d8d8d8;
-
     margin:0;
 }
 
@@ -17,7 +15,12 @@ body {
     overflow-x:hidden;
     padding-top:15px;
 }
-
+.activeE {
+    background-color: #00a2ee!important;
+}
+.activeS {
+    background-color: #00a2ee!important;
+}
 a {
     font-family:Arial, sans-serif;
     text-decoration:none;
@@ -76,6 +79,12 @@ a:hover {
     float:left;
     width:50%;
     padding:10px;
+}
+
+
+.center {
+    text-align: center;
+    align-content: center;
 }
 
 .columnleft {
@@ -330,16 +339,6 @@ td.hour:hover {
     border-width:0 3px 3px 0;
 }
 
-input,textarea {
-    border:0 solid;
-    width:90%;
-    font-size:16px;
-    background-color:#FFF;
-    margin-bottom:20px;
-    border-radius:3px;
-    padding:10px 0 10px 8px;
-}
-
 .btn:hover,.btns:hover {
     background-color:#008db1;
 }
@@ -394,12 +393,12 @@ input,textarea {
 
 .dayOfWeek {
     display:inline-block;
-    margin-bottom:3px;
-    width:300px;
     background:#323232;
     color:#FFF;
     border-radius:10px;
-    padding: 10px;
-    padding-left: 10px;
     font-size: 15px;
+}
+
+.dayOfWeek:hover{
+    color: teal;
 }

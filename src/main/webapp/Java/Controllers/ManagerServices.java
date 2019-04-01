@@ -18,8 +18,7 @@ public class ManagerServices extends HttpServlet {
             throws ServletException, IOException {
 
         String settings = request.getParameter("settings");
-        String notifications = request.getParameter("notifications");
-        notifications = request.getParameter("page");
+        String notifications = request.getParameter("page");
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
         //remove after testing
@@ -62,7 +61,7 @@ public class ManagerServices extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
         } else if (notifications!=null){
-            if(notifications.equals("page")) {
+            if(notifications.equals("notifications")) {
                 session.setAttribute("manList", db.getManagerNotifications());
                 session.setAttribute("receiveList", db.getReceivedNotifications(emp));
                 session.setAttribute("sentList", db.getSentNotifications(emp));

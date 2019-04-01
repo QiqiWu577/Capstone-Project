@@ -18,8 +18,7 @@ public class ManagerServices extends HttpServlet {
             throws ServletException, IOException {
 
         String settings = request.getParameter("settings");
-        String notifications = request.getParameter("notifications");
-        notifications="true";
+        String notifications = request.getParameter("page");
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
         //remove after testing
@@ -62,12 +61,15 @@ public class ManagerServices extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
         } else if (notifications!=null){
-
-            session.setAttribute("manList", db.getManagerNotifications());
-            session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-            session.setAttribute("sentList", db.getSentNotifications(emp));
-            session.setAttribute("empList", db.getEmployees());
-            request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request,response);
+            if(notifications.equals("notifications")) {
+                session.setAttribute("manList", db.getManagerNotifications());
+                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
+                session.setAttribute("sentList", db.getSentNotifications(emp));
+                session.setAttribute("empList", db.getEmployees());
+                request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request, response);
+            } else {
+                request.getRequestDispatcher("/ManageScheduleViews").forward(request, response);
+            }
         }
     }
 

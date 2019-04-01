@@ -10,13 +10,7 @@
 #D - declined
 #N - normal
 #I - important
-insert into notifications values (null, 1,2,'random message',curdate(),'A','N');
-insert into notifications values (null, 1,2,'random message',curdate(),'P','N');
-insert into notifications values (null, 1,2,'random message',curdate(),'S','W');
-insert into notifications values (null, 1,2,'random message',curdate(),'S','A');
-insert into notifications values (null, 1,2,'random message',curdate(),'S','D');
-insert into notifications values (null, 1,2,'random message',curdate(),'D','N');
-insert into notifications values (null, 1,2,'random message',curdate(),'A','I');
+
 
 #Day and shift templates
 insert into day_template values ('Monday','00:00:00','23:59:59');
@@ -129,14 +123,6 @@ insert into schedule_employee values (3,15);
 insert into schedule_employee values (5,14);
 insert into schedule_employee values (7,15);
 
-#day_template
-insert into day_template values ("Monday","00:00:00","00:00:00");
-insert into day_template values ("Tuesday","00:00:00","00:00:00");
-insert into day_template values ("Wednesday","00:00:00","00:00:00");
-insert into day_template values ("Thursday","00:00:00","00:00:00");
-insert into day_template values ("Friday","00:00:00","00:00:00");
-insert into day_template values ("Saturday","00:00:00","00:00:00");
-insert into day_template values ("Sunday","00:00:00","00:00:00");
 
 #shift_template
 
@@ -170,3 +156,10 @@ insert into schedule_employee values (8888,2);
 insert into schedule_employee values (8888,3);
 
 
+insert into notifications values (null, 1,2,'random message',curdate(),'A','N', null);
+insert into notifications values (null, 1,2,'random message',curdate(),'P','N', null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','W', null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','A', null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','D', null);
+insert into notifications values (null, 1,2,'random message',curdate(),'D','N', null);
+insert into notifications values (null, 1,2,'random message',curdate(),'A','I', null);

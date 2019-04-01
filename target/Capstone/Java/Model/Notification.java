@@ -50,7 +50,7 @@ public class Notification implements Serializable {
     @Column(name = "Recipient")
     private int recipient;
     @Column(name = "shift_id")
-    private int shift_id;
+    private Integer shift_id;
     @Column(name = "Content")
     private String content;
     @Basic(optional = false)
@@ -102,11 +102,11 @@ public class Notification implements Serializable {
     }
 
 
-    public int getShift_id() {
+    public Integer getShift_id() {
         return shift_id;
     }
 
-    public void setShift_id(int shift_id) {
+    public void setShift_id(Integer shift_id) {
         this.shift_id = shift_id;
     }
 

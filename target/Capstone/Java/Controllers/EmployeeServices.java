@@ -20,13 +20,13 @@ public class EmployeeServices extends HttpServlet {
 
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         String page = request.getParameter("page");
         DBOperation dbOps = new DBOperation();
         HttpSession session = request.getSession();
         String shiftId = request.getParameter("shiftId");
         String empId = request.getParameter("empId");
         Employee emp = (Employee) session.getAttribute("employee");
-
 
         if (page != null) {
             if (page.equals("shiftOffer")) {
@@ -42,6 +42,7 @@ public class EmployeeServices extends HttpServlet {
                     request.setAttribute("empShifts", emp.getShiftList());
                     request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
                 } else {
+
                     int recipient = Integer.parseInt(empId);
                     int shift_id = Integer.parseInt(shiftId);
                     Shift s = dbOps.getShift(shift_id);
@@ -54,29 +55,21 @@ public class EmployeeServices extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
 
                 }
-                if (page.equals("notification")) {
 
-                    //Employee emp = (Employee) session.getAttribute("employee");
-                    //delete after testing
-                    Employee e1 = dbOps.getEmployee(1);
-                    Employee e2 = dbOps.getEmployee(2);
-                    //
-                    session.setAttribute("receiveList", dbOps.getReceivedNotifications(e2));//change to emp
-                    session.setAttribute("sentList", dbOps.getSentNotifications(e1));//change to emp
-                    session.setAttribute("empList", dbOps.getEmployees());
-                    request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeNotifications.jsp").forward(request, response);
-
-
-                }
-            } else {
-                //this needs to be changed
-                System.out.println("Test!");
-                request.setAttribute("empList", dbOps.getEmployees());
-                request.setAttribute("empShifts", emp.getShiftList());
-                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
             }
+            else if (page.equals("notification")) {
 
+                session.setAttribute("receiveList", dbOps.getReceivedNotifications(emp));
+                session.setAttribute("sentList", dbOps.getSentNotifications(emp));
+                session.setAttribute("empList", dbOps.getEmployees());
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeNotifications.jsp").forward(request, response);
 
+            }else if (page.equals("home")) {
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/ManageEmpSched.jsp").forward(request, response);
+            }
+            else {
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/ManageEmpSched.jsp").forward(request, response);
+            }
         }
     }
 

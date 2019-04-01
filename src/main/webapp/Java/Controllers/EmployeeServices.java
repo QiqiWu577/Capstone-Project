@@ -64,16 +64,12 @@ public class EmployeeServices extends HttpServlet {
                 session.setAttribute("empList", dbOps.getEmployees());
                 request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeNotifications.jsp").forward(request, response);
 
+            }else if (page.equals("home")) {
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/ManageEmpSched.jsp").forward(request, response);
             }
             else {
-                //this needs to be changed
-                System.out.println("Test!");
-                request.setAttribute("empList", dbOps.getEmployees());
-                //request.setAttribute("empShifts", emp.getShiftList());
-                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/ManageEmpSched.jsp").forward(request, response);
             }
-
-
         }
     }
 

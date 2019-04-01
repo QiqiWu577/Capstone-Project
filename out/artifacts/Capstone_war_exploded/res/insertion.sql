@@ -1,4 +1,39 @@
 #############Testing for FullCalendar##############
+<<<<<<< HEAD
+#Notification type
+#A - all
+#P - personal
+#S - shift available
+#D - department
+#Status
+#A - approved
+#W - waiting
+#D - declined
+#N - normal
+#I - important
+
+=======
+>>>>>>> f8ff077fa285c12f24cdbd1c101ed2b2286e3a94
+
+#Day and shift templates
+insert into day_template values ('Monday','00:00:00','23:59:59');
+insert into day_template values ('Tuesday','00:00:00','23:59:59');
+insert into day_template values ('Wednesday','00:00:00','23:59:59');
+insert into day_template values ('Thursday','00:00:00','23:59:59');
+insert into day_template values ('Friday','00:00:00','23:59:59');
+insert into day_template values ('Saturday','00:00:00','23:59:59');
+insert into day_template values ('Sunday','00:00:00','23:59:59');
+
+insert into shift_template values (null,'S','Open', 'Monday','12:00:00','20:00:00',1,2);
+insert into shift_template values (null,'S','Mid', 'Monday','13:00:00','21:00:00',1,2);
+insert into shift_template values (null,'S','Close', 'Monday','14:00:00','22:00:00',1,2);
+insert into shift_template values (null,'K','Open', 'Monday','12:00:00','20:00:00',1,2);
+insert into shift_template values (null,'K','Mid', 'Monday','13:00:00','21:00:00',1,2);
+insert into shift_template values (null,'K','Close', 'Monday','14:00:00','22:00:00',1,2);
+insert into shift_template values (null,'B','Open', 'Monday','12:00:00','20:00:00',1,2);
+insert into shift_template values (null,'B','Mid', 'Monday','13:00:00','21:00:00',1,2);
+insert into shift_template values (null,'B','Close', 'Monday','14:00:00','22:00:00',1,2);
+
 #Employee(7 employees)
 insert into employees values (null,'Alec','Gralewski','840 9 Ave SW, Calgary, AB T2P 0L9','587-766-8877','alecgralewski@gmail.com','K',1,1,'Need more training!');
 insert into employees values (null,'Anthony','Doucet','800 6 Ave SW, Calgary, AB T2P 3G3','403-577-966','anthonydoucet@gmail.com','K',1,1,'Need more training!');
@@ -91,14 +126,6 @@ insert into schedule_employee values (3,15);
 insert into schedule_employee values (5,14);
 insert into schedule_employee values (7,15);
 
-#day_template
-insert into day_template values ("Monday","00:00:00","00:00:00");
-insert into day_template values ("Tuesday","00:00:00","00:00:00");
-insert into day_template values ("Wednesday","00:00:00","00:00:00");
-insert into day_template values ("Thursday","00:00:00","00:00:00");
-insert into day_template values ("Friday","00:00:00","00:00:00");
-insert into day_template values ("Saturday","00:00:00","00:00:00");
-insert into day_template values ("Sunday","00:00:00","00:00:00");
 
 #shift_template
 
@@ -125,5 +152,39 @@ insert into salt values (8888, "e6953dd39f3537ca2331130af04550442746895747e6c240
 
 insert into schedule_employee values (8888,1);
 insert into schedule_employee values (8888,2);
+insert into employee_constraints values (8888, '000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,');
+insert into employee_constraints values (7777, '000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,');
+insert into schedule_employee values (8888,1);
+insert into schedule_employee values (8888,2);
+insert into schedule_employee values (8888,3);
 
+insert into employees values (9,'Mr','Manager','Addy','Number','Man@gmail.com','M',1,1,'Im The BOSS');
 
+#Notification type
+#A - all
+#P - personal
+#S - shift available
+#D - department
+#Status
+#A - approved
+#W - waiting
+#D - declined
+#N - normal
+#I - important
+insert into notifications values (null, 1,2,'random message',curdate(),'A','N',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'P','N',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','W',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','A',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','D',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'D','N',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'A','I',null);
+insert into notifications values (null, 1,2,'Test Shift 1',curdate(),'S','W',null);
+insert into notifications values (null, 1,2,'Test Shift 2',curdate(),'S','W',null);
+insert into notifications values (null, 1,2,'Test Shift 3',curdate(),'S','W',null);
+insert into notifications values (null, 1,2,'Test Shift 4',curdate(),'S','W',null);
+insert into notifications values (null, 9,9,'random message 1',curdate(),'P','N',null);
+insert into notifications values (null, 9,9,'random message 2',curdate(),'P','N',null);
+insert into notifications values (null, 9,9,'random message 3',curdate(),'P','N',null);
+insert into notifications values (null, 9,9,'random message 4',curdate(),'P','N',null);
+insert into notifications values (null, 9,9,'random message 5',curdate(),'P','N',null);
+insert into notifications values (null, 9,9,'random message',curdate(),'S','W',null);

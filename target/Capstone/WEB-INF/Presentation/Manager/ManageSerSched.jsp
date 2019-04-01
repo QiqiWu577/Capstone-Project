@@ -47,7 +47,7 @@
         <nav role="navigation" class="w-nav-menu">
             <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
             <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
-            <a href="#" class="nav-links w-nav-link">Notifications</a>
+            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications" class="nav-links w-nav-link">Notifications</a>
             <a href="<%=application.getContextPath() %>/ManagerServices" class="nav-links w-nav-link">Settings</a>
             <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
@@ -68,7 +68,7 @@
     <div id='calendar'></div>
 </div>
 
-<div id="dialog" title="Create new shift">
+<div id="newShiftDialog" title="Create new shift">
     <p class="validateTips"></p>
 
     <form>
@@ -82,6 +82,13 @@
 
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </fieldset>
+    </form>
+</div>
+
+<div id="deleteShiftDialog" title="Delete the shift?">
+    <form>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+        This shift will be permanently deleted and cannot be recovered. Are you sure?
     </form>
 </div>
 

@@ -3,25 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Employee Management</title>
+    <title>Manager Settings</title>
     <meta charset="utf-8">
     <title>Settings</title>
-    <link href="css/employeemgmt.css" rel="stylesheet" type="text/css">
+    <link href="css/jaycss.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-
     <link href="https://code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css" rel="stylesheet" />
-    <style></style>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-    <title>Settings</title>
 </head>
 
 <body>
@@ -34,7 +28,7 @@
         <nav role="navigation" class="w-nav-menu">
             <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
             <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
-            <a href="#" class="nav-links w-nav-link">Notifications</a>
+            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications" class="nav-links w-nav-link">Notifications</a>
             <a href="<%=application.getContextPath() %>/ManagerServices" class="nav-links w-nav-link">Settings</a>
             <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
@@ -42,35 +36,36 @@
 </div>
 
 <div style="margin-left: 20%">
-    <div class="container">
+    <div class="container-fluid">
         <h2>Hours of Operation</h2>
 
         <p>Note: If the closing hour is on the second day, just set AM and system will know that!</p>
 
-        <table class="table table-sm table-striped" style="width: 90%">
-            <th>Day</th>
-            <th>Open Hours</th>
-            <th>Close Hours</th>
-            <th>Option</th>
+        <div class="container-fluid">
+            <table class="table table-bordered table-striped">
+                <tr class="active">
+                <th>Day</th>
+                <th>Opening Hours</th>
+                <th>Closing Hours</th>
+                <th></th>
+                </tr>
 
-            <c:forEach var="day" items="${dayList}">
-                <form action="ManagerSettings" method="POST">
-                    <tr>
-                        <td>${day.dayOfWeek}</td>
-                        <td><input type="time" name="openH" value="${day.openTime}"></td>
-                        <td><input type="time" name="closeH" value="${day.closeTime}"></td>
-                        <td><input class="dayOfWeek" type="submit" name="updateDayTemp" value="Update"></td>
-                        <input type="hidden" name='dayOfWeek' value="${day.dayOfWeek}">
-                    </tr>
-                </form>
-            </c:forEach>
-        </table>
+                <c:forEach var="day" items="${dayList}">
+                    <form action="ManagerSettings" method="POST">
+                        <tr>
+                            <td>${day.dayOfWeek}</td>
+                            <td><input class="form-control" type="time" name="openH" value="${day.openTime}"></td>
+                            <td><input class="form-control" type="time" name="closeH" value="${day.closeTime}"></td>
+                            <td><input class="btn btn-info btn-block" type="submit" name="updateDayTemp" value="Update"></td>
+                            <input type="hidden" name='dayOfWeek' value="${day.dayOfWeek}">
+                        </tr>
+                    </form>
+                </c:forEach>
+            </table>
+        </div>
 
-    </div>
+        <h2>Manage Shifts</h2>
 
-    <hr/>
-
-    <div class="container-fluid">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#front">Front End</a></li>
             <li><a data-toggle="tab" href="#bar">Bar</a></li>
@@ -79,10 +74,7 @@
 
         <div class="tab-content">
             <div id="front" class="tab-pane fade in active">
-                <h3>Front End</h3>
                 <div class="panel-body">
-
-
                     <table class="table table-bordered">
                         <thead>
                         <col width='12.5%'>
@@ -93,7 +85,7 @@
                         <col width='12.5%'>
                         <col width='12.5%'>
                         <col width='12.5%'>
-                        <tr>
+                        <tr class="active">
                             <th>Day</th>
                             <th>Name</th>
                             <th>Shift Start</th>
@@ -112,30 +104,29 @@
                                     <input type="hidden" value="${shift.getDayOfWeek()}" name="dayOfWeek">
                                     <input type="hidden" value="${shift.getType()}" name="shiftType">
                                     <td>${shift.getDayOfWeek()}</td>
-                                    <td><input type="text" name="newName" value="${shift.getName()}"></td>
-                                    <td><input type="text" name="newStart" value="${shift.getStartTime()}"></td>
-                                    <td><input type="text" name="newEnd" value="${shift.getEndTime()}"></td>
-                                    <td><input type="text" name="newMinEmp" value="${shift.getMinNoEmp()}"></td>
-                                    <td><input type="text" name="newMaxEmp" value="${shift.getMaxNoEmp()}"></td>
-                                    <td><input class="btn btn-info" type='submit' value="Update"></td>
+                                    <td><input class="form-control" type="text" name="newName" value="${shift.getName()}"></td>
+                                    <td><input class="form-control" type="text" name="newStart" value="${shift.getStartTime()}"></td>
+                                    <td><input class="form-control" type="text" name="newEnd" value="${shift.getEndTime()}"></td>
+                                    <td><input class="form-control" type="text" name="newMinEmp" value="${shift.getMinNoEmp()}"></td>
+                                    <td><input class="form-control" type="text" name="newMaxEmp" value="${shift.getMaxNoEmp()}"></td>
+                                    <td><input class="btn btn-info btn-block" type='submit' value="Update"></td>
                                 </form>
                                 <form action="ManagerSettings">
                                     <input type="hidden" value="${shift.getShiftId()}" name="shiftId">
                                     <input type="hidden" value="true" name="delete">
-                                    <td><input type="submit" class="btn btn-danger" value="Delete"></td>
+                                    <td><input type="submit" class="btn btn-danger btn-block" value="Delete"></td>
                                 </form>
                             </tr>
                         </c:forEach>
                         <!-- Trigger the modal with a button -->
-                        <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>
+                        <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info btn-block" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>
                         </tbody>
                     </table>
+
                 </div>
             </div>
             <div id="bar" class="tab-pane fade">
-                <h3>Bar</h3>
                 <div class="panel-body">
-
                     <table class="table table-bordered">
                         <thead>
                         <col width='12.5%'>
@@ -165,29 +156,27 @@
                                     <input type="hidden" value="${shift.getDayOfWeek()}" name="dayOfWeek">
                                     <input type="hidden" value="${shift.getType()}" name="shiftType">
                                     <td>${shift.getDayOfWeek()}</td>
-                                    <td><input type="text" name="newName" value="${shift.getName()}"></td>
-                                    <td><input type="text" name="newStart" value="${shift.getStartTime()}"></td>
-                                    <td><input type="text" name="newEnd" value="${shift.getEndTime()}"></td>
-                                    <td><input type="text" name="newMinEmp" value="${shift.getMinNoEmp()}"></td>
-                                    <td><input type="text" name="newMaxEmp" value="${shift.getMaxNoEmp()}"></td>
-                                    <td><input class="btn btn-info" type='submit' value="Edit"></td>
+                                    <td><input class="form-control" type="text" name="newName" value="${shift.getName()}"></td>
+                                    <td><input class="form-control" type="text" name="newStart" value="${shift.getStartTime()}"></td>
+                                    <td><input class="form-control" type="text" name="newEnd" value="${shift.getEndTime()}"></td>
+                                    <td><input class="form-control" type="text" name="newMinEmp" value="${shift.getMinNoEmp()}"></td>
+                                    <td><input class="form-control" type="text" name="newMaxEmp" value="${shift.getMaxNoEmp()}"></td>
+                                    <td><input class="btn btn-info btn-block" type='submit' value="Update"></td>
                                 </form>
                                 <form action="ManagerSettings">
                                     <input type="hidden" value="${shift.getShiftId()}" name="shiftId">
                                     <input type="hidden" value="true" name="delete">
-                                    <td><input type="submit" class="btn btn-danger" value="Delete"></td>
+                                    <td><input type="submit" class="btn btn-danger btn-block" value="Delete"></td>
                                 </form>
                             </tr>
                         </c:forEach>
                         <!-- Trigger the modal with a button -->
-                        <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>                        </tbody>
+                        <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info btn-block" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-
             <div id="kitchen" class="tab-pane fade">
-                <h3>Kitchen</h3>
                 <div class="panel-body">
                     <table class="table table-bordered">
                         <thead>
@@ -218,30 +207,30 @@
                                     <input type="hidden" value="${shift.getDayOfWeek()}" name="dayOfWeek">
                                     <input type="hidden" value="${shift.getType()}" name="shiftType">
                                     <td>${shift.getDayOfWeek()}</td>
-                                    <td><input type="text" name="newName" value="${shift.getName()}"></td>
-                                    <td><input type="text" name="newStart" value="${shift.getStartTime()}"></td>
-                                    <td><input type="text" name="newEnd" value="${shift.getEndTime()}"></td>
-                                    <td><input type="text" name="newMinEmp" value="${shift.getMinNoEmp()}"></td>
-                                    <td><input type="text" name="newMaxEmp" value="${shift.getMaxNoEmp()}"></td>
-                                    <td><input class="btn btn-info" type='submit' value="Edit"></td>
+                                    <td><input class="form-control" type="text" name="newName" value="${shift.getName()}"></td>
+                                    <td><input class="form-control" type="text" name="newStart" value="${shift.getStartTime()}"></td>
+                                    <td><input class="form-control" type="text" name="newEnd" value="${shift.getEndTime()}"></td>
+                                    <td><input class="form-control" type="text" name="newMinEmp" value="${shift.getMinNoEmp()}"></td>
+                                    <td><input class="form-control" type="text" name="newMaxEmp" value="${shift.getMaxNoEmp()}"></td>
+                                    <td><input class="btn btn-info btn-block" type='submit' value="Update"></td>
                                 </form>
                                 <form action="ManagerSettings">
                                     <input type="hidden" value="${shift.getShiftId()}" name="shiftId">
                                     <input type="hidden" value="true" name="delete">
-                                    <td><input type="submit" class="btn btn-danger" value="Delete"></td>
+                                    <td><input type="submit" class="btn btn-danger btn-block" value="Delete"></td>
                                 </form>
                             </tr>
                         </c:forEach>
                         <!-- Trigger the modal with a button -->
-                        <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>
+                        <tr><td colspan="7"><b>${requestScope.shiftMessage}</b></td><td><input class="btn btn-info btn-block" data-toggle="modal" data-target="#myModal" value="Add Shift"></td></tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
+
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">

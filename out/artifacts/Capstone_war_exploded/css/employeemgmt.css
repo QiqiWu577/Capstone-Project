@@ -15,7 +15,12 @@ body {
     overflow-x:hidden;
     padding-top:15px;
 }
-
+.activeE {
+    background-color: #00a2ee!important;
+}
+.activeS {
+    background-color: #00a2ee!important;
+}
 a {
     font-family:Arial, sans-serif;
     text-decoration:none;
@@ -74,6 +79,12 @@ a:hover {
     float:left;
     width:50%;
     padding:10px;
+}
+
+
+.center {
+    text-align: center;
+    align-content: center;
 }
 
 .columnleft {
@@ -326,16 +337,6 @@ td.hour:hover {
     -ms-transform:rotate(45deg);
     transform:rotate(45deg);
     border-width:0 3px 3px 0;
-}
-
-input,textarea {
-    border:0 solid;
-    width:90%;
-    font-size:16px;
-    background-color:#FFF;
-    margin-bottom:20px;
-    border-radius:3px;
-    padding:10px 0 10px 8px;
 }
 
 .btn:hover,.btns:hover {

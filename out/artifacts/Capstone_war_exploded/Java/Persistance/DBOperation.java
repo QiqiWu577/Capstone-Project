@@ -42,6 +42,18 @@ public class DBOperation {
 
     }
 
+    public ArrayList<Employee> getEmployeesType(char type) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT e FROM Employee e where active = true AND type = :type ", Employee.class);
+        query.setParameter("type", type);
+        ArrayList<Employee> empList = new ArrayList<>(query.getResultList());
+        session.getTransaction().commit();
+        session.close();
+        return empList;
+
+    }
+
     public Employee getEmployee(int empid) {
         Employee emp = null;
 
@@ -227,20 +239,11 @@ public class DBOperation {
         session.close();
     }
 
-    public void addShiftTemplate1(ShiftTemplate st) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(st);
-        session.getTransaction().commit();
-        session.close();
-    }
-
     public boolean updateDayTemplate(String day,String s,String e){
 
         boolean result=false;
-
         Session session = HibernateUtil.getSessionFactory().openSession();
-
+        session.beginTransaction();
         try{
 
             session.beginTransaction();
@@ -258,8 +261,115 @@ public class DBOperation {
         }finally {
             session.close();
         }
-
         return result;
+    }
+
+    public ArrayList<Notification> getSentNotifications(Employee e) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("SELECT n FROM Notification n WHERE n.sender = :id ORDER BY date desc");
+        query.setParameter("id", e);
+
+        ArrayList<Notification> sentList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+        return sentList;
+    }
+
+    public ArrayList<Notification> getReceivedNotifications(Employee e) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query query = session.createQuery("SELECT n FROM Notification n WHERE n.recipient = :id ORDER BY date desc");
+        query.setParameter("id", e.getEmpid());
+
+        ArrayList<Notification> receiveList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return receiveList;
+    }
+
+    public void deleteNotification(Notification n) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.delete(n);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void updateNotification(Notification n) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(n);
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public Notification getNotification(int id) {
+        Notification n = null;
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("SELECT n FROM Notification n where n.notifid=:id", Notification.class);
+        query.setParameter("id",id);
+        session.getTransaction().commit();
+        n = (Notification) query.getSingleResult();
+        session.close();
+
+        return n;
+    }
+
+    public ArrayList<Notification> getManagerNotifications() {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        char p ='P';
+
+        Query query = session.createQuery("SELECT n FROM Notification n WHERE NOT (n.notiftype = :type) ORDER BY date desc");
+        query.setParameter("type", p);
+
+        ArrayList<Notification> manList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+
+        return manList;
+      }
+
+    public ArrayList<Shift> getShifts(int empid) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        //select a.firstName, a.lastName from Book b join b.authors a where b.id = :id
+        Query query = session.createQuery("SELECT s FROM Employee e join e.shiftList s where e.empid = :id ");
+        query.setParameter("id", empid);
+        ArrayList<Shift> shiftList = new ArrayList<>(query.list());
+        session.getTransaction().commit();
+        session.close();
+        return shiftList;
+
+    }
+
+    public Shift getShift(int shiftId) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        //select a.firstName, a.lastName from Book b join b.authors a where b.id = :id
+        Query query = session.createQuery("SELECT s FROM Shift s where s.shiftId = :id ");
+        query.setParameter("id", shiftId);
+        Shift shift = (Shift) query.getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return shift;
+    }
+
+    public void updateShift(Shift s) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(s);
+        session.getTransaction().commit();
+        session.close();
     }
 
 }

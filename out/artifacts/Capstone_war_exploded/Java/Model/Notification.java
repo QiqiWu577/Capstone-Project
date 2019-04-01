@@ -5,6 +5,8 @@
  */
 package Model;
 
+import Persistance.DBOperation;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -47,6 +49,8 @@ public class Notification implements Serializable {
     @Basic(optional = false)
     @Column(name = "Recipient")
     private int recipient;
+    @Column(name = "shift_id")
+    private Integer shift_id;
     @Column(name = "Content")
     private String content;
     @Basic(optional = false)
@@ -70,12 +74,40 @@ public class Notification implements Serializable {
         this.notifid = notifid;
     }
 
-    public Notification(Integer notifid, int recipient, Date date, Character notiftype, Character status) {
+    public Notification(Integer notifid, int recipient,Date date, Character notiftype, Character status) {
         this.notifid = notifid;
         this.recipient = recipient;
         this.date = date;
         this.notiftype = notiftype;
         this.status = status;
+    }
+
+    public Notification(Employee sender, int recipient, int shift_id, String content, Character notiftype, Character status) {
+        this.sender = sender;
+        this.recipient = recipient;
+        this.shift_id = shift_id;
+        this.content = content;
+        this.date = new Date();
+        this.notiftype = notiftype;
+        this.status = status;
+    }
+
+    public Notification(Employee sender, int recipient, String content, Character notiftype, Character status) {
+        this.sender = sender;
+        this.recipient = recipient;
+        this.content = content;
+        this.date = new Date();
+        this.notiftype = notiftype;
+        this.status = status;
+    }
+
+
+    public Integer getShift_id() {
+        return shift_id;
+    }
+
+    public void setShift_id(Integer shift_id) {
+        this.shift_id = shift_id;
     }
 
     public Integer getNotifid() {
@@ -88,6 +120,13 @@ public class Notification implements Serializable {
 
     public int getRecipient() {
         return recipient;
+    }
+
+    public String getRecipientName(int id) {
+        Employee e = new Employee();
+        DBOperation db = new DBOperation();
+        e = db.getEmployee(id);
+        return e.getFname();
     }
 
     public void setRecipient(int recipient) {
@@ -129,6 +168,8 @@ public class Notification implements Serializable {
     public Employee getSender() {
         return sender;
     }
+
+    public String getSenderName() {return sender.getFname(); }
 
     public void setSender(Employee sender) {
         this.sender = sender;

@@ -32,6 +32,15 @@ public class DBOperation {
     }
 
 
+    public ArrayList<Employee> getAllEmployees() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true", Employee.class).getResultList());
+        session.getTransaction().commit();
+        session.close();
+        return empList;
+    }
+
     public ArrayList<Employee> getEmployees() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -186,7 +195,7 @@ public class DBOperation {
         for(Day day: schedule) {
 
             session.beginTransaction();
-            session.save(day);
+            session.merge(day);
             session.getTransaction().commit();
 
         }

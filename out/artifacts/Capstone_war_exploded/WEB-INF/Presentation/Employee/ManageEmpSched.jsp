@@ -13,9 +13,7 @@
     <meta content="manager schedule" property="og:title">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <meta content="Webflow" name="generator">
-    <link href="../../../css/normalize.css" rel="stylesheet" type="text/css">
-    <link href="../../../css/webflow.css" rel="stylesheet" type="text/css">
-    <link href="../../../css/matthews-cool-project-2c37b7.webflow.css" rel="stylesheet" type="text/css">
+    <link href="css/employeemgmt.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js" type="text/javascript"></script>
     <script type="text/javascript">WebFont.load({  google: {    families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic"]  }});</script>
     <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
@@ -55,6 +53,7 @@
     </style>
 
 </head>
+<body>
 
 <!--Left side Menu -->
 <div data-collapse="tiny" data-animation="over-left" data-duration="400" class="navbar-3 w-nav">
@@ -66,6 +65,7 @@
             <a href="#" class="nav-links selected w-nav-link">Home</a>
             <a href="<%=application.getContextPath() %>/EmployeeServices?page=shiftOffer" class="nav-links w-nav-link">Shift Changes</a>
             <a href="<%=application.getContextPath() %>/EmployeeServices?page=notification" class="nav-links w-nav-link">Notifications</a>
+            <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
         <div class="menu-button w-nav-button">
             <img src="../../../images/Hamburger_icon.svg.png" alt="" class="image-3">

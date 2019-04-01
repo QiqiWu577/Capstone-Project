@@ -27,7 +27,7 @@ public class EmployeeServices extends HttpServlet {
         String shiftId = request.getParameter("shiftId");
         String empId = request.getParameter("empId");
 
-        page = "notification";
+        page = "home";
         Employee e1 = dbOps.getEmployee(9);
         session.setAttribute("employee", e1);
 

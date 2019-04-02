@@ -1,9 +1,5 @@
 #############Testing for FullCalendar##############
 <<<<<<< HEAD
-
-#day_template
-=======
-<<<<<<< HEAD
 #Notification type
 #A - all
 #P - personal
@@ -19,8 +15,7 @@
 =======
 >>>>>>> f8ff077fa285c12f24cdbd1c101ed2b2286e3a94
 
-#Day and shift templates
->>>>>>> 2f8f94e95d23036d2fa405e4320af1e630ae3af2
+#day_template
 insert into day_template values ('Monday','00:00:00','23:59:59');
 insert into day_template values ('Tuesday','00:00:00','23:59:59');
 insert into day_template values ('Wednesday','00:00:00','23:59:59');

@@ -1,7 +1,6 @@
 package Controllers;
 
-import Model.Employee;
-import Model.Notification;
+import Model.*;
 import Persistance.DBOperation;
 
 import javax.servlet.ServletException;
@@ -36,7 +35,7 @@ public class NotificationServices extends HttpServlet {
 
             session.setAttribute("receiveList", db.getReceivedNotifications(emp));
             session.setAttribute("sentList", db.getSentNotifications(emp)); //change to emp after
-            
+
             if(emp.getType().equals('M')) {
                 session.setAttribute("manList", db.getManagerNotifications());
                 request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request,response);
@@ -49,6 +48,22 @@ public class NotificationServices extends HttpServlet {
 
             int noteId = Integer.parseInt(request.getParameter("noteId"));
             Notification n = db.getNotification(noteId);
+            int shiftId = n.getShift_id();
+            Employee sender = n.getSender();
+            int recipient = n.getRecipient();
+
+            if(sender!=null && recipient!=0) {
+                Shift s = db.getShift(shiftId);
+                Employee recip = db.getEmployee(recipient);
+                ArrayList<Employee> list = new ArrayList<>(s.getEmployeeList());
+                for(int i = 0; i < list.size(); i++) {
+                    if(list.get(i).getEmpid() == sender.getEmpid()) {
+                        list.set(i, recip);
+                        db.updateShift(s);
+                    }
+                }
+            }
+
             n.setStatus('A');
             db.updateNotification(n);
             session.setAttribute("receiveList", db.getReceivedNotifications(emp));

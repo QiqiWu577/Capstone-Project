@@ -384,5 +384,15 @@ public class DBOperation {
         return shift;
     }
 
+    public ArrayList<Employee> getUsers() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
+        session.getTransaction().commit();
+        session.close();
+        return empList;
+
+    }
+
 
 }

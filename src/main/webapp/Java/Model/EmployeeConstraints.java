@@ -130,11 +130,11 @@ public class EmployeeConstraints implements Serializable {
         preferredTimeSaturday = new boolean[24];
         preferredTimeSunday = new boolean[24];
 
-        parseConstraints(constraints);
+        parseConstraints();
 
     }
 
-    private void parseConstraints(String constraints) throws InvalidConstraintException, ConstraintWrongSizeException {
+    public void parseConstraints() throws InvalidConstraintException, ConstraintWrongSizeException {
         String [] list = constraints.split(",");
         final int HOURSPERDAY = 24;
         int hourOfDay;

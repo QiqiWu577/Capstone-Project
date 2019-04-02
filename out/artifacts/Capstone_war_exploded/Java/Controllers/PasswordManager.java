@@ -1,10 +1,7 @@
 package Controllers;
 
 
-import com.mysql.cj.protocol.Resultset;
-
 import javax.xml.bind.DatatypeConverter;
-import javax.xml.crypto.Data;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -108,5 +105,12 @@ public class PasswordManager {
         return hash.equals(generatedHash);
     }
 
+    public String generatePassword(){
+
+        //////
+
+
+        return null;
+    }
 
 }

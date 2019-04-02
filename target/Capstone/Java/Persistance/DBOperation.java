@@ -108,6 +108,17 @@ public class DBOperation {
         session.close();
     }
 
+    public void deleteEmp(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("Delete from Employee WHERE id = :id");
+        query.setParameter("id",id);
+        query.executeUpdate();
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
 
     public void addShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -248,15 +259,6 @@ public class DBOperation {
         session.close();
     }
 
-    public void addShiftTemplate1(ShiftTemplate st) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(st);
-        session.getTransaction().commit();
-        session.close();
-    }
-
-
     public boolean updateDayTemplate(String day,String s,String e){
 
         boolean result=false;
@@ -380,6 +382,24 @@ public class DBOperation {
         session.getTransaction().commit();
         session.close();
         return shift;
+    }
+
+    public ArrayList<Employee> getUsers() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
+        session.getTransaction().commit();
+        session.close();
+        return empList;
+    }
+
+    public void updateShift(Shift s) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(s);
+        session.getTransaction().commit();
+        session.close();
+
     }
 
 }

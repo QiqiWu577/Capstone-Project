@@ -1,14 +1,6 @@
 package Controllers;
 
-import Model.Day;
-import Model.Employee;
-import Persistance.DBOperation;
-
-import javax.sound.midi.Soundbank;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class AppDriver {
 
@@ -29,6 +21,9 @@ public class AppDriver {
 //        String employee = "employee";
 //        boolean test3 = pm.getHashSalt(8888, employee);
 //        System.out.println(test2);
+
+
+
 
 
 

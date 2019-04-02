@@ -7,22 +7,17 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Properties;
 
-@WebServlet(name = "SendEmail", urlPatterns = "/SendEmail")
 public class SendEmail extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 
 
-    private static void sendFromGmail(String from, String pass, String[] to, String subject, String body) {
+    final static String USERNAME = "2030bubbletea";
+    final static String PASSWORD = "403bubbletea";
+
+
+    private static void sendFromGmailArray(String from, String pass, String[] to, String subject, String body) {
 
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
@@ -64,22 +59,112 @@ public class SendEmail extends HttpServlet {
 
     }
 
+    private static void sendFromGmailSingle(String from, String pass, String to, String subject, String body) {
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Properties props = System.getProperties();
+        String host = "smtp.gmail.com";
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", from);
+        props.put("mail.smtp.password", pass);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
 
-        String username = "2030bubbletea";
-        String password = "403bubbletea";
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+
+        //
+
+        try {
+            message.setFrom(new InternetAddress(from));
+            InternetAddress toAddress;
+
+            // To get the array of addresses
+                toAddress = new InternetAddress(to);
 
 
+                message.addRecipient(Message.RecipientType.TO, toAddress);
 
-        String from = username;
-        String pass = password;
-        String[] to = {"anthony.doucet@edu.sait.ca", "mkelemen112@gmail.com", "anthonydoucet5417@hotmail.com"};
+
+            message.setSubject(subject);
+            message.setText(body);
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, pass);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        }
+        catch (MessagingException ae) {
+            ae.printStackTrace();
+        }
+
+    }
+
+
+    void sendEmailSingle(String to, String name, int empID, String type) {
+
+
         String subject = "****TEST EMAIL****";
-        String body="https://www.google.ca/";
+        String body;
+
+
+        if (type.equalsIgnoreCase("new")) {
+
+
+            body =  "Hello "+ name +",\r\n\r\nAn employee account has been made for you for 2030 Bubble Tea Cafe. "+
+                    "Please login using the following information at http://localhost:8080/Capstone_war_exploded/"+".\r\n\r\nUsername: "
+                    +empID+"\r\nPassword: "+"\r\n\r\nThe username is you employee ID and this will be used"
+                    +"everytime you login. You will be asked to change your password after the "+"" +
+                    "first login.\r\n\r\nThank you,\r\n2030 Bubble Tea Cafe";
+
+
+
+
+
+
+
+        } else {
+            body="woem";
+        }
+
+
 
         System.out.println("BEFORE");
-        sendFromGmail(from, pass, to, subject, body);
+        sendFromGmailSingle(USERNAME, PASSWORD, to, subject, body);
+        System.out.println("AFTER");
+
+
+    }
+
+    private void sendEmailArray(String[] to, String type) {
+
+
+        String subject = "****TEST EMAIL****";
+        String body;
+
+
+        if (type.equalsIgnoreCase("new")) {
+
+
+           body =  "Hello "+",\r\n\r\nAn employee account has been made for you for 2030 Bubble Tea Cafe. "+
+                   "Please login using the following information at http://localhost:8080/Capstone_war_exploded/"+".\r\n\r\nUsername: "
+                   +"\r\nPassword: "+"\r\n\r\nThe username is you employee ID and this will be used"
+            +"everytime you login. You will be asked to change your password after the "+"" +
+                    "first login.\r\n\r\nThank you,\r\n2030 Bubble Tea Cafe";
+
+
+
+
+
+
+
+        } else {
+            body="woem";
+        }
+
+
+
+        System.out.println("BEFORE");
+        sendFromGmailArray(USERNAME, PASSWORD, to, subject, body);
         System.out.println("AFTER");
 
 

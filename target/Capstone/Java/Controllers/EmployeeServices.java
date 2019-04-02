@@ -26,7 +26,13 @@ public class EmployeeServices extends HttpServlet {
         HttpSession session = request.getSession();
         String shiftId = request.getParameter("shiftId");
         String empId = request.getParameter("empId");
+
+        page = "home";
+        Employee e1 = dbOps.getEmployee(9);
+        session.setAttribute("employee", e1);
+
         Employee emp = (Employee) session.getAttribute("employee");
+
 
         if (page != null) {
             if (page.equals("shiftOffer")) {
@@ -82,4 +88,3 @@ public class EmployeeServices extends HttpServlet {
         processRequest(request, response);
     }
 }
-

@@ -400,10 +400,10 @@ public class FullcalendarDBOps {
         try{
 
             Employee emp = session.find(Employee.class,empId);
-            List<Shift> shiftlist = (List<Shift>) emp.getShiftList();
-            for(int i=0;i<shiftlist.size();i++){
+            Set<Shift> shiftlist = emp.getShiftList();
+            for(Shift st:shiftlist){
 
-                LocalDateTime s = shiftlist.get(i).getStartTime();
+                LocalDateTime s = st.getStartTime();
                 if(s.toLocalDate().compareTo(cs.toLocalDate())==0){
                     result = true;
                 }
@@ -425,13 +425,13 @@ public class FullcalendarDBOps {
         try{
 
             Employee emp = session.find(Employee.class,empId);
-            List<Shift> shiftlist = (List<Shift>) emp.getShiftList();
-            for(int i=0;i<shiftlist.size();i++){
+            Set<Shift> shiftlist = emp.getShiftList();
+            for(Shift st:shiftlist){
 
-                if(shiftlist.get(i).getShiftId() == newShiftId){
+                if(st.getShiftId() == newShiftId){
                     result = "sameShiftRange";
 
-                }else if(!(cs.compareTo(shiftlist.get(i).getEndTime())>=0) || !(ce.compareTo(shiftlist.get(i).getStartTime())<=0)){
+                }else if(!(cs.compareTo(st.getEndTime())>=0) || !(ce.compareTo(st.getStartTime())<=0)){
                     result = "crossover";
                 }
             }

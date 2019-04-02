@@ -68,7 +68,7 @@ public class Employee implements Serializable {
     @JoinTable(name = "schedule_employee", joinColumns = {
             @JoinColumn(name = "emp_id", referencedColumnName = "emp_id")}, inverseJoinColumns = {
             @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")})
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany
     private List<Shift> shiftList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
     private EmployeeConstraints employeeConstraints;
@@ -205,7 +205,7 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Shift> getShiftList() {
+    public List<Shift> getShiftList() {
         return shiftList;
     }
 
@@ -213,8 +213,12 @@ public class Employee implements Serializable {
         this.shiftList = shiftList;
     }
 
+    public void setShiftList(List<Shift> shiftList) {
+        this.shiftList = shiftList;
+    }
+
     @XmlTransient
-    public Collection<Notification> getNotificationList() {
+    public List<Notification> getNotificationList() {
         return notificationList;
     }
 

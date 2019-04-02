@@ -6,7 +6,7 @@
     <title>Employee Notifications</title>
     <meta charset="utf-8">
     <title>Settings</title>
-    <link href="css/employeemgmt.css" rel="stylesheet" type="text/css">
+    <link href="css/jaycss.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="https://code.jquery.com/ui/1.12.1/themes/black-tie/jquery-ui.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,15 +17,6 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
-<body>
-<div class="sidebar">
-    <div class="logo">
-        <img src="res/2030%20logo.png" alt="2030" height="100" width="100">
-    </div>
-    <a href="home.html">Home</a>
-    <a href="employeemgmt.html">Employee Management</a>
-    <a href="settings.html">Settings</a>
-</div>
 
 <body>
 <!--Left side Menu needs to be updated-->
@@ -35,9 +26,10 @@
             <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
         </a>
         <nav role="navigation" class="w-nav-menu">
-            <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
+            <a href="<%=application.getContextPath() %>/EmployeeServices?page=home" class="nav-links w-nav-link">Home</a>
             <a href="<%=application.getContextPath() %>/EmployeeServices?page=shiftOffer" class="nav-links w-nav-link">Shift Changes</a>
             <a href="<%=application.getContextPath() %>/EmployeeServices?page=notification" class="nav-links w-nav-link">Notifications</a>
+            <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
     </div>
 </div>
@@ -88,7 +80,7 @@
                                 </c:otherwise>
                             </c:choose>
                             <td>${msg.getDate()}</td>
-                            <td>${msg.getSender()}</td>
+                            <td>${msg.getSenderName()}</td>
                             <td>
                                 <c:choose>
                                     <c:when test="${msg.getNotiftype() eq 'A'.charAt(0)}">

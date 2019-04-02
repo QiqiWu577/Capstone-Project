@@ -55,6 +55,7 @@ public class EmployeeServices extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
 
                 }
+<<<<<<< HEAD
 
             }
             else if (page.equals("notification")) {
@@ -71,9 +72,23 @@ public class EmployeeServices extends HttpServlet {
                 request.setAttribute("empList", dbOps.getEmployees());
                 //request.setAttribute("empShifts", emp.getShiftList());
                 request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
+=======
+
+>>>>>>> 2f8f94e95d23036d2fa405e4320af1e630ae3af2
             }
+            else if (page.equals("notification")) {
 
+                session.setAttribute("receiveList", dbOps.getReceivedNotifications(emp));
+                session.setAttribute("sentList", dbOps.getSentNotifications(emp));
+                session.setAttribute("empList", dbOps.getEmployees());
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeNotifications.jsp").forward(request, response);
 
+            }else if (page.equals("home")) {
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/ManageEmpSched.jsp").forward(request, response);
+            }
+            else {
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/ManageEmpSched.jsp").forward(request, response);
+            }
         }
     }
 

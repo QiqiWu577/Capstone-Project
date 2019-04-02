@@ -165,9 +165,11 @@ public class Notification implements Serializable {
         this.status = status;
     }
 
-    public String getSender() {
-        return sender.getFname();
+    public Employee getSender() {
+        return sender;
     }
+
+    public String getSenderName() {return sender.getFname(); }
 
     public void setSender(Employee sender) {
         this.sender = sender;

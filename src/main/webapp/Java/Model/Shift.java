@@ -8,6 +8,7 @@ package Model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -100,6 +101,7 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
         this.minNoEmp = minNoEmp;
         this.maxNoEmp = maxNoEmp;
+        employeeList = new ArrayList<>();
     }
 
     public Integer getShiftId() {

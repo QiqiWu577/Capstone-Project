@@ -26,7 +26,13 @@ public class EmployeeServices extends HttpServlet {
         HttpSession session = request.getSession();
         String shiftId = request.getParameter("shiftId");
         String empId = request.getParameter("empId");
+
+        page = "home";
+        Employee e1 = dbOps.getEmployee(9);
+        session.setAttribute("employee", e1);
+
         Employee emp = (Employee) session.getAttribute("employee");
+
 
         if (page != null) {
             if (page.equals("shiftOffer")) {
@@ -64,16 +70,12 @@ public class EmployeeServices extends HttpServlet {
                 session.setAttribute("empList", dbOps.getEmployees());
                 request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeNotifications.jsp").forward(request, response);
 
+            }else if (page.equals("home")) {
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/ManageEmpSched.jsp").forward(request, response);
             }
             else {
-                //this needs to be changed
-                System.out.println("Test!");
-                request.setAttribute("empList", dbOps.getEmployees());
-                //request.setAttribute("empShifts", emp.getShiftList());
-                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeShiftOffer.jsp").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/Presentation/Employee/ManageEmpSched.jsp").forward(request, response);
             }
-
-
         }
     }
 
@@ -86,4 +88,3 @@ public class EmployeeServices extends HttpServlet {
         processRequest(request, response);
     }
 }
-

@@ -66,7 +66,7 @@
         <nav role="navigation" class="w-nav-menu">
             <a href="#" class="nav-links selected w-nav-link">Home</a>
             <a href="<%=application.getContextPath() %>/EmployeeServices?page=shiftOffer" class="nav-links w-nav-link">Shift Changes</a>
-            <a href="<%=application.getContextPath() %>/EmployeeServices?page=notification" class="nav-links w-nav-link">Notifications</a>
+            <a href="<%=application.getContextPath() %>/SendEmail" class="nav-links w-nav-link">Notifications</a>
         </nav>
         <div class="menu-button w-nav-button">
             <img src="images/Hamburger_icon.svg.png" alt="" class="image-3">

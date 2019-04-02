@@ -32,6 +32,15 @@ public class DBOperation {
     }
 
 
+    public ArrayList<Employee> getAllEmployees() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e where active = true", Employee.class).getResultList());
+        session.getTransaction().commit();
+        session.close();
+        return empList;
+    }
+
     public ArrayList<Employee> getEmployees() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -197,7 +206,7 @@ public class DBOperation {
         for(Day day: schedule) {
 
             session.beginTransaction();
-            session.save(day);
+            session.merge(day);
             session.getTransaction().commit();
 
         }
@@ -249,15 +258,6 @@ public class DBOperation {
         session.getTransaction().commit();
         session.close();
     }
-
-    public void addShiftTemplate1(ShiftTemplate st) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(st);
-        session.getTransaction().commit();
-        session.close();
-    }
-
 
     public boolean updateDayTemplate(String day,String s,String e){
 
@@ -384,6 +384,7 @@ public class DBOperation {
         return shift;
     }
 
+<<<<<<< HEAD
     public ArrayList<Employee> getUsers() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -392,6 +393,14 @@ public class DBOperation {
         session.close();
         return empList;
 
+=======
+    public void updateShift(Shift s) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(s);
+        session.getTransaction().commit();
+        session.close();
+>>>>>>> 2f8f94e95d23036d2fa405e4320af1e630ae3af2
     }
 
 }

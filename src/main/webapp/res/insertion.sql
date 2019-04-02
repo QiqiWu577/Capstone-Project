@@ -1,4 +1,19 @@
 #############Testing for FullCalendar##############
+<<<<<<< HEAD
+#Notification type
+#A - all
+#P - personal
+#S - shift available
+#D - department
+#Status
+#A - approved
+#W - waiting
+#D - declined
+#N - normal
+#I - important
+
+=======
+>>>>>>> f8ff077fa285c12f24cdbd1c101ed2b2286e3a94
 
 #day_template
 insert into day_template values ('Monday','00:00:00','23:59:59');
@@ -112,6 +127,12 @@ insert into schedule_employee values (3,15);
 insert into schedule_employee values (5,14);
 insert into schedule_employee values (7,15);
 
+<<<<<<< HEAD
+=======
+
+#shift_template
+
+>>>>>>> 2f8f94e95d23036d2fa405e4320af1e630ae3af2
 
 DELIMITER //
 CREATE PROCEDURE get_login(IN empid int)

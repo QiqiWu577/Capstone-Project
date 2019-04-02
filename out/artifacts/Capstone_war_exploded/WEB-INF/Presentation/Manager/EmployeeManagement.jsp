@@ -17,7 +17,7 @@
         <nav role="navigation" class="w-nav-menu">
             <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
             <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
-            <a href="#" class="nav-links w-nav-link">Notifications</a>
+            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications" class="nav-links w-nav-link">Notifications</a>
             <a href="<%=application.getContextPath() %>/ManagerServices" class="nav-links w-nav-link">Settings</a>
             <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
@@ -358,6 +358,7 @@
 
                         function clearFields() {
                             document.getElementById("myForm").reset();
+                            resetBoxes();
                         }
 
                         function check(box) {
@@ -462,17 +463,23 @@
                             console.log(constraints);
 
                             var cons = constraints.split(",");
+                            for(var i = 0; i<cons.length; i++) {
+                                console.log(cons[i]);
+                            }
 
-
-                            for (var j = 0; j < 7; j++) {
+                            for (var j = 0; j < cons.length; j+=2) {
+                                console.log(j);
+                                console.log(cons[j]);
+                                console.log(cons[j+1]);
+                                var index = j/2;
                                 for (var i = 0; i < cons[j].length; i++) {
-                                    if(constraints.charAt(i) === '1') {
-                                        document.getElementById("box_A_" + j + "_" + i).checked = true;
+                                    if(cons[j].charAt(i) === '1') {
+                                        document.getElementById("box_A_" + index + "_" + i).checked = true;
                                     }
                                 }
                                 for (var i = 0; i < cons[j+1].length; i++) {
-                                    if(constraints.charAt(i) === '1') {
-                                        document.getElementById("box_P_" + j + "_" + i).checked = true;
+                                    if(cons[j+1].charAt(i) === '1') {
+                                        document.getElementById("box_P_" + index + "_" + i).checked = true;
                                     }
                                 }
                             }

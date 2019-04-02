@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name = "NotificationServices")
+@WebServlet(name = "GenerateSchedule", urlPatterns = "/generateSchedule")
 public class GenerateSchedule extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -21,8 +21,11 @@ public class GenerateSchedule extends HttpServlet {
             ScheduleMaker scheduleMaker = new ScheduleMaker();
             ArrayList<Day> schedule;
             if(type.equals("S")) {
+                System.out.println("First");
                 schedule = scheduleMaker.generateSchedule('S');
+                System.out.println("Second");
                 dbOps.addSchedule(schedule);
+                System.out.println("Third");
                 request.getRequestDispatcher("/ManageScheduleViews?message=server").forward(request, response);
 
             } else if (type.equals("K")) {

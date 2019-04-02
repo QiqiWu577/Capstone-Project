@@ -373,12 +373,5 @@ public class DBOperation {
         return shift;
     }
 
-    public void updateShift(Shift s) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.update(s);
-        session.getTransaction().commit();
-        session.close();
-    }
 
 }

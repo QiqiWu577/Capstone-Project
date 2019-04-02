@@ -111,8 +111,8 @@ public class EditSerCalendar extends HttpServlet {
                         }
                     }
                 }
-                //delete the old one and add the new one to the join table for the new shift
-                //boolean test = DBOps.updateEmpShift(-1,newShiftId,newEmpId);
+                //add the new one to the join table for the new shift
+                DBOps.addEmpShift(newShiftId,newEmpId);
             }
 
         }else if(employee.equals("delete")){

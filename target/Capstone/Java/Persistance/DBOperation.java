@@ -391,15 +391,8 @@ public class DBOperation {
         session.getTransaction().commit();
         session.close();
         return empList;
-    }
-
-    public void updateShift(Shift s) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.update(s);
-        session.getTransaction().commit();
-        session.close();
 
     }
+
 
 }

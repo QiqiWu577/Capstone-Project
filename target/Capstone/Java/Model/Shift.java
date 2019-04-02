@@ -44,8 +44,10 @@ public class Shift implements Serializable {
     @Basic(optional = false)
     @Column(name = "shift_type")
     private Character shiftType;
+
     @ManyToMany(mappedBy = "shiftList")
     private Set<Employee> employeeList;
+
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
     @ManyToOne
     private Day dayId;
@@ -187,5 +189,5 @@ public class Shift implements Serializable {
     public String toString() {
         return "data.Shift[ shiftId=" + shiftId + " ]";
     }
-    
+
 }

@@ -189,5 +189,5 @@ public class Shift implements Serializable {
     public String toString() {
         return "data.Shift[ shiftId=" + shiftId + " ]";
     }
-    
+
 }

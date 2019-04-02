@@ -46,7 +46,7 @@ public class Shift implements Serializable {
     @Column(name = "shift_type")
     private Character shiftType;
 
-    @ManyToMany(mappedBy = "shiftList",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "shiftList",cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private List<Employee> employeeList;
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
     @ManyToOne

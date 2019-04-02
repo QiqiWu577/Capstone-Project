@@ -108,6 +108,17 @@ public class DBOperation {
         session.close();
     }
 
+    public void deleteEmp(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("Delete from Employee WHERE id = :id");
+        query.setParameter("id",id);
+        query.executeUpdate();
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
 
     public void addShiftTemplate(ShiftTemplate st) {
         Session session = HibernateUtil.getSessionFactory().openSession();

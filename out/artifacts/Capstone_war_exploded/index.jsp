@@ -13,7 +13,7 @@
     <img src="./images/2030.png" alt="2030" height="250" width="250">
         <form action="<%=application.getContextPath() %>/Validate" method="POST">
 
-        <input type="text" name="username" placeholder="Username" class="field" required><br/>
+        <input type="text" name="username" placeholder="Username" class="field" required autofocus><br/>
         <input type="password" name="password" placeholder="Password" class="field" required><br/>
         <input type="submit" value="Log In" class="btn"><br/>
     </form>

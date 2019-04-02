@@ -101,7 +101,7 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
         this.minNoEmp = minNoEmp;
         this.maxNoEmp = maxNoEmp;
-        //employeeList = new List<Employee>();
+        employeeList =  new HashSet<>();
     }
 
     public Integer getShiftId() {

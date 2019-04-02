@@ -24,15 +24,22 @@ public class EditSerCalendar extends HttpServlet {
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list;
 
-        //get the shiftList from the session
         //get the calendar event from the ajax function of the js
-        list = (ArrayList<CalendarDAO>)session.getAttribute("serverShifts");
         JsonObject data = new Gson().fromJson(request.getReader(), JsonObject.class);
         String id= data.get("id").getAsString();
         String employee = data.get("title").getAsString();
         String currentStart = data.get("start").getAsString();
         String currentEend = data.get("end").getAsString();
-        String note = data.get("className").getAsString();
+        String type = data.get("type").getAsString();
+
+        //get the shiftList from the session based on the type
+        if(type.equals("S")){
+            list = (ArrayList<CalendarDAO>)session.getAttribute("serverShifts");
+        }else if(type.equals("B")){
+            list = (ArrayList<CalendarDAO>) session.getAttribute("bartenderShifts");
+        }else{
+            list = (ArrayList<CalendarDAO>) session.getAttribute("kichenShifts");
+        }
 
         LocalDateTime cs = LocalDateTime.parse(currentStart);
         LocalDateTime ce = LocalDateTime.parse(currentEend);
@@ -89,22 +96,26 @@ public class EditSerCalendar extends HttpServlet {
 
                     }else{
 
-                        //check the same employee situations
-                        //they cannot be the same time range or cross over
-                        //if it is, display the error and do nothing. or else continue the operation on shift table
-                        String result = DBOps.checkSameEmp(newEmpId,newShiftId,cs,ce);
-                        if(result.equals("sameEmpShift")){
-                            response.getWriter().write("sameEmpShift");
-                        }else if(result.equals("crossover")){
-                            response.getWriter().write("crossover");
+                        boolean flag = DBOps.checkEmployeeShift(newEmpId,cs);
+                        if(flag){
+
+                            //check the same employee situations
+                            //they cannot be the same time range or cross over
+                            //if it is, display the error and do nothing. or else continue the operation on shift table
+                            String result = DBOps.checkSameShift(newEmpId,newShiftId,cs,ce);
+                            if(result.equals("sameShiftRange")){
+                                response.getWriter().write("sameShiftRange");
+                            }else if(result.equals("crossover")){
+                                response.getWriter().write("crossover");
+                            }
                         }
                     }
                 }
-                //delete the old one and add the new one to the join table for the new shift
-                boolean test = DBOps.updateEmpShift(-1,newShiftId,newEmpId);
+                //add the new one to the join table for the new shift
+                DBOps.addEmpShift(newShiftId,newEmpId);
             }
 
-        }else if(note.equals("delete")){
+        }else if(employee.equals("delete")){
 
             CalendarDAO change = list.get(Integer.parseInt(id));
             int oldShiftId = change.getShiftId();
@@ -174,19 +185,25 @@ public class EditSerCalendar extends HttpServlet {
 
                     }else{
 
-                       //check the same employee situations
-                       //they cannot be the same time range or cross over
-                       //if it is, display the error and do nothing. or else continue the operation on shift table
-                       String result = DBOps.checkSameEmp(empId,newShiftId,cs,ce);
-                       if(result.equals("sameEmpShift")){
-                           response.getWriter().write("sameEmpShift");
-                       }else if(result.equals("crossover")){
-                           response.getWriter().write("crossover");
-                       }
+                        boolean flag = DBOps.checkEmployeeShift(empId,cs);
+                        if(flag){
+
+                            //check the same employee situations
+                            //they cannot be the same time range or cross over
+                            //if it is, display the error and do nothing. or else continue the operation on shift table
+                            String result = DBOps.checkSameShift(empId,newShiftId,cs,ce);
+                            if(result.equals("sameShiftRange")){
+                                response.getWriter().write("sameShiftRange");
+                            }else if(result.equals("crossover")){
+                                response.getWriter().write("crossover");
+                            }
+                        }
+
                     }
                 }
                 //delete the old one and add the new one to the join table for the new shift
-                boolean test = DBOps.updateEmpShift(oldShiftId,newShiftId,empId);
+                DBOps.removeEmpShift(oldShiftId,empId);
+                DBOps.addEmpShift(newShiftId,empId);
             }
 
         }

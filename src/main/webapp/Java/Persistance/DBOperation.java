@@ -384,7 +384,6 @@ public class DBOperation {
         return shift;
     }
 
-<<<<<<< HEAD
     public ArrayList<Employee> getUsers() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
@@ -392,15 +391,15 @@ public class DBOperation {
         session.getTransaction().commit();
         session.close();
         return empList;
+    }
 
-=======
     public void updateShift(Shift s) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.update(s);
         session.getTransaction().commit();
         session.close();
->>>>>>> 2f8f94e95d23036d2fa405e4320af1e630ae3af2
+
     }
 
 }

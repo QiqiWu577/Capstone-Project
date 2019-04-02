@@ -18,12 +18,9 @@ public class ManagerServices extends HttpServlet {
             throws ServletException, IOException {
 
         String settings = request.getParameter("settings");
-<<<<<<< HEAD
         String notifications = request.getParameter("notifications");
         //notifications="true";
-=======
-        String notifications = request.getParameter("page");
->>>>>>> 2f8f94e95d23036d2fa405e4320af1e630ae3af2
+        //String notifications = request.getParameter("page");
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
         //remove after testing

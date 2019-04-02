@@ -93,7 +93,6 @@ public class ManagerSettings extends HttpServlet {
 
             dt.setDayOfWeek(request.getParameter("dayOfWeek"));
             st.setType(type);
-            st.setShiftId(Integer.parseInt(request.getParameter("shiftId")));
             st.setName(request.getParameter("name"));
             st.setStartTime(request.getParameter("start"));
             st.setEndTime(request.getParameter("end"));

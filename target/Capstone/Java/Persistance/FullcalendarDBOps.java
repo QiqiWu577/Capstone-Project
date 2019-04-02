@@ -232,36 +232,6 @@ public class FullcalendarDBOps {
         return result;
     }
 
-    public boolean removeEmpShift(int oldShiftId,int empId){
-
-        boolean result=false;
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        try{
-
-            session.beginTransaction();
-
-            Employee emp = session.find(Employee.class,empId);
-            Set set = emp.getShiftList();
-
-            Shift oldShift = session.find(Shift.class,oldShiftId);
-            set.remove(oldShift);
-
-            session.save(emp);
-
-            session.getTransaction().commit();
-            result = true;
-        }catch (Exception ex){
-            session.getTransaction().rollback();
-            ex.printStackTrace();
-        }finally {
-            session.close();
-        }
-
-        return result;
-    }
-
     public boolean addEmpShift(int newShiftId,int empId){
 
         boolean result=false;
@@ -275,8 +245,8 @@ public class FullcalendarDBOps {
             Employee emp = session.find(Employee.class,empId);
 
             Shift newShift = session.find(Shift.class,newShiftId);
-            Set set = emp.getShiftList();
-            set.add(newShift);
+            List<Shift> list = emp.getShiftList();
+            list.add(newShift);
 
             session.save(emp);
 
@@ -400,10 +370,10 @@ public class FullcalendarDBOps {
         try{
 
             Employee emp = session.find(Employee.class,empId);
-            Set<Shift> shiftlist = emp.getShiftList();
-            for(Shift st:shiftlist){
+            List<Shift> shiftlist = (List<Shift>) emp.getShiftList();
+            for(int i=0;i<shiftlist.size();i++){
 
-                LocalDateTime s = st.getStartTime();
+                LocalDateTime s = shiftlist.get(i).getStartTime();
                 if(s.toLocalDate().compareTo(cs.toLocalDate())==0){
                     result = true;
                 }
@@ -425,13 +395,13 @@ public class FullcalendarDBOps {
         try{
 
             Employee emp = session.find(Employee.class,empId);
-            Set<Shift> shiftlist = emp.getShiftList();
-            for(Shift st:shiftlist){
+            List<Shift> shiftlist = (List<Shift>) emp.getShiftList();
+            for(int i=0;i<shiftlist.size();i++){
 
-                if(st.getShiftId() == newShiftId){
+                if(shiftlist.get(i).getShiftId() == newShiftId){
                     result = "sameShiftRange";
 
-                }else if(!(cs.compareTo(st.getEndTime())>=0) || !(ce.compareTo(st.getStartTime())<=0)){
+                }else if(!(cs.compareTo(shiftlist.get(i).getEndTime())>=0) || !(ce.compareTo(shiftlist.get(i).getStartTime())<=0)){
                     result = "crossover";
                 }
             }
@@ -468,7 +438,7 @@ public class FullcalendarDBOps {
 
     }
 
-    public boolean deleteShift(int empId,int oldShiftId){
+    public boolean deleteShift(int oldShiftId,int empId){
 
         boolean result=false;
 
@@ -479,12 +449,8 @@ public class FullcalendarDBOps {
             session.beginTransaction();
 
             Employee emp = session.find(Employee.class,empId);
-            List<Shift> shiftList = (List<Shift>) emp.getShiftList();
-            for(int i=0;i<shiftList.size();i++){
-                if(shiftList.get(i).getShiftId()==oldShiftId){
-                    shiftList.remove(i);
-                }
-            }
+            Shift shift = session.find(Shift.class,oldShiftId);
+            emp.getShiftList().remove(shift);
 
             session.update(emp);
 

@@ -203,10 +203,18 @@ public class DBOperation {
     public void addSchedule(ArrayList<Day> schedule) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        for(Day day: schedule) {
 
+
+        for(Day day: schedule) {
             session.beginTransaction();
+
             session.merge(day);
+            for(Shift s :day.getShiftList()) {
+                for (Employee e: s.getEmployeeList()) {
+                    session.update(e);
+                }
+            }
+
             session.getTransaction().commit();
 
         }

@@ -8,9 +8,7 @@ package Model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -46,11 +44,13 @@ public class Shift implements Serializable {
     @Basic(optional = false)
     @Column(name = "shift_type")
     private Character shiftType;
-    @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "shiftList")
-    private List<Model.Employee> employeeList;
+
+    @ManyToMany(mappedBy = "shiftList")
+    private Set<Employee> employeeList;
+
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
     @ManyToOne
-    private Model.Day dayId;
+    private Day dayId;
     @Transient
     private int maxNoEmp;
 
@@ -101,7 +101,7 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
         this.minNoEmp = minNoEmp;
         this.maxNoEmp = maxNoEmp;
-        employeeList = new ArrayList<>();
+        employeeList =  new HashSet<>();
     }
 
     public Integer getShiftId() {
@@ -149,15 +149,15 @@ public class Shift implements Serializable {
     }
 
     @XmlTransient
-    public List<Model.Employee> getEmployeeList() {
+    public Set<Employee> getEmployeeList() {
         return employeeList;
     }
 
     public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = employeeList;
+        this.employeeList = new HashSet<>(employeeList);
     }
 
-    public Model.Day getDayId() {
+    public Day getDayId() {
         return dayId;
     }
 

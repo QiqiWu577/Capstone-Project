@@ -26,14 +26,8 @@ public class EmployeeServices extends HttpServlet {
         HttpSession session = request.getSession();
         String shiftId = request.getParameter("shiftId");
         String empId = request.getParameter("empId");
-        Employee e1 = dbOps.getEmployee(1);
-        Employee e2 = dbOps.getEmployee(2);
-        session.setAttribute("employee", e1);
-        page = "notification";
 
         Employee emp = (Employee) session.getAttribute("employee");
-
-
 
         if (page != null) {
             if (page.equals("shiftOffer")) {

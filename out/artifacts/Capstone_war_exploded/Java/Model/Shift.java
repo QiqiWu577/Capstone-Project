@@ -8,6 +8,7 @@ package Model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -45,7 +46,7 @@ public class Shift implements Serializable {
     @Basic(optional = false)
     @Column(name = "shift_type")
     private Character shiftType;
-    @ManyToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "shiftList")
+    @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.EAGER, mappedBy = "shiftList")
     private List<Model.Employee> employeeList;
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
     @ManyToOne
@@ -100,6 +101,7 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
         this.minNoEmp = minNoEmp;
         this.maxNoEmp = maxNoEmp;
+        employeeList = new ArrayList<>();
     }
 
     public Integer getShiftId() {

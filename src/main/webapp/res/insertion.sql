@@ -133,12 +133,6 @@ insert into employees values (8888, "Employee", "Employee", "123 Edmployee", "12
 
 insert into salt values (8888, "e6953dd39f3537ca2331130af04550442746895747e6c2405cac1af7f3001b1a7e25ba93f56f532122eb979f246f0d57841ca0189a67602f6852291e09234eda", "TkWVVu0T42sJnw0RkBIDVw==");
 
-insert into employee_constraints values (8888, '000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,');
-insert into employee_constraints values (7777, '000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,');
-insert into schedule_employee values (8888,1);
-insert into schedule_employee values (8888,2);
-insert into schedule_employee values (8888,3);
-
 insert into employees values (9,'Mr','Manager','Addy','Number','Man@gmail.com','M',1,1,'Im The BOSS');
 
 #Notification type
@@ -152,20 +146,5 @@ insert into employees values (9,'Mr','Manager','Addy','Number','Man@gmail.com','
 #D - declined
 #N - normal
 #I - important
-insert into notifications values (null, 1,2,'random message',curdate(),'A','N',null);
-insert into notifications values (null, 1,2,'random message',curdate(),'P','N',null);
-insert into notifications values (null, 1,2,'random message',curdate(),'S','W',null);
-insert into notifications values (null, 1,2,'random message',curdate(),'S','A',null);
-insert into notifications values (null, 1,2,'random message',curdate(),'S','D',null);
-insert into notifications values (null, 1,2,'random message',curdate(),'D','N',null);
-insert into notifications values (null, 1,2,'random message',curdate(),'A','I',null);
-insert into notifications values (null, 1,2,'Test Shift 1',curdate(),'S','W',null);
-insert into notifications values (null, 1,2,'Test Shift 2',curdate(),'S','W',null);
-insert into notifications values (null, 1,2,'Test Shift 3',curdate(),'S','W',null);
-insert into notifications values (null, 1,2,'Test Shift 4',curdate(),'S','W',null);
-insert into notifications values (null, 9,9,'random message 1',curdate(),'P','N',null);
-insert into notifications values (null, 9,9,'random message 2',curdate(),'P','N',null);
-insert into notifications values (null, 9,9,'random message 3',curdate(),'P','N',null);
-insert into notifications values (null, 9,9,'random message 4',curdate(),'P','N',null);
-insert into notifications values (null, 9,9,'random message 5',curdate(),'P','N',null);
-insert into notifications values (null, 9,9,'random message',curdate(),'S','W',null);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','W',1);
+insert into notifications values (null, 1,2,'random message',curdate(),'S','W',3);

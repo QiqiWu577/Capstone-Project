@@ -26,11 +26,6 @@ public class EmployeeServices extends HttpServlet {
         HttpSession session = request.getSession();
         String shiftId = request.getParameter("shiftId");
         String empId = request.getParameter("empId");
-
-        page = "home";
-        Employee e1 = dbOps.getEmployee(9);
-        session.setAttribute("employee", e1);
-
         Employee emp = (Employee) session.getAttribute("employee");
 
 
@@ -53,7 +48,7 @@ public class EmployeeServices extends HttpServlet {
                     int shift_id = Integer.parseInt(shiftId);
                     Shift s = dbOps.getShift(shift_id);
                     String content = emp.getFname() + " want you to take their shift on " + s.getStartTime();
-                    Notification notif = new Notification(emp, recipient, shift_id, content, 'S', 'A');
+                    Notification notif = new Notification(emp, recipient, shift_id, content, 'S', 'W');
                     dbOps.addNotification(notif);
                     request.setAttribute("message", "Request Sent!");
                     request.setAttribute("empList", dbOps.getEmployees());

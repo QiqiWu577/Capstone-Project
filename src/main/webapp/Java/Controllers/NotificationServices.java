@@ -84,8 +84,12 @@ public class NotificationServices extends HttpServlet {
 
             n.setStatus('A');
             db.updateNotification(n);
-            session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-            session.setAttribute("sentList", db.getSentNotifications(emp));
+            if(db.getReceivedNotifications(emp)!=null) {
+                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
+            }
+            if(db.getSentNotifications(emp)!=null) {
+                session.setAttribute("sentList", db.getSentNotifications(emp));
+            }
 
             if(emp.getType().equals('M')) {
                 session.setAttribute("manList", db.getManagerNotifications());
@@ -102,8 +106,13 @@ public class NotificationServices extends HttpServlet {
             Notification n = db.getNotification(noteId);
             n.setStatus('D');
             db.updateNotification(n);
-            session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-            session.setAttribute("sentList", db.getSentNotifications(emp)); //change to emp after
+
+            if(db.getReceivedNotifications(emp)!=null) {
+                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
+            }
+            if(db.getSentNotifications(emp)!=null) {
+                session.setAttribute("sentList", db.getSentNotifications(emp));
+            }
 
             if(emp.getType().equals('M')) {
 
@@ -193,16 +202,27 @@ public class NotificationServices extends HttpServlet {
                     db.addNotification(n);
                 }
                 session.setAttribute("manList", db.getManagerNotifications());
-                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-                session.setAttribute("sentList", db.getSentNotifications(emp)); //change to emp after
+
+                if(db.getReceivedNotifications(emp)!=null) {
+                    session.setAttribute("receiveList", db.getReceivedNotifications(emp));
+                }
+                if(db.getSentNotifications(emp)!=null) {
+                    session.setAttribute("sentList", db.getSentNotifications(emp));
+                }
                 request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request, response);
             }
             else {
+
                 int to = Integer.parseInt(request.getParameter("to"));
                 Notification n = new Notification(emp,to,comment,type,status);
                 db.addNotification(n);
-                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-                session.setAttribute("sentList", db.getSentNotifications(emp)); //change to emp after
+
+                if(db.getReceivedNotifications(emp)!=null) {
+                    session.setAttribute("receiveList", db.getReceivedNotifications(emp));
+                }
+                if(db.getSentNotifications(emp)!=null) {
+                    session.setAttribute("sentList", db.getSentNotifications(emp));
+                }
                 request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeNotifications.jsp").forward(request, response);
             }
         }

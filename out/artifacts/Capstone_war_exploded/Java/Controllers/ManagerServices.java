@@ -18,12 +18,14 @@ public class ManagerServices extends HttpServlet {
             throws ServletException, IOException {
 
         String settings = request.getParameter("settings");
-        String notifications = request.getParameter("page");
+        String notifications = request.getParameter("notifications");
+        //notifications="true";
+        //String notifications = request.getParameter("page");
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
         //remove after testing
-        Employee e1 = db.getEmployee(9);
-        session.setAttribute("employee", e1);
+        //Employee e1 = db.getEmployee(9);
+        //session.setAttribute("employee", e1);
         //
         Employee emp = (Employee) session.getAttribute("employee");
 
@@ -32,6 +34,7 @@ public class ManagerServices extends HttpServlet {
             session.setAttribute("frontList", db.getShiftTemplates('S'));
             session.setAttribute("barList", db.getShiftTemplates('B'));
             session.setAttribute("kitchenList", db.getShiftTemplates('K'));
+
             //display operational hours from the database to the jsp table
             ArrayList<DayTemplate> list = db.getDayTemplates();
             ArrayList<DayTemplate> dayList = db.getDayTemplates();

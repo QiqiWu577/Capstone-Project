@@ -1,6 +1,6 @@
 #############Testing for FullCalendar##############
 
-#Day and shift templates
+#day_template
 insert into day_template values ('Monday','00:00:00','23:59:59');
 insert into day_template values ('Tuesday','00:00:00','23:59:59');
 insert into day_template values ('Wednesday','00:00:00','23:59:59');
@@ -9,6 +9,7 @@ insert into day_template values ('Friday','00:00:00','23:59:59');
 insert into day_template values ('Saturday','00:00:00','23:59:59');
 insert into day_template values ('Sunday','00:00:00','23:59:59');
 
+#shift_template
 insert into shift_template values (null,'S','Open', 'Monday','12:00:00','20:00:00',1,2);
 insert into shift_template values (null,'S','Mid', 'Monday','13:00:00','21:00:00',1,2);
 insert into shift_template values (null,'S','Close', 'Monday','14:00:00','22:00:00',1,2);
@@ -112,9 +113,6 @@ insert into schedule_employee values (5,14);
 insert into schedule_employee values (7,15);
 
 
-#shift_template
-
-
 DELIMITER //
 CREATE PROCEDURE get_login(IN empid int)
 BEGIN
@@ -150,4 +148,3 @@ insert into employees values (9,'Mr','Manager','Addy','Number','Man@gmail.com','
 #I - important
 insert into notifications values (null, 1,2,'random message',curdate(),'S','W',1);
 insert into notifications values (null, 1,2,'random message',curdate(),'S','W',3);
-

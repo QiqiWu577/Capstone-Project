@@ -69,8 +69,8 @@ public class AdminServices extends HttpServlet {
                 dbops.deleteEmp(id);
             }
 
-            ArrayList<Employee> userList = dbops.getUsers();
-            session.setAttribute("userList", userList);
+            //ArrayList<Employee> userList = dbops.getUsers();
+           // session.setAttribute("userList", userList);
             request.getRequestDispatcher("/WEB-INF/Presentation/Admin/AdminEdit.jsp").forward(request, response);
         }
     }

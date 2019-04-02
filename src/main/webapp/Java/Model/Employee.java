@@ -10,8 +10,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -65,24 +66,24 @@ public class Employee implements Serializable {
     private boolean active;
     @Column(name = "Notes")
     private String notes;
+    @ManyToMany
     @JoinTable(name = "schedule_employee", joinColumns = {
             @JoinColumn(name = "emp_id", referencedColumnName = "emp_id")}, inverseJoinColumns = {
             @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")})
-    @ManyToMany
-    private List<Shift> shiftList;
+    private Set<Shift> shiftList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
     private EmployeeConstraints employeeConstraints;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     private List<Notification> notificationList;
 
     public Employee() {
-        shiftList = new ArrayList<Shift>();
+        shiftList = new HashSet<>();
         notificationList = new ArrayList<Notification>();
     }
 
     public Employee(Integer empid) {
         this.empid = empid;
-        shiftList = new ArrayList<Shift>();
+        shiftList = new HashSet<>();
         notificationList = new ArrayList<Notification>();
     }
 
@@ -99,7 +100,7 @@ public class Employee implements Serializable {
         this.notes = notes;
         employeeConstraints = new EmployeeConstraints(this, constraints, empid);
 
-        shiftList = new ArrayList<Shift>();
+        shiftList = new HashSet<>();
         notificationList = new ArrayList<Notification>();
     }
 
@@ -205,15 +206,15 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public List<Shift> getShiftList() {
+    public Set<Shift> getShiftList() {
         return shiftList;
     }
 
     public void setShiftList(ArrayList<Shift> shiftList) {
-        this.shiftList = shiftList;
+        this.shiftList = new HashSet<>(shiftList);
     }
 
-    public void setShiftList(List<Shift> shiftList) {
+    public void setShiftList(Set<Shift> shiftList) {
         this.shiftList = shiftList;
     }
 

@@ -153,26 +153,33 @@ public class FullcalendarDBOps {
     public char setShiftType(LocalDateTime s,LocalDateTime e){
 
 //        shiftType rule
-//        D: s>=6:00 && e=<18:00
-//        M: s=<12:00 && e>18:00
-//        N: s>=18:00
+//        O: s and e is not the same date
+//        D: s>=6:00 && s<=12:00 && e<18:00
+//        N: s>=16:00 && e>=18:00
+//        M: else
         char type = ' ';
-        LocalTime sT = s.toLocalTime();
-        LocalTime eT = s.toLocalTime();
+        if(s.toLocalDate().compareTo(e.toLocalDate())!=0){
+            type = 'O';
+        }else {
+            LocalTime sT = s.toLocalTime();
+            LocalTime eT = s.toLocalTime();
 
-        String dt1 = "06:00";
-        String dt2 = "12:00";
-        String dt3 = "18:00";
-        LocalTime six = LocalTime.parse( dt1 ) ;
-        LocalTime twelve = LocalTime.parse( dt2 ) ;
-        LocalTime eighteen = LocalTime.parse( dt3 ) ;
+            String dt1 = "06:00";
+            String dt2 = "12:00";
+            String dt3 = "16:00";
+            String dt4 = "18:00";
+            LocalTime six = LocalTime.parse( dt1 ) ;
+            LocalTime twelve = LocalTime.parse( dt2 ) ;
+            LocalTime sixteen = LocalTime.parse( dt3 ) ;
+            LocalTime eighteen = LocalTime.parse( dt4 ) ;
 
-        if(sT.compareTo(six)>=0 && eT.compareTo(eighteen)<=0){
-            type = 'D';
-        }else if(sT.compareTo(twelve)<=0 && eT.compareTo(eighteen)>0){
-            type = 'M';
-        }else if(sT.compareTo(eighteen)>=0){
-            type = 'N';
+            if(sT.compareTo(six)>=0 && sT.compareTo(twelve)<=0 && eT.compareTo(eighteen)<0){
+                type = 'D';
+            }else if(sT.compareTo(sixteen)>=0 && eT.compareTo(eighteen)>=0){
+                type = 'N';
+            }else {
+                type = 'M';
+            }
         }
 
         return type;
@@ -398,11 +405,18 @@ public class FullcalendarDBOps {
             List<Shift> shiftlist = (List<Shift>) emp.getShiftList();
             for(int i=0;i<shiftlist.size();i++){
 
-                if(shiftlist.get(i).getShiftId() == newShiftId){
-                    result = "sameShiftRange";
+                LocalDateTime s = shiftlist.get(i).getStartTime();
+                //only compare the shift on the same day
+                if(s.toLocalDate().compareTo(cs.toLocalDate())==0){
 
-                }else if(!(cs.compareTo(shiftlist.get(i).getEndTime())>=0) || !(ce.compareTo(shiftlist.get(i).getStartTime())<=0)){
-                    result = "crossover";
+                    LocalDateTime e = shiftlist.get(i).getEndTime();
+                    if(cs.compareTo(s)>=0 && ce.compareTo(e)<=0){
+                        result = "crossover";
+                    }else if(cs.compareTo(s)<=0 && ce.compareTo(s)>0){
+                        result = "crossover";
+                    }else if(cs.compareTo(e)<0 && ce.compareTo(e)>=0){
+                        result = "crossover";
+                    }
                 }
             }
 
@@ -413,16 +427,21 @@ public class FullcalendarDBOps {
         return result;
     }
 
-    public int empExist(String employee){
+    public int empExist(String employee,char type){
 
         int check = 0;
+        String[] split = employee.split(" ");
+        String fname = split[0];
+        String lname = split[1];
 
         Session session = HibernateUtil.getSessionFactory().openSession();
 
         try {
 
-            Query q = session.createQuery("SELECT e FROM Employee e WHERE e.fname = :fname");
-            q.setParameter("fname",employee);
+            Query q = session.createQuery("SELECT e FROM Employee e WHERE e.fname = :fname and e.lname = :lname and e.type = :type");
+            q.setParameter("fname",fname);
+            q.setParameter("lname",lname);
+            q.setParameter("type",type);
 
             Employee emp = (Employee) q.uniqueResult();
 
@@ -467,117 +486,5 @@ public class FullcalendarDBOps {
 
     }
 
-    public boolean updateShift(int shiftId, int dayId,LocalDateTime s, LocalDateTime e){
-
-        boolean result=false;
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Date startTime = Date.from(s.atZone(ZoneId.systemDefault()).toInstant());
-        Date endTime = Date.from(e.atZone(ZoneId.systemDefault()).toInstant());
-
-        try{
-
-            session.beginTransaction();
-
-            char type = setShiftType(s,e);
-
-            Shift shift = session.find(Shift.class,shiftId);
-            Day day = new Day();
-            day.setDayId(dayId);
-            shift.setDayId(day);
-            shift.setStartTime(startTime);
-            shift.setEndTime(endTime);
-            shift.setShiftType(type);
-            session.update(shift);
-
-            session.getTransaction().commit();
-            result = true;
-        }catch (Exception ex){
-            session.getTransaction().rollback();
-            ex.printStackTrace();
-        }finally {
-            session.close();
-        }
-
-        return result;
-    }
-
-    public int checkEmpShift(int shiftId){
-
-        int check = 0;
-
-        String hsql = "SELECT s.employeeList.size from Shift s where s.shiftId = :shiftId";
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        try {
-
-            Query q = session.createQuery(hsql);
-            q.setParameter("shiftId",shiftId);
-
-            check = (Integer) q.uniqueResult();
-
-        }finally {
-            session.close();
-        }
-
-        return check;
-    }
-
-
-
-    public int getNewShiftId(int dayId,Date s,Date e){
-
-        int result = 0;
-
-        String hsql = "SELECT s FROM Shift s WHERE s.dayId.dayId = :dayId and s.startTime = :startTime and s.endTime = :endTime";
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        try{
-
-            Query q = session.createQuery(hsql);
-            q.setParameter("dayId",dayId);
-            q.setParameter("startTime",s);
-            q.setParameter("endTime",e);
-
-            Shift shifts = (Shift) q.uniqueResult();
-
-            result = shifts.getShiftId();
-
-        }finally{
-            session.close();
-        }
-
-        return result;
-    }
-
-
-
-
-
-    public int getNewDayId(Date s,Date e){
-
-        int result = 0;
-
-        String hsql = "SELECT d FROM Day d WHERE d.startTime = :startTime and d.endTime = :endTime";
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        try{
-
-            Query q = session.createQuery(hsql);
-            q.setParameter("startTime",s);
-            q.setParameter("endTime",e);
-
-            Day day = (Day) q.uniqueResult();
-
-            result = day.getDayId();
-
-        }finally{
-            session.close();
-        }
-
-        return result;
-    }
 
 }

@@ -50,10 +50,20 @@ public class ScheduleMaker {
         empList.clear();
         DBOperation dbOps = new DBOperation();
         empList = dbOps.getEmployeesType(empType);
+        for(Employee e: empList) {
+            try {
+                e.getEmployeeConstraints().parseConstraints();
+            } catch (InvalidConstraintException e1) {
+                e1.printStackTrace();
+            } catch (ConstraintWrongSizeException e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 
     public ArrayList<Day> generateSchedule(char scheduleType) {
         getEmployees(scheduleType);
+
         //for every day of the week starting with monday (runs 7 times)
         boolean retryWeek = true;
         ArrayList<Day> schedule = new ArrayList<>();
@@ -73,7 +83,7 @@ public class ScheduleMaker {
 
                 //gets all the employees availability for a given day
                 //gets the day and makes a day object with the opening and closing time
-                DayTemplate template = getDayTemplate(day);
+                DayTemplate template = getDayTemplate(day, scheduleType);
                 Day today = new Day();
 
 
@@ -100,7 +110,7 @@ public class ScheduleMaker {
                     sortEmployees(day);
                     retryWeek = false;
                     redoDay = false;
-
+                    printArrays();
 
                     //randomizes the employees
                     randomizeList();
@@ -125,6 +135,7 @@ public class ScheduleMaker {
                         Date dStartTime = Date.from(shiftStartTime.atZone(ZoneId.systemDefault()).toInstant());
                         Date dEndTime = Date.from(shiftEndTime.atZone(ZoneId.systemDefault()).toInstant());
                         Shift shift = new Shift(0,dStartTime,dEndTime, scheduleType, shiftTemplate.getMinNoEmp(), shiftTemplate.getMaxNoEmp());
+                        shift.setDayId(today);
 
 
 
@@ -192,6 +203,7 @@ public class ScheduleMaker {
                             if (availShift && prefShift && shift.getEmployeeList().size() < shift.getMaxNoEmp()) {
 
                                 shift.getEmployeeList().add(availList.get(j));
+                                availList.get(j).getShiftList().add(shift);
                                 scheduled.add(availList.get(j));
 
                             } else if (availShift) {
@@ -205,6 +217,7 @@ public class ScheduleMaker {
 
                             if (x < secondary.size()) {
                                 shift.getEmployeeList().add(secondary.get(x));
+                                secondary.get(x).getShiftList().add(shift);
                                 scheduled.add(secondary.get(x));
                                 x++;
                             }
@@ -238,7 +251,8 @@ public class ScheduleMaker {
                 }
 
                 schedule.add(today);
-                nextMonday.plusDays(1);
+                nextMonday = nextMonday.plusDays(1);
+                System.out.println(nextMonday);
             }
 
             iteration++;
@@ -312,24 +326,24 @@ public class ScheduleMaker {
         Collections.shuffle(preferences, new Random(seed));
     }
 
-    private DayTemplate getDayTemplate(String day) {
+    private DayTemplate getDayTemplate(String day, char type) {
 
-
-        return loadDays(day);
-
-
-    }
-
-    //method to take in a day of type 'day'
-    private DayTemplate loadDays(String day) {
         DBOperation dbOps = new DBOperation();
 
         for(DayTemplate dt: dbOps.getDayTemplates()) {
             if(dt.getDayOfWeek().equals(day)) {
+                for(int i = 0; i < dt.getShiftTemplateList().size(); i++) {
+                    if(dt.getShiftTemplateList().get(i).getType() != type) {
+                        dt.getShiftTemplateList().remove(i);
+                    }
+                }
+
                 return dt;
             }
         }
         return null;
+
+
     }
 
     //populates the prefList and availList for a given day of the week

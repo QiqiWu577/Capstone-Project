@@ -24,6 +24,9 @@ public class GenerateSchedule extends HttpServlet {
                 System.out.println("First");
                 schedule = scheduleMaker.generateSchedule('S');
                 System.out.println("Second");
+                for(Day d: schedule) {
+                    System.out.println(d);
+                }
                 dbOps.addSchedule(schedule);
                 System.out.println("Third");
                 request.getRequestDispatcher("/ManageScheduleViews?message=server").forward(request, response);

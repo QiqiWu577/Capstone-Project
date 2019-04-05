@@ -6,6 +6,13 @@ public class AppDriver {
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
 
+
+
+
+//        SendEmail se = new SendEmail();
+//
+//        se.sendEmailSingle("anthony.doucet@edu.sait.ca", "Test", 5, "new");
+
 //        PasswordManager pm = new PasswordManager();
 //
 //        boolean test1;

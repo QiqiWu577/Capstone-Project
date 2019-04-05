@@ -5,13 +5,10 @@ import Model.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class DBOperation {
@@ -79,10 +76,19 @@ public class DBOperation {
 
 
     public void addEmployee(Employee e) {
+
         Session session = HibernateUtil.getSessionFactory().openSession();
+        System.out.println("TEST 1");
+
         session.beginTransaction();
+        System.out.println("TEST 2");
+
         session.save(e);
+        System.out.println("TEST 3");
+
         session.getTransaction().commit();
+        System.out.println("TEST 4");
+
         session.close();
 
     }
@@ -91,8 +97,11 @@ public class DBOperation {
     public void updateEmployee(Employee e) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         session.update(e);
+
         session.getTransaction().commit();
+
         session.close();
     }
 
@@ -203,10 +212,18 @@ public class DBOperation {
     public void addSchedule(ArrayList<Day> schedule) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        for(Day day: schedule) {
 
+
+        for(Day day: schedule) {
             session.beginTransaction();
-            session.merge(day);
+
+            session.save(day);
+            for(Shift s :day.getShiftList()) {
+                for (Employee e: s.getEmployeeList()) {
+                    session.update(e);
+                }
+            }
+
             session.getTransaction().commit();
 
         }

@@ -66,24 +66,24 @@ public class Employee implements Serializable {
     private boolean active;
     @Column(name = "Notes")
     private String notes;
-    @ManyToMany
+    @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "schedule_employee", joinColumns = {
             @JoinColumn(name = "emp_id", referencedColumnName = "emp_id")}, inverseJoinColumns = {
             @JoinColumn(name = "shift_id", referencedColumnName = "shift_id")})
-    private Set<Shift> shiftList;
+    private List<Shift> shiftList;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "employee")
     private EmployeeConstraints employeeConstraints;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     private List<Notification> notificationList;
 
     public Employee() {
-        shiftList = new HashSet<>();
+        shiftList = new ArrayList<Shift>();
         notificationList = new ArrayList<Notification>();
     }
 
     public Employee(Integer empid) {
         this.empid = empid;
-        shiftList = new HashSet<>();
+        shiftList = new ArrayList<Shift>();
         notificationList = new ArrayList<Notification>();
     }
 
@@ -100,7 +100,7 @@ public class Employee implements Serializable {
         this.notes = notes;
         employeeConstraints = new EmployeeConstraints(this, constraints, empid);
 
-        shiftList = new HashSet<>();
+        shiftList = new ArrayList<Shift>();
         notificationList = new ArrayList<Notification>();
     }
 
@@ -206,15 +206,15 @@ public class Employee implements Serializable {
     }
 
     @XmlTransient
-    public Set<Shift> getShiftList() {
+    public List<Shift> getShiftList() {
         return shiftList;
     }
 
     public void setShiftList(ArrayList<Shift> shiftList) {
-        this.shiftList = new HashSet<>(shiftList);
+        this.shiftList = shiftList;
     }
 
-    public void setShiftList(Set<Shift> shiftList) {
+    public void setShiftList(List<Shift> shiftList) {
         this.shiftList = shiftList;
     }
 

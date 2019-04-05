@@ -45,11 +45,11 @@ public class Shift implements Serializable {
     @Column(name = "shift_type")
     private Character shiftType;
 
-    @ManyToMany(mappedBy = "shiftList")
-    private Set<Employee> employeeList;
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER,mappedBy = "shiftList")
+    private List<Employee> employeeList;
 
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Day dayId;
     @Transient
     private int maxNoEmp;
@@ -101,7 +101,7 @@ public class Shift implements Serializable {
         this.shiftType = shiftType;
         this.minNoEmp = minNoEmp;
         this.maxNoEmp = maxNoEmp;
-        employeeList =  new HashSet<>();
+        employeeList =  new ArrayList<>();
     }
 
     public Integer getShiftId() {
@@ -149,12 +149,12 @@ public class Shift implements Serializable {
     }
 
     @XmlTransient
-    public Set<Employee> getEmployeeList() {
+    public List<Employee> getEmployeeList() {
         return employeeList;
     }
 
     public void setEmployeeList(List<Employee> employeeList) {
-        this.employeeList = new HashSet<>(employeeList);
+        this.employeeList = employeeList;
     }
 
     public Day getDayId() {

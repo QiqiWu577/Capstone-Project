@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-@WebServlet(name = "EditSerCalendar",urlPatterns = "/EditSerCalendar")
+@WebServlet(name = "EditCalendar",urlPatterns = "/EditCalendar")
 public class EditSerCalendar extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

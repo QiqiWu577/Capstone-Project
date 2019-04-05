@@ -5,13 +5,10 @@ import Model.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class DBOperation {
@@ -79,10 +76,19 @@ public class DBOperation {
 
 
     public void addEmployee(Employee e) {
+
         Session session = HibernateUtil.getSessionFactory().openSession();
+        System.out.println("TEST 1");
+
         session.beginTransaction();
+        System.out.println("TEST 2");
+
         session.save(e);
+        System.out.println("TEST 3");
+
         session.getTransaction().commit();
+        System.out.println("TEST 4");
+
         session.close();
 
     }
@@ -91,8 +97,11 @@ public class DBOperation {
     public void updateEmployee(Employee e) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         session.update(e);
+
         session.getTransaction().commit();
+
         session.close();
     }
 
@@ -102,6 +111,17 @@ public class DBOperation {
         session.beginTransaction();
         Query query = session.createQuery("UPDATE Employee SET active = false WHERE id = :id");
         query.setParameter("id",e.getEmpid());
+        query.executeUpdate();
+
+        session.getTransaction().commit();
+        session.close();
+    }
+
+    public void deleteEmp(int id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("Delete from Employee WHERE id = :id");
+        query.setParameter("id",id);
         query.executeUpdate();
 
         session.getTransaction().commit();
@@ -192,10 +212,18 @@ public class DBOperation {
     public void addSchedule(ArrayList<Day> schedule) {
         Session session = HibernateUtil.getSessionFactory().openSession();
 
-        for(Day day: schedule) {
 
+
+        for(Day day: schedule) {
             session.beginTransaction();
-            session.merge(day);
+
+            session.save(day);
+            for(Shift s :day.getShiftList()) {
+                for (Employee e: s.getEmployeeList()) {
+                    session.update(e);
+                }
+            }
+
             session.getTransaction().commit();
 
         }
@@ -373,12 +401,15 @@ public class DBOperation {
         return shift;
     }
 
-    public void updateShift(Shift s) {
+    public ArrayList<Employee> getUsers() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.update(s);
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
         session.getTransaction().commit();
         session.close();
+        return empList;
+
     }
+
 
 }

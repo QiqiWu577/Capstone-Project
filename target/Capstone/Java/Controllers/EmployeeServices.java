@@ -27,12 +27,7 @@ public class EmployeeServices extends HttpServlet {
         String shiftId = request.getParameter("shiftId");
         String empId = request.getParameter("empId");
 
-        page = "home";
-        Employee e1 = dbOps.getEmployee(9);
-        session.setAttribute("employee", e1);
-
         Employee emp = (Employee) session.getAttribute("employee");
-
 
         if (page != null) {
             if (page.equals("shiftOffer")) {
@@ -65,8 +60,13 @@ public class EmployeeServices extends HttpServlet {
             }
             else if (page.equals("notification")) {
 
-                session.setAttribute("receiveList", dbOps.getReceivedNotifications(emp));
-                session.setAttribute("sentList", dbOps.getSentNotifications(emp));
+                if(dbOps.getReceivedNotifications(emp)!=null) {
+                    session.setAttribute("receiveList", dbOps.getReceivedNotifications(emp));
+                }
+                if(dbOps.getSentNotifications(emp)!=null) {
+                    session.setAttribute("sentList", dbOps.getSentNotifications(emp));
+                }
+
                 session.setAttribute("empList", dbOps.getEmployees());
                 request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeNotifications.jsp").forward(request, response);
 

@@ -53,21 +53,44 @@ public class NotificationServices extends HttpServlet {
             int recipient = n.getRecipient();
 
             if(sender!=null && recipient!=0) {
+
                 Shift s = db.getShift(shiftId);
                 Employee recip = db.getEmployee(recipient);
+
                 ArrayList<Employee> list = new ArrayList<>(s.getEmployeeList());
                 for(int i = 0; i < list.size(); i++) {
                     if(list.get(i).getEmpid() == sender.getEmpid()) {
                         list.set(i, recip);
-                        db.updateShift(s);
                     }
                 }
+                s.setEmployeeList(list);
+
+                ArrayList<Shift> senderShifts = new ArrayList<>(sender.getShiftList());
+                for(int i =0; i<senderShifts.size(); i++) {
+                    if(senderShifts.get(i).getShiftId() == shiftId) {
+                        senderShifts.remove(i);
+                    }
+                }
+                sender.setShiftList(senderShifts);
+
+                ArrayList<Shift> receiveShifts = new ArrayList<>(recip.getShiftList());
+                receiveShifts.add(s);
+                recip.setShiftList(receiveShifts);
+
+                db.updateEmployee(sender);
+                db.updateEmployee(recip);
+
             }
 
             n.setStatus('A');
             db.updateNotification(n);
-            session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-            session.setAttribute("sentList", db.getSentNotifications(emp)); //change to emp after
+            if(db.getReceivedNotifications(emp)!=null) {
+                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
+            }
+            if(db.getSentNotifications(emp)!=null) {
+                session.setAttribute("sentList", db.getSentNotifications(emp));
+            }
+
             if(emp.getType().equals('M')) {
                 session.setAttribute("manList", db.getManagerNotifications());
                 request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request,response);
@@ -83,8 +106,13 @@ public class NotificationServices extends HttpServlet {
             Notification n = db.getNotification(noteId);
             n.setStatus('D');
             db.updateNotification(n);
-            session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-            session.setAttribute("sentList", db.getSentNotifications(emp)); //change to emp after
+
+            if(db.getReceivedNotifications(emp)!=null) {
+                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
+            }
+            if(db.getSentNotifications(emp)!=null) {
+                session.setAttribute("sentList", db.getSentNotifications(emp));
+            }
 
             if(emp.getType().equals('M')) {
 
@@ -174,16 +202,27 @@ public class NotificationServices extends HttpServlet {
                     db.addNotification(n);
                 }
                 session.setAttribute("manList", db.getManagerNotifications());
-                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-                session.setAttribute("sentList", db.getSentNotifications(emp)); //change to emp after
+
+                if(db.getReceivedNotifications(emp)!=null) {
+                    session.setAttribute("receiveList", db.getReceivedNotifications(emp));
+                }
+                if(db.getSentNotifications(emp)!=null) {
+                    session.setAttribute("sentList", db.getSentNotifications(emp));
+                }
                 request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request, response);
             }
             else {
+
                 int to = Integer.parseInt(request.getParameter("to"));
                 Notification n = new Notification(emp,to,comment,type,status);
                 db.addNotification(n);
-                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-                session.setAttribute("sentList", db.getSentNotifications(emp)); //change to emp after
+
+                if(db.getReceivedNotifications(emp)!=null) {
+                    session.setAttribute("receiveList", db.getReceivedNotifications(emp));
+                }
+                if(db.getSentNotifications(emp)!=null) {
+                    session.setAttribute("sentList", db.getSentNotifications(emp));
+                }
                 request.getRequestDispatcher("/WEB-INF/Presentation/Employee/EmployeeNotifications.jsp").forward(request, response);
             }
         }

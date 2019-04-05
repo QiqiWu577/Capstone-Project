@@ -48,9 +48,11 @@ public class ShowEmpCalendar extends HttpServlet {
                     }else if(shiftDetail[4].equals("M")){
 
                         color = "yellow";
-                    }else {
+                    }else if(shiftDetail[4].equals("N")){
 
                         color = "purple";
+                    }else{
+                        color = "blue";
                     }
 
                     //store id,title,start,end,shiftID,dayId and empId as CalendarDAO object into the ArrayList if one on the shift or
@@ -62,7 +64,7 @@ public class ShowEmpCalendar extends HttpServlet {
             }
 
             //store the list as session for the use of editing
-            session.setAttribute("bartenderShifts",list);
+            session.setAttribute("empShifts",list);
 
             //send the generate schedule in json format to the fullcalendar
             response.setContentType("application/json");

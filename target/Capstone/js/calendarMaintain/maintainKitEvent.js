@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     //------ start to perform adding shift function
-    var newShiftDialog,newShiftForm,startDate,color,
+    var newShiftDialog,newShiftForm,startDate,
         tips = $(".validateTips"),
         fname = $("#fname"),
         lname = $("#lname"),
@@ -54,18 +54,25 @@ $(document).ready(function() {
     }
 
     function checkTime(s,e){
-        var st = moment(s.val(), 'h:mma');
-        var et = moment(e.val(), 'h:mma');
-        var check = moment(st).isBefore(et);
-        if(!check){
-            updateTips("Opening hour must be earlier than the closing hour!");
-            return false;
+        var valid = true;
+        var sv = moment(s.val());
+        var ev = moment(e.val());
+        var sd = moment(sv).format("YYYY-MM-DD");
+        var ed = moment(ev).format("YYYY-MM-DD");
+        var duration = moment.duration(sd.diff(ed));
+        var days = duration.asDays();
+        console.log(days);
+
+        valid = valid && moment(sv).isBefore(ev);
+        if(days!==0 || days!==1){
+            valid = false;
         }
-        return true;
-    }
+        valid = valid && moment(sd).isSame(startDate);
 
-    function setColor(s,e){
-
+        if(!valid){
+            updateTips("Opening hour must be earlier than the closing hour!");
+        }
+        return valid;
     }
 
     function addShift(){
@@ -80,16 +87,15 @@ $(document).ready(function() {
 
         if(valid){
 
-            var start = startDate+"T"+startTime.val();
-            var end = startDate+"T"+endTime.val();
+            var start = startTime.val();
+            var end = endTime.val();
             var name = fname.val()+" "+lname.val();
 
             var shift = {
                 id: "add",
                 title: name,
                 start: start,
-                end: end,
-                color: "D"
+                end: end
             };
 
             //save to the database
@@ -135,7 +141,6 @@ $(document).ready(function() {
             title: "delete",
             start: ds,
             end: de,
-            color: "",
             type:"K"
         };
 
@@ -188,7 +193,6 @@ $(document).ready(function() {
             title: event.title,
             start: event.start,
             end: event.end,
-            color: event.color,
             type: 'K'
         };
 

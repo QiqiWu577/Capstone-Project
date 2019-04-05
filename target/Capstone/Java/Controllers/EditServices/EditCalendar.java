@@ -109,7 +109,7 @@ public class EditCalendar extends HttpServlet {
                             //check the same employee situations
                             //they cannot be the same time range or cross over
                             //if it is, display the error and do nothing. or else continue the operation on shift table
-                            String result = DBOps.checkSameShift(newEmpId,newShiftId,cs,ce);
+                            String result = DBOps.checkSameEmpShift(newEmpId,cs,ce);
                             if(result.equals("crossover")){
                                 response.getWriter().write("crossover");
                             }else{
@@ -211,7 +211,7 @@ public class EditCalendar extends HttpServlet {
                             //check the same employee situations
                             //they cannot be the same time range or cross over
                             //if it is, display the error and do nothing. or else continue the operation on shift table
-                            String result = DBOps.checkSameShift(empId,newShiftId,cs,ce);
+                            String result = DBOps.checkSameEmpShift(empId,cs,ce);
                             if(result.equals("crossover")){
                                 response.getWriter().write("crossover");
                             }else{

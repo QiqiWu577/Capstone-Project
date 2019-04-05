@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     //------ start to perform adding shift function
-    var newShiftDialog,newShiftForm,startDate,color,
+    var newShiftDialog,newShiftForm,startDate,endDate,nextDay,
         tips = $(".validateTips"),
         fname = $("#fname"),
         lname = $("#lname"),
@@ -53,45 +53,44 @@ $(document).ready(function() {
 
     }
 
-    function checkTime(s,e){
-        var st = moment(s.val(), 'h:mma');
-        var et = moment(e.val(), 'h:mma');
-        var check = moment(st).isBefore(et);
-        if(!check){
-            updateTips("Opening hour must be earlier than the closing hour!");
-            return false;
+    function checkNextDayShift(s,e){
+        nextDay = false;
+        var st = startDate+"T"+s.val();
+        var et = startDate+"T"+e.val();
+
+        if(moment(et).isBefore(st)){
+            $("#anotherDayDialog").dialog("open");
+            endDate = moment(startDate).add(1,'days').format('YYYY-MM-DD');
         }
-        return true;
-    }
-
-    function setColor(s,e){
-
-
-
     }
 
     function addShift(){
         var valid = true;
+        var start,end,name;
         allFields.removeClass( "ui-state-error" );
 
         valid = valid && checkEmp(fname);
         valid = valid && checkEmp(lname);
         valid = valid && checkNotEmpty(startTime,0);
         valid = valid && checkNotEmpty(endTime,1);
-        valid = valid && checkTime(startTime,endTime);
 
         if(valid){
 
-            var start = startDate+"T"+startTime.val();
-            var end = startDate+"T"+endTime.val();
-            var name = fname.val()+" "+lname.val();
+            name = fname.val()+" "+lname.val();
+            console.log(nextDay);
+            if(nextDay){
+                start = startDate+"T"+startTime.val();
+                end = endDate+"T"+endTime.val();
+            }else{
+                start = startDate+"T"+startTime.val();
+                end = startDate+"T"+endTime.val();
+            }
 
             var shift = {
                 id: "add",
                 title: name,
                 start: start,
-                end: end,
-                color: "D"
+                end: end
             };
 
             //save to the database
@@ -109,7 +108,9 @@ $(document).ready(function() {
         width: 350,
         modal: true,
         buttons: {
-            "Create": addShift,
+            "Create": function () {
+                checkNextDayShift(startTime,endTime);
+            },
             Cancel: function(){
                 newShiftDialog.dialog("close");
             }
@@ -137,7 +138,6 @@ $(document).ready(function() {
             title: "delete",
             start: ds,
             end: de,
-            color: "",
             type:"S"
             };
 
@@ -181,6 +181,28 @@ $(document).ready(function() {
     //------ the end of performing deleting shift function
 
 
+    //------ start to perform set the shift ending at the next day
+
+    $( "#anotherDayDialog" ).dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Yes": function() {
+                nextDay = true;
+                addShift();
+                $( this ).dialog( "close" );
+            },
+            Cancel: function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+
+    //------ the end of perform set the shift ending at the next day function
+
     //save shift after editing
     function saveEvent(event){
         var check = false;
@@ -190,7 +212,6 @@ $(document).ready(function() {
             title: event.title,
             start: event.start,
             end: event.end,
-            color: event.color,
             type: 'S'
         };
 

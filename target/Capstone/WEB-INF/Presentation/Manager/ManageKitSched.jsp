@@ -77,9 +77,9 @@
             <label for="lname">Last Name</label>
             <input type="text" name="lname" id="lname" class="text ui-widget-content ui-corner-all">
             <label for="start">Event Start Time</label>
-            <input type="time" name="start" id="start" class="text ui-widget-content ui-corner-all">
+            <input type="datetime-local" name="start" id="start" class="text ui-widget-content ui-corner-all">
             <label for="end">Event Start Time</label>
-            <input type="time" name="end" id="end" class="text ui-widget-content ui-corner-all">
+            <input type="datetime-local" name="end" id="end" class="text ui-widget-content ui-corner-all">
 
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </fieldset>

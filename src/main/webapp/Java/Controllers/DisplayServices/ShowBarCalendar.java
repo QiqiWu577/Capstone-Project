@@ -48,9 +48,11 @@ public class ShowBarCalendar extends HttpServlet {
                     }else if(shiftDetail[4].equals("M")){
 
                         color = "yellow";
-                    }else {
+                    }else if(shiftDetail[4].equals("N")){
 
                         color = "purple";
+                    }else{
+                        color = "blue";
                     }
 
                     //store id,title,start,end,shiftID,dayId and empId as CalendarDAO object into the ArrayList if one on the shift or

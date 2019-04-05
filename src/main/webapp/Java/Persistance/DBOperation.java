@@ -5,13 +5,10 @@ import Model.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class DBOperation {

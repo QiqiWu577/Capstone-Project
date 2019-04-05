@@ -7,6 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
+import java.util.Random;
 
 public class PasswordManager {
 
@@ -24,6 +25,48 @@ public class PasswordManager {
         return conn;
     }
 
+
+    public void addUser(int empid, String password) {
+
+        PasswordManager pm = new PasswordManager();
+        byte[] tempByte = null;
+
+        try {
+            tempByte = pm.getSalt();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        String salt = DatatypeConverter.printBase64Binary(tempByte);
+        String hash = pm.hash(password, tempByte);
+
+
+
+        CallableStatement cstmt = null;
+
+        Connection conn=getConnection();
+        String SQL = "call set_password(?,?,?)";
+
+        try {
+            cstmt = conn.prepareCall(SQL);
+
+            cstmt.setInt(1, empid);
+            cstmt.setString(2, hash);
+            cstmt.setString(3, salt);
+
+
+            cstmt.executeUpdate();
+
+            cstmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     public boolean getHashSalt(int empid, String verify) {
         boolean valid=false;
         String hash = null;
@@ -37,14 +80,12 @@ public class PasswordManager {
             cstmt = conn.prepareCall(SQL);
 
             cstmt.setInt(1, empid);
-            System.out.println(empid);
             ResultSet rs = cstmt.executeQuery();
 
             rs.next();
             hash = rs.getString(1);
             salt = rs.getString(2);
-            System.out.println(hash);
-            System.out.println(salt);
+
 
 
             rs.close();
@@ -53,7 +94,6 @@ public class PasswordManager {
 
             //System.out.println(hash + " " + salt);
             valid = checkPassword(hash, verify, salt);
-            System.out.println("PM: "+valid);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,10 +147,20 @@ public class PasswordManager {
 
     public String generatePassword(){
 
-        //////
+        final String PASS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String tempPass=null;
+        Random rand = new Random();
 
 
-        return null;
+        for (int i =0; i<=8; i++) {
+            int n = rand.nextInt(26);
+
+            tempPass+=PASS.charAt(n);
+
+
+        }
+
+        return tempPass;
     }
 
 }

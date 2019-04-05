@@ -202,7 +202,7 @@ public class ScheduleMaker {
                                 shift.getEmployeeList().add(availList.get(j));
 
 
-                                Set<Shift> empShiftList1 = availList.get(j).getShiftList();
+                                ArrayList<Shift> empShiftList1 = new ArrayList<>(availList.get(j).getShiftList());
                                 empShiftList1.add(shift);
                                 availList.get(j).setShiftList(empShiftList1);
                                 scheduled.add(availList.get(j));
@@ -218,7 +218,7 @@ public class ScheduleMaker {
 
                             if (x < secondary.size()) {
                                 shift.getEmployeeList().add(secondary.get(x));
-                                Set<Shift> empShiftList = secondary.get(x).getShiftList();
+                                ArrayList<Shift> empShiftList = new ArrayList<>(secondary.get(x).getShiftList());
                                 empShiftList.add(shift);
                                 secondary.get(x).setShiftList(empShiftList);
                                 scheduled.add(secondary.get(x));

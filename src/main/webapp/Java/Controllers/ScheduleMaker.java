@@ -11,10 +11,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 public class ScheduleMaker {
 
@@ -203,7 +200,11 @@ public class ScheduleMaker {
                             if (availShift && prefShift && shift.getEmployeeList().size() < shift.getMaxNoEmp()) {
 
                                 shift.getEmployeeList().add(availList.get(j));
-                                availList.get(j).getShiftList().add(shift);
+
+
+                                Set<Shift> empShiftList1 = availList.get(j).getShiftList();
+                                empShiftList1.add(shift);
+                                availList.get(j).setShiftList(empShiftList1);
                                 scheduled.add(availList.get(j));
 
                             } else if (availShift) {
@@ -217,7 +218,9 @@ public class ScheduleMaker {
 
                             if (x < secondary.size()) {
                                 shift.getEmployeeList().add(secondary.get(x));
-                                secondary.get(x).getShiftList().add(shift);
+                                Set<Shift> empShiftList = secondary.get(x).getShiftList();
+                                empShiftList.add(shift);
+                                secondary.get(x).setShiftList(empShiftList);
                                 scheduled.add(secondary.get(x));
                                 x++;
                             }

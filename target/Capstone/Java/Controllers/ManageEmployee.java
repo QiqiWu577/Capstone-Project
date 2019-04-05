@@ -26,7 +26,7 @@ public class ManageEmployee extends HttpServlet {
         String email = request.getParameter("email");
         String comments = request.getParameter("comment");
         DBOperation dbOps = new DBOperation();
-        SendEmail se = new SendEmail();
+        //SendEmail se = new SendEmail();
 
         System.out.println(id);
         char role;
@@ -91,7 +91,7 @@ public class ManageEmployee extends HttpServlet {
 
                             try {
                                 dbOps.addEmployee(new Employee(numID, address, fname, lname, phone, email, role, true, true, comments, constraints));
-                                se.sendEmailSingle(email, fname, numID, "new");
+                                //se.sendEmailSingle(email, fname, numID, "new");
                                 request.setAttribute("message", "Employee Added!");
                             } catch (InvalidConstraintException e) {
                                 request.setAttribute("message", "Invalid Constraint!");

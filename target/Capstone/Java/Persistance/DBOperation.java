@@ -217,7 +217,7 @@ public class DBOperation {
         for(Day day: schedule) {
             session.beginTransaction();
 
-            session.merge(day);
+            session.save(day);
             for(Shift s :day.getShiftList()) {
                 for (Employee e: s.getEmployeeList()) {
                     session.update(e);

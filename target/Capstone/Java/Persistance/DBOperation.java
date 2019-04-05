@@ -78,10 +78,19 @@ public class DBOperation {
 
 
     public void addEmployee(Employee e) {
+
         Session session = HibernateUtil.getSessionFactory().openSession();
+        System.out.println("TEST 1");
+
         session.beginTransaction();
+        System.out.println("TEST 2");
+
         session.save(e);
+        System.out.println("TEST 3");
+
         session.getTransaction().commit();
+        System.out.println("TEST 4");
+
         session.close();
 
     }
@@ -90,8 +99,11 @@ public class DBOperation {
     public void updateEmployee(Employee e) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         session.update(e);
+
         session.getTransaction().commit();
+
         session.close();
     }
 

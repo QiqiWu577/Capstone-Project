@@ -7,10 +7,7 @@ import Model.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class FullcalendarDBOps {
 
@@ -246,11 +243,10 @@ public class FullcalendarDBOps {
             session.beginTransaction();
 
             Employee emp = session.find(Employee.class,empId);
+            Set set = emp.getShiftList();
 
-            List<Shift> list = emp.getShiftList();
             Shift oldShift = session.find(Shift.class,oldShiftId);
-            list.remove(oldShift);
-            emp.setShiftList(list);
+            set.remove(oldShift);
 
             session.save(emp);
 
@@ -279,9 +275,8 @@ public class FullcalendarDBOps {
             Employee emp = session.find(Employee.class,empId);
 
             Shift newShift = session.find(Shift.class,newShiftId);
-            ArrayList<Shift> list = new ArrayList<>();
-            list.add(newShift);
-            emp.setShiftList(list);
+            Set set = emp.getShiftList();
+            set.add(newShift);
 
             session.save(emp);
 

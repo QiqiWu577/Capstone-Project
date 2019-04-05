@@ -43,7 +43,7 @@ public class Day implements Serializable {
     @Column(name = "end_time")
     @Temporal(TemporalType.TIMESTAMP)
     private Date endTime;
-    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dayId")
+    @OneToMany(mappedBy = "dayId")
     private List<Shift> shiftList;
 
     public Day() {

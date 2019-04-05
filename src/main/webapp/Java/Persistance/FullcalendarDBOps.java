@@ -393,7 +393,7 @@ public class FullcalendarDBOps {
         return result;
     }
 
-    public String checkSameShift(int empId,int newShiftId,LocalDateTime cs,LocalDateTime ce){
+    public String checkSameEmpShift(int empId,LocalDateTime cs,LocalDateTime ce){
 
         String result = "";
 

@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     //------ start to perform adding shift function
-    var newShiftDialog,newShiftForm,startDate,
+    var newShiftDialog,newShiftForm,startDate,endDate,nextDay,
         tips = $(".validateTips"),
         fname = $("#fname"),
         lname = $("#lname"),
@@ -53,43 +53,38 @@ $(document).ready(function() {
 
     }
 
-    function checkTime(s,e){
-        var valid = true;
-        var sv = moment(s.val());
-        var ev = moment(e.val());
-        var sd = moment(sv).format("YYYY-MM-DD");
-        var ed = moment(ev).format("YYYY-MM-DD");
-        var duration = moment.duration(sd.diff(ed));
-        var days = duration.asDays();
-        console.log(days);
+    function checkNextDayShift(s,e){
+        nextDay = false;
+        var st = startDate+"T"+s.val();
+        var et = startDate+"T"+e.val();
 
-        valid = valid && moment(sv).isBefore(ev);
-        if(days!==0 || days!==1){
-            valid = false;
+        if(moment(et).isBefore(st)){
+            $("#anotherDayDialog").dialog("open");
+            endDate = moment(startDate).add(1,'days').format('YYYY-MM-DD');
         }
-        valid = valid && moment(sd).isSame(startDate);
-
-        if(!valid){
-            updateTips("Opening hour must be earlier than the closing hour!");
-        }
-        return valid;
     }
 
     function addShift(){
         var valid = true;
+        var start,end,name;
         allFields.removeClass( "ui-state-error" );
 
         valid = valid && checkEmp(fname);
         valid = valid && checkEmp(lname);
         valid = valid && checkNotEmpty(startTime,0);
         valid = valid && checkNotEmpty(endTime,1);
-        valid = valid && checkTime(startTime,endTime);
 
         if(valid){
 
-            var start = startTime.val();
-            var end = endTime.val();
-            var name = fname.val()+" "+lname.val();
+            name = fname.val()+" "+lname.val();
+            console.log(nextDay);
+            if(nextDay){
+                start = startDate+"T"+startTime.val();
+                end = endDate+"T"+endTime.val();
+            }else{
+                start = startDate+"T"+startTime.val();
+                end = startDate+"T"+endTime.val();
+            }
 
             var shift = {
                 id: "add",
@@ -113,7 +108,9 @@ $(document).ready(function() {
         width: 350,
         modal: true,
         buttons: {
-            "Create": addShift,
+            "Create": function () {
+                checkNextDayShift(startTime,endTime);
+            },
             Cancel: function(){
                 newShiftDialog.dialog("close");
             }
@@ -183,6 +180,28 @@ $(document).ready(function() {
 
     //------ the end of performing deleting shift function
 
+
+    //------ start to perform set the shift ending at the next day
+
+    $( "#anotherDayDialog" ).dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Yes": function() {
+                nextDay = true;
+                addShift();
+                $( this ).dialog( "close" );
+            },
+            Cancel: function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+
+    //------ the end of perform set the shift ending at the next day function
 
     //save shift after editing
     function saveEvent(event){

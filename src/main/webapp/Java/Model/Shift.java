@@ -49,7 +49,7 @@ public class Shift implements Serializable {
     private Set<Employee> employeeList;
 
     @JoinColumn(name = "day_id", referencedColumnName = "day_id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Day dayId;
     @Transient
     private int maxNoEmp;

@@ -78,7 +78,7 @@ public class EmployeeConstraints implements Serializable {
     @Transient
     private boolean isAvailSunday;
     @Transient
-    private boolean isPrefMonday;
+    private boolean isPrefMonday=false;
     @Transient
     private boolean isPrefTuesday;
     @Transient

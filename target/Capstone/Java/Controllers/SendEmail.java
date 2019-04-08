@@ -118,13 +118,9 @@ public class SendEmail extends HttpServlet {
         if (type.equalsIgnoreCase("new")) {
             String tempPass = pm.generatePassword();
 
-<<<<<<< HEAD
-           //pm.addUser(empID, tempPass);
-=======
            pm.addUser(empID, tempPass);
 
 
->>>>>>> 5250c3eeb374f58dddb4f3be93c422b6945941af
 
             body =  "Hello "+ name +",\r\n\r\nAn employee account has been made for you for 2030 Bubble Tea Cafe. "+
                     "Please login using the following information at http://localhost:8080/Capstone_war_exploded/"+".\r\n\r\nUsername: "

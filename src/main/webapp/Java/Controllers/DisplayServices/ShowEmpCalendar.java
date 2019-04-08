@@ -1,5 +1,6 @@
 package Controllers.DisplayServices;
 
+import Model.Employee;
 import Persistance.FullcalendarDBOps;
 import com.google.gson.Gson;
 import Model.CalendarDAO;
@@ -22,7 +23,8 @@ public class ShowEmpCalendar extends HttpServlet {
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list = new ArrayList();
         HttpSession session = request.getSession();
-        int empId = (int) session.getAttribute("employee");
+        Employee emp = (Employee)session.getAttribute("employee");
+        int empId = emp.getEmpid();
 
         //get the shift list from the shift table
         String empList = DBOps.getEmpsBE(empId);

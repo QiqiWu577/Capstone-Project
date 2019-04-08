@@ -1,10 +1,12 @@
 package Persistance;
 
 
+import Controllers.PasswordManager;
 import Model.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -75,7 +77,7 @@ public class DBOperation {
     }
 
 
-    public void addEmployee(Employee e) {
+    public int addEmployee(Employee e) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         System.out.println("TEST 1");
@@ -83,13 +85,15 @@ public class DBOperation {
         session.beginTransaction();
         System.out.println("TEST 2");
 
-        session.save(e);
+        int id = (Integer) session.save(e);
         System.out.println("TEST 3");
 
         session.getTransaction().commit();
         System.out.println("TEST 4");
 
         session.close();
+
+        return id;
 
     }
 
@@ -210,25 +214,19 @@ public class DBOperation {
 
 
     public void addSchedule(ArrayList<Day> schedule) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-
-
+        System.out.println("testSched");
+        FullcalendarDBOps dbo = new FullcalendarDBOps();
         for(Day day: schedule) {
-            session.beginTransaction();
-
-            session.save(day);
+            int newDayId = dbo.addDay(day.getStartTime(), day.getEndTime());
             for(Shift s :day.getShiftList()) {
-                for (Employee e: s.getEmployeeList()) {
-                    session.update(e);
+                for(Employee e: s.getEmployeeList()) {
+                    int newshiftId = dbo.addShift(newDayId,e.getEmpid(),s.getStartTime(),s.getEndTime());
+                    dbo.addEmpShift(newshiftId,e.getEmpid());
                 }
             }
-
-            session.getTransaction().commit();
-
         }
-        session.close();
     }
+
 
 
     public LocalDateTime getLastScheduleDate() {

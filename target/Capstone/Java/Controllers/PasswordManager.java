@@ -1,6 +1,9 @@
 package Controllers;
 
 
+import Model.Employee;
+import Model.Shift;
+
 import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -45,7 +48,7 @@ public class PasswordManager {
         CallableStatement cstmt = null;
 
         Connection conn=getConnection();
-        String SQL = "call set_password(?,?,?)";
+        String SQL = "call set_passwords(?,?,?)";
 
         try {
             cstmt = conn.prepareCall(SQL);
@@ -148,12 +151,13 @@ public class PasswordManager {
     public String generatePassword(){
 
         final String PASS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        String tempPass=null;
+        String tempPass="";
         Random rand = new Random();
 
+       // rand.nextInt();
 
         for (int i =0; i<=8; i++) {
-            int n = rand.nextInt(26);
+            int n = rand.nextInt(35);
 
             tempPass+=PASS.charAt(n);
 
@@ -162,5 +166,38 @@ public class PasswordManager {
 
         return tempPass;
     }
+
+
+
+
+
+    public void updateScheduleEmployee(int s, Employee e) {
+        Connection conn=getConnection();
+        String sql = "INSERT INTO schedule_employee VALUES(?,?)";
+
+        System.out.println("test1");
+        System.out.println(s + " : "+ e.getEmpid());
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, s);
+            ps.setInt(2, e.getEmpid());
+            System.out.println(s + " : "+ e.getEmpid());
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        } finally {
+
+            try {
+                conn.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
 
 }

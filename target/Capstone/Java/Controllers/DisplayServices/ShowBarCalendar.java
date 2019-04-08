@@ -15,12 +15,12 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
- *
+ * @author Qiqi Wu
  */
 @WebServlet(name = "ShowBarCalendar",urlPatterns = "/ShowBarCalendar")
 public class ShowBarCalendar extends HttpServlet {
     /**
-     * 
+     * Processes Servlet Requests for showing the bar sections schedule
      * @param request
      * @param response
      * @throws ServletException

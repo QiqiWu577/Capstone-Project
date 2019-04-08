@@ -12,8 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Anthony Doucet
+ */
 @WebServlet(name = "ManageEmployee", urlPatterns = "/ManageEmployees")
 public class ManageEmployee extends HttpServlet {
+    /**
+     * Processes the requests for managing employees
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String constraints = request.getParameter("constraints");
         String action = request.getParameter("action");
@@ -90,13 +100,8 @@ public class ManageEmployee extends HttpServlet {
                         if (numID == 0) {
 
                             try {
-<<<<<<< HEAD
-                                dbOps.addEmployee(new Employee(numID, address, fname, lname, phone, email, role, true, true, comments, constraints));
-                                se.sendEmailSingle(email, fname, numID, "new");
-=======
                                 int temp = dbOps.addEmployee(new Employee(numID, address, fname, lname, phone, email, role, true, true, comments, constraints));
                                 se.sendEmailSingle(email, fname, temp, "new");
->>>>>>> 5250c3eeb374f58dddb4f3be93c422b6945941af
                                 request.setAttribute("message", "Employee Added!");
                             } catch (InvalidConstraintException e) {
                                 request.setAttribute("message", "Invalid Constraint!");

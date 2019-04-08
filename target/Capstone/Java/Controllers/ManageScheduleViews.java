@@ -7,15 +7,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "ManageScheduleViews", urlPatterns = "/ManageScheduleViews")
 public class ManageScheduleViews extends HttpServlet {
+    /**
+     * Processes the request for the manager schedule views
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String change = request.getParameter("message");
 
         if(change == null || change.equals("")) {
-            System.out.println("Test");
             request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManageSerSched.jsp").forward(request,response);
         }else if(change.equals("server")){
 

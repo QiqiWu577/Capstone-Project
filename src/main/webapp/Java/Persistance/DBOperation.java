@@ -212,24 +212,17 @@ public class DBOperation {
 
 
     public void addSchedule(ArrayList<Day> schedule) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        PasswordManager pm = new PasswordManager();
         System.out.println("testSched");
-
+        FullcalendarDBOps dbo = new FullcalendarDBOps();
         for(Day day: schedule) {
+            int newDayId = dbo.addDay(day.getStartTime(), day.getEndTime());
             for(Shift s :day.getShiftList()) {
-                    session.beginTransaction();
-                    session.save(day);
-                    Integer a = (Integer)session.save(s);
-                    session.getTransaction().commit();
-
-                    for(Employee e: s.getEmployeeList()) {
-
-//                        pm.updateScheduleEmployee(a,e);
-                    }
+                for(Employee e: s.getEmployeeList()) {
+                    int newshiftId = dbo.addShift(newDayId,e.getEmpid(),s.getStartTime(),s.getEndTime());
+                    dbo.addEmpShift(newshiftId,e.getEmpid());
+                }
             }
         }
-        session.close();
     }
 
 

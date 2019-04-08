@@ -269,12 +269,13 @@ public class ScheduleMaker {
 
 
     private LocalDateTime getNextMonday() {
+        System.out.println("Next Monday");
         DBOperation dbOps = new DBOperation();
         LocalDateTime ldt = dbOps.getLastScheduleDate();
         if(ldt.getDayOfWeek() != DayOfWeek.MONDAY) {
-            ldt.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
+            ldt = ldt.with(TemporalAdjusters.next(DayOfWeek.MONDAY));
         }
-
+        System.out.println("Next Monday: " + ldt);
         return ldt;
     }
 

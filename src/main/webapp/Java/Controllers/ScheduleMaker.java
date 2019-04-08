@@ -2,16 +2,14 @@ package Controllers;
 import Model.*;
 import Persistance.DBOperation;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Random;
 
 public class ScheduleMaker {
 
@@ -202,7 +200,7 @@ public class ScheduleMaker {
                                 shift.getEmployeeList().add(availList.get(j));
 
 
-                                Set<Shift> empShiftList1 = availList.get(j).getShiftList();
+                                ArrayList<Shift> empShiftList1 = new ArrayList<>(availList.get(j).getShiftList());
                                 empShiftList1.add(shift);
                                 availList.get(j).setShiftList(empShiftList1);
                                 scheduled.add(availList.get(j));
@@ -218,7 +216,7 @@ public class ScheduleMaker {
 
                             if (x < secondary.size()) {
                                 shift.getEmployeeList().add(secondary.get(x));
-                                Set<Shift> empShiftList = secondary.get(x).getShiftList();
+                                ArrayList<Shift> empShiftList = new ArrayList<>(secondary.get(x).getShiftList());
                                 empShiftList.add(shift);
                                 secondary.get(x).setShiftList(empShiftList);
                                 scheduled.add(secondary.get(x));

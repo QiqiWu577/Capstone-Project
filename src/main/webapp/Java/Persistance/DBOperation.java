@@ -75,7 +75,7 @@ public class DBOperation {
     }
 
 
-    public void addEmployee(Employee e) {
+    public int addEmployee(Employee e) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
         System.out.println("TEST 1");
@@ -83,13 +83,15 @@ public class DBOperation {
         session.beginTransaction();
         System.out.println("TEST 2");
 
-        session.save(e);
+        int id = (Integer) session.save(e);
         System.out.println("TEST 3");
 
         session.getTransaction().commit();
         System.out.println("TEST 4");
 
         session.close();
+
+        return id;
 
     }
 

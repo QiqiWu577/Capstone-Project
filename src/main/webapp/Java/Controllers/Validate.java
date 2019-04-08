@@ -49,7 +49,7 @@ public class Validate extends HttpServlet {
 
                 Employee emp = dbops.getEmployee(Integer.parseInt(username));
                 HttpSession session = request.getSession();
-                session.setAttribute("employee", emp.getEmpid());
+                session.setAttribute("employee", emp);
 
 
                 if (emp.getType() == 'M') {
@@ -87,11 +87,6 @@ public class Validate extends HttpServlet {
             request.setAttribute("message", "Both username and password are required!");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
-
-
-
-
-
     }
 
 

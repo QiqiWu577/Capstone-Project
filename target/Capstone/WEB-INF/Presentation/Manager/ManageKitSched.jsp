@@ -59,7 +59,7 @@
         <a href="ManageScheduleViews?message=server">Server</a>
         <a href="ManageScheduleViews?message=bartender">Bartender</a>
         <a href="ManageScheduleViews?message=kitchen">Kitchen</a>
-        <a href="generateSchedule?type=S">Generate Schedule</a>
+        <a href="generateSchedule?type=K">Generate Schedule</a>
     </div>
     <br/>
 
@@ -77,9 +77,9 @@
             <label for="lname">Last Name</label>
             <input type="text" name="lname" id="lname" class="text ui-widget-content ui-corner-all">
             <label for="start">Event Start Time</label>
-            <input type="datetime-local" name="start" id="start" class="text ui-widget-content ui-corner-all">
+            <input type="time" name="start" id="start" class="text ui-widget-content ui-corner-all">
             <label for="end">Event Start Time</label>
-            <input type="datetime-local" name="end" id="end" class="text ui-widget-content ui-corner-all">
+            <input type="time" name="end" id="end" class="text ui-widget-content ui-corner-all">
 
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </fieldset>
@@ -90,6 +90,13 @@
     <p>
         <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
         This shift will be permanently deleted and cannot be recovered. Are you sure?
+    </p>
+</div>
+
+<div id="anotherDayDialog">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+        Are you sure you want to make the shift ending at the next day?
     </p>
 </div>
 

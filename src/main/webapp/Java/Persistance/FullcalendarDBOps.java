@@ -175,10 +175,8 @@ public class FullcalendarDBOps {
 
             if(sT.compareTo(six)>=0 && sT.compareTo(twelve)<=0 && eT.compareTo(eighteen)<0){
                 type = 'D';
-            }else if(sT.compareTo(sixteen)>=0 && eT.compareTo(eighteen)>=0){
-                type = 'N';
             }else {
-                type = 'M';
+                type = 'N';
             }
         }
 

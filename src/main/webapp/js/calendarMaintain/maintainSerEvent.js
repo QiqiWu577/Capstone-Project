@@ -61,6 +61,8 @@ $(document).ready(function() {
         if(moment(et).isBefore(st)){
             $("#anotherDayDialog").dialog("open");
             endDate = moment(startDate).add(1,'days').format('YYYY-MM-DD');
+        }else{
+            addShift();
         }
     }
 
@@ -231,8 +233,9 @@ $(document).ready(function() {
                     alert("Adding new shift is successful!");
                     check = true;
                     setTimeout("location.reload(true);",1000);
-                }else{
+                }else if(data === 'successful'){
                     check = true;
+                    alert("Editing is successful!");
                     setTimeout("location.reload(true);",1000);
                 }
             }

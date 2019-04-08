@@ -80,16 +80,12 @@ public class DBOperation {
     public void addEmployee(Employee e) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        System.out.println("TEST 1");
 
         session.beginTransaction();
-        System.out.println("TEST 2");
 
         session.save(e);
-        System.out.println("TEST 3");
 
         session.getTransaction().commit();
-        System.out.println("TEST 4");
 
         session.close();
 
@@ -120,14 +116,28 @@ public class DBOperation {
     }
 
     public void deleteEmp(int id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("Delete from Employee WHERE id = :id");
-        query.setParameter("id",id);
-        query.executeUpdate();
+        boolean result=false;
 
-        session.getTransaction().commit();
-        session.close();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            Employee emp = session.find(Employee.class,id);
+            EmployeeConstraints cons = session.find(EmployeeConstraints.class,id);
+
+            session.delete(cons);
+            session.delete(emp);
+
+            session.getTransaction().commit();
+            result = true;
+        }catch (Exception ex){
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
     }
 
 
@@ -411,6 +421,35 @@ public class DBOperation {
         session.getTransaction().commit();
         session.close();
         return empList;
+
+    }
+
+    public int addEmployees(Employee e) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        session.beginTransaction();
+
+        int id = (int) session.save(e);
+
+        session.getTransaction().commit();
+
+        session.close();
+
+        return id;
+    }
+
+    public void addCons(EmployeeConstraints constraints){
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        session.beginTransaction();
+
+        session.save(constraints);
+
+        session.getTransaction().commit();
+
+        session.close();
 
     }
 

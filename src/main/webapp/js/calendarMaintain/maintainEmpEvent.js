@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     $('#calendar').fullCalendar({
         header: {
-            left: 'prev,next today',
+            left: 'prev,next Today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },

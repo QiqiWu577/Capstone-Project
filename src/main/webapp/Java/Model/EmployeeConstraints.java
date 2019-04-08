@@ -134,6 +134,12 @@ public class EmployeeConstraints implements Serializable {
 
     }
 
+    public EmployeeConstraints(int empId,String constraints,Employee e){
+        this.empId = empId;
+        this.constraints = constraints;
+        this.employee = e;
+    }
+
     public void parseConstraints() throws InvalidConstraintException, ConstraintWrongSizeException {
         String [] list = constraints.split(",");
         final int HOURSPERDAY = 24;

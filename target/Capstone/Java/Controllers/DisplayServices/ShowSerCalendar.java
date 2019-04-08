@@ -47,9 +47,6 @@ public class ShowSerCalendar extends HttpServlet {
                         if(shiftDetail[4].equals("D")){
 
                             color = "green";
-                        }else if(shiftDetail[4].equals("M")){
-
-                            color = "yellow";
                         }else if(shiftDetail[4].equals("N")){
 
                             color = "purple";

@@ -96,23 +96,6 @@
         }
         /* ------- the end of scroll bar style block ------*/
 
-        /*----- status style -----*/
-        .status {
-            font-size: 30px;
-            margin: 2px 2px 0 0;
-            display: inline-block;
-            vertical-align: middle;
-            line-height: 10px;
-        }
-
-        .text-success {
-            color: #10c469;
-        }
-
-        .text-warning {
-            color: #FFC107;
-        }
-        /*----- the end of status style -----*/
 
         input[type="submit"] {
             font-family: "Font Awesome 5 Free";

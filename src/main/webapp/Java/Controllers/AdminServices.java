@@ -12,10 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "AdminServices",urlPatterns = "/AdminServices")
 public class AdminServices extends HttpServlet {
+    /**
+     * Processes the request for admin navigation
+     * @param request
+     * @param response
+     * @throws NoSuchAlgorithmException
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, ServletException, IOException {
 
         DBOperation dbops = new DBOperation();

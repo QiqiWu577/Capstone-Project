@@ -12,21 +12,31 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author Jason Sy, Qiqi Wu
+ */
 @WebServlet(name = "ManagerServices", urlPatterns ="/ManagerServices")
 public class ManagerServices extends HttpServlet {
+    /**
+     * Processes the request for managers navigations
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         String settings = request.getParameter("settings");
         String notifications = request.getParameter("notifications");
+<<<<<<< HEAD
+=======
         //notifications="true";
         String page = request.getParameter("page");
+>>>>>>> 3451d9e20c6f62692209a7686d4cfaea60fd43a1
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
-        //remove after testing
-        //Employee e1 = db.getEmployee(9);
-        //session.setAttribute("employee", e1);
-        //
+
         Employee emp = (Employee) session.getAttribute("employee");
 
         if(page.equals("setting")) {

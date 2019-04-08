@@ -14,8 +14,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 @WebServlet(name = "ShowBarCalendar",urlPatterns = "/ShowBarCalendar")
 public class ShowBarCalendar extends HttpServlet {
+    /**
+     * 
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

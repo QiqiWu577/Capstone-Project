@@ -31,7 +31,7 @@ public class ShowEmpCalendar extends HttpServlet {
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list = new ArrayList();
         HttpSession session = request.getSession();
-        int empId = Integer.parseInt(request.getParameter("emp"));
+        int empId = (int) session.getAttribute("employee");
 
         //get the shift list from the shift table
         String empList = DBOps.getEmpsBE(empId);

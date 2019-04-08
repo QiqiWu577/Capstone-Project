@@ -100,8 +100,8 @@ public class ManageEmployee extends HttpServlet {
                         if (numID == 0) {
 
                             try {
-                                dbOps.addEmployee(new Employee(numID, address, fname, lname, phone, email, role, true, true, comments, constraints));
-                                se.sendEmailSingle(email, fname, numID, "new");
+                                int temp = dbOps.addEmployee(new Employee(numID, address, fname, lname, phone, email, role, true, true, comments, constraints));
+                                se.sendEmailSingle(email, fname, temp, "new");
                                 request.setAttribute("message", "Employee Added!");
                             } catch (InvalidConstraintException e) {
                                 request.setAttribute("message", "Invalid Constraint!");
@@ -111,7 +111,7 @@ public class ManageEmployee extends HttpServlet {
                                 e.printStackTrace();
                             } finally {
                                 request.setAttribute("employeeList", dbOps.getEmployees());
-                                request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request, response);
+                                request.getRequestDispatcher("/ManageEmployee").forward(request, response);
                             }
                         } else {
                             try {

@@ -176,6 +176,7 @@ public class EditCalendar extends HttpServlet {
                     //delete the old one and add the new one to the join table for the new shift
                     DBOps.deleteShift(oldShiftId,empId);
                     DBOps.addEmpShift(newShiftId,empId);
+                    response.getWriter().write("successful");
 
                 }else{
 
@@ -210,6 +211,7 @@ public class EditCalendar extends HttpServlet {
                         //delete the old one and add the new one to the join table for the new shift
                         DBOps.deleteShift(oldShiftId,empId);
                         DBOps.addEmpShift(newShiftId,empId);
+                        response.getWriter().write("successful");
 
                     }else{
 
@@ -226,11 +228,13 @@ public class EditCalendar extends HttpServlet {
                                 //delete the old one and add the new one to the join table for the new shift
                                 DBOps.deleteShift(oldShiftId,empId);
                                 DBOps.addEmpShift(newShiftId,empId);
+                                response.getWriter().write("successful");
                             }
                         }else{
                             //delete the old one and add the new one to the join table for the new shift
                             DBOps.deleteShift(oldShiftId,empId);
                             DBOps.addEmpShift(newShiftId,empId);
+                            response.getWriter().write("successful");
                         }
 
                     }

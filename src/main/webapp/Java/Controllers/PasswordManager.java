@@ -58,7 +58,7 @@ public class PasswordManager {
         CallableStatement cstmt = null;
 
         Connection conn=getConnection();
-        String SQL = "call set_password(?,?,?)";
+        String SQL = "call set_passwords(?,?,?)";
 
         try {
             cstmt = conn.prepareCall(SQL);
@@ -188,12 +188,13 @@ public class PasswordManager {
     public String generatePassword(){
 
         final String PASS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        String tempPass=null;
+        String tempPass="";
         Random rand = new Random();
 
+       // rand.nextInt();
 
         for (int i =0; i<=8; i++) {
-            int n = rand.nextInt(26);
+            int n = rand.nextInt(35);
 
             tempPass+=PASS.charAt(n);
 

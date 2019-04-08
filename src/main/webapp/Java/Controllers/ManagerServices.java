@@ -29,12 +29,17 @@ public class ManagerServices extends HttpServlet {
 
         String settings = request.getParameter("settings");
         String notifications = request.getParameter("notifications");
+<<<<<<< HEAD
+=======
+        //notifications="true";
+        String page = request.getParameter("page");
+>>>>>>> 3451d9e20c6f62692209a7686d4cfaea60fd43a1
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
 
         Employee emp = (Employee) session.getAttribute("employee");
 
-        if(settings!=null) {
+        if(page.equals("setting")) {
 
             session.setAttribute("frontList", db.getShiftTemplates('S'));
             session.setAttribute("barList", db.getShiftTemplates('B'));
@@ -68,7 +73,7 @@ public class ManagerServices extends HttpServlet {
             session.setAttribute("kitchenList", db.getShiftTemplates('K'));
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
-        } else if (notifications!=null){
+        } else if (page.equals("notifications")){
             if(notifications.equals("notifications")) {
                 session.setAttribute("manList", db.getManagerNotifications());
                 session.setAttribute("receiveList", db.getReceivedNotifications(emp));

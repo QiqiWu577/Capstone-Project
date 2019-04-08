@@ -49,7 +49,7 @@ public class Validate extends HttpServlet {
 
                 Employee emp = dbops.getEmployee(Integer.parseInt(username));
                 HttpSession session = request.getSession();
-                session.setAttribute("employee", emp);
+                session.setAttribute("employee", emp.getEmpid());
 
 
                 if (emp.getType() == 'M') {

@@ -11,10 +11,18 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "EditCalendar",urlPatterns = "/EditCalendar")
 public class EditCalendar extends HttpServlet {
-
+    /**
+     * Processes the request changes done to the calendar
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

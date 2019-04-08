@@ -13,9 +13,18 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "ShowSerCalendar",urlPatterns = "/ShowSerCalendar")
 public class ShowSerCalendar extends HttpServlet {
+    /**
+     * Processes the Request for the Server departments schedule
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

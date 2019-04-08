@@ -17,7 +17,6 @@ public class SendEmail extends HttpServlet {
     final static String USERNAME = "2030bubbletea";
     final static String PASSWORD = "403bubbletea";
 
-
     private static void sendFromGmailArray(String from, String pass, String[] to, String subject, String body) {
 
         Properties props = System.getProperties();

@@ -13,6 +13,9 @@ import java.time.ZoneId;
 import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 
+/**
+ * @author Anthony Doucet
+ */
 public class ScheduleMaker {
 
     private ArrayList<Employee> empList;
@@ -28,7 +31,9 @@ public class ScheduleMaker {
 
     private ArrayList<DayTemplate> dayList;
 
-
+    /**
+     * Initializes the schedule maker
+     */
     public ScheduleMaker() {
         empList = new ArrayList<>();
         availList = new ArrayList<>();
@@ -39,8 +44,7 @@ public class ScheduleMaker {
     }
 
     /**
-     * This method will get the avail and prefer time for each employee from
-     * the file and add to the empList ArrayList.
+     * Gets a list of employees based on their department
      */
     private void getEmployees(char empType) {
 
@@ -58,6 +62,12 @@ public class ScheduleMaker {
         }
     }
 
+    /**
+     * Generates a schedule based on the department type for the next work week based on the highest date in the database
+     *
+     * @param scheduleType department type
+     * @return Arraylist of day objects representing a schedule for a week
+     */
     public ArrayList<Day> generateSchedule(char scheduleType) {
         getEmployees(scheduleType);
 
@@ -107,7 +117,6 @@ public class ScheduleMaker {
                     sortEmployees(day);
                     retryWeek = false;
                     redoDay = false;
-                    printArrays();
 
                     //randomizes the employees
                     randomizeList();
@@ -267,7 +276,10 @@ public class ScheduleMaker {
 
     }
 
-
+    /**
+     * Gets the next monday from the latest day in the database
+     * @return
+     */
     private LocalDateTime getNextMonday() {
         System.out.println("Next Monday");
         DBOperation dbOps = new DBOperation();
@@ -279,6 +291,9 @@ public class ScheduleMaker {
         return ldt;
     }
 
+    /**
+     * Prints the contents of all the arrays
+     */
     private void printArrays() {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         for(int i = 0; i < availList.size(); i++) {
@@ -308,6 +323,12 @@ public class ScheduleMaker {
         }
     }
 
+    /**
+     * Gets the location of an employee in the arraylist
+     * @param list list of employees to search through
+     * @param e employee to find
+     * @return index of employee or -1
+     */
     private int getIndex(ArrayList<Employee> list, Employee e) {
         if(list == null) {
             System.out.println("list is null");
@@ -322,6 +343,9 @@ public class ScheduleMaker {
         return -1;
     }
 
+    /**
+     * Randomizes the lists of employees in the same way based on the current time
+     */
     private void randomizeList() {
         long seed = System.nanoTime();
         Collections.shuffle(availList, new Random(seed));
@@ -330,6 +354,12 @@ public class ScheduleMaker {
         Collections.shuffle(preferences, new Random(seed));
     }
 
+    /**
+     * Gets the DayTemplate Objects from the database
+     * @param day day of the week to get the DayTemplate for
+     * @param type type of shifts needed in the DayTemplate
+     * @return DayTemplate for the current day
+     */
     private DayTemplate getDayTemplate(String day, char type) {
 
         DBOperation dbOps = new DBOperation();
@@ -350,7 +380,10 @@ public class ScheduleMaker {
 
     }
 
-    //populates the prefList and availList for a given day of the week
+    /**
+     * Sorts the Employees into the proper lists of availability and preferences based on the day of the week
+     * @param dayOfWeek day of the week to sort by
+     */
     private void sortEmployees(String dayOfWeek) {
         availList.clear();
         prefList.clear();

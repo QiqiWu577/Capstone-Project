@@ -1,10 +1,12 @@
 package Persistance;
 
 
+import Controllers.PasswordManager;
 import Model.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -212,25 +214,19 @@ public class DBOperation {
 
 
     public void addSchedule(ArrayList<Day> schedule) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-
-
+        System.out.println("testSched");
+        FullcalendarDBOps dbo = new FullcalendarDBOps();
         for(Day day: schedule) {
-            session.beginTransaction();
-
-            session.save(day);
+            int newDayId = dbo.addDay(day.getStartTime(), day.getEndTime());
             for(Shift s :day.getShiftList()) {
-                for (Employee e: s.getEmployeeList()) {
-                    session.update(e);
+                for(Employee e: s.getEmployeeList()) {
+                    int newshiftId = dbo.addShift(newDayId,e.getEmpid(),s.getStartTime(),s.getEndTime());
+                    dbo.addEmpShift(newshiftId,e.getEmpid());
                 }
             }
-
-            session.getTransaction().commit();
-
         }
-        session.close();
     }
+
 
 
     public LocalDateTime getLastScheduleDate() {

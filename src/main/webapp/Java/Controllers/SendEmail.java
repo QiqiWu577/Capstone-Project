@@ -124,7 +124,7 @@ public class SendEmail extends HttpServlet {
             body = "Hello " + name + ",\r\n\r\nAn employee account has been made for you for 2030 Bubble Tea Cafe. " +
                     "Please login using the following information at http://localhost:8080/Capstone_war_exploded/" + ".\r\n\r\nUsername: "
                     + empID + "\r\nPassword: " + tempPass + "\r\n\r\nThe username is your employee ID and this will be used "
-                    + "everytime you login. You will be asked to change your password after the " + "" +
+                    + "every time you login. You will be asked to change your password after the " + "" +
                     "first login.\r\n\r\nThank you,\r\n2030 Bubble Tea Cafe";
 
 
@@ -137,7 +137,7 @@ public class SendEmail extends HttpServlet {
             body = "Hello " + name + ",\r\n\r\nA password reset request has been sent for your 2030 Bubble Tea Cafe login. " +
                     "Please login using the following information at http://localhost:8080/Capstone_war_exploded/" + ".\r\n\r\nUsername: "
                     + empID + "\r\nPassword: " + tempPass + "\r\n\r\nThe username is your employee ID and this will be used "
-                    + "everytime you login. You will be asked to change your password after the " + "" +
+                    + "every time you login. You will be asked to change your password after the " + "" +
                     "first login.\r\n\r\nThank you,\r\n2030 Bubble Tea Cafe";
 
         } else {

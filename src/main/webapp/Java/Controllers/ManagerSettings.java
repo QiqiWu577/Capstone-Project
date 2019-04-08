@@ -12,8 +12,18 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalTime;
 
+/**
+ * @author Jason Sy, Qiqi Wu
+ */
 @WebServlet(name = "ManagerSettings", urlPatterns = "/ManagerSettings")
 public class ManagerSettings extends HttpServlet {
+    /**
+     * Processed the requests for the manager settings page
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

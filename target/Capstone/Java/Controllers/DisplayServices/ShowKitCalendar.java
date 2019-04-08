@@ -13,9 +13,18 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "ShowKitCalendar",urlPatterns = "/ShowKitCalendar")
 public class ShowKitCalendar extends HttpServlet {
+    /**
+     * Processes the request for the Kitchen departments schedule
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -45,9 +54,6 @@ public class ShowKitCalendar extends HttpServlet {
                     if(shiftDetail[4].equals("D")){
 
                         color = "green";
-                    }else if(shiftDetail[4].equals("M")){
-
-                        color = "yellow";
                     }else if(shiftDetail[4].equals("N")){
 
                         color = "purple";

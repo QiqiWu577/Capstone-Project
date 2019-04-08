@@ -117,11 +117,6 @@ public class Validate extends HttpServlet {
             request.setAttribute("message", "Both username and password are required!");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
-
-
-
-
-
     }
 
 

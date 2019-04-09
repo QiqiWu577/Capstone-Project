@@ -44,6 +44,7 @@ public class ManageEmployee extends HttpServlet {
 
 
 
+            comments = comments.replace("'", "");
 
             if(id == null ) {
                 request.setAttribute("message", "Invalid ID");

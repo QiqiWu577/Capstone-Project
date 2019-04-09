@@ -27,9 +27,10 @@
         </a>
         <nav role="navigation" class="w-nav-menu">
             <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
-            <a href="<%=application.getContextPath() %>/TestServlet?page=1" class="nav-links selected w-nav-link">Employee Management</a>
-            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications" class="nav-links w-nav-link">Notifications</a>
+            <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
+            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications&notifications=notifications" class="nav-links selected w-nav-link">Notifications</a>
             <a href="<%=application.getContextPath() %>/ManagerServices" class="nav-links w-nav-link">Settings</a>
+            <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
     </div>
 </div>
@@ -84,7 +85,7 @@
                                 </c:otherwise>
                             </c:choose>
                             <td>${msg.getDate()}</td>
-                            <td>${msg.getSender()}</td>
+                            <td>${msg.getSenderName()}</td>
                             <td>${msg.getRecipientName(msg.getRecipient())}</td>
                             <td>
                                 <c:choose>

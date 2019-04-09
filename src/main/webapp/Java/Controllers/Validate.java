@@ -12,10 +12,24 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * @author Matthew Kelemen
+ */
 @WebServlet(name = "Validate", urlPatterns = "/Validate")
 public class Validate extends HttpServlet {
 
+<<<<<<< HEAD
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
+=======
+    /**
+     * Processes the request for user validation
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+>>>>>>> 4fe8cc177abc24c71c21fcfeb0637182fd7bb8bb
 
         DBOperation dbops = new DBOperation();
 

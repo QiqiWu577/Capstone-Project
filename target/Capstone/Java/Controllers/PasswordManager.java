@@ -2,7 +2,6 @@ package Controllers;
 
 
 import Model.Employee;
-import Model.Shift;
 
 import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
@@ -12,14 +11,8 @@ import java.security.SecureRandom;
 import java.sql.*;
 import java.util.Random;
 
-/**
- * @author Matthew Kelemen
- */
 public class PasswordManager {
-    /**
-     * gets the connection for the JDBC connection
-     * @return JDBC connection object
-     */
+
     private Connection getConnection() {
 
         Connection conn=null;
@@ -34,11 +27,7 @@ public class PasswordManager {
         return conn;
     }
 
-    /**
-     * Adds a user to the salt table
-     * @param empid
-     * @param password
-     */
+
     public void addUser(int empid, String password) {
 
         PasswordManager pm = new PasswordManager();
@@ -80,12 +69,6 @@ public class PasswordManager {
 
     }
 
-    /**
-     * Checks if a user has given the correct username and password
-     * @param empid employee id
-     * @param verify Password to be checked
-     * @return true if they've given the correct information
-     */
     public boolean getHashSalt(int empid, String verify) {
         boolean valid=false;
         String hash = null;
@@ -120,11 +103,6 @@ public class PasswordManager {
         return valid;
     }
 
-    /**
-     * Generates a salt to add to a password
-     * @return a byte[] of values
-     * @throws NoSuchAlgorithmException
-     */
     public static byte[] getSalt() throws NoSuchAlgorithmException
     {
 
@@ -136,12 +114,7 @@ public class PasswordManager {
         return salt;
     }
 
-    /**
-     * Hashes a password with a salt
-     * @param toHash password to hash
-     * @param salt salt to add to password
-     * @return hashed password and salt
-     */
+
     public String hash(String toHash, byte[] salt){
 
 
@@ -164,13 +137,6 @@ public class PasswordManager {
         return generatedPassword;
     }
 
-    /**
-     * checks if the given password matched the password for the user in the database
-     * @param hash hashed password from the database
-     * @param verify password to check
-     * @param salt salt with the password
-     * @return true if hashed passwords matches
-     */
     public boolean checkPassword(String hash, String verify, String salt){
 
         byte[] byteSalt;
@@ -181,10 +147,6 @@ public class PasswordManager {
         return hash.equals(generatedHash);
     }
 
-    /**
-     * Generates an 8 character password
-     * @return generated password
-     */
     public String generatePassword(){
 
         final String PASS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -203,4 +165,47 @@ public class PasswordManager {
 
         return tempPass;
     }
-  }
+
+
+
+
+
+    public void updateScheduleEmployee(int s, Employee e) {
+        Connection conn=getConnection();
+        String sql = "INSERT INTO schedule_employee VALUES(?,?)";
+
+        System.out.println("test1");
+        System.out.println(s + " : "+ e.getEmpid());
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, s);
+            ps.setInt(2, e.getEmpid());
+            System.out.println(s + " : "+ e.getEmpid());
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        } finally {
+
+            try {
+                conn.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+
+//    public void resetPassword(String username, ) {
+//
+//
+//
+//
+//
+//
+//
+//    }
+}

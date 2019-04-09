@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author Administrator
+ * @author Anthony Doucet, Qiqi Wu
  */
 @Entity
 @Table(name = "employees")
@@ -74,17 +74,40 @@ public class Employee implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sender")
     private List<Notification> notificationList;
 
+    /**
+     * Initializes an Employee
+     */
     public Employee() {
         shiftList = new ArrayList<Shift>();
         notificationList = new ArrayList<Notification>();
     }
 
+    /**
+     * Initializes an employee with an employee ID
+      * @param empid
+     */
     public Employee(Integer empid) {
         this.empid = empid;
         shiftList = new ArrayList<Shift>();
         notificationList = new ArrayList<Notification>();
     }
 
+    /**
+     * Initializes an employee with parameters
+     * @param empid
+     * @param address
+     * @param fname
+     * @param lname
+     * @param phoneno
+     * @param email
+     * @param type
+     * @param newHire
+     * @param active
+     * @param notes
+     * @param constraints
+     * @throws InvalidConstraintException
+     * @throws ConstraintWrongSizeException
+     */
     public Employee(Integer empid, String address, String fname, String lname, String phoneno, String email, Character type, boolean newHire, boolean active, String notes, String constraints) throws InvalidConstraintException, ConstraintWrongSizeException{
         this.empid = empid;
         this.address = address;
@@ -102,6 +125,19 @@ public class Employee implements Serializable {
         notificationList = new ArrayList<Notification>();
     }
 
+    /**
+     * Initializes an employee with parameters
+     * @param empid
+     * @param fname
+     * @param lname
+     * @param address
+     * @param phoneno
+     * @param email
+     * @param type
+     * @param newHire
+     * @param active
+     * @param notes
+     */
     public Employee(Integer empid, String fname, String lname, String address, String phoneno, String email, Character type, boolean newHire, boolean active,String notes) {
         this.empid = empid;
         this.fname = fname;
@@ -115,6 +151,10 @@ public class Employee implements Serializable {
         this.notes = notes;
     }
 
+    /**
+     * gets the employee id
+     * @return
+     */
     public Integer getEmpid() {
         return empid;
     }

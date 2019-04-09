@@ -18,9 +18,7 @@ import java.sql.SQLException;
 @WebServlet(name = "Validate", urlPatterns = "/Validate")
 public class Validate extends HttpServlet {
 
-<<<<<<< HEAD
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, ClassNotFoundException {
-=======
+
     /**
      * Processes the request for user validation
      * @param request
@@ -29,7 +27,7 @@ public class Validate extends HttpServlet {
      * @throws IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
->>>>>>> 4fe8cc177abc24c71c21fcfeb0637182fd7bb8bb
+
 
         DBOperation dbops = new DBOperation();
 
@@ -136,24 +134,12 @@ public class Validate extends HttpServlet {
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        processRequest(request, response);
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            processRequest(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        processRequest(request, response);
 
     }
 }

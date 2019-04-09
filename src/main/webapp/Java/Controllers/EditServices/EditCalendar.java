@@ -11,10 +11,18 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "EditCalendar",urlPatterns = "/EditCalendar")
 public class EditCalendar extends HttpServlet {
-
+    /**
+     * Processes the request changes done to the calendar
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -168,6 +176,7 @@ public class EditCalendar extends HttpServlet {
                     //delete the old one and add the new one to the join table for the new shift
                     DBOps.deleteShift(oldShiftId,empId);
                     DBOps.addEmpShift(newShiftId,empId);
+                    response.getWriter().write("successful");
 
                 }else{
 
@@ -202,6 +211,7 @@ public class EditCalendar extends HttpServlet {
                         //delete the old one and add the new one to the join table for the new shift
                         DBOps.deleteShift(oldShiftId,empId);
                         DBOps.addEmpShift(newShiftId,empId);
+                        response.getWriter().write("successful");
 
                     }else{
 
@@ -218,11 +228,13 @@ public class EditCalendar extends HttpServlet {
                                 //delete the old one and add the new one to the join table for the new shift
                                 DBOps.deleteShift(oldShiftId,empId);
                                 DBOps.addEmpShift(newShiftId,empId);
+                                response.getWriter().write("successful");
                             }
                         }else{
                             //delete the old one and add the new one to the join table for the new shift
                             DBOps.deleteShift(oldShiftId,empId);
                             DBOps.addEmpShift(newShiftId,empId);
+                            response.getWriter().write("successful");
                         }
 
                     }

@@ -12,8 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Anthony Doucet
+ */
 @WebServlet(name = "ManageEmployee", urlPatterns = "/ManageEmployees")
 public class ManageEmployee extends HttpServlet {
+    /**
+     * Processes the requests for managing employees
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String constraints = request.getParameter("constraints");
         String action = request.getParameter("action");
@@ -34,6 +44,7 @@ public class ManageEmployee extends HttpServlet {
 
 
 
+            comments = comments.replace("'", "");
 
             if(id == null ) {
                 request.setAttribute("message", "Invalid ID");

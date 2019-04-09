@@ -2,7 +2,6 @@ package Controllers;
 
 
 import Model.Employee;
-import Model.Shift;
 
 import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
@@ -200,4 +199,13 @@ public class PasswordManager {
     }
 
 
+//    public void resetPassword(String username, ) {
+//
+//
+//
+//
+//
+//
+//
+//    }
 }

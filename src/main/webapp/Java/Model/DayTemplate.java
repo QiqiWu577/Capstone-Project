@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Administrator
+ * @author Anthony Doucet, Qiqi Wu
  */
 @Entity
 @Table(name = "day_template")
@@ -36,39 +36,76 @@ public class DayTemplate implements Serializable {
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "dayOfWeek")
     private List<ShiftTemplate> shiftTemplateList;
 
+    /**
+     * initializes a day template
+     */
     public DayTemplate() {
     }
 
+    /**
+     * Initializes a day template with a day of the week, opening time, and closing time
+     * @param dayOfWeek
+     * @param openTime
+     * @param closeTime
+     */
     public DayTemplate(String dayOfWeek,String openTime,String closeTime) {
         this.dayOfWeek = dayOfWeek;
         this.openTime = openTime;
         this.closeTime = closeTime;
     }
 
+    /**
+     * gets the day of the week for the day template ex: "Monday"
+     * @return day of the week for the day template
+     */
     public String getDayOfWeek() {
         return dayOfWeek;
     }
 
+    /**
+     * Sets the day of the week for the day template
+     * @param dayOfWeek day of the week to set
+     */
     public void setDayOfWeek(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
+    /**
+     * gets the opening time for the day of the week as a string format HH:MM:SS
+     * @return opening time for the day template
+     */
     public String getOpenTime() {
         return openTime;
     }
 
+    /**
+     * Sets the opening time as string format: HH:MM:SS
+     * @param openTime opening time of the day template
+     */
     public void setOpenTime(String openTime) {
         this.openTime = openTime;
     }
 
+    /**
+     * gets the close time as a string in the format HH:MM:SS
+     * @return closing time of the daytemplate
+     */
     public String getCloseTime() {
         return closeTime;
     }
 
+    /**
+     * sets the close time as a string in the format HH:MM:SS
+     * @param closeTime closing time of the day template
+     */
     public void setCloseTime(String closeTime) {
         this.closeTime = closeTime;
     }
 
+    /**
+     * gets the shift of shift templates for a
+     * @return the list of shift templates for the day template
+     */
     @XmlTransient
     public List<ShiftTemplate> getShiftTemplateList() {
         return shiftTemplateList;
@@ -78,6 +115,10 @@ public class DayTemplate implements Serializable {
         this.shiftTemplateList = shiftTemplateList;
     }
 
+    /**
+     * gets a hash of the objects
+     * @return hash of the object
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -85,6 +126,11 @@ public class DayTemplate implements Serializable {
         return hash;
     }
 
+    /**
+     * compares day templates using day of the week
+     * @param object daytemplate to compare
+     * @return true if the objects are the same
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -98,6 +144,10 @@ public class DayTemplate implements Serializable {
         return true;
     }
 
+    /**
+     * creates a string represntation of the object
+     * @return a string representing the object
+     */
     @Override
     public String toString() {
         return "data.DayTemplate[ dayOfWeek=" + dayOfWeek + " ]";

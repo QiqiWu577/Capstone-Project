@@ -83,9 +83,9 @@ public class DBOperation {
 
         session.beginTransaction();
 
-        session.save(e);
 
         int id = (Integer) session.save(e);
+        System.out.println("TEST 3");
 
         session.getTransaction().commit();
 

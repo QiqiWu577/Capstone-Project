@@ -13,11 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-<<<<<<< HEAD
 import java.util.ArrayList;
 
-=======
->>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4
 /**
  * @author Qiqi Wu, Anthony Doucet
  */

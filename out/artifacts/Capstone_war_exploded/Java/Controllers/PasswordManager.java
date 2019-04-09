@@ -1,30 +1,125 @@
 package Controllers;
 
 
+import Model.Employee;
+import Model.Shift;
+
 import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
+import java.util.Properties;
+import java.util.Random;
 
+/**
+ * @author Matthew Kelemen
+ */
 public class PasswordManager {
+    /**
+     * gets the connection for the JDBC connection
+     * @return JDBC connection object
+     */
+    private Connection getConnection() throws SQLException, ClassNotFoundException {
 
-    private Connection getConnection() {
+        // Initialize connection variables.
+        String host = "2030bubbletea.mysql.database.azure.com:3306";
+        String database = "schedulecapstone";
+        String user = "adminDB@2030bubbletea";
+        String password = "Shuling5534848";
 
-        Connection conn=null;
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulecapstone", "root", "2030bubbletea");
-        } catch(Exception ex) {
-            ex.printStackTrace();
+        // check that the driver is installed
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver");
+        }
+        catch (ClassNotFoundException e)
+        {
+            throw new ClassNotFoundException("MySQL JDBC driver NOT detected in library path.", e);
         }
 
-        return conn;
+        System.out.println("MySQL JDBC driver detected in library path.");
+
+        Connection connection = null;
+
+        // Initialize connection object
+        try
+        {
+            String url = String.format("jdbc:mysql://%s/%s", host, database);
+
+            // Set connection properties.
+            Properties properties = new Properties();
+            properties.setProperty("user", user);
+            properties.setProperty("password", password);
+            properties.setProperty("useSSL", "true");
+            properties.setProperty("verifyServerCertificate", "true");
+            properties.setProperty("requireSSL", "false");
+
+            // get connection
+            connection = DriverManager.getConnection(url, properties);
+        }
+        catch (SQLException e)
+        {
+            throw new SQLException("Failed to create connection to database.", e);
+        }
+
+        return connection;
     }
 
-    public boolean getHashSalt(int empid, String verify) {
+    /**
+     * Adds a user to the salt table
+     * @param empid
+     * @param password
+     */
+    public void addUser(int empid, String password) throws SQLException, ClassNotFoundException {
+
+        PasswordManager pm = new PasswordManager();
+        byte[] tempByte = null;
+
+        try {
+            tempByte = pm.getSalt();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        String salt = DatatypeConverter.printBase64Binary(tempByte);
+        String hash = pm.hash(password, tempByte);
+
+
+
+        CallableStatement cstmt = null;
+
+        Connection conn=getConnection();
+        String SQL = "call set_passwords(?,?,?)";
+
+        try {
+            cstmt = conn.prepareCall(SQL);
+
+            cstmt.setInt(1, empid);
+            cstmt.setString(2, hash);
+            cstmt.setString(3, salt);
+
+
+            cstmt.executeUpdate();
+
+            cstmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    /**
+     * Checks if a user has given the correct username and password
+     * @param empid employee id
+     * @param verify Password to be checked
+     * @return true if they've given the correct information
+     */
+    public boolean getHashSalt(int empid, String verify) throws SQLException, ClassNotFoundException {
         boolean valid=false;
         String hash = null;
         String salt = null;
@@ -37,14 +132,12 @@ public class PasswordManager {
             cstmt = conn.prepareCall(SQL);
 
             cstmt.setInt(1, empid);
-            System.out.println(empid);
             ResultSet rs = cstmt.executeQuery();
 
             rs.next();
             hash = rs.getString(1);
             salt = rs.getString(2);
-            System.out.println(hash);
-            System.out.println(salt);
+
 
 
             rs.close();
@@ -53,7 +146,6 @@ public class PasswordManager {
 
             //System.out.println(hash + " " + salt);
             valid = checkPassword(hash, verify, salt);
-            System.out.println("PM: "+valid);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,6 +153,11 @@ public class PasswordManager {
         return valid;
     }
 
+    /**
+     * Generates a salt to add to a password
+     * @return a byte[] of values
+     * @throws NoSuchAlgorithmException
+     */
     public static byte[] getSalt() throws NoSuchAlgorithmException
     {
 
@@ -72,7 +169,12 @@ public class PasswordManager {
         return salt;
     }
 
-
+    /**
+     * Hashes a password with a salt
+     * @param toHash password to hash
+     * @param salt salt to add to password
+     * @return hashed password and salt
+     */
     public String hash(String toHash, byte[] salt){
 
 
@@ -95,6 +197,13 @@ public class PasswordManager {
         return generatedPassword;
     }
 
+    /**
+     * checks if the given password matched the password for the user in the database
+     * @param hash hashed password from the database
+     * @param verify password to check
+     * @param salt salt with the password
+     * @return true if hashed passwords matches
+     */
     public boolean checkPassword(String hash, String verify, String salt){
 
         byte[] byteSalt;
@@ -105,12 +214,26 @@ public class PasswordManager {
         return hash.equals(generatedHash);
     }
 
+    /**
+     * Generates an 8 character password
+     * @return generated password
+     */
     public String generatePassword(){
 
-        //////
+        final String PASS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String tempPass="";
+        Random rand = new Random();
+
+       // rand.nextInt();
+
+        for (int i =0; i<=8; i++) {
+            int n = rand.nextInt(35);
+
+            tempPass+=PASS.charAt(n);
 
 
-        return null;
+        }
+
+        return tempPass;
     }
-
-}
+  }

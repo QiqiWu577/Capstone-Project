@@ -15,10 +15,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * @author Jason Sy, Anthony Doucet
+ */
 @WebServlet(name = "EmployeeServices", urlPatterns ="/EmployeeServices")
 public class EmployeeServices extends HttpServlet {
 
-
+    /**
+     * Processes the request for employee navigation
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String page = request.getParameter("page");

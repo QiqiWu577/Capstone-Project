@@ -13,9 +13,18 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "ShowSerCalendar",urlPatterns = "/ShowSerCalendar")
 public class ShowSerCalendar extends HttpServlet {
+    /**
+     * Processes the Request for the Server departments schedule
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -47,12 +56,11 @@ public class ShowSerCalendar extends HttpServlet {
                         if(shiftDetail[4].equals("D")){
 
                             color = "green";
-                        }else if(shiftDetail[4].equals("M")){
-
-                            color = "yellow";
-                        }else {
+                        }else if(shiftDetail[4].equals("N")){
 
                             color = "purple";
+                        }else{
+                            color = "blue";
                         }
 
                         //store id,title,start,end,shiftID,dayId and empId as CalendarDAO object into the ArrayList if one on the shift or

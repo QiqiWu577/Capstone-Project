@@ -1,5 +1,6 @@
 package Controllers.DisplayServices;
 
+import Model.Employee;
 import Persistance.FullcalendarDBOps;
 import com.google.gson.Gson;
 import Model.CalendarDAO;
@@ -13,16 +14,26 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "ShowEmpCalendar",urlPatterns = "/ShowEmpCalendar")
 public class ShowEmpCalendar extends HttpServlet {
+    /**
+     * Processes the request for the Employee's schedule
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list = new ArrayList();
         HttpSession session = request.getSession();
-        int empId = (int) session.getAttribute("employee");
+        Employee emp = (Employee)session.getAttribute("employee");
+        int empId = emp.getEmpid();
 
         //get the shift list from the shift table
         String empList = DBOps.getEmpsBE(empId);

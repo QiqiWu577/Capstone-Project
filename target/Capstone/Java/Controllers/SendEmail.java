@@ -2,8 +2,6 @@
 package Controllers;
 
 
-import Persistance.DBOperation;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -18,9 +16,6 @@ public class SendEmail extends HttpServlet {
 
     final static String USERNAME = "2030bubbletea";
     final static String PASSWORD = "403bubbletea";
-
-    DBOperation dbops = new DBOperation();
-
 
     private static void sendFromGmailArray(String from, String pass, String[] to, String subject, String body) {
 
@@ -118,9 +113,7 @@ public class SendEmail extends HttpServlet {
         if (type.equalsIgnoreCase("new")) {
             String tempPass = pm.generatePassword();
 
-           pm.addUser(empID, tempPass);
-
-
+           //pm.addUser(empID, tempPass);
 
             body =  "Hello "+ name +",\r\n\r\nAn employee account has been made for you for 2030 Bubble Tea Cafe. "+
                     "Please login using the following information at http://localhost:8080/Capstone_war_exploded/"+".\r\n\r\nUsername: "

@@ -1,6 +1,7 @@
 package Controllers;
 
 import Model.Employee;
+import Model.EmployeeConstraints;
 import Persistance.DBOperation;
 
 import javax.servlet.ServletException;
@@ -13,8 +14,19 @@ import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "AdminServices",urlPatterns = "/AdminServices")
 public class AdminServices extends HttpServlet {
+    /**
+     * Processes the request for admin navigation
+     * @param request
+     * @param response
+     * @throws NoSuchAlgorithmException
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException, ServletException, IOException {
 
         DBOperation dbops = new DBOperation();
@@ -41,9 +53,11 @@ public class AdminServices extends HttpServlet {
                 if (status.equals("Active")) {
                     active = true;
                 }
-
+                String constraints = "000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,000000000000000000000000,";
                 Employee emp = new Employee(0, fname, lname, "empty", "empty", "empty", type.charAt(0), true, active, "empty");
-                dbops.addEmployee(emp);
+                int id = dbops.addEmployees(emp);
+                EmployeeConstraints cons = new EmployeeConstraints(id,constraints,emp);
+                dbops.addCons(cons);
 
             } else if (save != null) {
 
@@ -69,8 +83,8 @@ public class AdminServices extends HttpServlet {
                 dbops.deleteEmp(id);
             }
 
-            //ArrayList<Employee> userList = dbops.getUsers();
-           // session.setAttribute("userList", userList);
+            ArrayList<Employee> userList = dbops.getUsers();
+           session.setAttribute("userList", userList);
             request.getRequestDispatcher("/WEB-INF/Presentation/Admin/AdminEdit.jsp").forward(request, response);
         }
     }

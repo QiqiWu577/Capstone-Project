@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -47,13 +46,8 @@
         <nav role="navigation" class="w-nav-menu">
             <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
             <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
-<<<<<<< HEAD
-            <a href="#" class="nav-links w-nav-link">Notifications</a>
-            <a href="<%=application.getContextPath() %>/ManagerServices?settings=true" class="nav-links w-nav-link">Settings</a>
-=======
+            <a href="<%=application.getContextPath() %>/ManagerServices?page=setting" class="nav-links w-nav-link">Settings</a>
             <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications" class="nav-links w-nav-link">Notifications</a>
-            <a href="<%=application.getContextPath() %>/ManagerServices" class="nav-links w-nav-link">Settings</a>
->>>>>>> 2f8f94e95d23036d2fa405e4320af1e630ae3af2
             <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
     </div>
@@ -78,8 +72,10 @@
 
     <form>
         <fieldset>
-            <label for="employee">Employee</label>
-            <input type="text" name="employee" id="employee" class="text ui-widget-content ui-corner-all">
+            <label for="fname">First Name</label>
+            <input type="text" name="fname" id="fname" class="text ui-widget-content ui-corner-all">
+            <label for="lname">Last Name</label>
+            <input type="text" name="lname" id="lname" class="text ui-widget-content ui-corner-all">
             <label for="start">Event Start Time</label>
             <input type="time" name="start" id="start" class="text ui-widget-content ui-corner-all">
             <label for="end">Event Start Time</label>
@@ -91,15 +87,18 @@
 </div>
 
 <div id="deleteShiftDialog" title="Delete the shift?">
-    <form>
+    <p>
         <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
         This shift will be permanently deleted and cannot be recovered. Are you sure?
-    </form>
+    </p>
 </div>
 
-<!-- div id="error" title="Notice">
-    <p>One shift is only for one employee! Please change the shift!</p>
-</div-->
+<div id="anotherDayDialog">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+        Are you sure you want to make the shift ending at the next day?
+    </p>
+</div>
 
 <script>
     //style the button in the page

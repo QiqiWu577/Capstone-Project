@@ -11,9 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * @author Anthony Doucet
+ */
 @WebServlet(name = "GenerateSchedule", urlPatterns = "/generateSchedule")
 public class GenerateSchedule extends HttpServlet {
-
+    /**
+     * Processes the request for generating a new schedule based on department
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String type = request.getParameter("type");
         DBOperation dbOps = new DBOperation();
@@ -24,6 +33,9 @@ public class GenerateSchedule extends HttpServlet {
                 System.out.println("First");
                 schedule = scheduleMaker.generateSchedule('S');
                 System.out.println("Second");
+                for(Day d: schedule) {
+                    System.out.println(d);
+                }
                 dbOps.addSchedule(schedule);
                 System.out.println("Third");
                 request.getRequestDispatcher("/ManageScheduleViews?message=server").forward(request, response);

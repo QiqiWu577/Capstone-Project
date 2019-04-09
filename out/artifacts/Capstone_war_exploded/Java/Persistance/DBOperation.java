@@ -1,17 +1,16 @@
 package Persistance;
 
 
+import Controllers.PasswordManager;
 import Model.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-
-import java.lang.reflect.Array;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class DBOperation {
@@ -78,12 +77,21 @@ public class DBOperation {
     }
 
 
-    public void addEmployee(Employee e) {
+    public int addEmployee(Employee e) {
+
         Session session = HibernateUtil.getSessionFactory().openSession();
+
         session.beginTransaction();
+
         session.save(e);
+
+        int id = (Integer) session.save(e);
+
         session.getTransaction().commit();
+
         session.close();
+
+        return id;
 
     }
 
@@ -91,8 +99,11 @@ public class DBOperation {
     public void updateEmployee(Employee e) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
+
         session.update(e);
+
         session.getTransaction().commit();
+
         session.close();
     }
 
@@ -109,14 +120,28 @@ public class DBOperation {
     }
 
     public void deleteEmp(int id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createQuery("Delete from Employee WHERE id = :id");
-        query.setParameter("id",id);
-        query.executeUpdate();
+        boolean result=false;
 
-        session.getTransaction().commit();
-        session.close();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        try{
+
+            session.beginTransaction();
+
+            Employee emp = session.find(Employee.class,id);
+            EmployeeConstraints cons = session.find(EmployeeConstraints.class,id);
+
+            session.delete(cons);
+            session.delete(emp);
+
+            session.getTransaction().commit();
+            result = true;
+        }catch (Exception ex){
+            session.getTransaction().rollback();
+            ex.printStackTrace();
+        }finally {
+            session.close();
+        }
     }
 
 
@@ -201,17 +226,19 @@ public class DBOperation {
 
 
     public void addSchedule(ArrayList<Day> schedule) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
+        System.out.println("testSched");
+        FullcalendarDBOps dbo = new FullcalendarDBOps();
         for(Day day: schedule) {
-
-            session.beginTransaction();
-            session.merge(day);
-            session.getTransaction().commit();
-
+            int newDayId = dbo.addDay(day.getStartTime(), day.getEndTime());
+            for(Shift s :day.getShiftList()) {
+                for(Employee e: s.getEmployeeList()) {
+                    int newshiftId = dbo.addShift(newDayId,e.getEmpid(),s.getStartTime(),s.getEndTime());
+                    dbo.addEmpShift(newshiftId,e.getEmpid());
+                }
+            }
         }
-        session.close();
     }
+
 
 
     public LocalDateTime getLastScheduleDate() {
@@ -382,6 +409,45 @@ public class DBOperation {
         session.getTransaction().commit();
         session.close();
         return shift;
+    }
+
+    public ArrayList<Employee> getUsers() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        ArrayList<Employee> empList = new ArrayList<>(session.createQuery("SELECT e FROM Employee e", Employee.class).getResultList());
+        session.getTransaction().commit();
+        session.close();
+        return empList;
+
+    }
+
+    public int addEmployees(Employee e) {
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        session.beginTransaction();
+
+        int id = (int) session.save(e);
+
+        session.getTransaction().commit();
+
+        session.close();
+
+        return id;
+    }
+
+    public void addCons(EmployeeConstraints constraints){
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        session.beginTransaction();
+
+        session.save(constraints);
+
+        session.getTransaction().commit();
+
+        session.close();
+
     }
 
 

@@ -14,8 +14,18 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * @author Jason Sy
+ */
 @WebServlet(name = "NotificationServices", urlPatterns ="/NotificationServices")
 public class NotificationServices extends HttpServlet {
+    /**
+     * Processes the requests for managing notifications
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String delete = request.getParameter("delete");

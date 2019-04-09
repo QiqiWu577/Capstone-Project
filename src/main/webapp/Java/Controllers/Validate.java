@@ -22,31 +22,61 @@ public class Validate extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String logout = request.getParameter("logout");
+        String action = request.getParameter("action");
         boolean valid = false;
+        boolean newHire = false;
 
 
         PasswordManager pm = new PasswordManager();
+        SendEmail se = new SendEmail();
 
 
-        try {
-            valid = pm.getHashSalt(Integer.parseInt(username), password);
-        } catch (NumberFormatException e) {
-            //Return to login page with incorrect username
-        }
 
 
-        if (logout != null) {
+
+
+
+        if (logout != null && !action.equals("forgot")) {
+
             HttpSession session = request.getSession(false);
             session.invalidate();
 
             request.setAttribute("message", "Logged out");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
 
+        } else if (action != null && action.equalsIgnoreCase("forgot")) {
+
+
+            request.getRequestDispatcher("/WEB-INF/Presentation/Admin/ChangePassword.jsp").forward(request, response);
+
+        }else if (action != null && action.equalsIgnoreCase("reset")) {
+
+            Employee resetPass = dbops.getEmployee(Integer.parseInt(username));
+
+            se.sendEmailSingle(resetPass.getEmail(), resetPass.getFname(), resetPass.getEmpid(), "reset");
+
+
         } else if (username != null && password != null && !username.equals("") && !password.equals("")) {
+
+            try {
+                valid = pm.getHashSalt(Integer.parseInt(username), password);
+            } catch (NumberFormatException e) {
+                //Return to login page with incorrect username
+            }
+
+
+            Employee loggedIn =  dbops.getEmployee(Integer.parseInt(username));
+
+            newHire = loggedIn.getNewHire();
 
             boolean active = dbops.getEmployee(Integer.parseInt(username)).getActive();
 
-            if (valid && active) {
+            if (valid && active && newHire) {
+
+                request.getRequestDispatcher("/ManageScheduleViews").forward(request, response);
+
+
+            } else if (valid && active) {
 
                 Employee emp = dbops.getEmployee(Integer.parseInt(username));
                 HttpSession session = request.getSession();
@@ -88,11 +118,6 @@ public class Validate extends HttpServlet {
             request.setAttribute("message", "Both username and password are required!");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
-
-
-
-
-
     }
 
 

@@ -29,6 +29,10 @@ public class ManagerServices extends HttpServlet {
 
         String settings = request.getParameter("settings");
         String notifications = request.getParameter("notifications");
+<<<<<<< HEAD
+=======
+
+>>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4
         //notifications="true";
         String page = request.getParameter("page");
         DBOperation db = new DBOperation();

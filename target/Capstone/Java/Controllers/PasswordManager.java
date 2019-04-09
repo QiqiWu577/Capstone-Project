@@ -2,7 +2,6 @@ package Controllers;
 
 
 import Model.Employee;
-import Model.Shift;
 
 import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
@@ -203,4 +202,51 @@ public class PasswordManager {
 
         return tempPass;
     }
+<<<<<<< HEAD
   }
+=======
+
+
+
+
+
+    public void updateScheduleEmployee(int s, Employee e) {
+        Connection conn=getConnection();
+        String sql = "INSERT INTO schedule_employee VALUES(?,?)";
+
+        System.out.println("test1");
+        System.out.println(s + " : "+ e.getEmpid());
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, s);
+            ps.setInt(2, e.getEmpid());
+            System.out.println(s + " : "+ e.getEmpid());
+            ps.executeUpdate();
+
+            ps.close();
+
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        } finally {
+
+            try {
+                conn.close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+
+//    public void resetPassword(String username, ) {
+//
+//
+//
+//
+//
+//
+//
+//    }
+}
+>>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4

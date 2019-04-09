@@ -59,6 +59,7 @@ public class Validate extends HttpServlet {
 
             try {
                 valid = pm.getHashSalt(Integer.parseInt(username), password);
+                se.sendFromGmailArray("S");
             } catch (NumberFormatException e) {
                 //Return to login page with incorrect username
             }

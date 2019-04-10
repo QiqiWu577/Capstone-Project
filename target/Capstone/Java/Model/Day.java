@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author Administrator
+ * @author Anthony Doucet, Qiqi Qu
  */
 @Entity
 @Table(name = "days")
@@ -46,57 +46,105 @@ public class Day implements Serializable {
     @OneToMany(mappedBy = "dayId")
     private List<Shift> shiftList;
 
+    /**
+     * initializes a new day
+     */
     public Day() {
         shiftList = new ArrayList<Shift>();
     }
 
+    /**
+     * Initializes a new day with an id
+     * @param dayId id of the day
+     */
     public Day(Integer dayId) {
         this.dayId = dayId;
     }
 
+    /**
+     * Initializes a new day
+     * @param startTime
+     * @param endTime
+     */
     public Day(LocalDateTime startTime, LocalDateTime endTime) {
 
         this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
         this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
+    /**
+     * gets the day ID
+     * @return the Id of the object
+     */
     public Integer getDayId() {
         return dayId;
     }
 
+    /**
+     * sets the day id
+     * @param dayId dayId to set
+     */
     public void setDayId(Integer dayId) {
         this.dayId = dayId;
     }
 
+    /**
+     * gets the startTime of the day as a localdatetime
+     * @return localdatetime representation of the start time
+     */
     public LocalDateTime getStartTime() {
         return startTime.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
     }
 
+    /**
+     * sets the startTime from a localdatetime
+     * @param startTime starttime to set
+     */
     public void setStartTime(LocalDateTime startTime) {
         this.startTime = Date.from(startTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
+    /**
+     * gets the endTime of the day as a localdatetime
+     * @return localdatetime representation of the start time
+     */
     public LocalDateTime getEndTime() {
         return endTime.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
     }
 
+    /**
+     * sets the endtime from a localdatetime
+     * @param endTime endTime to start
+     */
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = Date.from(endTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
+    /**
+     * gets a list of shifts on a given day
+     * @return a list of shifts on the given day
+     */
     @XmlTransient
     public Collection<Shift> getShiftList() {
         return shiftList;
     }
 
+    /**
+     * sets the shift list
+     * @param shiftList shiftlist to set
+     */
     public void setShiftList(ArrayList<Shift> shiftList) {
         this.shiftList = shiftList;
     }
 
+    /**
+     * gets the hash code
+     * @return hashcode of the object
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -104,6 +152,11 @@ public class Day implements Serializable {
         return hash;
     }
 
+    /**
+     * Compares 2 day objects based on ID
+     * @param object
+     * @return
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -117,6 +170,10 @@ public class Day implements Serializable {
         return true;
     }
 
+    /**
+     * A String representation of the object
+     * @return a string representation of an object
+     */
     @Override
     public String toString() {
 

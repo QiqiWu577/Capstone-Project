@@ -22,9 +22,10 @@ import java.util.Date;
 public class EmployeeServices extends HttpServlet {
 
     /**
-     * Processes the request for employee navigation
-     * @param request
-     * @param response
+     * Processes navigation requests for employees
+     *
+     * @param request parameter submitted from the jsp page
+     * @param response system response to requests
      * @throws ServletException
      * @throws IOException
      */

@@ -1,4 +1,3 @@
-
 package Controllers;
 
 
@@ -19,6 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * SendEmail - Class describing all attributes and operations for a SendEmail object
+ *
+ * @author Matthew Kelemen
+ */
 public class SendEmail extends HttpServlet {
 
 
@@ -30,7 +34,10 @@ public class SendEmail extends HttpServlet {
 =======
     DBOperation dbops;
 
-
+    /**
+     * Method that takes in a type to determine what email is sent to all employees. Sends an email to all employees via Gmail
+     * @param type - The type of the email to be sent
+     */
     public void sendFromGmailArray(String type) {
 
         DBOperation dbops = new DBOperation();
@@ -110,6 +117,14 @@ public class SendEmail extends HttpServlet {
 
     }
 
+    /**
+     * Method that sends an email to a signle employee
+     * @param from - username of email account sending email
+     * @param pass - password of email account sending email
+     * @param to - the email of the recipient
+     * @param subject - The subject of the email to be sent
+     * @param body - The body of the email to be sent
+     */
     private static void sendFromGmailSingle(String from, String pass, String to, String subject, String body) {
 
         Properties props = System.getProperties();
@@ -131,10 +146,10 @@ public class SendEmail extends HttpServlet {
             InternetAddress toAddress;
 
             // To get the array of addresses
-                toAddress = new InternetAddress(to);
+            toAddress = new InternetAddress(to);
 
 
-                message.addRecipient(Message.RecipientType.TO, toAddress);
+            message.addRecipient(Message.RecipientType.TO, toAddress);
 
 
             message.setSubject(subject);
@@ -150,10 +165,16 @@ public class SendEmail extends HttpServlet {
 
     }
 
-
+    /**
+     * Method that determines the conent of the email being sent to a single employee
+     * @param to - The email address of the recipient of the email
+     * @param name - The name of the person that is being emailed. FName from employee
+     * @param empID - The empId of the person that is being emailed. Used as employee username
+     * @param type - The type of email that needs to be sent to the user
+     */
     void sendEmailSingle(String to, String name, int empID, String type) {
 
-     PasswordManager pm = new PasswordManager();
+        PasswordManager pm = new PasswordManager();
 
         String subject = "2030 Bubble Tea Password Notification";
         String body;
@@ -196,7 +217,7 @@ public class SendEmail extends HttpServlet {
                     "first login.\r\n\r\nThank you,\r\n2030 Bubble Tea Cafe";
 
         } else {
-            body="woem";
+            body="Please contact 2030 System Admin as something is wrong with the scheduling system.";
         }
 
 

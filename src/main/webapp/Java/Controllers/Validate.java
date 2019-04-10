@@ -45,7 +45,7 @@ public class Validate extends HttpServlet {
 
 
 
-        if (logout != null && !action.equals("forgot")) {
+        if (logout != null) {
 
             HttpSession session = request.getSession(false);
             session.invalidate();
@@ -63,9 +63,20 @@ public class Validate extends HttpServlet {
             Employee resetPass = dbops.getEmployee(Integer.parseInt(username));
 
             se.sendEmailSingle(resetPass.getEmail(), resetPass.getFname(), resetPass.getEmpid(), "reset");
+            request.setAttribute("message", "Password has been reset. Please check your email.");
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
 
 
-        } else if (username != null && password != null && !username.equals("") && !password.equals("")) {
+        }else if(action!=null && action.equalsIgnoreCase("new")){
+
+
+
+            request.setAttribute("message", "Password has been updated. Please login using your new password.");
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+
+
+        }else if (username != null && password != null && !username.equals("") && !password.equals("")) {
 
             try {
                 valid = pm.getHashSalt(Integer.parseInt(username), password);
@@ -82,7 +93,7 @@ public class Validate extends HttpServlet {
 
             if (valid && active && newHire) {
 
-                request.getRequestDispatcher("/ManageScheduleViews").forward(request, response);
+                request.getRequestDispatcher("/WEB-INF/Presentation/Admin/ChangePasswordNewHire.jsp").forward(request, response);
 
 
             } else if (valid && active) {

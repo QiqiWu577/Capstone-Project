@@ -9,9 +9,17 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.*;
 
+/**
+ * FullcalendarDBOps.java - Class describing all attributes and operations for a FullcalendarDBOps object
+ * @author Qiqi Wu
+ */
 public class FullcalendarDBOps {
 
-
+    /**
+     * Method to retrieve all the information of employee object based on the employee's type
+     * @param empType the type of the employee
+     * @return  a string containing all the information of the employee
+     */
     public String getEmpsBT(char empType){
 
         String result = "";
@@ -39,6 +47,11 @@ public class FullcalendarDBOps {
         return result;
     }
 
+    /**
+     * Method to retrieve all the information of employee object based on the employee's id
+     * @param empId the employee's id
+     * @return a string containing all the information of the employee
+     */
     public String getEmpsBE(int empId){
 
         String result = "";
@@ -66,6 +79,11 @@ public class FullcalendarDBOps {
         return result;
     }
 
+    /**
+     * Method to retrieve all the shift information based on the employee's id
+     * @param empId the employee's id
+     * @return a string containing all the information of the shift
+     */
     public String getShifts(String empId){
 
         String result = "";
@@ -93,6 +111,13 @@ public class FullcalendarDBOps {
         return result;
     }
 
+    /**
+     * Method to check if the shift edited is the same as the shift before editing
+     * @param oldShiftId the shift before editing
+     * @param cs the start time of the current shift edited
+     * @param ce the end time of the current shift edited
+     * @return result true or false
+     */
     public boolean checkSameShift(int oldShiftId,LocalDateTime cs,LocalDateTime ce){
 
         boolean check = false;
@@ -121,6 +146,11 @@ public class FullcalendarDBOps {
         return check;
     }
 
+    /**
+     * Method to check if the day already exists in the day table
+     * @param s the start time of the day
+     * @return result 1 or 0. 1 means the day exists, or else it does not
+     */
     public int dayExist(LocalDateTime s){
 
         int check = 0;
@@ -150,13 +180,19 @@ public class FullcalendarDBOps {
         return check;
     }
 
+    /**
+     * Method to set the shift type when adding a new shift and editing the shift
+     * @param s the start time of the shift
+     * @param e the end time of the shift
+     * @return the type of the shift
+     */
     public char setShiftType(LocalDateTime s,LocalDateTime e){
 
-//        shiftType rule
-//        O: s and e is not the same date
-//        D: s>=6:00 && s<=12:00 && e<18:00
-//        N: s>=16:00 && e>=18:00
-//        M: else
+        //        shiftType rule
+        //        O: s and e is not the same date
+        //        D: s>=6:00 && s<=12:00 && e<18:00
+        //        N: s>=16:00 && e>=18:00
+        //        M: else
         char type = ' ';
         if(s.toLocalDate().compareTo(e.toLocalDate())!=0){
             type = 'O';
@@ -183,6 +219,12 @@ public class FullcalendarDBOps {
         return type;
     }
 
+    /**
+     * Method to add a new day to the day table
+     * @param s the start time of the day
+     * @param e the end time of the day
+     * @return new day id of the new day
+     */
     public int addDay(LocalDateTime s,LocalDateTime e){
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -207,6 +249,14 @@ public class FullcalendarDBOps {
         return result;
     }
 
+    /**
+     * Method to add a new shift to the shift table
+     * @param dayId day id
+     * @param empId employee id
+     * @param s the start time of the shift
+     * @param e the end time of the shift
+     * @return the new shift id
+     */
     public int addShift(int dayId,int empId,LocalDateTime s,LocalDateTime e){
 
         int result= 0;
@@ -237,6 +287,12 @@ public class FullcalendarDBOps {
         return result;
     }
 
+    /**
+     * Method to add the shift of the specific employee into the link table
+     * @param newShiftId new shift id
+     * @param empId employee id
+     * @return result true if adding is successful
+     */
     public boolean addEmpShift(int newShiftId,int empId){
 
         boolean result=false;
@@ -267,7 +323,11 @@ public class FullcalendarDBOps {
         return result;
     }
 
-
+    /**
+     * Method to retrieve the operational hours of the specific day
+     * @param newDayId day id
+     * @return a string containing all the information of the day
+     */
     public String getOpsHours(int newDayId){
 
         String result = "";
@@ -292,6 +352,14 @@ public class FullcalendarDBOps {
         return result;
     }
 
+    /**
+     * Method to update day table based on the conditions
+     * @param newDayId day id needed to be added
+     * @param s the start time of the day
+     * @param e the end time of the day
+     * @param condition 1 means only update the start time, 2 means only update the end time, 3 means update both of them
+     * @return true if updating is successful
+     */
     public boolean updateDayOps(int newDayId, LocalDateTime s, LocalDateTime e, int condition){
 
         boolean result=false;
@@ -339,6 +407,12 @@ public class FullcalendarDBOps {
         return result;
     }
 
+    /**
+     * Method to check if the shift already exists in the shift table
+     * @param s the start time of the shift
+     * @param e the end time of the shift
+     * @return true if the shift exists
+     */
     public int shiftExist(LocalDateTime s,LocalDateTime e){
 
         int check = 0;
@@ -366,6 +440,12 @@ public class FullcalendarDBOps {
         return check;
     }
 
+    /**
+     * Method to check if the employee has more than one shift on the same day
+     * @param empId employee id
+     * @param cs the start time of the shift
+     * @return true if the employee does has
+     */
     public boolean checkEmployeeShift(int empId,LocalDateTime cs){
 
         boolean result = false;
@@ -391,6 +471,13 @@ public class FullcalendarDBOps {
         return result;
     }
 
+    /**
+     * Method to check if the shifts for the specific employee does not cross over as shifts for the same employee should be separated
+     * @param empId employee id
+     * @param cs the start time of the shift
+     * @param ce the end time of the shift
+     * @return the error message if the new shift is cross over
+     */
     public String checkSameEmpShift(int empId,LocalDateTime cs,LocalDateTime ce){
 
         String result = "";
@@ -425,6 +512,12 @@ public class FullcalendarDBOps {
         return result;
     }
 
+    /**
+     * Method to check if the employee exists
+     * @param employee employee's name
+     * @param type the type of the employee
+     * @return 1 means the employee exists
+     */
     public int empExist(String employee,char type){
 
         int check = 0;
@@ -455,6 +548,12 @@ public class FullcalendarDBOps {
 
     }
 
+    /**
+     * Method to delete a shift of the specific employee in the link table
+     * @param oldShiftId the shift id
+     * @param empId the employee id
+     * @return true if deleting is successful
+     */
     public boolean deleteShift(int oldShiftId,int empId){
 
         boolean result=false;

@@ -13,8 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+<<<<<<< HEAD
+import java.util.ArrayList;
+
+/**
+ * @author Qiqi Wu
+=======
 /**
  * @author Qiqi Wu, Anthony Doucet
+>>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4
  */
 @WebServlet(name = "AdminServices",urlPatterns = "/AdminServices")
 public class AdminServices extends HttpServlet {

@@ -11,9 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * @author Matthew Kelemen
+ */
 @WebServlet(name = "Validate", urlPatterns = "/Validate")
 public class Validate extends HttpServlet {
 
+    /**
+     * Processes the request for user validation
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         DBOperation dbops = new DBOperation();
@@ -59,7 +69,6 @@ public class Validate extends HttpServlet {
 
             try {
                 valid = pm.getHashSalt(Integer.parseInt(username), password);
-                se.sendFromGmailArray("S");
             } catch (NumberFormatException e) {
                 //Return to login page with incorrect username
             }

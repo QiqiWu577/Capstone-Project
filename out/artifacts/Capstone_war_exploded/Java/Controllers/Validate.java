@@ -1,6 +1,5 @@
 package Controllers;
 
-import Model.Day;
 import Model.Employee;
 import Persistance.DBOperation;
 
@@ -11,57 +10,102 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.sql.SQLException;
 
-import static java.lang.System.currentTimeMillis;
-
+/**
+ * @author Matthew Kelemen
+ */
 @WebServlet(name = "Validate", urlPatterns = "/Validate")
 public class Validate extends HttpServlet {
 
+
+    /**
+     * Processes the request for user validation
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
         DBOperation dbops = new DBOperation();
+
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String logout = request.getParameter("logout");
-        boolean valid=false;
+        String action = request.getParameter("action");
+        boolean valid = false;
+        boolean newHire = false;
 
-        long long1 = currentTimeMillis();
-        long long2;
 
         PasswordManager pm = new PasswordManager();
-
-        try {
-            valid = pm.getHashSalt(Integer.parseInt(username), password);
-        } catch (NumberFormatException e) {
-            //Return to login page with incorrect username
-        }
+        SendEmail se = new SendEmail();
 
 
 
 
 
-        if (logout!=null) {
+
+
+        if (logout != null) {
+
             HttpSession session = request.getSession(false);
             session.invalidate();
 
             request.setAttribute("message", "Logged out");
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
 
-        }
-        else if (username!=null && password!=null && !username.equals("") && !password.equals("")) {
+        } else if (action != null && action.equalsIgnoreCase("forgot")) {
 
-            if (valid) {
+
+            request.getRequestDispatcher("/WEB-INF/Presentation/Admin/ChangePassword.jsp").forward(request, response);
+
+        }else if (action != null && action.equalsIgnoreCase("reset")) {
+
+            Employee resetPass = dbops.getEmployee(Integer.parseInt(username));
+
+            se.sendEmailSingle(resetPass.getEmail(), resetPass.getFname(), resetPass.getEmpid(), "reset");
+            request.setAttribute("message", "Password has been reset. Please check your email.");
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+
+        }else if(action!=null && action.equalsIgnoreCase("new")){
+
+
+
+            request.setAttribute("message", "Password has been updated. Please login using your new password.");
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+
+
+        }else if (username != null && password != null && !username.equals("") && !password.equals("")) {
+
+            try {
+                valid = pm.getHashSalt(Integer.parseInt(username), password);
+            } catch (NumberFormatException e) {
+                //Return to login page with incorrect username
+            }
+
+
+            Employee loggedIn =  dbops.getEmployee(Integer.parseInt(username));
+
+            newHire = loggedIn.getNewHire();
+
+            boolean active = dbops.getEmployee(Integer.parseInt(username)).getActive();
+
+            if (valid && active && newHire) {
+
+                request.getRequestDispatcher("/WEB-INF/Presentation/Admin/ChangePasswordNewHire.jsp").forward(request, response);
+
+
+            } else if (valid && active) {
 
                 Employee emp = dbops.getEmployee(Integer.parseInt(username));
                 HttpSession session = request.getSession();
                 session.setAttribute("employee", emp);
 
 
-                long2 = currentTimeMillis();
-                System.out.println(long2-long1);
-                System.out.println(emp.getType());
                 if (emp.getType() == 'M') {
 
                     request.getRequestDispatcher("/ManageScheduleViews").forward(request, response);
@@ -78,20 +122,25 @@ public class Validate extends HttpServlet {
                 }
 
 
+            } else if(!active) {
+
+                request.setAttribute("message", "Username or password is incorrect!");
+
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+
+
             } else {
                 request.setAttribute("message", "Username or password is incorrect!");
 
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
             }
 
-        }
-        else if(username == null || password == null) {
+        } else if (username == null || password == null) {
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         } else {
             request.setAttribute("message", "Both username and password are required!");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
-
     }
 
 

@@ -26,10 +26,10 @@
             <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
         </a>
         <nav role="navigation" class="w-nav-menu">
-            <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
+            <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links selected w-nav-link">Home</a>
             <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
-            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications" class="nav-links w-nav-link">Notifications</a>
-            <a href="<%=application.getContextPath() %>/ManagerServices" class="nav-links w-nav-link">Settings</a>
+            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications&notifications=notifications" class="nav-links w-nav-link">Notifications</a>
+            <a href="<%=application.getContextPath() %>/ManagerServices?page=setting" class="nav-links w-nav-link">Settings</a>
             <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
     </div>
@@ -66,7 +66,7 @@
 
         <h2>Manage Shifts</h2>
 
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" style="padding-top: 10px">
             <li class="active"><a data-toggle="tab" href="#front">Front End</a></li>
             <li><a data-toggle="tab" href="#bar">Bar</a></li>
             <li><a data-toggle="tab" href="#kitchen">Kitchen</a></li>

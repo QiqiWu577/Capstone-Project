@@ -17,8 +17,8 @@
         <nav role="navigation" class="w-nav-menu">
             <a href="ManageScheduleViews" class="nav-links w-nav-link">Home</a>
             <a href="ManageEmployees" class="nav-links selected w-nav-link">Employee Management</a>
-            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications&notifications=notifications" class="nav-links w-nav-link">Notifications</a>
-            <a href="ManagerServices?page=setting" class="nav-links w-nav-link">Settings</a>
+            <a href="ManagerServices?page=notifications" class="nav-links w-nav-link">Notifications</a>
+            <a href="ManagerServices?page=settings" class="nav-links w-nav-link">Settings</a>
             <a href="Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
     </div>
@@ -223,10 +223,6 @@
                         </table>
 
                     </div>
-
-
-
-
 
                     <div id="Preferences" class="tabcontent">
                         <div class="goodName">Preferences</div> <br>

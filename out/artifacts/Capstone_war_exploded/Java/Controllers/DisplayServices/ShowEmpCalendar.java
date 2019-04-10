@@ -1,5 +1,6 @@
 package Controllers.DisplayServices;
 
+import Model.Employee;
 import Persistance.FullcalendarDBOps;
 import com.google.gson.Gson;
 import Model.CalendarDAO;
@@ -13,16 +14,26 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "ShowEmpCalendar",urlPatterns = "/ShowEmpCalendar")
 public class ShowEmpCalendar extends HttpServlet {
+    /**
+     * Processes the request for the Employee's schedule
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         FullcalendarDBOps DBOps = new FullcalendarDBOps();
         ArrayList<CalendarDAO> list = new ArrayList();
         HttpSession session = request.getSession();
-        int empId = Integer.parseInt(request.getParameter("emp"));
+        Employee emp = (Employee)session.getAttribute("employee");
+        int empId = emp.getEmpid();
 
         //get the shift list from the shift table
         String empList = DBOps.getEmpsBE(empId);
@@ -48,9 +59,11 @@ public class ShowEmpCalendar extends HttpServlet {
                     }else if(shiftDetail[4].equals("M")){
 
                         color = "yellow";
-                    }else {
+                    }else if(shiftDetail[4].equals("N")){
 
                         color = "purple";
+                    }else{
+                        color = "blue";
                     }
 
                     //store id,title,start,end,shiftID,dayId and empId as CalendarDAO object into the ArrayList if one on the shift or
@@ -62,7 +75,7 @@ public class ShowEmpCalendar extends HttpServlet {
             }
 
             //store the list as session for the use of editing
-            session.setAttribute("bartenderShifts",list);
+            session.setAttribute("empShifts",list);
 
             //send the generate schedule in json format to the fullcalendar
             response.setContentType("application/json");

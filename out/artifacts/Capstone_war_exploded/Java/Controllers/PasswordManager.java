@@ -7,9 +7,19 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.*;
+import java.util.Random;
 
+/**
+ * PasswordManager.java - Class describing all attributes and operations for a PasswordManager object
+ *
+ * @author Matthew Kelemen
+ */
 public class PasswordManager {
 
+    /**
+     * Opens a connection to the MySQL database
+     * @return conn - A connection to the database
+     */
     private Connection getConnection() {
 
         Connection conn=null;
@@ -24,6 +34,58 @@ public class PasswordManager {
         return conn;
     }
 
+    /**
+     * Adds a user to the password/salt table in the database.
+     * @param empid - empId of the user to be added to the password table
+     * @param password - password that is to be hashed and added to the database
+     */
+    public void addUser(int empid, String password) {
+
+        PasswordManager pm = new PasswordManager();
+        byte[] tempByte = null;
+
+        try {
+            tempByte = pm.getSalt();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        String salt = DatatypeConverter.printBase64Binary(tempByte);
+        String hash = pm.hash(password, tempByte);
+
+
+
+        CallableStatement cstmt = null;
+
+        Connection conn=getConnection();
+        String SQL = "call set_passwords(?,?,?)";
+
+        try {
+            cstmt = conn.prepareCall(SQL);
+
+            cstmt.setInt(1, empid);
+            cstmt.setString(2, hash);
+            cstmt.setString(3, salt);
+
+
+            cstmt.executeUpdate();
+
+            cstmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    /**
+     * This is the method that verifies if the password entered on the login screen matches the password that is in the password table.
+     * @param empid
+     * @param verify
+     * @return
+     */
     public boolean getHashSalt(int empid, String verify) {
         boolean valid=false;
         String hash = null;
@@ -37,14 +99,12 @@ public class PasswordManager {
             cstmt = conn.prepareCall(SQL);
 
             cstmt.setInt(1, empid);
-            System.out.println(empid);
             ResultSet rs = cstmt.executeQuery();
 
             rs.next();
             hash = rs.getString(1);
             salt = rs.getString(2);
-            System.out.println(hash);
-            System.out.println(salt);
+
 
 
             rs.close();
@@ -53,7 +113,6 @@ public class PasswordManager {
 
             //System.out.println(hash + " " + salt);
             valid = checkPassword(hash, verify, salt);
-            System.out.println("PM: "+valid);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,6 +120,11 @@ public class PasswordManager {
         return valid;
     }
 
+    /**
+     * Generates a salt that will be used to hash a password before being stored to the database.
+     * @return salt - random mix of characters that is used to hash the password
+     * @throws NoSuchAlgorithmException
+     */
     public static byte[] getSalt() throws NoSuchAlgorithmException
     {
 
@@ -72,7 +136,12 @@ public class PasswordManager {
         return salt;
     }
 
-
+    /**
+     * This method generates a hash based off of a password and salt.
+     * @param toHash - password that is to be hashed and added to database
+     * @param salt - salt that is to be added to password before password is hashed and stored
+     * @return generatedPassword - the hashed password is returned
+     */
     public String hash(String toHash, byte[] salt){
 
 
@@ -95,6 +164,13 @@ public class PasswordManager {
         return generatedPassword;
     }
 
+    /**
+     * This is a helper method that helps determine if the password entered and the password in the database are the same.
+     * @param hash - hash to be used to check passwords
+     * @param verify - password that is entered to be comared to hash
+     * @param salt - salt that is used to hash the password
+     * @return boolean - returns a boolean. True if password entered matches password in database. False if password entered does not match password in database.
+     */
     public boolean checkPassword(String hash, String verify, String salt){
 
         byte[] byteSalt;
@@ -105,12 +181,28 @@ public class PasswordManager {
         return hash.equals(generatedHash);
     }
 
+    /**
+     * This method generates a random password of 8 characters that will be used as the temporary password for new hires and reset passwords
+     * @return tempPass - a temporary String of 8 random characters. AlphaNumeric
+     */
     public String generatePassword(){
 
-        //////
+        final String PASS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String tempPass="";
+        Random rand = new Random();
+
+        // rand.nextInt();
+
+        for (int i =0; i<=8; i++) {
+            int n = rand.nextInt(35);
+
+            tempPass+=PASS.charAt(n);
 
 
-        return null;
+        }
+
+        return tempPass;
     }
+
 
 }

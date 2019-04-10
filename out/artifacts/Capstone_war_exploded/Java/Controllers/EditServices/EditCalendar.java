@@ -11,10 +11,18 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
+/**
+ * @author Qiqi Wu
+ */
 @WebServlet(name = "EditCalendar",urlPatterns = "/EditCalendar")
-public class EditSerCalendar extends HttpServlet {
-
+public class EditCalendar extends HttpServlet {
+    /**
+     * Processes the request changes done to the calendar
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -51,7 +59,7 @@ public class EditSerCalendar extends HttpServlet {
         if(id.equals("add")){
 
             //check if the employee exists
-            newEmpId = DBOps.empExist(employee);
+            newEmpId = DBOps.empExist(employee,type.charAt(0));
             if(newEmpId == 0){
                 response.getWriter().write("noEmp");
             }else{
@@ -64,6 +72,10 @@ public class EditSerCalendar extends HttpServlet {
 
                     //add a new shift in the shift table
                     newShiftId = DBOps.addShift(newEmpId,newDayId,cs,ce);
+
+                    //add the new one to the join table for the new shift
+                    DBOps.addEmpShift(newShiftId,newEmpId);
+                    response.getWriter().write("success");
                 }else{
 
                     //get the ops hours of the newDayId
@@ -94,6 +106,9 @@ public class EditSerCalendar extends HttpServlet {
 
                         newShiftId = DBOps.addShift(newEmpId,newDayId,cs,ce);
 
+                        //add the new one to the join table for the new shift
+                        DBOps.addEmpShift(newShiftId,newEmpId);
+                        response.getWriter().write("success");
                     }else{
 
                         boolean flag = DBOps.checkEmployeeShift(newEmpId,cs);
@@ -102,17 +117,22 @@ public class EditSerCalendar extends HttpServlet {
                             //check the same employee situations
                             //they cannot be the same time range or cross over
                             //if it is, display the error and do nothing. or else continue the operation on shift table
-                            String result = DBOps.checkSameShift(newEmpId,newShiftId,cs,ce);
-                            if(result.equals("sameShiftRange")){
-                                response.getWriter().write("sameShiftRange");
-                            }else if(result.equals("crossover")){
+                            String result = DBOps.checkSameEmpShift(newEmpId,cs,ce);
+                            if(result.equals("crossover")){
                                 response.getWriter().write("crossover");
+                            }else{
+                                //add the new one to the join table for the new shift
+                                DBOps.addEmpShift(newShiftId,newEmpId);
+                                response.getWriter().write("success");
                             }
+                        }else{
+                            //add the new one to the join table for the new shift
+                            DBOps.addEmpShift(newShiftId,newEmpId);
+                            response.getWriter().write("success");
                         }
                     }
                 }
-                //delete the old one and add the new one to the join table for the new shift
-                //boolean test = DBOps.updateEmpShift(-1,newShiftId,newEmpId);
+
             }
 
         }else if(employee.equals("delete")){
@@ -121,11 +141,11 @@ public class EditSerCalendar extends HttpServlet {
             int oldShiftId = change.getShiftId();
             int empId = change.getEmpId();         //used to update the schedule_employee table for the shift
 
-            boolean test = DBOps.deleteShift(empId,oldShiftId);
+            boolean test = DBOps.deleteShift(oldShiftId,empId);
             if(test){
-                response.getWriter().write("Delete successful!");
+                response.getWriter().write("success");
             }else{
-                response.getWriter().write("Fail to delete the shift.");
+                response.getWriter().write("fail");
             }
 
         }else{
@@ -152,6 +172,11 @@ public class EditSerCalendar extends HttpServlet {
 
                     //add a new shift in the shift table
                     newShiftId = DBOps.addShift(empId,newDayId,cs,ce);
+
+                    //delete the old one and add the new one to the join table for the new shift
+                    DBOps.deleteShift(oldShiftId,empId);
+                    DBOps.addEmpShift(newShiftId,empId);
+                    response.getWriter().write("successful");
 
                 }else{
 
@@ -183,6 +208,11 @@ public class EditSerCalendar extends HttpServlet {
 
                        newShiftId = DBOps.addShift(empId,newDayId,cs,ce);
 
+                        //delete the old one and add the new one to the join table for the new shift
+                        DBOps.deleteShift(oldShiftId,empId);
+                        DBOps.addEmpShift(newShiftId,empId);
+                        response.getWriter().write("successful");
+
                     }else{
 
                         boolean flag = DBOps.checkEmployeeShift(empId,cs);
@@ -191,19 +221,25 @@ public class EditSerCalendar extends HttpServlet {
                             //check the same employee situations
                             //they cannot be the same time range or cross over
                             //if it is, display the error and do nothing. or else continue the operation on shift table
-                            String result = DBOps.checkSameShift(empId,newShiftId,cs,ce);
-                            if(result.equals("sameShiftRange")){
-                                response.getWriter().write("sameShiftRange");
-                            }else if(result.equals("crossover")){
+                            String result = DBOps.checkSameEmpShift(empId,cs,ce);
+                            if(result.equals("crossover")){
                                 response.getWriter().write("crossover");
+                            }else{
+                                //delete the old one and add the new one to the join table for the new shift
+                                DBOps.deleteShift(oldShiftId,empId);
+                                DBOps.addEmpShift(newShiftId,empId);
+                                response.getWriter().write("successful");
                             }
+                        }else{
+                            //delete the old one and add the new one to the join table for the new shift
+                            DBOps.deleteShift(oldShiftId,empId);
+                            DBOps.addEmpShift(newShiftId,empId);
+                            response.getWriter().write("successful");
                         }
 
                     }
                 }
-                //delete the old one and add the new one to the join table for the new shift
-                DBOps.removeEmpShift(oldShiftId,empId);
-                DBOps.addEmpShift(newShiftId,empId);
+
             }
 
         }

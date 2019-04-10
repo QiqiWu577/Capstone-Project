@@ -14,8 +14,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * @author Jason Sy
+ */
 @WebServlet(name = "NotificationServices", urlPatterns ="/NotificationServices")
 public class NotificationServices extends HttpServlet {
+    /**
+     * Controller to process requests for the maintenance and management of notifications
+     *
+     * If parameter is delete, remove notification from database
+     * If accept, the shift sender in the notification will be swapped with the accepting recipient
+     * If decline, the notification status will change to declines and saved to database
+     * If send, it will determine type of notification and to whom it will be sent
+     * If the employee type is manager, redirect to manager notifications page
+     *
+     * @param request parameter submitted from the jsp page
+     * @param response system response to requests
+     * @throws ServletException
+     * @throws IOException
+     */
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String delete = request.getParameter("delete");
@@ -24,9 +41,11 @@ public class NotificationServices extends HttpServlet {
         String send = request.getParameter("send");
         HttpSession session = request.getSession();
         DBOperation db = new DBOperation();
-
         Employee emp = (Employee) session.getAttribute("employee");
 
+        /**
+         *If delete was the parameter, delete the notification from the database using the note ID
+         */
         if(delete!=null) {
 
             int noteId = Integer.parseInt(request.getParameter("noteId"));
@@ -34,8 +53,11 @@ public class NotificationServices extends HttpServlet {
             db.deleteNotification(n);
 
             session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-            session.setAttribute("sentList", db.getSentNotifications(emp)); //change to emp after
+            session.setAttribute("sentList", db.getSentNotifications(emp));
 
+            /**
+             * If employee is manager, redirect to Manager Notifications
+             */
             if(emp.getType().equals('M')) {
                 session.setAttribute("manList", db.getManagerNotifications());
                 request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request,response);

@@ -1,12 +1,13 @@
 $(document).ready(function() {
 
     //------ start to perform adding shift function
-    var newShiftDialog,newShiftForm,startDate,color,
+    var newShiftDialog,newShiftForm,startDate,endDate,nextDay,
         tips = $(".validateTips"),
-        employee = $("#employee"),
+        fname = $("#fname"),
+        lname = $("#lname"),
         startTime = $("#start"),
         endTime = $("#end"),
-        allFields = $([]).add(employee).add(startTime).add(endTime);
+        allFields = $([]).add(fname).add(lname).add(startTime).add(endTime);
 
     function updateTips(t) {
         tips
@@ -20,9 +21,9 @@ $(document).ready(function() {
 
     function checkEmp(o){
 
-        if(o.val().length > 16 || o.val().length < 3){
+        if(o.val().length < 1){
             o.addClass("ui-state-error");
-            updateTips("Length of employee's name must be between 3 and 16.");
+            updateTips("You must enter the employee's name!");
             return false;
         }else{
             return true;
@@ -52,52 +53,54 @@ $(document).ready(function() {
 
     }
 
-    function checkTime(s,e){
-        var check = moment(s.val()).isBefore(e.val());
-        if(check){
-            updateTips("Opening hour must be earlier than the closing hour!");
+    function checkNextDayShift(s,e){
+        nextDay = false;
+        var st = startDate+"T"+s.val();
+        var et = startDate+"T"+e.val();
+
+        if(moment(et).isBefore(st)){
+            $("#anotherDayDialog").dialog("open");
+            endDate = moment(startDate).add(1,'days').format('YYYY-MM-DD');
+        }else{
+            addShift();
         }
-    }
-
-    function setColor(s,e){
-
     }
 
     function addShift(){
         var valid = true;
+        var start,end,name;
         allFields.removeClass( "ui-state-error" );
 
-        valid = valid && checkEmp(employee);
+        valid = valid && checkEmp(fname);
+        valid = valid && checkEmp(lname);
         valid = valid && checkNotEmpty(startTime,0);
         valid = valid && checkNotEmpty(endTime,1);
-        valid = valid && checkTime(startTime,endTime);
 
         if(valid){
 
-            var start = startDate+" "+startTime.val();
-            var end = startDate+" "+endTime.val();
-
-            //update shift in the calendar
-            $('#calendar').fullCalendar('renderEvent',{
-                title: employee.val(),
-                start: start,
-                end: end,
-                color: "green"
-            });
+            name = fname.val()+" "+lname.val();
+            console.log(nextDay);
+            if(nextDay){
+                start = startDate+"T"+startTime.val();
+                end = endDate+"T"+endTime.val();
+            }else{
+                start = startDate+"T"+startTime.val();
+                end = startDate+"T"+endTime.val();
+            }
 
             var shift = {
                 id: "add",
-                title: employee.val(),
+                title: name,
                 start: start,
-                end: end,
-                color: "D"
+                end: end
             };
 
             //save to the database
             saveEvent(shift);
 
-            dialog.dialog( "close" );
+            newShiftDialog.dialog( "close" );
         }
+        console.log(valid);
         return valid;
     }
 
@@ -107,7 +110,9 @@ $(document).ready(function() {
         width: 350,
         modal: true,
         buttons: {
-            "Create": addShift,
+            "Create": function () {
+                checkNextDayShift(startTime,endTime);
+            },
             Cancel: function(){
                 newShiftDialog.dialog("close");
             }
@@ -129,28 +134,33 @@ $(document).ready(function() {
     var deleteShiftDialog,deleteShiftForm,id;
 
     function deleteShift(){
-
+        console.log(true);
         var data = {
             id: id,
             title: "delete",
-            start: "",
-            end: "",
-            color: ""
+            start: ds,
+            end: de,
+            type:"S"
             };
 
         $.ajax({
             type: "POST",
-            url: 'EditSerCalendar',
+            url: 'EditCalendar',
             contentType: "application/json",
             data: JSON.stringify(data), //pass data to the servlet
             success: function(data){    //get data from the servlet
-                if(data === 'sameEmpShift'){
-                    alert("Cannot be the same shift! Please select the different shift time for the employee!");
-                }else if(data === 'crossover'){
-                    alert("The shifts of the same employee cross over! Please select the different shift time for the employee!");
+                if(data === 'success'){
+                    alert("Deleting the shift is successful!");
+                    check = true;
+                    setTimeout("location.reload(true);",1000);
+                }else if(data === 'fail'){
+                    alert("Fail to delete the shift.");
+                    setTimeout("location.reload(true);",1000);
                 }
             }
         });
+
+        return true;
     }
 
     deleteShiftDialog = $( "#deleteShiftDialog" ).dialog({
@@ -160,43 +170,73 @@ $(document).ready(function() {
         width: 400,
         modal: true,
         buttons: {
-            "Delete": deleteShift,
+            "Delete": function() {
+                $( this ).dialog( "close" );
+                deleteShift();
+            },
             Cancel: function() {
                 $( this ).dialog( "close" );
             }
         }
     });
 
-    deleteShiftForm = deleteShiftDialog.find("form").on("submit",function (event) {
-        event.preventDefault();
-        deleteShift();
-    });
-
     //------ the end of performing deleting shift function
 
 
+    //------ start to perform set the shift ending at the next day
+
+    $( "#anotherDayDialog" ).dialog({
+        autoOpen: false,
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+            "Yes": function() {
+                nextDay = true;
+                addShift();
+                $( this ).dialog( "close" );
+            },
+            Cancel: function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    });
+
+    //------ the end of perform set the shift ending at the next day function
+
     //save shift after editing
     function saveEvent(event){
+        var check = false;
 
         var data = {
             id: event.id,
             title: event.title,
             start: event.start,
             end: event.end,
-            color: event.color,
             type: 'S'
         };
 
         $.ajax({
             type: "POST",
-            url: 'EditSerCalendar',
+            url: 'EditCalendar',
             contentType: "application/json",
             data: JSON.stringify(data), //pass data to the servlet
             success: function(data){    //get data from the servlet
-                if(data === 'sameShiftRange'){
-                    alert("Cannot be the same shift! Please select the different shift time for the employee!");
-                }else if(data === 'crossover'){
+                if(data === 'crossover'){
                     alert("The shifts of the same employee cross over! Please select the different shift time for the employee!");
+
+                    setTimeout("location.reload(true);",1000);
+                }else if(data === 'noEmp'){
+                    alert("There is no such employee existing in this department!");
+                }else if(data === 'success'){
+                    alert("Adding new shift is successful!");
+                    check = true;
+                    setTimeout("location.reload(true);",1000);
+                }else if(data === 'successful'){
+                    check = true;
+                    alert("Editing is successful!");
+                    setTimeout("location.reload(true);",1000);
                 }
             }
         });
@@ -235,6 +275,8 @@ $(document).ready(function() {
             //if user does want it, use method "$('#calendar').fullCalendar('removeEvents', event);"
             //if need to refresh the page, use "$('#calendar').fullCalendar('rederEvent');"
             id = event.id;
+            ds = event.start;
+            de = event.end;
             $("#deleteShiftDialog").dialog("open");
             $('#calendar').fullCalendar('unselect');
             //save(event);

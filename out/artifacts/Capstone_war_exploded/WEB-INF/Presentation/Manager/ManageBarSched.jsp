@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -45,12 +44,11 @@
             <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
         </a>
         <nav role="navigation" class="w-nav-menu">
-            <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
-            <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
-            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications" class="nav-links w-nav-link">Notifications</a>
-            <a href="<%=application.getContextPath() %>/ManagerServices" class="nav-links w-nav-link">Settings</a>
-            <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
-
+            <a href="ManageScheduleViews" class="nav-links selected w-nav-link">Home</a>
+            <a href="ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
+            <a href="ManagerServices?page=notifications" class="nav-links w-nav-link">Notifications</a>
+            <a href="ManagerServices?page=settings" class="nav-links w-nav-link">Settings</a>
+            <a href="Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
     </div>
 </div>
@@ -69,67 +67,42 @@
     <div id='calendar'></div>
 </div>
 
-<div id="dialog" title="Create new shift">
+<div id="newShiftDialog" title="Create new shift">
     <p class="validateTips"></p>
 
     <form>
         <fieldset>
-            <label for="employee">Employee</label>
-            <input type="text" name="employee" id="employee" class="text ui-widget-content ui-corner-all">
+            <label for="fname">First Name</label>
+            <input type="text" name="fname" id="fname" class="text ui-widget-content ui-corner-all">
+            <label for="lname">Last Name</label>
+            <input type="text" name="lname" id="lname" class="text ui-widget-content ui-corner-all">
             <label for="start">Event Start Time</label>
-            <input type="text" name="start" id="start" class="text ui-widget-content ui-corner-all">
+            <input type="time" name="start" id="start" class="text ui-widget-content ui-corner-all">
             <label for="end">Event Start Time</label>
-            <input type="text" name="end" id="end" class="text ui-widget-content ui-corner-all">
+            <input type="time" name="end" id="end" class="text ui-widget-content ui-corner-all">
 
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
         </fieldset>
     </form>
 </div>
 
-<!-- div id="error" title="Notice">
-    <p>One shift is only for one employee! Please change the shift!</p>
-</div-->
+<div id="deleteShiftDialog" title="Delete the shift?">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+        This shift will be permanently deleted and cannot be recovered. Are you sure?
+    </p>
+</div>
+
+<div id="anotherDayDialog">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+        Are you sure you want to make the shift ending at the next day?
+    </p>
+</div>
 
 <script>
     //style the button in the page
-
-
-
-
     $( ".widget a" ).button();
-
-    // dialog = $( "#error" ).dialog({
-    //     autoOpen: false,
-    //     modal: true,
-    //     buttons: {
-    //         text: "Ok",
-    //         icon: "ui-icon-heart",
-    //         click: function() {
-    //             $( this ).dialog( "close" );
-    //         }
-    //     }
-    // });
-
-    // $("#dialog").dialog({
-    //     autoOpen: false,
-    //     height: 400,
-    //     width: 350,
-    //     modal: true,
-    //     buttons: {
-    //         "Confirm": addShift,
-    //         Cancel: function(){
-    //             dialog.dialog("close");
-    //         }
-    //     },
-    //     close: function () {
-    //         form[0].reset();
-    //         allFields.removeClass("ui-state-error");
-    //     }
-    // });
-
-
-
-
 </script>
 </body>
 </html>

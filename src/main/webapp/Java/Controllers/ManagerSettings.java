@@ -47,14 +47,8 @@ public class ManagerSettings extends HttpServlet {
             String closeH = request.getParameter("closeH");
 
             db.updateDayTemplate(dayOfWeek,openH,closeH);
-<<<<<<< HEAD
             session.setAttribute("message","success");
             response.sendRedirect("ManagerServices?page=setting");
-=======
-            updateDayTemp = null;
-            request.setAttribute("message","success");
-            request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request,response);
->>>>>>> d794742ca2d7b6421c773077f3decb7d5fda2a0e
 
         }else if(update!=null) {
 

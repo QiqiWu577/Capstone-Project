@@ -18,25 +18,26 @@ import java.util.ArrayList;
 @WebServlet(name = "ManagerServices", urlPatterns ="/ManagerServices")
 public class ManagerServices extends HttpServlet {
     /**
-     * Processes the request for managers navigations
-     * @param request
-     * @param response
+     * Controller to process manager navigation
+     *
+     * If page param is settings, build arraylists and direct to settings page
+     * If page param is notifications build arraylists and direct to manager notification page
+     * Else direct to manager schedule view
+     *
+     * @param request parameter submitted from the jsp page
+     * @param response system response to requests
      * @throws ServletException
      * @throws IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String notifications = request.getParameter("notifications");
-
-        //notifications="true";
         String page = request.getParameter("page");
         DBOperation db = new DBOperation();
         HttpSession session = request.getSession();
-
         Employee emp = (Employee) session.getAttribute("employee");
 
-        if(page.equals("setting")) {
+        if(page.equals("settings")) {
 
             session.setAttribute("frontList", db.getShiftTemplates('S'));
             session.setAttribute("barList", db.getShiftTemplates('B'));
@@ -71,17 +72,26 @@ public class ManagerServices extends HttpServlet {
             session.setAttribute("kitchenList", db.getShiftTemplates('K'));
             getServletContext().getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerSetting.jsp").forward(request, response);
 
-        } else if (page.equals("notifications")){
-            if(notifications.equals("notifications")) {
-                session.setAttribute("manList", db.getManagerNotifications());
-                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
-                session.setAttribute("sentList", db.getSentNotifications(emp));
-                session.setAttribute("empList", db.getEmployees());
-                request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request, response);
-            } else {
-                request.getRequestDispatcher("/ManageScheduleViews").forward(request, response);
-            }
         }
+        else if (page.equals("notifications")){
+
+            if(db.getManagerNotifications()!=null) {
+                session.setAttribute("manList", db.getManagerNotifications());
+            }
+            if(db.getReceivedNotifications(emp)!=null) {
+                session.setAttribute("receiveList", db.getReceivedNotifications(emp));
+            }
+            if(db.getSentNotifications(emp)!=null) {
+                session.setAttribute("sentList", db.getSentNotifications(emp));
+            }
+            session.setAttribute("empList", db.getEmployees());
+            request.getRequestDispatcher("/WEB-INF/Presentation/Manager/ManagerNotification.jsp").forward(request, response);
+
+        }
+        else {
+            request.getRequestDispatcher("/ManageScheduleViews").forward(request, response);
+        }
+
     }
 
 

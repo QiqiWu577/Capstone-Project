@@ -15,26 +15,14 @@
             <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
         </a>
         <nav role="navigation" class="w-nav-menu">
-<<<<<<< HEAD
-            <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links selected w-nav-link">Home</a>
-            <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
-            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications&notifications=notifications" class="nav-links w-nav-link">Notifications</a>
-            <a href="<%=application.getContextPath() %>/ManagerServices?page=setting" class="nav-links w-nav-link">Settings</a>
-            <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
-=======
-            <a href="ManageScheduleViews" class="nav-links w-nav-link">Home</a>
-            <a href="ManageEmployees" class="nav-links selected w-nav-link">Employee Management</a>
-            <a href="ManagerServices?page=notifications" class="nav-links w-nav-link">Notifications</a>
-            <a href="ManagerServices?page=settings" class="nav-links w-nav-link">Settings</a>
             <a href="Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
->>>>>>> d794742ca2d7b6421c773077f3decb7d5fda2a0e
         </nav>
     </div>
 </div>
 
 <div class="main">
     <div class="title">
-        Employee Management
+        Admin
     </div>
     <div class="row">
         <div class="columnleft" style="background-color:#d8d8d8;">
@@ -59,7 +47,7 @@
                 </c:forEach>
             </table>
         </div>
-        <form action="${pageContext.request.contextPath}/ManageEmployees" method="POST" id="myForm">
+        <form action="${pageContext.request.contextPath}/AdminServices" method="POST" id="myForm">
             <input type="hidden" id="constraints" onsubmit="generateString()" name="constraints">
             <input type="hidden" name="page" value="1">
 
@@ -78,6 +66,8 @@
                             <option value="Bartender">Bartender</option>
                             <option value="Server">Server</option>
                             <option value="Kitchen">Kitchen</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Admin">Admin</option>
                         </select>
                     </div>
                     <div class="column" style="background-color:#d8d8d8;">
@@ -126,7 +116,7 @@
                                     <input id="box_A_0_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
 
@@ -144,7 +134,7 @@
                                     <input id="box_A_1_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
 
@@ -161,7 +151,7 @@
                                     <input id="box_A_2_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -177,7 +167,7 @@
                                     <input id="box_A_3_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -193,7 +183,7 @@
                                     <input id="box_A_4_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -209,7 +199,7 @@
                                     <input id="box_A_5_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -225,12 +215,16 @@
                                     <input id="box_A_6_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
                         </table>
 
                     </div>
+
+
+
+
 
                     <div id="Preferences" class="tabcontent">
                         <div class="goodName">Preferences</div> <br>
@@ -250,7 +244,7 @@
                                     <input id="box_P_0_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
 
@@ -268,7 +262,7 @@
                                     <input id="box_P_1_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
 
@@ -285,7 +279,7 @@
                                     <input id="box_P_2_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -301,7 +295,7 @@
                                     <input id="box_P_3_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -317,7 +311,7 @@
                                     <input id="box_P_4_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -333,7 +327,7 @@
                                     <input id="box_P_5_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
                             <tr>
@@ -349,7 +343,7 @@
                                     <input id="box_P_6_${loop.index}" type="checkbox" onmouseover="check(this)" onmousedown="check(this)">
                                     <span class="checkmark"></span>
                                 </label>
-                                    </c:forEach>
+                                </c:forEach>
                             </td>
                             </tr>
                         </table>
@@ -447,6 +441,7 @@
 
 
                         function populate(id,firstname,lastname, address,phoneNo,email,type,comments, constraints) {
+                            console.log("test");
                             resetBoxes();
                             document.getElementById("id").value = id;
                             document.getElementById("fname").value = firstname;
@@ -463,6 +458,10 @@
                                 selObj.selectedIndex = 0;
                             } else if (type === 'K') {
                                 selObj.selectedIndex = 2;
+                            } else if (type === 'M') {
+                                selObj.selectedIndex = 3;
+                            } else if (type === 'A') {
+                                selObj.selectedIndex = 4;
                             }
                             console.log(constraints);
 

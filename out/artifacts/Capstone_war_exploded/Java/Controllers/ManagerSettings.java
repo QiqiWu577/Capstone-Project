@@ -48,7 +48,7 @@ public class ManagerSettings extends HttpServlet {
 
             db.updateDayTemplate(dayOfWeek,openH,closeH);
             session.setAttribute("message","success");
-            response.sendRedirect("ManagerServices?page=setting");
+            response.sendRedirect("ManagerServices?page=settings");
 
         }else if(update!=null) {
 

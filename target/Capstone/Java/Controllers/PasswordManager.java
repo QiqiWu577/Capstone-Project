@@ -1,8 +1,6 @@
 package Controllers;
 
 
-import Model.Employee;
-
 import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -12,12 +10,15 @@ import java.sql.*;
 import java.util.Random;
 
 /**
+ * PasswordManager.java - Class describing all attributes and operations for a PasswordManager object
+ *
  * @author Matthew Kelemen
  */
 public class PasswordManager {
+
     /**
-     * gets the connection for the JDBC connection
-     * @return JDBC connection object
+     * Opens a connection to the MySQL database
+     * @return conn - A connection to the database
      */
     private Connection getConnection() {
 
@@ -25,7 +26,7 @@ public class PasswordManager {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn= DriverManager.getConnection("jdbc:mysql://2030bubbletea.mysql.database.azure.com:3306/schedulecapstone?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;allowPublicKeyRetrieval=true&amp;useSSL=false", "adminDB@2030bubbletea", "Shuling5534848");
+            conn= DriverManager.getConnection("jdbc:mysql://localhost:3306/schedulecapstone", "root", "2030bubbletea");
         } catch(Exception ex) {
             ex.printStackTrace();
         }
@@ -34,9 +35,9 @@ public class PasswordManager {
     }
 
     /**
-     * Adds a user to the salt table
-     * @param empid
-     * @param password
+     * Adds a user to the password/salt table in the database.
+     * @param empid - empId of the user to be added to the password table
+     * @param password - password that is to be hashed and added to the database
      */
     public void addUser(int empid, String password) {
 
@@ -80,10 +81,10 @@ public class PasswordManager {
     }
 
     /**
-     * Checks if a user has given the correct username and password
-     * @param empid employee id
-     * @param verify Password to be checked
-     * @return true if they've given the correct information
+     * This is the method that verifies if the password entered on the login screen matches the password that is in the password table.
+     * @param empid
+     * @param verify
+     * @return
      */
     public boolean getHashSalt(int empid, String verify) {
         boolean valid=false;
@@ -120,8 +121,8 @@ public class PasswordManager {
     }
 
     /**
-     * Generates a salt to add to a password
-     * @return a byte[] of values
+     * Generates a salt that will be used to hash a password before being stored to the database.
+     * @return salt - random mix of characters that is used to hash the password
      * @throws NoSuchAlgorithmException
      */
     public static byte[] getSalt() throws NoSuchAlgorithmException
@@ -136,10 +137,10 @@ public class PasswordManager {
     }
 
     /**
-     * Hashes a password with a salt
-     * @param toHash password to hash
-     * @param salt salt to add to password
-     * @return hashed password and salt
+     * This method generates a hash based off of a password and salt.
+     * @param toHash - password that is to be hashed and added to database
+     * @param salt - salt that is to be added to password before password is hashed and stored
+     * @return generatedPassword - the hashed password is returned
      */
     public String hash(String toHash, byte[] salt){
 
@@ -164,11 +165,11 @@ public class PasswordManager {
     }
 
     /**
-     * checks if the given password matched the password for the user in the database
-     * @param hash hashed password from the database
-     * @param verify password to check
-     * @param salt salt with the password
-     * @return true if hashed passwords matches
+     * This is a helper method that helps determine if the password entered and the password in the database are the same.
+     * @param hash - hash to be used to check passwords
+     * @param verify - password that is entered to be comared to hash
+     * @param salt - salt that is used to hash the password
+     * @return boolean - returns a boolean. True if password entered matches password in database. False if password entered does not match password in database.
      */
     public boolean checkPassword(String hash, String verify, String salt){
 
@@ -181,8 +182,8 @@ public class PasswordManager {
     }
 
     /**
-     * Generates an 8 character password
-     * @return generated password
+     * This method generates a random password of 8 characters that will be used as the temporary password for new hires and reset passwords
+     * @return tempPass - a temporary String of 8 random characters. AlphaNumeric
      */
     public String generatePassword(){
 
@@ -190,7 +191,7 @@ public class PasswordManager {
         String tempPass="";
         Random rand = new Random();
 
-       // rand.nextInt();
+        // rand.nextInt();
 
         for (int i =0; i<=8; i++) {
             int n = rand.nextInt(35);
@@ -202,51 +203,6 @@ public class PasswordManager {
 
         return tempPass;
     }
-<<<<<<< HEAD
-  }
-=======
 
 
-
-
-
-    public void updateScheduleEmployee(int s, Employee e) {
-        Connection conn=getConnection();
-        String sql = "INSERT INTO schedule_employee VALUES(?,?)";
-
-        System.out.println("test1");
-        System.out.println(s + " : "+ e.getEmpid());
-
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, s);
-            ps.setInt(2, e.getEmpid());
-            System.out.println(s + " : "+ e.getEmpid());
-            ps.executeUpdate();
-
-            ps.close();
-
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        } finally {
-
-            try {
-                conn.close();
-            } catch (SQLException e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
-
-
-//    public void resetPassword(String username, ) {
-//
-//
-//
-//
-//
-//
-//
-//    }
 }
->>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4

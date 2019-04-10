@@ -1,13 +1,9 @@
-
 package Controllers;
 
 
-<<<<<<< HEAD
-=======
 import Model.Employee;
 import Persistance.DBOperation;
 
->>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -19,18 +15,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * SendEmail - Class describing all attributes and operations for a SendEmail object
+ *
+ * @author Matthew Kelemen
+ */
 public class SendEmail extends HttpServlet {
 
 
     final static String USERNAME = "2030bubbletea";
     final static String PASSWORD = "403bubbletea";
 
-<<<<<<< HEAD
-    private static void sendFromGmailArray(String from, String pass, String[] to, String subject, String body) {
-=======
     DBOperation dbops;
 
-
+    /**
+     * Method that takes in a type to determine what email is sent to all employees. Sends an email to all employees via Gmail
+     * @param type - The type of the email to be sent
+     */
     public void sendFromGmailArray(String type) {
 
         DBOperation dbops = new DBOperation();
@@ -68,7 +69,6 @@ public class SendEmail extends HttpServlet {
         }
 
 
->>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4
 
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
@@ -110,6 +110,14 @@ public class SendEmail extends HttpServlet {
 
     }
 
+    /**
+     * Method that sends an email to a signle employee
+     * @param from - username of email account sending email
+     * @param pass - password of email account sending email
+     * @param to - the email of the recipient
+     * @param subject - The subject of the email to be sent
+     * @param body - The body of the email to be sent
+     */
     private static void sendFromGmailSingle(String from, String pass, String to, String subject, String body) {
 
         Properties props = System.getProperties();
@@ -131,10 +139,10 @@ public class SendEmail extends HttpServlet {
             InternetAddress toAddress;
 
             // To get the array of addresses
-                toAddress = new InternetAddress(to);
+            toAddress = new InternetAddress(to);
 
 
-                message.addRecipient(Message.RecipientType.TO, toAddress);
+            message.addRecipient(Message.RecipientType.TO, toAddress);
 
 
             message.setSubject(subject);
@@ -150,10 +158,16 @@ public class SendEmail extends HttpServlet {
 
     }
 
-
+    /**
+     * Method that determines the conent of the email being sent to a single employee
+     * @param to - The email address of the recipient of the email
+     * @param name - The name of the person that is being emailed. FName from employee
+     * @param empID - The empId of the person that is being emailed. Used as employee username
+     * @param type - The type of email that needs to be sent to the user
+     */
     void sendEmailSingle(String to, String name, int empID, String type) {
 
-     PasswordManager pm = new PasswordManager();
+        PasswordManager pm = new PasswordManager();
 
         String subject = "2030 Bubble Tea Password Notification";
         String body;
@@ -164,14 +178,6 @@ public class SendEmail extends HttpServlet {
         if (type.equalsIgnoreCase("new")) {
             String tempPass = pm.generatePassword();
 
-<<<<<<< HEAD
-           //pm.addUser(empID, tempPass);
-
-            body =  "Hello "+ name +",\r\n\r\nAn employee account has been made for you for 2030 Bubble Tea Cafe. "+
-                    "Please login using the following information at http://localhost:8080/Capstone_war_exploded/"+".\r\n\r\nUsername: "
-                    +empID+"\r\nPassword: "+tempPass+"\r\n\r\nThe username is your employee ID and this will be used "
-                    +"everytime you login. You will be asked to change your password after the "+"" +
-=======
             pm.addUser(empID, tempPass);
 
 
@@ -179,7 +185,6 @@ public class SendEmail extends HttpServlet {
                     "Please login using the following information at http://localhost:8080/Capstone_war_exploded/" + ".\r\n\r\nUsername: "
                     + empID + "\r\nPassword: " + tempPass + "\r\n\r\nThe username is your employee ID and this will be used "
                     + "every time you login. You will be asked to change your password after the " + "" +
->>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4
                     "first login.\r\n\r\nThank you,\r\n2030 Bubble Tea Cafe";
 
 
@@ -196,7 +201,7 @@ public class SendEmail extends HttpServlet {
                     "first login.\r\n\r\nThank you,\r\n2030 Bubble Tea Cafe";
 
         } else {
-            body="woem";
+            body="Please contact 2030 System Admin as something is wrong with the scheduling system.";
         }
 
 

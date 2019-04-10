@@ -1,9 +1,12 @@
 package Controllers;
 
 
+<<<<<<< HEAD
+=======
 import Model.Employee;
 import Persistance.DBOperation;
 
+>>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -26,6 +29,9 @@ public class SendEmail extends HttpServlet {
     final static String USERNAME = "2030bubbletea";
     final static String PASSWORD = "403bubbletea";
 
+<<<<<<< HEAD
+    private static void sendFromGmailArray(String from, String pass, String[] to, String subject, String body) {
+=======
     DBOperation dbops;
 
     /**
@@ -69,6 +75,7 @@ public class SendEmail extends HttpServlet {
         }
 
 
+>>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4
 
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
@@ -178,6 +185,14 @@ public class SendEmail extends HttpServlet {
         if (type.equalsIgnoreCase("new")) {
             String tempPass = pm.generatePassword();
 
+<<<<<<< HEAD
+           //pm.addUser(empID, tempPass);
+
+            body =  "Hello "+ name +",\r\n\r\nAn employee account has been made for you for 2030 Bubble Tea Cafe. "+
+                    "Please login using the following information at http://localhost:8080/Capstone_war_exploded/"+".\r\n\r\nUsername: "
+                    +empID+"\r\nPassword: "+tempPass+"\r\n\r\nThe username is your employee ID and this will be used "
+                    +"everytime you login. You will be asked to change your password after the "+"" +
+=======
             pm.addUser(empID, tempPass);
 
 
@@ -185,6 +200,7 @@ public class SendEmail extends HttpServlet {
                     "Please login using the following information at http://localhost:8080/Capstone_war_exploded/" + ".\r\n\r\nUsername: "
                     + empID + "\r\nPassword: " + tempPass + "\r\n\r\nThe username is your employee ID and this will be used "
                     + "every time you login. You will be asked to change your password after the " + "" +
+>>>>>>> defdf40c81dd2aad1bea9069736d485ea2f5bae4
                     "first login.\r\n\r\nThank you,\r\n2030 Bubble Tea Cafe";
 
 

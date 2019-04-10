@@ -13,7 +13,7 @@ import java.io.IOException;
 @WebServlet(name = "ManageScheduleViews", urlPatterns = "/ManageScheduleViews")
 public class ManageScheduleViews extends HttpServlet {
     /**
-     * Processes the request for the manager schedule views
+     * Processes the request for the manager schedule views for different departments
      * @param request
      * @param response
      * @throws ServletException

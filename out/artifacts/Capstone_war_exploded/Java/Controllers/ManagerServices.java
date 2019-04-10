@@ -27,7 +27,6 @@ public class ManagerServices extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String settings = request.getParameter("settings");
         String notifications = request.getParameter("notifications");
 
         //notifications="true";
@@ -46,6 +45,7 @@ public class ManagerServices extends HttpServlet {
             //display operational hours from the database to the jsp table
             ArrayList<DayTemplate> list = db.getDayTemplates();
             ArrayList<DayTemplate> dayList = db.getDayTemplates();
+
             //order days from Monday to Sunday
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getDayOfWeek().equals("Monday")) {

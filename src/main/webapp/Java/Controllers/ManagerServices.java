@@ -27,7 +27,6 @@ public class ManagerServices extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String settings = request.getParameter("settings");
         String notifications = request.getParameter("notifications");
 
         //notifications="true";

@@ -5,23 +5,15 @@
  */
 package Model;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
+ *ShiftTemplate.java - Class describing all attributes and operations for the ShiftTemplate object.
  *
- * @author Administrator
+ * @author Anthony Doucet
+ *
  */
 @Entity
 @Table(name = "shift_template")
@@ -56,77 +48,155 @@ public class ShiftTemplate implements Serializable {
     @ManyToOne
     private DayTemplate dayOfWeek;
 
+    /**
+     * Default constructor for a ShiftTemplate object
+     */
     public ShiftTemplate() {
     }
 
+    /**
+     * Non-default constructor for a ShiftTemplate object.
+     *
+     * @param shiftId - Shift id to be assigned to a ShiftTemplate object
+     */
     public ShiftTemplate(Integer shiftId) {
         this.shiftId = shiftId;
     }
 
+    /**
+     *
+     * @return shiftId - returns the shiftId of the ShiftTemplate object
+     */
     public Integer getShiftId() {
         return shiftId;
     }
 
+    /**
+     *Sets the shiftId for a ShiftTemplate object
+     *
+     * @param shiftId - The shiftId to set
+     */
     public void setShiftId(Integer shiftId) {
         this.shiftId = shiftId;
     }
 
+    /**
+     *
+     * @return name - returns the name of the ShiftTemplate object
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name for a ShiftTemplate object
+     *
+     * @param name - The name to set
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     *
+     * @return type - returns the type or department of the shift
+     */
     public char getType() {
         return type;
     }
 
+    /**
+     * Sets the type for a ShiftTemplate object. Examples are B for bartender, K for cook, S for server
+     * @param type - The type to set
+     */
     public void setType(char type) {
         this.type = type;
     }
 
+    /**
+     *
+     * @return startTime - Returns the time that the shift starts
+     */
     public String getStartTime() {
         return startTime;
     }
 
+    /**
+     * Sets the start time for a ShiftTemplate object. Shows when the start of the shift is.
+     * @param startTime - The start time to set
+     */
     public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
+    /**
+     *
+     * @return endTime - Returns the time that a shift ends
+     */
     public String getEndTime() {
         return endTime;
     }
 
+    /**
+     * Sets the end time for a ShiftTemplate object. Shows when the end of the shift is
+     * @param endTime - The end time to set
+     */
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
+    /**
+     *
+     * @return minNoEmp - Returns the minimum number of employees needed for a shift
+     */
     public Integer getMinNoEmp() {
         return minNoEmp;
     }
 
+    /**
+     * Sets the minimum amount of employees needed for a shift
+     * @param minNoEmp - Minimum number of employees to set for a ShiftTemplate object
+     */
     public void setMinNoEmp(Integer minNoEmp) {
         this.minNoEmp = minNoEmp;
     }
 
+    /**
+     *
+     * @return maxNoEmp - Returns the maximum number of employees needed for a shift.
+     */
     public Integer getMaxNoEmp() {
         return maxNoEmp;
     }
 
+    /**
+     * Sets the maximum amount of employees needed for a shift
+     * @param maxNoEmp - Maximum number of employees to be set for a ShiftTemplate object
+     */
     public void setMaxNoEmp(Integer maxNoEmp) {
         this.maxNoEmp = maxNoEmp;
     }
 
+    /**
+     *
+     * @return dayOfWeek - Returns the day of the week that the shift falls on
+     */
     public String getDayOfWeek() {
         return dayOfWeek.getDayOfWeek();
     }
 
+    /**
+     *Sets the day of the week for a ShiftTemplate object.
+     * @param dayOfWeek - The day of the week to be set
+     */
     public void setDayOfWeek(DayTemplate dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
+    /**
+     *
+     * @return hash - returns hashcode
+     */
     @Override
     public int hashCode() {
         int hash = 0;
@@ -134,6 +204,11 @@ public class ShiftTemplate implements Serializable {
         return hash;
     }
 
+    /**
+     * Checks equality of shiftids
+     * @param object - Object to be checked for equality
+     * @return boolean - returns a boolean depending on if the shiftId matches the shiftId from the object
+     */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -147,6 +222,10 @@ public class ShiftTemplate implements Serializable {
         return true;
     }
 
+    /**
+     * Non-default to string for a ShiftTemplate object
+     * @return String - returns a String with information pertaining to a ShiftTemplate object.
+     */
     @Override
     public String toString() {
         return "data.ShiftTemplate[ shiftId=" + shiftId + " ]";

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Employee Management</title>
+    <title>Admin</title>
     <link href="${pageContext.request.contextPath}/css/employeemgmt.css" rel="stylesheet" type="text/css">
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 </head>
@@ -15,8 +15,8 @@
             <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
         </a>
         <nav role="navigation" class="w-nav-menu">
-            <a href="Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
-            <a href="Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
+            <a href="AdminServices" class="nav-links selected w-nav-link">Account Maintenance</a>
+            <a href="Validate?logout=logout" class="nav-links w-nav-link">Backup and Restore</a>
             <a href="Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
     </div>

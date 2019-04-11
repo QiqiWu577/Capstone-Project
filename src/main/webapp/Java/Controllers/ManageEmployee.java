@@ -112,7 +112,7 @@ public class ManageEmployee extends HttpServlet {
                                 e.printStackTrace();
                             } finally {
                                 request.setAttribute("employeeList", dbOps.getEmployees());
-                                request.getRequestDispatcher("/ManageEmployee").forward(request, response);
+                                request.getRequestDispatcher("/WEB-INF/Presentation/Manager/EmployeeManagement.jsp").forward(request, response);
                             }
                         } else {
                             try {

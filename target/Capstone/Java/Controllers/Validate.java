@@ -34,6 +34,9 @@ public class Validate extends HttpServlet {
         String password = request.getParameter("password");
         String logout = request.getParameter("logout");
         String action = request.getParameter("action");
+        String oldPassword = request.getParameter("oldPassword");
+        String passwordMatch = request.getParameter("passwordMatch");
+
         boolean valid = false;
         boolean newHire = false;
 
@@ -63,6 +66,8 @@ public class Validate extends HttpServlet {
         }else if (action != null && action.equalsIgnoreCase("reset")) {
 
             Employee resetPass = dbops.getEmployee(Integer.parseInt(username));
+            resetPass.setNewHire(true);
+            dbops.updateEmployee(resetPass);
 
             se.sendEmailSingle(resetPass.getEmail(), resetPass.getFname(), resetPass.getEmpid(), "reset");
             request.setAttribute("message", "Password has been reset. Please check your email.");
@@ -71,11 +76,20 @@ public class Validate extends HttpServlet {
 
         }else if(action!=null && action.equalsIgnoreCase("new")){
 
+            if (pm.getHashSalt(Integer.parseInt(username), oldPassword)&&password.equals(passwordMatch)) {
+                pm.addUser(Integer.parseInt(username), password);
+
+                Employee tempEmp = dbops.getEmployee(Integer.parseInt(username));
+                tempEmp.setNewHire(false);
+                dbops.updateEmployee(tempEmp);
 
 
-            request.setAttribute("message", "Password has been updated. Please login using your new password.");
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
-
+                request.setAttribute("message", "Password has been updated. Please login using your new password.");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+            } else {
+                request.setAttribute("message", "Incorrect information entered!");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+            }
 
 
         }else if (username != null && password != null && !username.equals("") && !password.equals("")) {

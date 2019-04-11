@@ -1,13 +1,13 @@
 #############Testing for FullCalendar##############
 
 #day_template
-insert into day_template values ('Monday','00:00:00','23:59:59');
-insert into day_template values ('Tuesday','00:00:00','23:59:59');
-insert into day_template values ('Wednesday','00:00:00','23:59:59');
-insert into day_template values ('Thursday','00:00:00','23:59:59');
-insert into day_template values ('Friday','00:00:00','23:59:59');
-insert into day_template values ('Saturday','00:00:00','23:59:59');
-insert into day_template values ('Sunday','00:00:00','23:59:59');
+insert into day_template values ('Monday','06:00:00','23:59:00');
+insert into day_template values ('Tuesday','06:00:00','23:59:00');
+insert into day_template values ('Wednesday','06:00:00','23:59:00');
+insert into day_template values ('Thursday','06:00:00','23:59:00');
+insert into day_template values ('Friday','06:00:00','23:59:00');
+insert into day_template values ('Saturday','06:00:00','23:59:00');
+insert into day_template values ('Sunday','06:00:00','23:59:00');
 
 #shift_template
 insert into shift_template values (null,'S','Open', 'Monday','12:00:00','20:00:00',1,2);

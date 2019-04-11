@@ -18,6 +18,7 @@ import java.sql.SQLException;
 @WebServlet(name = "Validate", urlPatterns = "/Validate")
 public class Validate extends HttpServlet {
 
+
     /**
      * Processes the request for user validation
      * @param request

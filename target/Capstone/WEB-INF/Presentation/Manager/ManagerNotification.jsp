@@ -26,16 +26,24 @@
             <div class="div-block-4"><img src="images/buble-tea.png" width="111" alt="" class="w-hidden-tiny"></div>
         </a>
         <nav role="navigation" class="w-nav-menu">
+<<<<<<< HEAD
+            <a href="<%=application.getContextPath() %>/ManageScheduleViews" class="nav-links w-nav-link">Home</a>
+            <a href="<%=application.getContextPath() %>/ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
+            <a href="<%=application.getContextPath() %>/ManagerServices?page=notifications&notifications=notifications" class="nav-links selected w-nav-link">Notifications</a>
+            <a href="<%=application.getContextPath() %>/ManagerServices?page=setting" class="nav-links w-nav-link">Settings</a>
+            <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
+=======
             <a href="ManageScheduleViews" class="nav-links w-nav-link">Home</a>
             <a href="ManageEmployees" class="nav-links w-nav-link">Employee Management</a>
             <a href="ManagerServices?page=notifications" class="nav-links selected w-nav-link">Notifications</a>
             <a href="ManagerServices?page=settings" class="nav-links w-nav-link">Settings</a>
             <a href="Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
+>>>>>>> d794742ca2d7b6421c773077f3decb7d5fda2a0e
         </nav>
     </div>
 </div>
 
-<div style="margin-left: 20%">
+<div style="margin-left: 20%; margin-top: 10px">
     <div class="container-fluid">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#all">All</a></li>

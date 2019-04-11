@@ -338,17 +338,17 @@ public class DBOperation {
     }
 
     /**
-     * updates a shift template in the database
-     * @param day day of the shift template
-     * @param s start time of the shift template
-     * @param e end time of the shift template
+     * updates a day template in the database
+     * @param day day of the day template
+     * @param s start time of the day template
+     * @param e end time of the day template
      * @return true if added successfully
      */
     public boolean updateDayTemplate(String day,String s,String e){
 
         boolean result=false;
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
+
         try{
 
             session.beginTransaction();

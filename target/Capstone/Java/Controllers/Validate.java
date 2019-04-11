@@ -17,6 +17,7 @@ import java.io.IOException;
 @WebServlet(name = "Validate", urlPatterns = "/Validate")
 public class Validate extends HttpServlet {
 
+
     /**
      * Processes the request for user validation
      * @param request
@@ -25,6 +26,7 @@ public class Validate extends HttpServlet {
      * @throws IOException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
         DBOperation dbops = new DBOperation();
 

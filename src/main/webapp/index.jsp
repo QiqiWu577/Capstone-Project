@@ -15,9 +15,9 @@
 
         <input type="text" name="username" placeholder="Username" class="field" required autofocus><br/>
         <input type="password" name="password" placeholder="Password" class="field" required><br/>
-        <input type="submit" value="Log In" class="btn"><br/>
+        <input type="submit" value="Login" class="btn"><br/>
     </form>
-    <a href="<%=application.getContextPath() %>/Validate?action=forgot" class="forgot">Forgot Password?</a>
+    <a href="<%=application.getContextPath() %>/Validate?action=forgot" class="forgot">Forgot Password</a>
      </br>
     ${requestScope.message}
 </div>

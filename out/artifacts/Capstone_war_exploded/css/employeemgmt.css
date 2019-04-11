@@ -1,0 +1,414 @@
+body {
+    font-family:Arial, sans-serif;
+    margin:0;
+}
+
+.sidebar {
+    text-align:center;
+    height:100%;
+    width:13%;
+    position:fixed;
+    z-index:1;
+    top:0;
+    left:0;
+    background-color:#111;
+    overflow-x:hidden;
+    padding-top:15px;
+}
+.activeE {
+    background-color: #00a2ee!important;
+}
+.activeS {
+    background-color: #00a2ee!important;
+}
+a {
+    font-family:Arial, sans-serif;
+    text-decoration:none;
+    font-size:25px;
+    color:#818181;
+    display:block;
+}
+
+a:hover {
+    color:#FFF;
+}
+
+.main {
+    margin-left:13%;
+}
+
+.logo {
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.field {
+    margin-bottom:20px;
+    color:#FFF;
+    border-bottom:3px solid #909090;
+}
+
+.topbar {
+    text-align:right;
+    height:38px;
+    background-color:#949494;
+    width:100%;
+    display:block;
+    padding:3px 0;
+}
+
+.title {
+    font-size:40px;
+    text-align:center;
+    margin-top:1%;
+}
+
+#position {
+    border-radius:3px;
+    font-size:16px;
+    border:none;
+    cursor:pointer;
+    padding:7px;
+}
+
+* {
+    box-sizing:border-box;
+}
+
+.column {
+    float:left;
+    width:50%;
+    padding:10px;
+}
+
+
+.center {
+    text-align: center;
+    align-content: center;
+}
+
+.columnleft {
+    margin-left: 100px;
+    float:left;
+    width:40%;
+    text-align:center;
+    padding:10px;
+}
+
+.btns {
+    width:30%;
+    background-color:#0cf;
+    border-radius:5px;
+}
+
+.btn {
+    cursor:pointer;
+    margin-bottom:5px;
+    font-family:sans-serif;
+    font-size:16px;
+    background-color:#0cf;
+    transition:border .2s, background-color .2s;
+    border-radius:3px;
+}
+
+.bottom {
+    padding:10px;
+}
+
+table.emp {
+    width:80%;
+    margin:0 auto;
+}
+
+th.avail {
+    text-align:left;
+    padding:8px;
+}
+td {
+    padding-right: 5px;
+    height: 40px;
+}
+
+tr.alt:nth-child(even) {
+    background-color:#f2f2f2;
+}
+
+tr.alt:nth-child(odd) {
+    background-color:#bdbdbd;
+}
+td.day {
+    background-color:#323232;
+    color:#fff;
+    border-radius:5px;
+    text-align:center;
+}
+
+td.hour {
+    background-color:#FFF;
+    border:1px solid #000;
+    border-radius:2px;
+}
+
+tr.positions-top {
+    background-color:#323232;
+    color:#FFF;
+}
+
+.row:after {
+    content:"";
+    display:table;
+    clear:both;
+}
+
+.topbar a {
+    padding:0;
+}
+
+td.hour:hover {
+    background-color:#A3FF9F;
+}
+
+.contain {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 12px;
+    height: 24px;
+    padding: 0;
+}
+
+.heading {
+    display:inline-block;
+    margin-bottom:3px;
+    width:95px;
+    background:#323232;
+    color:#FFF;
+    border-radius:10px;
+    padding: 10px;
+    padding-left: 5px;
+}
+
+.wrapper {
+    padding-left:5px;
+    border-radius:10px;
+    background:#0cf;
+}
+
+.contain input {
+    display:flex;
+    opacity:0;
+    cursor:pointer;
+    height:24px;
+    width:10px;
+    margin-bottom: 0px;
+
+}
+
+.checkmark {
+    border:1px solid #000;
+    position:absolute;
+    top:0;
+    left:0;
+    height:25px;
+    width:12px;
+    background-color:#eee;
+    padding:0!important;
+}
+
+.contain:hover input ~ .checkmark {
+    background-color:#ccc;
+}
+
+.checkmark:after {
+    content:"";
+    position:absolute;
+    display:none;
+}
+.container-3 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+
+.brand {
+    width: 100%;
+}
+.navbar-3 {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 18%;
+    padding-top: 0px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#3d3d3d), to(#3d3d3d));
+    background-image: linear-gradient(180deg, #3d3d3d, #3d3d3d);
+}
+.w-nav-menu {
+    position: relative;
+    float: right;
+}
+
+.div-block-4 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-left: 0px;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.nav-links {
+    display: block;
+    width: 100%;
+    padding-right: 20px;
+    padding-left: 20px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    font-size: 14px;
+    line-height: 20px;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-top: 1px none #000;
+    border-bottom: 1px solid #000;
+    color: #cecece;
+}
+
+.nav-links.selected {
+    background-image: -webkit-gradient(linear, left top, left bottom, from(hsla(0, 0%, 59%, .5)), to(hsla(0, 0%, 59%, .5)));
+    background-image: linear-gradient(180deg, hsla(0, 0%, 59%, .5), hsla(0, 0%, 59%, .5));
+}
+
+.w-nav-link {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-decoration: none;
+    padding: 20px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+.w-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 940px;
+}
+
+.contain .checkmark:after {
+    left:9px;
+    top:5px;
+    width:5px;
+    height:10px;
+    border:solid #FFF;
+    -webkit-transform:rotate(45deg);
+    -ms-transform:rotate(45deg);
+    transform:rotate(45deg);
+    border-width:0 3px 3px 0;
+}
+
+.btn:hover,.btns:hover {
+    background-color:#008db1;
+}
+
+.contain input:checked ~ .checkmark {
+    background-color:green;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: #323232;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: white;
+}
+
+input, textarea {
+    border:0 solid;
+    width: 90%;
+    font-size: 16px;
+    background-color:#FFF;
+    margin-bottom:20px;
+    border-radius:3px;
+    padding:10px 0 10px 8px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #aaaaaa;
+    color: black;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #aaaaaa;
+    color: black;
+}
+
+/* Style the tab content */
+.tabcontent {
+    visibility: hidden;
+    position: absolute;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.goodName {
+    text-align: center;
+}
+
+.dayOfWeek {
+    display:inline-block;
+    background:#323232;
+    color:#FFF;
+    border-radius:10px;
+    font-size: 15px;
+}
+
+.dayOfWeek:hover{
+    color: teal;
+}

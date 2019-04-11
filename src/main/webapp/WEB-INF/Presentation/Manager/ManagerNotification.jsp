@@ -35,7 +35,7 @@
     </div>
 </div>
 
-<div style="margin-left: 20%">
+<div style="margin-left: 20%; margin-top: 10px">
     <div class="container-fluid">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#all">All</a></li>
@@ -219,7 +219,6 @@
                                         <form action="NotificationServices">
                                             <input type="hidden" name="noteId" value="${msg.getNotifid()}">
                                             <input type="submit" class="btn btn-success btn-block" name="accept" value="Accept">
-
                                             <input type="submit" class="btn btn-warning btn-block" name="decline" value="Decline">
                                         </form>
                                     </c:when>
@@ -296,6 +295,7 @@
                                 <option value="A">Everyone</option>
                                 <option value="D">Department</option>
                                 <option value="P">Personal</option>
+                                <option value="S">Shift</option>
                             </select>
                         </div>
 

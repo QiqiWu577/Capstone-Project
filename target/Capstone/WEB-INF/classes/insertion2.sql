@@ -1,21 +1,21 @@
 
 #employees
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (1,'Alec','Gralewski','840 9 Ave SW, Calgary, AB T2P 0L9','587-766-8877','alecgralewski@gmail.com','S','0','1','Need more training!');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (2,'Anthony','Doucet','800 6 Ave SW, Calgary, AB T2P 3G3','403-577-966','anthonydoucet@gmail.com','S','0','1','Need more training!');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (3,'Jason','Sy','1415 14 Ave NW, Calgary, AB T2N 1M4','587-777-333','jasonsy@gmail.com','S','0','1','Need more training!');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (4,'Matthew','Kelemen','512 18 St NW, Calgary, AB T2N 2G5','403-123-456','matthewkelemen@gmail.com','S','0','1','Need more training!');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (5,'Qiqi','Wu','2404 Kensington Rd NW, Calgary, AB T2N 3S1','587-966-3731','qiqiwu@gmail.com','S','0','1','Need more training!');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (6,'John','Wood','1818 16 Ave NW, Calgary, AB T2M 0L8','403-855-123','johnwood@gmail.com','S','0','1','Need more training!');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (7,'Kitty','Chen','1401 20 Ave NW, Calgary, AB T2M 1G6','587-567-890','kittychen@gmail.com','S','0','1','Need more training!');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (8,'Admin','Admin','123 Admin','123-456-7890','admin@admin.com','A','0','1','This is a temporary admin account');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (9,'Manager','Manager','123 Manager','123-456-7890','manager@manager.com','M','0','1','This is a temporary manager account');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (10,'Employee','Employee','123 Edmployee','123-456-7890','employee@employee.com','S','0','1','This is a temporary employee account');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (11,'Owen','Wilson','1234 Wow st se','250 919 9696','wow@hotmail.com','K','1','1','Wow!');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (12,'John','Wick','123 Wick st nw','1 888 2648','Dog@hotmail.com','K','1','1','Im a nice man');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (13,'Adam','Lyne','123 whale st','250 919 9696','b0aty@hotmail.com','B','1','1','B0aty');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (14,'test','test','test','test','test','B','1','0','');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (15,'George','The man','13579 george st nw','250-919-5417','George@hotmail.com','S','0','1','GEORGE!');
-INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (16,'test','test','test','test','teste','B','1','0','');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (1,'Alec','Gralewski','840 9 Ave SW, Calgary, AB T2P 0L9','587-766-8877','alecgralewski@gmail.com','S',0,1,'Need more training!');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (2,'Anthony','Doucet','800 6 Ave SW, Calgary, AB T2P 3G3','403-577-966','anthonydoucet@gmail.com','S',0,1,'Need more training!');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (3,'Jason','Sy','1415 14 Ave NW, Calgary, AB T2N 1M4','587-777-333','jasonsy@gmail.com','S',0,1,'Need more training!');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (4,'Matthew','Kelemen','512 18 St NW, Calgary, AB T2N 2G5','403-123-456','matthewkelemen@gmail.com','S',0,1,'Need more training!');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (5,'Qiqi','Wu','2404 Kensington Rd NW, Calgary, AB T2N 3S1','587-966-3731','qiqiwu@gmail.com','S',0,1,'Need more training!');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (6,'John','Wood','1818 16 Ave NW, Calgary, AB T2M 0L8','403-855-123','johnwood@gmail.com','S',0,1,'Need more training!');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (7,'Kitty','Chen','1401 20 Ave NW, Calgary, AB T2M 1G6','587-567-890','kittychen@gmail.com','S',0,1,'Need more training!');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (8,'Admin','Admin','123 Admin','123-456-7890','admin@admin.com','A',0,1,'This is a temporary admin account');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (9,'Manager','Manager','123 Manager','123-456-7890','manager@manager.com','M',0,1,'This is a temporary manager account');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (10,'Employee','Employee','123 Edmployee','123-456-7890','employee@employee.com','S',0,1,'This is a temporary employee account');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (11,'Owen','Wilson','1234 Wow st se','250 919 9696','wow@hotmail.com','K',1,1,'Wow!');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (12,'John','Wick','123 Wick st nw','1 888 2648','Dog@hotmail.com','K',1,1,'Im a nice man');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (13,'Adam','Lyne','123 whale st','250 919 9696','b0aty@hotmail.com','B',1,1,'B0aty');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (14,'test','test','test','test','test','B',1,0,'');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (15,'George','The man','13579 george st nw','250-919-5417','George@hotmail.com','S',0,1,'GEORGE!');
+INSERT INTO employees (`emp_id`,`fname`,`lname`,`address`,`phone_no`,`email`,`type`,`newHire`,`active`,`notes`) VALUES (16,'test','test','test','test','teste','B',1,0,'');
 
 
 

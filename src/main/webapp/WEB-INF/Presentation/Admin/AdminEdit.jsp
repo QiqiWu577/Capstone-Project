@@ -16,6 +16,8 @@
         </a>
         <nav role="navigation" class="w-nav-menu">
             <a href="Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
+            <a href="Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
+            <a href="Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>
     </div>
 </div>

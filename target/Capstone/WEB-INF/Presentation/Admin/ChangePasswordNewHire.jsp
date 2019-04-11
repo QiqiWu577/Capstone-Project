@@ -12,9 +12,11 @@
 <div class="box">
     <h1>New Password</h1>
     <form action="<%=application.getContextPath() %>/Validate?action=new" method="POST">
-        <input type="password" name="username" placeholder="Current Password" class="field" required><br/>
+        <input type="text" name="username" placeholder="Username" class="field" required><br/>
+
+        <input type="password" name="oldPassword" placeholder="Current Password" class="field" required><br/>
         <input type="password" name="password" placeholder="New Password" class="field" required><br/>
-        <input type="password" name="password" placeholder="Retype New Password" class="field" required><br/>
+        <input type="password" name="passwordMatch" placeholder="Retype New Password" class="field" required><br/>
         <input type="submit" value="Submit" class="btn"><br/>
     </form>
 </div>

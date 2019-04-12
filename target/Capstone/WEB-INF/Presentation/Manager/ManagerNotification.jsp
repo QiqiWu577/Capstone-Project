@@ -227,7 +227,6 @@
                                         <form action="NotificationServices">
                                             <input type="hidden" name="noteId" value="${msg.getNotifid()}">
                                             <input type="submit" class="btn btn-success btn-block" name="accept" value="Accept">
-
                                             <input type="submit" class="btn btn-warning btn-block" name="decline" value="Decline">
                                         </form>
                                     </c:when>
@@ -304,6 +303,7 @@
                                 <option value="A">Everyone</option>
                                 <option value="D">Department</option>
                                 <option value="P">Personal</option>
+                                <option value="S">Shift</option>
                             </select>
                         </div>
 

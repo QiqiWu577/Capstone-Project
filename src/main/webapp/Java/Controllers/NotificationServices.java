@@ -159,6 +159,8 @@ public class NotificationServices extends HttpServlet {
 
                 if (important!=null) {
                     status = 'I';
+                    SendEmail s = new SendEmail();
+                    s.sendFromGmailArray("I");
                 }
                 else {
                     status = 'N';
@@ -218,7 +220,23 @@ public class NotificationServices extends HttpServlet {
                         }
 
                     }
-                } else {
+                }
+                else if (type =='S') {
+
+                    ArrayList<Employee> empList = db.getEmployees();
+
+                    for(Employee e: empList) {
+
+                        int to = e.getEmpid();
+                        Notification n = new Notification(emp,to,comment,type,status);
+                        db.addNotification(n);
+
+                    }
+                    SendEmail s = new SendEmail();
+                    s.sendFromGmailArray("O");
+
+                }
+                else {
                     int to = Integer.parseInt(request.getParameter("to"));
                     Notification n = new Notification(emp, to, comment, type, status);
                     db.addNotification(n);

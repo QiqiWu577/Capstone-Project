@@ -51,21 +51,20 @@ public class SendEmail extends HttpServlet {
 
 
         for (int i =0; i<temp.size();i++) {
-            System.out.println(i + " ---"+temp.get(i).getEmail());
-
             to.add(temp.get(i).getEmail());
-            System.out.println(i+"+++"+to.get(i));
-
-            //System.out.println(i+"+++"+to[i]);
         }
 
 
         if (type.equalsIgnoreCase("S")) {
-            body = "PIZZA!";
-            subject = "arraylist test";
+            body = "Hey everyone,\n The new schedule for the upcoming week is now available! \nPlease log in and see when you work next! \nCheers,\nMr. Manager";
+            subject = "New schedule is posted";
 
-        } else if(type.equalsIgnoreCase("N")) {
-
+        } else if(type.equalsIgnoreCase("I")) {
+            body = "Hey everyone,\n There is an important notification waiting for you in your inbox! \nPlease log in to see what it is! \nCheers,\nMr. Manager";
+            subject = "Important Notification!";
+        } else if(type.equalsIgnoreCase("O")) {
+            body = "Hey everyone,\n A shift is available for anyone that wants, first to respond will get it. \nPlease log in and send the manager a notification if you would like it! \nCheers,\nMr. Manager";
+            subject = "A shift is available!";
         }
 
 

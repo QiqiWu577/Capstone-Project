@@ -22,7 +22,7 @@
         </a>
         <nav role="navigation" class="w-nav-menu">
             <a href="<%=application.getContextPath() %>/EmployeeServices?page=home" class="nav-links w-nav-link">Home</a>
-            <a href="<%=application.getContextPath() %>/EmployeeServices?page=shiftOffer" class="nav-links w-nav-link">Shift Changes</a>
+            <a href="<%=application.getContextPath() %>/EmployeeServices?page=shiftOffer" class="nav-links selected w-nav-link">Shift Changes</a>
             <a href="<%=application.getContextPath() %>/EmployeeServices?page=notification" class="nav-links w-nav-link">Notifications</a>
             <a href="<%=application.getContextPath() %>/Validate?logout=logout" class="nav-links w-nav-link">Logout</a>
         </nav>

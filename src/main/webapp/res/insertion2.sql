@@ -52,13 +52,13 @@ LIMIT 0, 1000
 
 -- Date: 2019-04-08 13:22
 */
-INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Friday','00:00:00','23:59:59');
-INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Monday','00:00:00','23:59:59');
-INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Saturday','00:00:00','23:59:59');
-INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Sunday','00:00:00','23:59:59');
-INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Thursday','00:00:00','23:59:59');
-INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Tuesday','00:00:00','23:59:59');
-INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Wednesday','00:00:00','23:59:59');
+INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Friday','00:00:00','23:59:00');
+INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Monday','00:00:00','23:59:00');
+INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Saturday','00:00:00','23:59:00');
+INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Sunday','00:00:00','23:59:00');
+INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Thursday','00:00:00','23:59:00');
+INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Tuesday','00:00:00','23:59:00');
+INSERT INTO day_template (`day_of_week`,`open_time`,`close_time`) VALUES ('Wednesday','00:00:00','23:59:00');
 
 #shift_template
 /*
